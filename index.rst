@@ -42,11 +42,8 @@ See what's new in the :doc:`Release Notes <releases/v11_0/notes>`.
 
    development/lsstsw_tutorial.rst
 
-`The API Reference is currently available from our legacy Doxygen server <https://lsst-web.ncsa.illinois.edu/doxygen/x_masterDoxyDoc/>`_.
+**See also:**
 
-Indices
-=======
+- `DM Developer Guide, developer.lsst.io, <http://developer.lsst.io>`_ comprehensively documents DM development practices, including Science Pipelines development.
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+- The API Reference is currently available from our legacy `Doxygen server <https://lsst-web.ncsa.illinois.edu/doxygen/x_masterDoxyDoc/>`_.
