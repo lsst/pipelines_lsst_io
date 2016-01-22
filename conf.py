@@ -42,6 +42,8 @@ extensions = [
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
     'sphinx-prompt',
+    'breathe',
+    'numpydoc'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
