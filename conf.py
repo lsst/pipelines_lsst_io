@@ -225,6 +225,19 @@ html_static_path = ['_static']
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'LSSTStackdoc'
 
+# -- Breathe configuration -------------------------------------------------
+
+breathe_projects = {'afw': 'afw/doc/xml'}
+
+# we should always set the project; this is done for config completeness
+breathe_default_project = 'afw'
+
+breathe_default_members = ['members',
+                           'protected-members',
+                           'private-members',
+                           'undoc-members']
+
+
 # -- Options for LaTeX output ---------------------------------------------
 
 latex_elements = {
