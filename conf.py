@@ -227,7 +227,7 @@ htmlhelp_basename = 'LSSTStackdoc'
 
 # -- Breathe configuration -------------------------------------------------
 
-breathe_projects = {'afw': 'afw/doc/xml'}
+breathe_projects = {'afw': 'afw/xml'}
 
 # we should always set the project; this is done for config completeness
 breathe_default_project = 'afw'
