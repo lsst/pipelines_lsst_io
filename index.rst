@@ -28,12 +28,12 @@ See what's new in the :doc:`Release Notes <releases/v11_0/notes>`.
      :caption: Tutorials
      :name: part-tutorials
 
-.. 
-  FIXME uncomment this section when tutorials are available
-  .. toctree::
-     :maxdepth: 1
-     :caption: Packages
-     :name: part-packages
+.. toctree::
+    :maxdepth: 1
+    :caption: Packages
+    :name: part-packages
+
+    afw/index.rst
 
 .. toctree::
    :maxdepth: 1
