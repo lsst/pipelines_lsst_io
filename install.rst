@@ -117,7 +117,7 @@ Then enable ``devtoolset-3`` by including this line in your :file:`~/.bash_profi
 Python dependencies
 -------------------
 
-You can use your own Python 2.7.\* install or let ``newinstall.sh`` install `Anaconda <https://www.continuum.io/downloads>`_ in your local directory.
+You can use your own Python 2.7.\* install or let ``newinstall.sh`` install `Anaconda <https://www.continuum.io/downloads>`__ in your local directory.
 
 .. _source-install-optional-deps:
 
@@ -130,7 +130,7 @@ Although not required, we recommend you install the `matplotlib <http://matplotl
 
    pip install -U matplotlib scipy
 
-Note these are included by default in `Anaconda <https://store.continuum.io/cshop/anaconda/>`_, which ``newinstall.sh`` *can* obtain for you.
+Note these are included by default in `Anaconda <https://store.continuum.io/cshop/anaconda/>`__, which ``newinstall.sh`` *can* obtain for you.
 
 We also use `SAOImage DS9 <http://ds9.si.edu/site/Home.html>`_ to display images for debugging.
 

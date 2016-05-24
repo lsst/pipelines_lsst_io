@@ -82,22 +82,21 @@ produced by the old measurement framework in ``meas_algorithms``'
 ``SourceMeasurementTask``, which was removed in the 10.1 release.
 
 In the new ("version 1") approach, compound objects are simply stored in
-catalogs as their constituent scalars, with helper classes called
-```FunctorKey``\ s <http://lsst-web.ncsa.illinois.edu/doxygen/x_masterDoxyDoc/classlsst_1_1afw_1_1table_1_1_functor_key.html>`_
-provided to pack and unpack them from ``Records`` (the ``FunctorKey``\ s
-that replace the old compound fields are all in
-``     afw/table/aggregates.h   ``). Unlike the original compound
-fields, there's no limit to how many types of ``FunctorKey`` we can
-have, or what package they can live in, making the system much more
-extensible. By making the constituent scalar objects what the ``Schema``
-object knows about, it will be much easier to map a ``Schema`` to other
-table representations that don't know about LSST classes (e.g. SQL or
-Pandas). Most ``FunctorKey``\ s can be used anywhere a regular ``Key``
-can be used. Also, in version 1, we use underscores as namespace
-separators, and CamelCase to separate words, eliminating some ambiguity
-between word and namespace boundaries. The new measurement framework in
-``meas_base``'s ``SingleFrameMeasurementTask`` and
-``ForcedMeasurementTask`` uses version 1 tables exclusively.
+catalogs as their constituent scalars, with helper classes called `FunctorKeys
+<http://lsst-web.ncsa.illinois.edu/doxygen/x_masterDoxyDoc/classlsst_1_1afw_1_1table_1_1_functor_key.html>`__
+provided to pack and unpack them from ``Records`` (the ``FunctorKey``\ s that
+replace the old compound fields are all in ``afw/table/aggregates.h``). Unlike
+the original compound fields, there's no limit to how many types of
+``FunctorKey`` we can have, or what package they can live in, making the system
+much more extensible. By making the constituent scalar objects what the
+``Schema`` object knows about, it will be much easier to map a ``Schema`` to
+other table representations that don't know about LSST classes (e.g. SQL or
+Pandas). Most ``FunctorKey``\ s can be used anywhere a regular ``Key`` can be
+used. Also, in version 1, we use underscores as namespace separators, and
+CamelCase to separate words, eliminating some ambiguity between word and
+namespace boundaries. The new measurement framework in ``meas_base``'s
+``SingleFrameMeasurementTask`` and ``ForcedMeasurementTask`` uses version
+1 tables exclusively.
 
 In previous releases of the pipeline, version 0 schemas were deprecated
 but still supported. They have now been removed, but old catalogs saved

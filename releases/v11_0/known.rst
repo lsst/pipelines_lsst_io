@@ -23,8 +23,8 @@ Older platforms
   to make sure sure you are using a more recent version of gcc (minimum
   required is 4.8)
 - curl looks for certificates in ``/etc/pki/tls/certs/ca-bundle.crt``
-  rather than
-  ``/etc/ssl/certs/ca-certificates.crt.``\ ``The solution is to copy``\ `` ca-certificates.crt``\ `` to``\ `` ca-bundle.crt``\ `` as explained at ``\ ``Building the LSST Stack from Source``
+  rather than ``/etc/ssl/certs/ca-certificates.crt``.
+  The solution is to copy ``ca-certificates.crt`` to ``ca-bundle.crt``.
 
 OS X specific
 =============
