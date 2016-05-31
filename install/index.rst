@@ -8,7 +8,7 @@ Installing the LSST Science Pipelines
    conda
    eups-distrib
 
-We offer a few ways of installing the LSST Science Pipelines depending on on your needs.
+We offer a few ways of installing the LSST Science Pipelines.
 Choose an option below to get started.
 
 :doc:`Conda installation <conda>`
@@ -29,6 +29,6 @@ Choose an option below to get started.
 
 :doc:`lsstsw installation </development/lsstsw_tutorial>`
    ``lsstsw`` (and ``lsst-build``) are the tools we use internally to build and test the LSST Science Pipelines.
-   Use this installation option if you're interested in developing the Science Pipelines since ``lsstsw`` presents the Pipelines as a directory of cloned Git repositories.
+   Use this installation option if you're interested in developing the Science Pipelines since ``lsstsw`` presents the Pipelines as a directory of cloned repositories from `github.com/lsst <https://github.com/lsst>`__.
 
 If you have difficulty installing LSST software, reach out on the `Support forum at community.lsst.org <community.lsst.org/c/qa>`_.
