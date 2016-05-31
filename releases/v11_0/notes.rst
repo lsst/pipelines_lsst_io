@@ -40,7 +40,9 @@ logically consistent.
 We now go to greater lengths to check that the information in the file
 is consistent with the LSST standard, warning the user---and in some
 cases refusing to proceed---if it does not.
-(`DM-2599 <https://jira.lsstcorp.org/browse/DM-2599>`_)
+:jirab:`DM-2599`
+
+.. (`DM-2599 <https://jira.lsstcorp.org/browse/DM-2599>`_)
 
 Improved support for non-standard FITS headers
 ----------------------------------------------
@@ -49,9 +51,7 @@ The LSST stack is now capable of loading FITS files which contain
 non-standard headers of the form ``PVi_nn`` (``i=1..x``, ``nn=5..16``),
 as written by SCAMP, and ``EQUINOX`` headers with a "``J``\ " prefix, as
 written by SkyMapper.
-(`DM-2883 <https://jira.lsstcorp.org/browse/DM-2883>`_,
-`DM-2924 <https://jira.lsstcorp.org/browse/DM-2924>`_,
-`DM-3196 <https://jira.lsstcorp.org/browse/DM-3196>`_)
+:jirab:`DM-2883,DM-2924,DM-3196`
 
 It is now possible to perform instrument signal removal on an ``Exposure`` which has no ``Detector``
 ----------------------------------------------------------------------------------------------------
@@ -65,7 +65,7 @@ gain and saturation level, was added to make it possible to run
 --------------------------------------------------------
 
 This makes it possible to round-trip TPV headers, for example.
-(`DM-2926) <https://jira.lsstcorp.org/browse/DM-2926>`__
+:jirab:`DM-2926`
 
 Changes to compound fields and delimiters in catalog schemas
 ------------------------------------------------------------
@@ -82,22 +82,21 @@ produced by the old measurement framework in ``meas_algorithms``'
 ``SourceMeasurementTask``, which was removed in the 10.1 release.
 
 In the new ("version 1") approach, compound objects are simply stored in
-catalogs as their constituent scalars, with helper classes called
-```FunctorKey``\ s <http://lsst-web.ncsa.illinois.edu/doxygen/x_masterDoxyDoc/classlsst_1_1afw_1_1table_1_1_functor_key.html>`_
-provided to pack and unpack them from ``Records`` (the ``FunctorKey``\ s
-that replace the old compound fields are all in
-``     afw/table/aggregates.h   ``). Unlike the original compound
-fields, there's no limit to how many types of ``FunctorKey`` we can
-have, or what package they can live in, making the system much more
-extensible. By making the constituent scalar objects what the ``Schema``
-object knows about, it will be much easier to map a ``Schema`` to other
-table representations that don't know about LSST classes (e.g. SQL or
-Pandas). Most ``FunctorKey``\ s can be used anywhere a regular ``Key``
-can be used. Also, in version 1, we use underscores as namespace
-separators, and CamelCase to separate words, eliminating some ambiguity
-between word and namespace boundaries. The new measurement framework in
-``meas_base``'s ``SingleFrameMeasurementTask`` and
-``ForcedMeasurementTask`` uses version 1 tables exclusively.
+catalogs as their constituent scalars, with helper classes called `FunctorKeys
+<http://lsst-web.ncsa.illinois.edu/doxygen/x_masterDoxyDoc/classlsst_1_1afw_1_1table_1_1_functor_key.html>`__
+provided to pack and unpack them from ``Records`` (the ``FunctorKey``\ s that
+replace the old compound fields are all in ``afw/table/aggregates.h``). Unlike
+the original compound fields, there's no limit to how many types of
+``FunctorKey`` we can have, or what package they can live in, making the system
+much more extensible. By making the constituent scalar objects what the
+``Schema`` object knows about, it will be much easier to map a ``Schema`` to
+other table representations that don't know about LSST classes (e.g. SQL or
+Pandas). Most ``FunctorKey``\ s can be used anywhere a regular ``Key`` can be
+used. Also, in version 1, we use underscores as namespace separators, and
+CamelCase to separate words, eliminating some ambiguity between word and
+namespace boundaries. The new measurement framework in ``meas_base``'s
+``SingleFrameMeasurementTask`` and ``ForcedMeasurementTask`` uses version
+1 tables exclusively.
 
 In previous releases of the pipeline, version 0 schemas were deprecated
 but still supported. They have now been removed, but old catalogs saved
@@ -108,7 +107,8 @@ corresponding ``FunctorKey``. This procedure obviously does not preserve
 field names, but all slot definitions will be preserved, so code that
 only relies on slot or minimal schema accessors (``getCoord()``,
 ``getCentroid()``, ``getPsfFlux()``, etc.) should not need to be
-modified. (`DM-1766) <https://jira.lsstcorp.org/browse/DM-1766>`__
+modified.
+:jirab:`DM-1766`
 
 Allow for use of Approximate (Chebyshev) model in background estimation
 -----------------------------------------------------------------------
@@ -134,7 +134,8 @@ i.e. useApprox=True and, optionally, approxOrderX (approximation order
 in X for background Chebyshev), approxOrderX (approximation order in Y
 for background Chebyshev: currently approxOrderY must be equal to
 approxOrderX), weighting (if True, use inverse variance weighting in
-calculation). (`DM-2778) <https://jira.lsstcorp.org/browse/DM-2778>`__
+calculation).
+:jirab:`DM-2778`
 
 Multi-band processing for coadds
 --------------------------------
@@ -159,8 +160,7 @@ MergeMeasurementsTask
    were not detected on the canonical band. Will assume that all input
    catalogs already have consistent object lists.
 
-(`DM-1945 <https://jira.lsstcorp.org/browse/DM-1945>`_,
-`DM-3139 <https://jira.lsstcorp.org/browse/DM-3139>`_)
+:jirab:`DM-1945,DM-3139`
 
 Enable use of deblended HeavyFootprints in coadd forced photometry
 ------------------------------------------------------------------
@@ -176,7 +176,7 @@ been enabled for forced coadd photometry.
 
 See the description of the multi-band coadd processing work performed in
 S15 for further motivation of this change.
-(`DM-1954 <https://jira.lsstcorp.org/browse/DM-1954>`_)
+:jirab:`DM-1954`
 
 Limited the fractional number of masked pixels per source
 ---------------------------------------------------------
@@ -185,7 +185,7 @@ CModel has difficulties modelling backgrounds in vignetted regions of
 the focal plane, leading to a performance bottleneck. To mitigate the
 issue, if the fractional number of masked pixels in a particular source
 exceeds a given threshold, that source will be skipped.
-(`DM-2914 <https://jira.lsstcorp.org/browse/DM-2914>`_)
+:jirab:`DM-2914`
 
 Peak culling around large objects
 ---------------------------------
@@ -195,7 +195,7 @@ the new multi-band processing architecture (above), these must be
 consistently removed across bands. We therefore provide a method to
 consistently "cull" this peaks at an earlier stage, immediately after
 merging and sorting in ``MergeDetectionsTask``.
-(`DM-2914 <https://jira.lsstcorp.org/browse/DM-2914>`_)
+:jirab:`DM-2914`
 
 Parent Footprints are the union of their children
 -------------------------------------------------
@@ -205,7 +205,7 @@ union of their children: any pixels which are not assigned to a child
 are removed. This mitigates an issue whereby stray flux from the parent
 was not correctly assigned to the children. Note that this has the
 consequence that parent ``Footprint``\ s are not necessarily contiguous.
-(`DM-2914 <https://jira.lsstcorp.org/browse/DM-2914>`_)
+:jirab:`DM-2914`
 
 Large Footprints may be skipped on initial processing
 -----------------------------------------------------
@@ -219,7 +219,7 @@ properly record which objects have been skipped and require further
 processing has been implemented along with optimizations to the
 deblender configuration for the maximum number of ``Peak``\ s per
 ``Footprint``, and the size and area of ``Footprint``\ s.
-(`DM-2914 <https://jira.lsstcorp.org/browse/DM-2914>`_)
+:jirab:`DM-2914`
 
 Command line tasks for measurement transformation
 -------------------------------------------------
@@ -254,7 +254,7 @@ pixels which are off-the-edge of the detector, and hence have no data
 available, and pixels near the edge which cannot therefore be properly
 searched for sources. Here, we introduce the ``NO_DATA`` plane to refer
 to the former case and now use ``EDGE`` strictly for the latter.
-(`DM-3136 <https://jira.lsstcorp.org/browse/DM-3136>`_)
+:jirab:`DM-3136`
 
 Add slot for flux used in photometric calibration
 -------------------------------------------------
@@ -264,8 +264,7 @@ is used to record the flux used for photometric calibration, rather than
 hard-coding the name of a particular algorithm in the ``PhotoCal`` task.
 This slot defaults to a 12 pixel circular aperture flux, the previous
 default in ``PhotoCal``.
-(`DM-3106 <https://jira.lsstcorp.org/browse/DM-3106>`_,
-`DM-3108 <https://jira.lsstcorp.org/browse/DM-3108>`_)
+:jirab:`DM-3106,DM-3108`
 
 Table field prefix for aperture flux measurements changed
 ---------------------------------------------------------
@@ -279,7 +278,7 @@ the first radius listed would produce a flux field named
 named after the radius, regardless of its position in the list. Thus, a
 12.5 pixel aperture will result in a field named
 ``PluginName_12_5_flux``, regardless of its position in the list.
-(`DM-3108 <https://jira.lsstcorp.org/browse/DM-3108>`_)
+:jirab:`DM-3108`
 
 Faster astrometry reference catalog loading
 -------------------------------------------
@@ -294,7 +293,7 @@ directory. The use of the cache can be disabled through the
 ``allowCache`` to ``False``. To prepare a cache,
 ``setup astrometry_net_data`` and use the ``generateANetCache.py``
 script that now comes in ``meas_astrom``.
-(`DM-3142 <https://jira.lsstcorp.org/browse/DM-3142>`_)
+:jirab:`DM-3142`
 
 Bad pixels tracked when coadding images
 ---------------------------------------
@@ -302,7 +301,7 @@ Bad pixels tracked when coadding images
 When co-adding images, we now keep track of what fraction of the input
 data for a given pixel was masked. If the total masked data exceeds some
 user-configurable threshold, the mask is propagated to the coadd.
-(`DM-3137 <https://jira.lsstcorp.org/browse/DM-3137>`_)
+:jirab:`DM-3137`
 
 Polygon masking in coadded PSFs
 -------------------------------
@@ -311,13 +310,12 @@ Polygonal masks are used to define the usable area of the focal plane;
 they can be used to, for example, exclude vignetted areas from
 coaddition. We now take account of these masks to determine which PSF
 images to included when building co-added PSFs.
-(`DM-3243 <https://jira.lsstcorp.org/browse/DM-3243>`_,
-`DM-3528 <https://jira.lsstcorp.org/browse/DM-3258>`_)
+:jirab:`DM-3243,DM-3528`
 
 Scale counts to reflect CCD-specific zero-points when warping to create coadd inputs
 ------------------------------------------------------------------------------------
 
-(`DM-2980 <https://jira.lsstcorp.org/browse/DM-2980>`_)
+:jirab:`DM-2980`
 
 Solving astrometry with distortions
 -----------------------------------
@@ -326,14 +324,14 @@ The default astrometry matcher (``matchOptimisticB``) can now match
 stars against a reference catalog when the stars are distorted (e.g., at
 the outskirts of a wide field imager) if there is an estimate of the
 distortion available.
-(`DM-3492 <https://jira.lsstcorp.org/browse/DM-3492>`_)
+:jirab:`DM-3492`
 
 Rejection iterations in astrometry fitting
 ------------------------------------------
 
 Astrometric fitting (``FitTanSipWcsTask``) now includes support for
 iterative fitting with rejection.
-(`DM-3492 <https://jira.lsstcorp.org/browse/DM-3492>`_)
+:jirab:`DM-3492`
 
 Inclusion of external package PSFEx as option for PSF determination
 -------------------------------------------------------------------
@@ -343,7 +341,7 @@ determination, used in projects such as DES. LSST wrappers were created
 such that PSFEx could be used as a plugin in place of the built in PSF
 determiner. Tests with Hyper Supreme Camera data have shown that PSFEx
 out performs the built-in PSF determiner.
-(`DM-2961 <https://jira.lsstcorp.org/browse/DM-2961>`_)
+:jirab:`DM-2961`
 
 Improvements to CModel magnitude measurement
 --------------------------------------------
@@ -362,7 +360,7 @@ Interface changes to forced measurement
 The order of arguments to the forced measurement task was reversed, so
 that it takes a source catalog followed by an ``Exposure``. This brings
 it into line with the single frame measurement interface.
-(`DM-3459 <https://jira.lsstcorp.org/browse/DM-3459>`_)
+:jirab:`DM-3459`
 
 N-way spatial matching
 ----------------------
@@ -372,7 +370,7 @@ catalogs with identical has been added as
 ``lsst.afw.table.multiMatch.MultiMatch``. This is intended as a stop-gap
 measure until more flexible and efficient functionality becomes
 available, but is already usable.
-(`DM-3490 <https://jira.lsstcorp.org/browse/DM-3490>`_)
+:jirab:`DM-3490`
 
 Display CCD data as laid out in the focal plane
 -----------------------------------------------
@@ -381,7 +379,8 @@ It is now possible to use ``lsst.afw.cameraGeom.utils`` to display CCD
 data laid out in the focal plane. `An
 example <https://github.com/lsst/afw/blob/master/examples/Show%20Camera.ipynb>`_
 of how this functionality works in practice is available as an IPython
-notebook. (`DM-2347 <https://jira.lsstcorp.org/browse/DM-2347>`_)
+notebook.
+:jirab:`DM-2347`
 
 .. _release_11_0_bug_fixes:
 
@@ -395,7 +394,7 @@ Doxygen documentation now correctly includes LaTeX formatting
 
 Correctly referring to MathJax means that LaTeX markup in documentation
 is nicely formatted.
-(`DM-2545 <https://jira.lsstcorp.org/browse/DM-2545>`_)
+:jirab:`DM-2545`
 
 Performance regression in ``Footprint`` dilation resolved
 ---------------------------------------------------------
@@ -408,7 +407,7 @@ could have significant performance implications for many image
 processing operations. This regression has now been rectified, and the
 new dilation operations are significantly faster than the old ones in
 all circumstances tested.
-(`DM-2787 <https://jira.lsstcorp.org/browse/DM-2787>`_)
+:jirab:`DM-2787`
 
 Footprint fixes
 ---------------
@@ -434,24 +433,26 @@ The following updates/fixes to Footprint handling have been made:
    FootprintSet it uses in its implementation (instead of requiring that
    the FootprintSet have only one Footprint).
 
-(`DM-2606 <https://jira.lsstcorp.org/browse/DM-2606>`_)
+:jirab:`DM-2606`
 
 Fixed error in memory access in interpolation
 ---------------------------------------------
 
 An off-by-one error resulted in an attempt to read beyond the allocated
-memory. (`DM-3112 <https://jira.lsstcorp.org/browse/DM-3112>`_)
+memory.
+:jirab:`DM-3112`
 
 Fixed truncated write of certain WCS information to FITS
 --------------------------------------------------------
 
-(`DM-2931 <https://jira.lsstcorp.org/browse/DM-2931>`_)
+:jirab:`DM-2931`
 
 Use the correct weighting in photometric calibration
 ----------------------------------------------------
 
 Previously, we were incorrectly weighting by errors, rather than inverse
-errors. (`DM-2423 <https://jira.lsstcorp.org/browse/DM-2423>`_)
+errors.
+:jirab:`DM-2423`
 
 Remove non-positive variance pixels in coadd creation
 -----------------------------------------------------
@@ -459,9 +460,9 @@ Remove non-positive variance pixels in coadd creation
 When interpolating variance maps we can produce negative values. These
 then cause failures when we try to take the square root. Ultimately, the
 means of creating variance maps needs to be fixed (which is
-`DM-3201 <https://jira.lsstcorp.org/browse/DM-3201>`_); as a temporary
+:jira:`DM-3201`); as a temporary
 workaround, we replace negative variance values with infinity.
-(`DM-2980 <https://jira.lsstcorp.org/browse/DM-2980>`_)
+:jirab:`DM-2980`
 
 Task defaults are set correctly for difference imaging
 ------------------------------------------------------
@@ -470,7 +471,7 @@ The ``DipoleMeasurementConfig.setDefaults`` method incorrectly contained
 a ``return`` that was executed before the defaults were actually
 applied. This has been corrected, and a number of tests updated to rely
 on those defaults.
-(`DM-3159 <https://jira.lsstcorp.org/browse/DM-3159>`_)
+:jirab:`DM-3159`
 
 Build and code improvements
 ===========================
@@ -487,19 +488,14 @@ of the the particular image viewer is in use. A backwards compatibility
 layer ensures that display through ds9 is still supported, while other
 backends will be added in future.
 
-(`RFC-42 <https://jira.lsstcorp.org/browse/RFC-42>`_,
-`DM-2709 <https://jira.lsstcorp.org/browse/DM-2709>`_,
-`DM-2849 <https://jira.lsstcorp.org/browse/DM-2849>`_,
-`DM-2940 <https://jira.lsstcorp.org/browse/DM-2940>`_,
-`DM-3203 <https://jira.lsstcorp.org/browse/DM-3203>`_,
-`DM-3468 <https://jira.lsstcorp.org/browse/DM-3468>`_)
+:jirab:`RFC-42,DM-2709,DM-2849,DM-2940,DM-3203,DM-3468`
 
 Measurement framework compiler warnings resolved
 ------------------------------------------------
 
 The measurement framework was refactored to avoid a series of warnings
 produced by the clang compiler.
-(`DM-2131 <https://jira.lsstcorp.org/browse/DM-2131>`_)
+:jirab:`DM-2131`
 
 Unsanctioned access to the display by tests suppressed
 ------------------------------------------------------
@@ -507,8 +503,8 @@ Unsanctioned access to the display by tests suppressed
 Some unit tests were attempting to write to a display, even when no
 display was available. On some systems, this directly caused test
 failures; on others, it could obscure the true cause of failures when a
-test did fail. (`DM-2492 <https://jira.lsstcorp.org/browse/DM-2492>`_,
-`DM-2494 <https://jira.lsstcorp.org/browse/DM-2494>`_)
+test did fail.
+:jirab:`DM-2492,DM-2494`
 
 Unused & obsolete code has been removed from the ``datarel`` package
 --------------------------------------------------------------------
@@ -516,8 +512,9 @@ Unused & obsolete code has been removed from the ``datarel`` package
 This package is effectively obsolete, but is still used in documentation
 generation which makes removing it entirely complex. For now, therefore,
 it has simply been trimmed of all unused functionality; it may be
-removed entirely following `DM-2948 <https://jira.lsstcorp.org/browse/DM-2948>`_.
-(`DM-2949 <https://jira.lsstcorp.org/browse/DM-2949>`_)
+removed entirely following
+:jira:`DM-2948`.
+:jirab:`DM-2949`
 
 Reduced verbosity of astrometry.net solver
 ------------------------------------------
@@ -525,7 +522,7 @@ Reduced verbosity of astrometry.net solver
 A correction to the way that astrometry.net logging was propagated to
 the LSST logging system, together with reducing the priority of some
 messages, leads to a substantial reduction in chatter from astrometry.
-(`DM-3141 <https://jira.lsstcorp.org/browse/DM-3141>`_)
+:jira:`DM-3141`
 
 Ensure that slots are present before initializing algorithms that depend upon them
 ----------------------------------------------------------------------------------
@@ -537,14 +534,14 @@ performed, we are still pointing to the correct information. However, if
 the algorithm is initialized before the slot it depends on, this
 resolution could not take place and "circular" aliases could result. We
 now explicitly check for and throw an error in this case.
-(`DM-3400 <https://jira.lsstcorp.org/browse/DM-3400>`_)
+:jirab:`DM-3400`
 
 Visualizations for astrometry.net solver
 ----------------------------------------
 
 It is now possible to display the source positions, distorted source
 positions and reference positions to assist with debugging.
-(`DM-3209 <https://jira.lsstcorp.org/browse/DM-3209>`_)
+:jirab:`DM-3209`
 
 Subaru support reinstated
 -------------------------
@@ -552,8 +549,8 @@ Subaru support reinstated
 The ``obs_subaru`` package, which provides packages and tasks specific
 to the Subaru telescope, has been brought up to date with recent changes
 to the LSST stack and improvements made during Hyper Suprime Cam
-development. (`DM-1794 <https://jira.lsstcorp.org/browse/DM-1794>`__,
-`DM-3403 <https://jira.lsstcorp.org/browse/DM-3403>`__)
+development.
+(:jirab:`DM-1794,DM-3403`)
 
 Refactor & document coadd construction
 --------------------------------------
@@ -562,7 +559,8 @@ A number of minor changes and documentation improvements were made to
 the ``CoaddBase``, ``AssembleCoadd``, ``CoaddInputRecorder`` and
 ``MakeCoaddTempExp`` tasks. These brought the structure of the code
 better into line with the state-of-the-art development on Hyper Suprime
-Cam. (`DM-2980 <https://jira.lsstcorp.org/browse/DM-2980>`_)
+Cam.
+:jirab:`DM-2980`
 
 Properly handle masking NaN or saturated values in overscans
 ------------------------------------------------------------
@@ -571,7 +569,7 @@ Resolved an issue where, in certain circumstances, flags in the mask
 plane for saturated and nan values in overscans were being improperly
 propagated to all amplifiers in an image. These flags are now applied to
 the amplifier where the bad values are seen.
-(`DM-2923 <https://jira.lsstcorp.org/browse/DM-2923>`_)
+:jirab:`DM-2923`
 
 Deblender optimization
 ----------------------
@@ -583,4 +581,4 @@ pixels. In addition, memory usage was reduced by removing unused mask
 planes left over from debugging, not storing masks for deblending
 templates, and by clipping template images when their associated
 ``Footprint``\ s are clipped.
-(`DM-2914 <https://jira.lsstcorp.org/browse/DM-2914>`_)
+:jirab:`DM-2914`
