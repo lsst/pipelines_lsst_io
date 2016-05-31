@@ -2,7 +2,7 @@
 Development Tutorial with lsstsw and lsst-build
 ###############################################
 
-The page :doc:`/install` describes how to obtain a released version of the Science Pipelines.
+The page :doc:`/install/index` describes how to obtain a released version of the Science Pipelines.
 However, developers will want to work and build directly against the Pipelines's Git repositories.
 This page describes how to develop the Science Pipelines using the ``lsstsw`` build tool.
 
@@ -21,7 +21,7 @@ Prerequisites
 =============
 
 Before embarking on Science Pipelines development, ensure you have all software dependencies installed on your system.
-These dependencies are listed in the :doc:`guide to installing the stack from source </install>`.
+These dependencies are listed in the :doc:`guide to installing the stack from source </install/index>`.
 
 For ``lsstsw``-based development you will need to work in a bash shell.
 

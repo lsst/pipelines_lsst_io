@@ -19,7 +19,7 @@ See what's new in the :ref:`Release Notes <release-v11-0>`.
    :caption: Getting Started
    :name: part-getting-started
 
-   install
+   install/index
    releases/index
 
 ..

@@ -1,17 +1,12 @@
 #####################################
-Installing the LSST Science Pipelines
+Source Installation with eups distrib
 #####################################
 
 This page will guide you through installing the LSST Science Pipelines from source for data processing.
 
 The LSST Science Pipelines are officially tested against CentOS 7, however developers regularly use `a variety of Linux and Mac OS X operating systems <https://ls.st/faq>`_.
 
-We are working on methods for binary installation and Docker distribution.
-In the meantime, Fabio Hernandez of IN2P3 has kindly arranged to make `binary distributions of releases available via CernVM FS <https://github.com/airnandez/lsst-cvmfs>`_.
-Scientific Linux 6, Scientific Linux 7, CentOS 7, Ubuntu 14.04 and Mac OS X 10.10 are supported with the CernVM FS-based distribution.
-If this binary distribution does not suit your needs, please read on to install the LSST Science Pipelines from source.
-
-Developers should follow :doc:`/development/lsstsw_tutorial` instead.
+:doc:`We also offer Conda binaries and Docker images <index>` if you do not wish to install the Science Pipelines from source.
 
 If you have difficulty installing LSST software, reach out on the `Support forum at community.lsst.org <community.lsst.org/c/qa>`_.
 
@@ -36,7 +31,7 @@ Mac OS X
 We have tested the Science Pipelines on OS X Yosemite (10.10).
 
 The Science Pipelines are not currently supported on OS X El Capitan (10.11).
-See :doc:`Known Issues for v11.0 </releases/known-issues>`.
+See :doc:`Known Issues for v11.0 </releases/v11_0/known>`.
 Versions prior to OS X 10.9 and earlier have not been tested recently and may not work.
 
 You will need to install developer tools, which we recommend you obtain with Apple's Xcode command line tools package.
