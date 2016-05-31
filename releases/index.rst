@@ -5,4 +5,6 @@ Release History
 .. toctree::
    :maxdepth: 2
 
-   v11_0/index.rst
+   release-notes
+   known-issues
+   metrics/index

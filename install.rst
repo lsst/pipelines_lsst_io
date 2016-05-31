@@ -36,7 +36,7 @@ Mac OS X
 We have tested the Science Pipelines on OS X Yosemite (10.10).
 
 The Science Pipelines are not currently supported on OS X El Capitan (10.11).
-See :doc:`Known Issues for v11.0 </releases/v11_0/known>`.
+See :doc:`Known Issues for v11.0 </releases/known-issues>`.
 Versions prior to OS X 10.9 and earlier have not been tested recently and may not work.
 
 You will need to install developer tools, which we recommend you obtain with Apple's Xcode command line tools package.

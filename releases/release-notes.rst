@@ -1,6 +1,8 @@
-######################
-Release Notes for 11.0
-######################
+#############
+Release Notes
+#############
+
+.. _release-v11-0:
 
 LSST Stack Summer 2015 Release
 ==============================
@@ -13,13 +15,13 @@ Winter 2015 release.
 
 *See also:*
 
-- :doc:`Known issues <known>`
-- :doc:`Measurements & Characterization <metrics>`
+- :doc:`Known issues <known-issues>`
+- :doc:`Measurements & Characterization <metrics/index>`
 - `Qserv release notes <https://confluence.lsstcorp.org/display/DM/Summer+2015+Qserv+Release>`_
 - `Webserv release notes <https://confluence.lsstcorp.org/display/DM/Summer+2015+WebServ+Release>`_
 - `Science User Interface release notes <https://confluence.lsstcorp.org/pages/viewpage.action?pageId=41785820>`_
 
-.. _release_11_0_major_changes:
+.. _release-11-0-major-changes:
 
 Major Functionality and Interface Changes
 =========================================
@@ -41,8 +43,6 @@ We now go to greater lengths to check that the information in the file
 is consistent with the LSST standard, warning the user---and in some
 cases refusing to proceed---if it does not.
 :jirab:`DM-2599`
-
-.. (`DM-2599 <https://jira.lsstcorp.org/browse/DM-2599>`_)
 
 Improved support for non-standard FITS headers
 ----------------------------------------------
@@ -382,7 +382,7 @@ of how this functionality works in practice is available as an IPython
 notebook.
 :jirab:`DM-2347`
 
-.. _release_11_0_bug_fixes:
+.. _release-11-0-bug-fixes:
 
 Bug Fixes
 =========

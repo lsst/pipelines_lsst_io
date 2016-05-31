@@ -12,7 +12,7 @@ We are building the Science Pipelines for the `Large Synoptic Survey Telescope (
 - Learn more about LSST Data Management by visiting http://dm.lsst.org
 
 **The current release is 11.0.**
-See what's new in the :doc:`Release Notes <releases/v11_0/notes>`.
+See what's new in the :ref:`Release Notes <release-v11-0>`.
 
 .. toctree::
    :maxdepth: 1
