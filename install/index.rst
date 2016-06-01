@@ -32,4 +32,4 @@ Choose an option below to get started.
    ``lsstsw`` (and ``lsst-build``) are the tools we use internally to build and test the LSST Science Pipelines.
    Use this installation option if you're interested in developing the Science Pipelines since ``lsstsw`` presents the Pipelines as a directory of cloned repositories from `github.com/lsst <https://github.com/lsst>`__.
 
-If you have difficulty installing LSST software, reach out on the `Support forum at community.lsst.org <community.lsst.org/c/qa>`_.
+If you have difficulty installing LSST software, reach out on the `Support forum at community.lsst.org <community.lsst.org/c/support>`_.
