@@ -36,13 +36,6 @@ See what's new in the :ref:`Release Notes <release-v11-0>`.
      :caption: Packages
      :name: part-packages
 
-.. toctree::
-   :maxdepth: 1
-   :caption: Developer Guide
-   :name: part-developer-guide
-
-   development/lsstsw_tutorial.rst
-
 **See also:**
 
 - `DM Developer Guide, developer.lsst.io, <https://developer.lsst.io>`_ comprehensively documents DM development practices, including Science Pipelines development.

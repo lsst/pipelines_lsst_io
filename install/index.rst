@@ -7,6 +7,7 @@ Installing the LSST Science Pipelines
    
    conda
    eups-distrib
+   lsstsw
 
 We offer a few ways of installing the LSST Science Pipelines.
 Choose an option below to get started.
@@ -27,7 +28,7 @@ Choose an option below to get started.
    These images are convenient for using the LSST Science Pipelines in distributed or cloud-based computing workflows.
    The `SQR-002: Binary Science Pipeline Software Distribution <https://sqr-002.lsst.io>`__ technote describes how to obtain and use these images.
 
-:doc:`lsstsw installation </development/lsstsw_tutorial>`
+:doc:`lsstsw installation <lsstsw>`
    ``lsstsw`` (and ``lsst-build``) are the tools we use internally to build and test the LSST Science Pipelines.
    Use this installation option if you're interested in developing the Science Pipelines since ``lsstsw`` presents the Pipelines as a directory of cloned repositories from `github.com/lsst <https://github.com/lsst>`__.
 
