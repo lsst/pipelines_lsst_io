@@ -8,6 +8,7 @@ Installing the LSST Science Pipelines
    conda
    newinstall
    lsstsw
+   demo
 
 We offer a few ways of installing the LSST Science Pipelines.
 Choose an option below to get started.
@@ -31,5 +32,7 @@ Choose an option below to get started.
 :doc:`lsstsw installation <lsstsw>`
    ``lsstsw`` (and ``lsst-build``) are the tools we use internally to build and test the LSST Science Pipelines.
    Use this installation option if you're interested in developing the Science Pipelines since ``lsstsw`` presents the Pipelines as a directory of cloned repositories from `github.com/lsst <https://github.com/lsst>`__.
+
+Next, :doc:`try out your Science Pipelines installation by running a demo <demo>`.
 
 If you have difficulty installing LSST software, reach out on the `Support forum at community.lsst.org <community.lsst.org/c/support>`_.

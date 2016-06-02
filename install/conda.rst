@@ -75,3 +75,11 @@ Whenever you open a new shell or terminal session, use these commands to re-acti
    source eups-setups.sh
 
 These commands can also be used to switch from one Conda environment and LSST Science Pipelines installation to another.
+
+.. _conda-install-test:
+
+4. Testing Your Installation
+============================
+
+Once the LSST Science Pipelines are installed, you can verify that it works by :doc:`running a demo project <demo>`.
+This demo processes a small amount of SDSS data.

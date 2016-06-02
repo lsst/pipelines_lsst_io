@@ -107,9 +107,17 @@ Do this by running the ``setup.sh`` from the ``lsstsw/`` directory:
 
    . bin/setup.sh
 
+.. _lsstsw-testing-your-installation:
+
+5. Testing Your Installation
+============================
+
+Once the LSST Science Pipelines are installed, you can verify that it works by :doc:`running a demo project <demo>`.
+This demo processes a small amount of SDSS data.
+
 .. _lsstsw-development:
 
-5. Bonus: Developing a Package
+6. Bonus: Developing a Package
 ==============================
 
 An lsstsw-based installation is great for developing packages against the LSST Science Pipelines stack.
