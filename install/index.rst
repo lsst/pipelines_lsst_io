@@ -6,7 +6,7 @@ Installing the LSST Science Pipelines
    :hidden:
    
    conda
-   eups-distrib
+   newinstall
    lsstsw
 
 We offer a few ways of installing the LSST Science Pipelines.
@@ -16,8 +16,8 @@ Choose an option below to get started.
    Install the Pipelines as an `Anaconda/Miniconda <https://www.continuum.io/why-anaconda>`__ binary package.
    This is the easiest installation option since no source compilation is required.
 
-:doc:`Source installation (eups distrib) <eups-distrib>`
-   ``eups distrib`` allows you to build and install the LSST Science Pipelines from source.
+:doc:`Source installation (newinstall.sh) <newinstall>`
+   ``newinstall.sh`` allows you to build and install the LSST Science Pipelines from source.
    You can use your existing Python 2.7, or opt to use a built-in `Miniconda <http://conda.pydata.org/docs/>`__.
 
 `CernVM FS (external link) <https://github.com/airnandez/lsst-cvmfs>`__

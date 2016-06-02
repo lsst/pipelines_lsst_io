@@ -1,8 +1,8 @@
-#####################################
-Source Installation with eups distrib
-#####################################
+######################################
+Source Installation with newinstall.sh
+######################################
 
-This page will guide you through installing the LSST Science Pipelines from source with :command:`eups distrib` (:command:`newinstall.sh`).
+This page will guide you through installing the LSST Science Pipelines from source with :command:`newinstall.sh` (internally based on :command:`eups distrib`).
 
 The LSST Science Pipelines are officially tested against CentOS 7, however developers regularly use `a variety of Linux and Mac OS X operating systems <https://ls.st/faq>`_.
 

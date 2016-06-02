@@ -21,7 +21,7 @@ If you're new to Anaconda, Continuum's `30-minute test drive <http://conda.pydat
 
 .. warning::
 
-   Don't reuse the Miniconda you might have previously obtained from an :doc:`eups distrib <eups-distrib>`\ -based installation.
+   Don't reuse the Miniconda you might have previously obtained from an :doc:`eups distrib <newinstall>`\ -based installation.
    Open a new shell and install Anaconda/Miniconda from scratch.
 
 Upgrading conda
