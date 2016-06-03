@@ -19,7 +19,7 @@ See what's new in the :ref:`Release Notes <release-v11-0>`.
    :caption: Getting Started
    :name: part-getting-started
 
-   install
+   install/index
    releases/index
 
 ..
@@ -35,13 +35,6 @@ See what's new in the :ref:`Release Notes <release-v11-0>`.
      :maxdepth: 1
      :caption: Packages
      :name: part-packages
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Developer Guide
-   :name: part-developer-guide
-
-   development/lsstsw_tutorial.rst
 
 **See also:**
 
