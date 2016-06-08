@@ -61,6 +61,11 @@ Here's what these commands are doing, line-by-line:
 4. Install the full suite of LSST science software, including Science Pipelines (``lsst-distrib``) and LSST Simulations (``lsst-sims``).
 5. Setup LSST packages in your environment with EUPS.
 
+.. warning::
+
+   If the install fails with an error including the message ``does not contain a ups_db directory``, check that your shell does not have another EUPS stack configured.
+   EUPS will use existing values of ``EUPS_PATH`` and ``EUPS_DIR`` if they exist so unset them before installing the conda packages.
+
 .. _conda-install-activate:
 
 3. Activating Science Pipelines in a new Shell
