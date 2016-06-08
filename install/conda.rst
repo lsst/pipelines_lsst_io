@@ -63,8 +63,8 @@ Here's what these commands are doing, line-by-line:
 
 .. warning::
 
-   If the install fails with an error including the message ``does not contain a ups_db directory``, check that your shell does not have another EUPS stack configured.
-   EUPS will use existing values of ``EUPS_PATH`` and ``EUPS_DIR`` if they exist so unset them before installing the conda packages.
+   If the install fails with an error, check that your shell does not have another EUPS stack configured.
+   Conda packaged EUPS will use existing values of ``EUPS_PATH`` and ``EUPS_DIR``. If they exist unset them before installing or using Conda packages.
 
 .. _conda-install-activate:
 
