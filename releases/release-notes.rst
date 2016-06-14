@@ -1,3 +1,51 @@
+..
+  Template for release notes
+
+  dot dot _release-vNN-N:
+
+  Cycle 20XY Release (vNN_N)
+  ==========================
+  
+  +---------------------------------------------+------------+
+  | Source                                      | Identifier |
+  +=============================================+============+
+  | Git tag                                     | 11.0       |
+  +---------------------------------------------+------------+
+  | :doc:`EUPS distrib <../install/newinstall>` | v11\_0     |
+  +---------------------------------------------+------------+
+  
+  *See also:*
+
+  - :doc:`Installation instructions <../install/index>`
+  - :doc:`Known issues <known-issues>`
+  - :doc:`Measurements & Characterization <metrics/v11_0/index>`
+  - `Qserv release notes <https://confluence.lsstcorp.org/display/DM/Summer+2015+Qserv+Release>`_
+  - `Webserv release notes <https://confluence.lsstcorp.org/display/DM/Summer+2015+WebServ+Release>`_
+  - `Science User Interface release notes <https://confluence.lsstcorp.org/pages/viewpage.action?pageId=41785820>`_
+
+  .. Note: delete the known issues and install links from older versions.
+
+  dot dot _release-vNN-N-major-changes:
+
+  Major Functionality and Interface Changes
+  -----------------------------------------
+
+  ...
+
+  dot dot _release-vNN-N-bug-fixes:
+
+  Bug Fixes
+  ---------
+
+  ...
+
+  dot dot _release-vNN-N-internal-improvements:
+
+  Build and Code Improvements
+  ---------------------------
+
+  ...
+
 #############
 Release Notes
 #############
