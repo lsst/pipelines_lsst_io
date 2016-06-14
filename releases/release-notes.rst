@@ -52,19 +52,23 @@ Release Notes
 
 .. _release-v11-0:
 
-LSST Stack Summer 2015 Release
-==============================
-
-The Summer 2015 release of the LSST stack is internally numbered "11.0"
-(git tag) or ``v11_0`` (EUPS distrib).
+Summer 2015 Release (v11_0)
+===========================
 
 These release notes document notable changes since 10.1, which was the
 Winter 2015 release.
 
++---------------------------------------------+------------+
+| Source                                      | Identifier |
++=============================================+============+
+| Git tag                                     | 11.0       |
++---------------------------------------------+------------+
+| :doc:`EUPS distrib <../install/newinstall>` | v11\_0     |
++---------------------------------------------+------------+
+
 *See also:*
 
-- :doc:`Known issues <known-issues>`
-- :doc:`Measurements & Characterization <metrics/index>`
+- :doc:`Measurements & Characterization <metrics/v11_0/index>`
 - `Qserv release notes <https://confluence.lsstcorp.org/display/DM/Summer+2015+Qserv+Release>`_
 - `Webserv release notes <https://confluence.lsstcorp.org/display/DM/Summer+2015+WebServ+Release>`_
 - `Science User Interface release notes <https://confluence.lsstcorp.org/pages/viewpage.action?pageId=41785820>`_
@@ -72,10 +76,10 @@ Winter 2015 release.
 .. _release-11-0-major-changes:
 
 Major Functionality and Interface Changes
-=========================================
+-----------------------------------------
 
 Improved semantics for loading ``Exposure``\ s and ``MaskedImage``\ s from arbitrary FITS files
------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``Exposure`` and ``MaskedImage`` represent image data with
 associated mask and variance information. When serialized to FITS, these
@@ -93,7 +97,7 @@ cases refusing to proceed---if it does not.
 :jirab:`DM-2599`
 
 Improved support for non-standard FITS headers
-----------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The LSST stack is now capable of loading FITS files which contain
 non-standard headers of the form ``PVi_nn`` (``i=1..x``, ``nn=5..16``),
@@ -102,7 +106,7 @@ written by SkyMapper.
 :jirab:`DM-2883,DM-2924,DM-3196`
 
 It is now possible to perform instrument signal removal on an ``Exposure`` which has no ``Detector``
-----------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ``FakeAmp``, a ``Detector``-like object object which supports returning
 gain and saturation level, was added to make it possible to run
@@ -110,13 +114,13 @@ gain and saturation level, was added to make it possible to run
 (`DM-2890 <https://jira.lsstcorp.org/browse/DM-2890>`_)
 
 ``PVi_j`` header cards are correctly saved to FITS files
---------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This makes it possible to round-trip TPV headers, for example.
 :jirab:`DM-2926`
 
 Changes to compound fields and delimiters in catalog schemas
-------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In the older ("version 0") approach to table schemas, we had several
 compound field types (``Point``, ``Moments``, ``Covariance``, ``Coord``)
@@ -159,7 +163,7 @@ modified.
 :jirab:`DM-1766`
 
 Allow for use of Approximate (Chebyshev) model in background estimation
------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In previous releases, the only method for background estimation was to
 use an interpolation scheme (constant, linear, or various splines).
@@ -186,7 +190,7 @@ calculation).
 :jirab:`DM-2778`
 
 Multi-band processing for coadds
---------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 See the description of the multi-band coadd processing work performed in
 S15 for details. In short, four new command-line Tasks have been added
@@ -211,7 +215,7 @@ MergeMeasurementsTask
 :jirab:`DM-1945,DM-3139`
 
 Enable use of deblended HeavyFootprints in coadd forced photometry
-------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Given the new multi-band processing for coadds (above), we now have a
 reference catalog that is consistent across all bands. This catalog
@@ -227,7 +231,7 @@ S15 for further motivation of this change.
 :jirab:`DM-1954`
 
 Limited the fractional number of masked pixels per source
----------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 CModel has difficulties modelling backgrounds in vignetted regions of
 the focal plane, leading to a performance bottleneck. To mitigate the
@@ -236,7 +240,7 @@ exceeds a given threshold, that source will be skipped.
 :jirab:`DM-2914`
 
 Peak culling around large objects
----------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 An excess of "junk" peaks may be observed around large objects. Given
 the new multi-band processing architecture (above), these must be
@@ -246,7 +250,7 @@ merging and sorting in ``MergeDetectionsTask``.
 :jirab:`DM-2914`
 
 Parent Footprints are the union of their children
--------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Parent ``Footprint``\ s are now trimmed so that they are strictly the
 union of their children: any pixels which are not assigned to a child
@@ -256,7 +260,7 @@ consequence that parent ``Footprint``\ s are not necessarily contiguous.
 :jirab:`DM-2914`
 
 Large Footprints may be skipped on initial processing
------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 For practical processing purposes (specifically total processing time
 and memory limits due to current hardware limitations), we have the
@@ -270,7 +274,7 @@ deblender configuration for the maximum number of ``Peak``\ s per
 :jirab:`DM-2914`
 
 Command line tasks for measurement transformation
--------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The measurement transformation framework provides a generic mechanism
 for transforming the outputs of measurement plugins in raw units, such
@@ -295,7 +299,7 @@ source types.
 `DM-3483 <https://jira.lsstcorp.org/browse/DM-3483>`_)
 
 Add ``NO_DATA`` mask plane
---------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Previously, we have used the ``EDGE`` mask plane to indicate *both*
 pixels which are off-the-edge of the detector, and hence have no data
@@ -305,7 +309,7 @@ to the former case and now use ``EDGE`` strictly for the latter.
 :jirab:`DM-3136`
 
 Add slot for flux used in photometric calibration
--------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 We define a new slot, ``CalibFlux``, on ``SourceRecord``\ s. This slot
 is used to record the flux used for photometric calibration, rather than
@@ -315,7 +319,7 @@ default in ``PhotoCal``.
 :jirab:`DM-3106,DM-3108`
 
 Table field prefix for aperture flux measurements changed
----------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Our aperture flux measurement algorithms take a list of radii, in
 pixels, which define the radii over which measurements should be made.
@@ -329,7 +333,7 @@ named after the radius, regardless of its position in the list. Thus, a
 :jirab:`DM-3108`
 
 Faster astrometry reference catalog loading
--------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The reference catalog loading was optimised by caching HEALpix
 identifiers for the catalog files. This has been observed to speed up
@@ -344,7 +348,7 @@ script that now comes in ``meas_astrom``.
 :jirab:`DM-3142`
 
 Bad pixels tracked when coadding images
----------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 When co-adding images, we now keep track of what fraction of the input
 data for a given pixel was masked. If the total masked data exceeds some
@@ -352,7 +356,7 @@ user-configurable threshold, the mask is propagated to the coadd.
 :jirab:`DM-3137`
 
 Polygon masking in coadded PSFs
--------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Polygonal masks are used to define the usable area of the focal plane;
 they can be used to, for example, exclude vignetted areas from
@@ -361,12 +365,12 @@ images to included when building co-added PSFs.
 :jirab:`DM-3243,DM-3528`
 
 Scale counts to reflect CCD-specific zero-points when warping to create coadd inputs
-------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 :jirab:`DM-2980`
 
 Solving astrometry with distortions
------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The default astrometry matcher (``matchOptimisticB``) can now match
 stars against a reference catalog when the stars are distorted (e.g., at
@@ -375,14 +379,14 @@ distortion available.
 :jirab:`DM-3492`
 
 Rejection iterations in astrometry fitting
-------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Astrometric fitting (``FitTanSipWcsTask``) now includes support for
 iterative fitting with rejection.
 :jirab:`DM-3492`
 
 Inclusion of external package PSFEx as option for PSF determination
--------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 PSFEx is currently the state of the art external package for PSF
 determination, used in projects such as DES. LSST wrappers were created
@@ -392,7 +396,7 @@ out performs the built-in PSF determiner.
 :jirab:`DM-2961`
 
 Improvements to CModel magnitude measurement
---------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This release includes many miscellaneous improvements and fixes
 resulting from testing on HSC data, including:
@@ -403,7 +407,7 @@ resulting from testing on HSC data, including:
 -  much more robust flagging of failure modes
 
 Interface changes to forced measurement
----------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The order of arguments to the forced measurement task was reversed, so
 that it takes a source catalog followed by an ``Exposure``. This brings
@@ -411,7 +415,7 @@ it into line with the single frame measurement interface.
 :jirab:`DM-3459`
 
 N-way spatial matching
-----------------------
+^^^^^^^^^^^^^^^^^^^^^^
 
 A simple utility class for performing spatial matches between multiple
 catalogs with identical has been added as
@@ -421,7 +425,7 @@ available, but is already usable.
 :jirab:`DM-3490`
 
 Display CCD data as laid out in the focal plane
------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 It is now possible to use ``lsst.afw.cameraGeom.utils`` to display CCD
 data laid out in the focal plane. `An
@@ -433,19 +437,19 @@ notebook.
 .. _release-11-0-bug-fixes:
 
 Bug Fixes
-=========
+---------
 
 The following fixes resolve problems visible to end users.
 
 Doxygen documentation now correctly includes LaTeX formatting
--------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Correctly referring to MathJax means that LaTeX markup in documentation
 is nicely formatted.
 :jirab:`DM-2545`
 
 Performance regression in ``Footprint`` dilation resolved
----------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The previous release included improved algorithms for dilating
 ``Footprint``\ s. Unfortunately, in some circumstances (notably when
@@ -458,7 +462,7 @@ all circumstances tested.
 :jirab:`DM-2787`
 
 Footprint fixes
----------------
+^^^^^^^^^^^^^^^
 
 The following updates/fixes to Footprint handling have been made:
 
@@ -484,26 +488,26 @@ The following updates/fixes to Footprint handling have been made:
 :jirab:`DM-2606`
 
 Fixed error in memory access in interpolation
----------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 An off-by-one error resulted in an attempt to read beyond the allocated
 memory.
 :jirab:`DM-3112`
 
 Fixed truncated write of certain WCS information to FITS
---------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 :jirab:`DM-2931`
 
 Use the correct weighting in photometric calibration
-----------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Previously, we were incorrectly weighting by errors, rather than inverse
 errors.
 :jirab:`DM-2423`
 
 Remove non-positive variance pixels in coadd creation
------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 When interpolating variance maps we can produce negative values. These
 then cause failures when we try to take the square root. Ultimately, the
@@ -513,7 +517,7 @@ workaround, we replace negative variance values with infinity.
 :jirab:`DM-2980`
 
 Task defaults are set correctly for difference imaging
-------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``DipoleMeasurementConfig.setDefaults`` method incorrectly contained
 a ``return`` that was executed before the defaults were actually
@@ -521,14 +525,16 @@ applied. This has been corrected, and a number of tests updated to rely
 on those defaults.
 :jirab:`DM-3159`
 
+.. _release-v11-0-internal-improvements:
+
 Build and code improvements
-===========================
+---------------------------
 
 These improvements should not usually be visible to end users. They may
 be important for developers, however.
 
 Backend-agnostic interface to displays
---------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The image display code no longer makes the assumption that display is
 carried out using ds9. Rather, an API is available which is independent
@@ -539,14 +545,14 @@ backends will be added in future.
 :jirab:`RFC-42,DM-2709,DM-2849,DM-2940,DM-3203,DM-3468`
 
 Measurement framework compiler warnings resolved
-------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The measurement framework was refactored to avoid a series of warnings
 produced by the clang compiler.
 :jirab:`DM-2131`
 
 Unsanctioned access to the display by tests suppressed
-------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Some unit tests were attempting to write to a display, even when no
 display was available. On some systems, this directly caused test
@@ -555,7 +561,7 @@ test did fail.
 :jirab:`DM-2492,DM-2494`
 
 Unused & obsolete code has been removed from the ``datarel`` package
---------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This package is effectively obsolete, but is still used in documentation
 generation which makes removing it entirely complex. For now, therefore,
@@ -565,7 +571,7 @@ removed entirely following
 :jirab:`DM-2949`
 
 Reduced verbosity of astrometry.net solver
-------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A correction to the way that astrometry.net logging was propagated to
 the LSST logging system, together with reducing the priority of some
@@ -573,7 +579,7 @@ messages, leads to a substantial reduction in chatter from astrometry.
 :jira:`DM-3141`
 
 Ensure that slots are present before initializing algorithms that depend upon them
-----------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 When initializing an algorithm that refers to a particular slot, we
 resolve the target of the slot and refer to that instead. That means
@@ -585,23 +591,23 @@ now explicitly check for and throw an error in this case.
 :jirab:`DM-3400`
 
 Visualizations for astrometry.net solver
-----------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 It is now possible to display the source positions, distorted source
 positions and reference positions to assist with debugging.
 :jirab:`DM-3209`
 
 Subaru support reinstated
--------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``obs_subaru`` package, which provides packages and tasks specific
 to the Subaru telescope, has been brought up to date with recent changes
 to the LSST stack and improvements made during Hyper Suprime Cam
 development.
-(:jirab:`DM-1794,DM-3403`)
+:jirab:`DM-1794,DM-3403`
 
 Refactor & document coadd construction
---------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A number of minor changes and documentation improvements were made to
 the ``CoaddBase``, ``AssembleCoadd``, ``CoaddInputRecorder`` and
@@ -611,7 +617,7 @@ Cam.
 :jirab:`DM-2980`
 
 Properly handle masking NaN or saturated values in overscans
-------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Resolved an issue where, in certain circumstances, flags in the mask
 plane for saturated and nan values in overscans were being improperly
@@ -620,7 +626,7 @@ the amplifier where the bad values are seen.
 :jirab:`DM-2923`
 
 Deblender optimization
-----------------------
+^^^^^^^^^^^^^^^^^^^^^^
 
 Several performance optimizations to the (C++) algorithms used in the
 deblender have been implemented, in particular those which identify
