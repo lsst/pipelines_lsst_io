@@ -52,6 +52,9 @@
 Release Notes
 #############
 
+- :ref:`release-v12-0` --- current
+- :ref:`release-v11-0`
+
 .. _release-v12-0:
 
 Winter 2016 & X2016 Release (v12_0)
@@ -65,19 +68,68 @@ Winter 2016 & X2016 Release (v12_0)
 | :doc:`EUPS distrib <../install/newinstall>` | v12\_0     |
 +---------------------------------------------+------------+
 
+- :ref:`release-v12-0-major-changes`
+- :ref:`release-v12-0-bug-fixes`
+- :ref:`release-v12-0-internal-improvements`
+
 *See also:*
 
 - :doc:`Installation instructions <../install/index>`
 - :doc:`Known issues <known-issues>`
-- :doc:`Measurements & Characterization <metrics/v11_0/index>`
-- `Qserv release notes <https://confluence.lsstcorp.org/display/DM/Summer+2015+Qserv+Release>`_
-- `Webserv release notes <https://confluence.lsstcorp.org/display/DM/Summer+2015+WebServ+Release>`_
-- `Science User Interface release notes <https://confluence.lsstcorp.org/pages/viewpage.action?pageId=41785820>`_
+
+.. - :doc:`Measurements & Characterization <metrics/v11_0/index>`
 
 .. _release-v12-0-major-changes:
 
 Major Functionality and Interface Changes
 -----------------------------------------
+
+- :ref:`release-v12-0-mask-planes-before-coaddition`
+- :ref:`release-v12-0-dumping-task-config-params-includes-docs`
+- :ref:`release-v12-0-clean-up-interpolation-tasks`
+- :ref:`release-v12-0-avoid-io-race-config-writes`
+- :ref:`release-v12-0-safeclipassemblecoaddtask`
+- :ref:`release-v12-0-reserve-psf-candidates-from-fitting`
+- :ref:`release-v12-0-update-pipeline-config`
+- :ref:`release-v12-0-vignetting-polygons`
+- :ref:`release-v12-0-rerun`
+- :ref:`release-v12-0-fakes`
+- :ref:`release-v12-0-tract-routines`
+- :ref:`release-v12-0-xytransform`
+- :ref:`release-v12-0-getcoordsystem`
+- :ref:`release-v12-0-jointmatchlistwithcatalog`
+- :ref:`release-v12-0-visualize-skymaps`
+- :ref:`release-v12-0-unpacked-matches`
+- :ref:`release-v12-0-focal-plane-coords`
+- :ref:`release-v12-0-jacobian-position-src`
+- :ref:`release-v12-0-record-images-contributing-to-coadds`
+- :ref:`release-v12-0-variance-at-source`
+- :ref:`release-v12-0-source-flux-in-ap`
+- :ref:`release-v12-0-blendedness`
+- :ref:`release-v12-0-simple-shape-meas`
+- :ref:`release-v12-0-mirata-seljak-mandelbaum`
+- :ref:`release-v12-0-interp-background`
+- :ref:`release-v12-0-averagecoord`
+- :ref:`release-v12-0-hsc-support`
+- :ref:`release-v12-0-psf-shapelet`
+- :ref:`release-v12-0-propagate-flags-to-coadds`
+- :ref:`release-v12-0-apcorr-coadd-meas`
+- :ref:`release-v12-0-grown-footprints`
+- :ref:`release-v12-0-meas-sky-objs`
+- :ref:`release-v12-0-specify-output-dir`
+- :ref:`release-v12-0-bright-object-masks`
+- :ref:`release-v12-0-cmodel-improvements`
+- :ref:`release-v12-0-astropy-table-views`
+- :ref:`release-v12-0-afterburner-measurements`
+- :ref:`release-v12-0-task-registry`
+- :ref:`release-v12-0-afw-test-utilities`
+- :ref:`release-v12-0-non-linearity-corrections`
+- :ref:`release-v12-0-amplifier-catalogs`
+- :ref:`release-v12-0-background-subtraction`
+- :ref:`release-v12-0-star-selectors`
+- :ref:`release-v12-0-processccdtask`
+
+.. _release-v12-0-mask-planes-before-coaddition:
 
 Add the option of excluding mask planes before coaddition
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -86,11 +138,15 @@ The user-configurable parameter ``removeMaskPlanes`` has been added to :lclass:`
 This is a list of mask planes which will not be propagated to the coadd; by default, the ``CROSSTALK`` and ``NOT_DEBLENDED`` mask planes are removed.
 :jirab:`DM-4866`
 
+.. _release-v12-0-dumping-task-config-params-includes-docs:
+
 Dumping task configuration parameters now includes documentation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 That is, running ``${TASK} ... --show config`` displays not only the names and values of the configuration but also associated documentation.
 :jirab:`DM-3811`
+
+.. _release-v12-0-clean-up-interpolation-tasks:
 
 Clean up interpolation tasks and implement useFallbackValueAtEdge
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -109,6 +165,8 @@ Allowance for a negative ``fallbackValue`` is also controlled though a config pa
 
 :jirab:`DM-3677`
 
+.. _release-v12-0-avoid-io-race-config-writes:
+
 HSC backport: Avoid I/O race conditions config write out
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -117,6 +175,8 @@ This is accomplished by writing to temporary files and then renaming them to the
 Also, to avoid similar race conditions in the backup file creation (e.g. :file:`config.py~1`, :file:`config.py~2`, …), a ``--no-backup-config`` option (to be used with ``--clobber-config``) is added here to prevent the backup copies being made.
 The outcome for this option is that the config that are still recorded are for the most recent run.
 :jirab:`DM-3911`
+
+.. _release-v12-0-safeclipassemblecoaddtask:
 
 HSC backport: Introduce SafeClipAssembleCoaddTask which extends AssembleCoaddTask to make clipping safer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -142,6 +202,8 @@ If the legacy task is run, the clipped mask plane must be removed from the ``mas
 
 :jirab:`DM-2915`
 
+.. _release-v12-0-reserve-psf-candidates-from-fitting:
+
 HSC backport: Allow for some fraction of PSF Candidates to be reserved from PSF fitting
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -150,6 +212,8 @@ The reserved fraction can then be used to test for over-fitting, do cross-valida
 To support this functionality, the run methods of :lclass:`CalibrateTask` and :lclass:`MeasurePsfTask` now accept the additional keyword argument ``expId``.
 Dummy versions of this keyword were added to the :lclass:`SdssCalibrateTask` and :lclass:`CfhtCalibrateTask` to maintain a consistent API.
 :jirab:`DM-3692`
+
+.. _release-v12-0-update-pipeline-config:
 
 Updated pipeline configuration based on Hyper Suprime-Cam experience
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -164,6 +228,8 @@ Major changes include:
 
 :jirab:`DM-3942`
 
+.. _release-v12-0-vignetting-polygons:
+
 Define polygon bounds for CCDs based on vignetted regions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -171,6 +237,8 @@ This adds a function in ip_isr's :command:`isrTask.py` to set a "valid polygon" 
 It is currently being used in ``obs_subaru``\ 's :command:`isr.py` to set the polygon bounds (added in :jira:`DM-2981`) for a CCD exposure to include the non-vignetted regions.
 The settings for the vignetted region is in a separate config file so that it can be used in different places in the code.
 :jirab:`DM-3259`
+
+.. _release-v12-0-rerun:
 
 Introduce ``--rerun`` option for command line tasks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -205,6 +273,8 @@ is equivalent to
 
 :jirab:`RFC-95,DM-3371`
 
+.. _release-v12-0-fakes:
+
 Introduce framework for injecting fake sources into data processing
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -217,6 +287,8 @@ Once a task has been created, the config field fakes in :command:`processCcd` mu
 Additionally, the task will not be run unless the ``doFakes`` configuration option in :command:`processCcd` is set to ``True``.
 However, if this variable is set to ``True``, and the task is not retargeted :command:`processCcd` will fail.
 :jirab:`DM-3380`
+
+.. _release-v12-0-tract-routines:
 
 Add convenience routines for working with tracts
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -232,11 +304,15 @@ Added two new data id containers:
 
 :jirab:`DM-4373`
 
+.. _release-v12-0-xytransform:
+
 Warp images based on an XYTransform 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Added the ability to warp images using a transformation defined by an :lclass:`lsst::afw::geom::XYTransform`.
 :jirab:`DM-4162`
+
+.. _release-v12-0-getcoordsystem:
 
 Add getCoordSystem to Coord and add UNKNOWN CoordSystem enum
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -244,6 +320,8 @@ Add getCoordSystem to Coord and add UNKNOWN CoordSystem enum
 Added method :lmeth:`getCoordSystem` to :lclass:`lsst::afw::coord::Coord`.
 Also added ``UNKNOWN=-1`` as a new :class:`CoordSystem` enum (the existing enums retain their existing value).
 :lclass:`DM-4606`
+
+.. _release-v12-0-jointmatchlistwithcatalog:
 
 Adapt joinMatchListWithCatalog to facilitate and simplify denormalizing a match list
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -254,17 +332,23 @@ This can now be done using the :lfunc:`joinMatchListWithCatalog` function in ``m
 It has been moved from ``meas_astrom``\ 's :lclass:`ANetBasicAstrometryTask` so that it can be easily accessed (requiring only that a reference object loader be initiated) and to allow it to work with any kind of reference catalog (i.e. other than ``a_net``).
 :jirab:`DM-3633`
 
+.. _release-v12-0-visualize-skymaps:
+
 Add a script for visualizing skymaps and CCDs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``skymap`` package now contains the script :command:`showVisitSkyMap.py` which provides a convenient way of visualizing the tracts, patches and CCDs contained in a set of visits.
 :jirab:`DM-4095`
 
+.. _release-v12-0-unpacked-matches:
+
 Add functions to generate "unpacked matches" to and from a catalog
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Functions have been added to :lmod:`lsst::afw::catalogMatches` to provide the ability to convert a match list into a catalog and vice versa (this can be useful for post-processing analyses; QA analysis, for example).
 :jirab:`DM-4729`
+
+.. _release-v12-0-focal-plane-coords:
 
 Add a measurement algorithm which records the focal plane coordinates of sources
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -273,12 +357,16 @@ The :lclass:`SingleFrameFPPositionPlugin` measurement plugin, available in ``mea
 This plugin is not enabled by default, but may be switched on by requesting ``base_FPPosition`` in measurement configuration.
 :jirab:`DM-4234`
 
+.. _release-v12-0-jacobian-position-src:
+
 Add a measurement algorithm which records the Jacobian at the positions of sources
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The :lclass:`SingleFrameJacobianPlugin` calculates the ratio between the nominal Jacobian determinant at the source centroid (as determined by a user-specified pixel scale) and the actual Jacobian determinant as derived from the astrometric solution.
 This plugin is not enabled by default, but may be switched on by requesting ``base_Jacobian`` in measurement configuration.
 :jirab:`DM-4234`
+
+.. _release-v12-0-record-images-contributing-to-coadds:
 
 Add a measurement algorithm which records the number of input images contributing to a coadd sources
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -288,6 +376,8 @@ The plugin is referred to as ``base_CountInputs``, and is enabled by default whe
 It is not appropriate to enable this plugin when processing single visit (i.e., not coadded) images.
 :jirab:`DM-4235`
 
+.. _release-v12-0-variance-at-source:
+
 Add a measurement algorithm which records the variance at the positions of sources
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -295,12 +385,16 @@ The :lclass:`SingleFrameVariancePlugin` records the median variance in the backg
 The plugin is referred to as ``base_Variance`` and is enabled by default when performing single frame measurement.
 :jirab:`DM-4235,DM-5427`
 
+.. _release-v12-0-source-flux-in-ap:
+
 Add a measurement algorithm which records source flux in an aperture scaled to the PSF
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The :lclass:`ScaledApertureFluxAlgorithm` measures the flux in a circular aperture with radius scaled to some user-specified multiple of the PSF FWHM.
 This plugin is not enabled by default, but may be switched on by requesting the ``base_ScaledApertureFlux`` in measurement configuration.
 :jirab:`DM-3257`
+
+.. _release-v12-0-blendedness:
 
 Add a measurement algorithm which quantifies the amount of "blendedness" of an object
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -312,12 +406,16 @@ The blendedness metric implemented is defined as ``1-childFlux/parentFlux``.
 The plugin is referred to as ``base_Blendedness`` and is not enabled by default. 
 :jirab:`DM-4847`
 
+.. _release-v12-0-simple-shape-meas:
+
 Add a "simple" shape measurement algorithm
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The :lclass:`SimpleShape` algorithm, provided in the ``meas_extensions_simpleShape`` package, computes the non-adaptive elliptical Gaussian-weighted moments of an image.
 The plugin is referred to as ``ext_simpleShape_SimpleShape`` and is not enabled by default.
 :jirab:`DM-5284`
+
+.. _release-v12-0-mirata-seljak-mandelbaum:
 
 Add Hirata-Seljak-Mandelbaum shape measurement algorithms
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -328,6 +426,8 @@ Please cite those works if publishing results based on this code.
 These algorithms are disabled by default; they can be enabled by requesting ``ext_shapeHSM_HsmShapeBj``, ``ext_shapeHSM_HsmShapeLinear``, ``ext_shapeHSM_HsmShapeKsb``, ``ext_shapeHSM_HsmShapeRegauss``, ``ext_shapeHSM_HsmSourceMoments`` and/or ``ext_shapeHSM_HsmPsfMoments`` in the measurement configuration.
 :jirab:`DM-2141,DM-3384,DM-4780`
 
+.. _release-v12-0-interp-background:
+
 Add option to temporarily remove an interpolated background prior to detection
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -336,11 +436,15 @@ The extra subtracted interpolated background is added back in after detection.
 Currently, the default setting for the config parameter ``doTempLocalBackround`` is set to ``False``.
 :jirab:`DM-4821`
 
+.. _release-v12-0-averagecoord:
+
 Add function to average coordinates
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Added function :lfunc:`lsst.afw.coord.averageCoord`, which will return an average coordinate (accounting for spherical geometry) given a list of input coordinates.
 :jirab:`DM-4933`
+
+.. _release-v12-0-hsc-support:
 
 Integrate support for Hyper Suprime-Cam
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -350,6 +454,8 @@ It will now be included as part of the lsst\_distrib release.
 *Note, though, that usage of Suprime-Cam with the stack is unsupported and unmaintained at present.*
 :jirab:`DM-3518,DONE DM-4358,DM-5007`
 
+.. _release-v12-0-psf-shapelet:
+
 Reimplement PSF Shapelet approximations for CModel
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -358,12 +464,16 @@ This is simpler and more robust than the old algorithm, which has been renamed t
 The new algorithm is recommended for production use, and is now the default.
 :jirab:`DM-5197`
 
+.. _release-v12-0-propagate-flags-to-coadds:
+
 Propagate flags from individual visits to coadds
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A task has been added which can propagate flags from individual visit catalogs to coadd catalogs.
 This is useful, for example, to track which stars in the coadd were used for measuring PSFs on the individual visits.
 :jirab:`DM-4878,DM-5084`
+
+.. _release-v12-0-prototype-bfc:
 
 Prototype Brighter-Fatter correction
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -374,17 +484,23 @@ It requires a pre-generated correction kernel.
 Calculation of this kernel is not currently performed within the stack: a prototype exists, and will be merged to the Calibration Products Pipeline in a future cycle.
 :jirab:`DM-4837,DM-5082,DM-5130`
 
+.. _release-v12-0-apcorr-coadd-meas:
+
 Aperture correction on coadd measurements
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Aperture corrections are now enabled for measurements performed on coadds.
 :jirab:`DM-5086`
 
+.. _release-v12-0-grown-footprints:
+
 Return grown Footprints from detection
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 By default, :lclass:`Footprints` returned by :lclass:`SourceDetectionTask` are now grown by a multiple of the PSF size.
 :jirab:`DM-4410`
+
+.. _release-v12-0-meas-sky-objs:
 
 Enable measurement of "sky objects" in coadd processing
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -394,6 +510,8 @@ This enables us to better characterize the depth of the survey.
 This functionality is enabled by default; it can be disabled by setting ``nSkySourcesPerPatch`` to zero in the configuration of :lclass:`MergeDetectionsTask`.
 :jirab:`DM-4840,DM-5288`
 
+.. _release-v12-0-specify-output-dir:
+
 Specification of output directory is now mandatory
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -402,18 +520,15 @@ Output locations may be specified with the ``--rerun`` or ``--output`` command l
 More information is available on `community.lsst.org <https://community.lsst.org/t/output-directory-soon-required-for-cmdlinetasks/598>`__.
 :jirab:`DM-4236`
 
+.. _release-v12-0-bright-object-masks:
+
 Bright object masks
 ^^^^^^^^^^^^^^^^^^^
 
 Given an input catalog listing the known positions and sizes of bright objects, a bit is set in the mask plane for every pixel lying within the object's footprint.
 :jirab:`DM-4831`
 
-Overhaul ProcessCcdTask and subtasks, including eliminating camera-specific variants
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Overhauled :lclass:`ProcessCcdTask` and :lclass:`CalibrateTask` to simplify the code and eliminate the need for camera-specific variants.
-See `Changes to ProceessCcdTask and Subtasks for details <https://community.lsst.org/t/backward-incompatible-changes-to-processccdtask-and-subtasks/581?u=timj>`__.
-:jirab:`DM-4692,DM-5348`
+.. _release-v12-0-cmodel-improvements:
 
 CModel fitting improvements
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -427,6 +542,8 @@ This has been achieved in three ways:
 - A new semi-empirical Bayesian prior on radius and ellipticity based on COSMOS distributions has been introduced.
 
 :jirab:`DM-4768`
+
+.. _release-v12-0-astropy-table-views:
 
 Astropy Table views into LSST Catalog objects
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -452,6 +569,8 @@ While LSST's catalog objects have features that make them particularly useful in
 
 :jirab:`DM-5641,DM-5642,DM-5643`
 
+.. _release-v12-0-afterburner-measurements:
+
 Add an "afterburner" measurement facility
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -460,8 +579,7 @@ This might include, for example, star-galaxy separation or applying aperture cor
 Afterburners of this type are run after measurement plugins, and do not have access to pixel data.
 :jirab:`DM-4887`
 
-.. FIXME
-
+.. _release-v12-0-task-registry:
 
 Tasks can now be kept in registries
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -485,6 +603,8 @@ One backwards incompatible change: in :jirab:`DM-6474` :lclass:`MeasurePsfTask` 
 This means the format for retargeting star selectors and overriding their config parameters has changed.
 The config override files in the various ``obs_`` packages are updated accordingly.
 
+.. _release-v12-0-afw-test-utilities:
+
 New test utilities in afw: BoxGrid and makeRampImage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -495,6 +615,8 @@ New test utilities in afw: BoxGrid and makeRampImage
 :lfunc:`lsst.afw.image.testUtils.makeRampImage` makes an image (``ImageX`` where ``X`` is any available type) with values that increase linearly between specified limits (linearly to the extent possible, for integer images).
 
 :jirab:`DM-5462`
+
+.. _release-v12-0-non-linearity-corrections:
 
 Correcting non-linearity
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -529,6 +651,8 @@ Linearizers are obtained from the butler, like any other calibration product.
 
 :jirab:`DM-5462,RFC-164`
 
+.. _release-v12-0-amplifier-catalogs:
+
 Amplifier information catalogs have changed
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -547,6 +671,8 @@ However, a value can be set for any camera, if desired.
 In addition, saturation level in the amplifier information catalog is now a floating point value (instead of an integer) and a value of ``nan`` means 'do not mask pixels as SAT.'
 
 :jirab:`DM-6147`
+
+.. _release-v12-0-background-subtraction:
 
 Changes in how background subtraction is done
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -579,6 +705,8 @@ See `discussion on Community <https://community.lsst.org/t/changes-in-how-backgr
 
 :jirab:`DM-5323,RFC-155`
 
+.. _release-v12-0-star-selectors:
+
 Star selectors have changed
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -597,6 +725,8 @@ Added :lclass:`BaseStarSelectorTask` (but for awhile it was called :lclass:`Star
 - :lmeth:`run` a concrete method that selects stars, makes them into PSF candidates and optionally flags the stars.
 
 :jirab:`RFC-154,DM-5532`
+
+.. _release-v12-0-processccdtask:
 
 Backward-incompatible changes to ProcessCcdTask and subtasks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -664,11 +794,37 @@ Algorithm changes
 Bug Fixes
 ---------
 
+- :ref:`release-v12-0-persist-ltvn-header`
+- :ref:`release-v12-0-identifying-peaks-in-merge`
+- :ref:`release-v12-0-getchildren`
+- :ref:`release-v12-0-warping-wcs-diff-systems`
+- :ref:`release-v12-0-mininitialradius`
+- :ref:`release-v12-0-fix-cmodel-math`
+- :ref:`release-v12-0-dipole-centroid-slot`
+- :ref:`release-v12-0-example-updates`
+- :ref:`release-v12-0-log-task-failures`
+- :ref:`release-v12-0-skymap`
+- :ref:`release-v12-0-coadd-variance`
+- :ref:`release-v12-0-deblended-variance`
+- :ref:`release-v12-0-apcorr-logic`
+- :ref:`release-v12-0-catalog-columns`
+- :ref:`release-v12-0-wcslib`
+- :ref:`release-v12-0-obs-subaru-rotation`
+- :ref:`release-v12-0-conf-overrides-failure`
+- :ref:`release-v12-0-sdssshape-flags`
+- :ref:`release-v12-0-contant-background-interpolation`
+- :ref:`release-v12-0-filter-fallback-message`
+- :ref:`release-v12-0-pixel-padding`
+
+.. _release-v12-0-persist-ltvn-header:
+
 Persist LTVn headers as floating point numbers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 When persisting to a FITS file, these header cards were previously, incorrectly, stored as integers.
 :jirab:`DM-4133`
+
+.. _release-v12-0-identifying-peaks-in-merge:
 
 Fix bug when identifying existing peaks in a merge
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -676,6 +832,8 @@ Fix bug when identifying existing peaks in a merge
 If two separate footprints from the same catalog are merged due to an existing merged object which overlaps both of them the flags of which peaks are being detected were not being propagated.
 This issue caused apparent dropouts of sources and has now been fixed.
 :jirab:`DM-2978`
+
+.. _release-v12-0-getchildren:
 
 Fix situation in which the getChildren method of SourceCatalog may return the wrong information
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -686,11 +844,15 @@ However, if multiple catalogs are concatenated together this condition may no lo
 The :lmeth:`getChildren` method was updated to raise an exception if the precondition of sorting is not met.
 :jirab:`DM-2976`
 
+.. _release-v12-0-warping-wcs-diff-systems:
+
 Fix warping when the WCS have different coordinate systems
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Warping assumed that the sky representation of both WCS was identical.
 :jirab:`DM-4162`
+
+.. _release-v12-0-mininitialradius:
 
 Correct bad default minInitialRadius for CModel
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -698,11 +860,15 @@ Correct bad default minInitialRadius for CModel
 The ``minInitialRadius`` configuration parameter had a default that is too small, causing many galaxies to be fit with point source models, leading to bad star/galaxy classifications.
 :jirab:`DM-3821`
 
+.. _release-v12-0-fix-cmodel-math:
+
 Correct algebraic error in CModel uncertainty calculation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 There was a simple but important algebra error in the uncertainty calculation, making the uncertainty a strong function of magnitude.
 :jirab:`DM-3821`
+
+.. _release-v12-0-dipole-centroid-slot:
 
 NaiveDipoleCentroid and NaiveDipoleFlux algorithms no longer require a centroid slot
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -711,12 +877,16 @@ Previously, initializing these algorithms was only possible if a centroid was al
 That was not only unnecessary, but also made them more complicated to use, particularly in testing.
 :jirab:`DM-3940`
 
+.. _release-v12-0-example-updates:
+
 Update (some) example code to run with recent stack versions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Changes in :lmod:`afw::table` had broken :file:`examples/calibrateTask.py` in ``pipe_tasks``.
 It has now been updated to comply with the latest :lmod:`afw::table` API.
 :jirab:`DM-4125`
+
+.. _release-v12-0-log-task-failures:
 
 Fix a failure to appropriately log failed task execution
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -726,12 +896,16 @@ In some cases, the very act of attempting to log this message could throw an exc
 This has now been resolved.
 :jirab:`DM-4218`
 
+.. _release-v12-0-skymap:
+
 Updates to Skymap packages
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Add functions to return patches and tracts which contain given coordinates, i.e. conversions between celestial coordinates and ``tract,patch`` indices.
 Functions include :lfunc:`findClosestTractPatchList`, :lfunc:`findAllTract`, and :lfunc:`findTractPatchList` which finds the closets tract and patch that overlaps coordinates, finds all tracts which include the specified coordinate, and finds tracts and patches that overlap a region respectively.
 :jirab:`DM-3775`
+
+.. _release-v12-0-coadd-variance:
 
 Fix variance in coadded images
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -742,12 +916,16 @@ The scaling was being applied incorrectly in some cases.
 This has now been fixed.
 :jirab:`DM-4798`
 
+.. _release-v12-0-deblended-variance:
+
 Fix variance in deblended sources
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The deblender incorrectly scaled the variance plane in deblended sources with the fraction of the total flux assigned to the source.
 This has been corrected.
 :jirab:`DM-4845`
+
+.. _release-v12-0-apcorr-logic:
 
 Fix logic for applying aperture corrections
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -757,6 +935,8 @@ This resulted in plugins whose measurements rely on aperture corrected fluxes (i
 The only plugin that was affected by this at this time was ``base_ClassificationExtendedness``.
 :jirab:`DM-4836`
 
+.. _release-v12-0-catalog-columns:
+
 More uniform support for assigning to catalog columns
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -764,11 +944,15 @@ Assignment of scalars or NumPy arrays to columns of afw.table.Catalog objects (e
 Flag columns still do not support column assignment, and Flag column access still returns a copy, not a view, because Flag values are stored internally as individual bits within a larger integer.
 :jirab:`DM-4856`
 
+.. _release-v12-0-wcslib:
+
 Upgraded WCSLIB to version 5.13
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Version 5.13 of WCSLIB resolves memory corruption errors that could crash the stack in some circumstances.
 :jirab:`DM-4904,RFC-89,DM-4946,DM-3793`
+
+.. _release-v12-0-obs-subaru-rotation:
 
 Fix rotation for instrument signature removal in obs_subaru
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -783,12 +967,16 @@ This issue fixes this bug, leading to much improved processing of HSC CCD's 100,
 Note that, in the future, the ingestion of the calibration data will be updated such that no rotations are necessary (so they will then be removed from  ``obs_subaru`` accordingly).
 :jirab:`DM-4998`
 
+.. _release-v12-0-conf-overrides-failure:
+
 Fix a silent failure to apply config overrides
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 When applying a config override, using a variable which hadn't been defined should throw a ``NameError``, which ultimately propagates to the end user to notify them that something has gone awry.
 This warning was being incorrectly suppressed.
 :jirab:`DM-5729`
+
+.. _release-v12-0-sdssshape-flags:
 
 Correctly set flags for bad SdssShape measurements.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -798,12 +986,16 @@ In some cases, a failed shape measurement could go un-noticed, resulting in an i
 This is now checked for, and bad fluxes are appropriately flagged.
 :jirab:`DM-3935`
 
+.. _release-v12-0-contant-background-interpolation:
+
 Fix CONSTANT background interpolation of bad data
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 When performing interpolation over bad data (e.g. every pixel masked), all interpolation types other than ``CONSTANT`` would return ``NaN``\ s; ``CONSTANT`` would throw.
 This has now been changed so that ``CONSTANT`` also returns ``NaN``\ s.
 :jirab:`DM-5797`
+
+.. _release-v12-0-pixel-padding:
 
 Accommodate pixel padding when unpersisting reference catalog matches
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -813,6 +1005,8 @@ This is set to 50 by default but was not reflected by the radius parameter set i
 Additionally, the match metadata was being set after the exposure's WCS had been updated, also leading to an inconsistency with the sky circle that was actually searched.
 We now ensure that the actual sky circle that was searched for reference objects is the one set and persisted in the match metadata.
 :jirab:`DM-5686`
+
+.. _release-v12-0-filter-fallback-message:
 
 Correct misleading filter fallback error message
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -826,12 +1020,30 @@ This has been corrected to properly inform the user about the issue.
 Build and Code Improvements
 ---------------------------
 
+- :ref:`release-v12-0-numpy-110`
+- :ref:`release-v12-0-boost-warning`
+- :ref:`release-v12-0-remove-task-display`
+- :ref:`release-v12-0-mask-to-defectlists`
+- :ref:`release-v12-0-ctrl-pool`
+- :ref:`release-v12-0-pipe-drivers`
+- :ref:`release-v12-0-test-tolerances`
+- :ref:`release-v12-0-filter-canonical-name`
+- :ref:`release-v12-0-clang-issues`
+- :ref:`release-v12-0-cmake-anaconda`
+- :ref:`release-v12-0-afwdata-tests`
+- :ref:`release-v12-0-disable-implicit-threading`
+- :ref:`release-v12-0-migrate-smart-pointers`
+
+.. _release-v12-0-numpy-110:
+
 Work-around incompatibilities with NumPy 1.10
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 NumPy 1.10 introduced API changes which were incompatible with existing usage in the stack.
 The latter has been updated to match.
 :jirab:`DM-4063,DM-4071,DM-4238`.
+
+.. _release-v12-0-boost-warning:
 
 When building boost warn user if user-config.jam or site-config.jam exists
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -840,6 +1052,8 @@ Building boost can fail if a :file:`user-config.jam` or :file:`site-config.jam` 
 Introduce a warning message if either of these files are found to notify the user.
 :jirab:`DM-4198`
 
+.. _release-v12-0-remove-task-display:
+
 Remove deprecated Task.display() method
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -847,11 +1061,15 @@ This method has been deprecated since release 9.2 (S14).
 It has been removed from the codebase, and all stack code updated to directly interface with :lmod:`afw.display` or to use helper functions defined in ``meas_astrom``.
 :jirab:`DM-4428`
 
+.. _release-v12-0-mask-to-defectlists:
+
 Efficiency improvement in converting Masks to DefectLists
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The previous version of routine was extremely memory intensive when large numbers of pixels were masked.
 :jirab:`DM-4800`
+
+.. _release-v12-0-ctrl-pool:
 
 Add a new task parallelization framework
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -862,11 +1080,15 @@ It is based on work carried out on Hyper Suprime-Cam.
 It is not intended to be the long-term solution to parallelized processing in the LSST stack, but meets our data processing needs until the fully-fledged parallelization middleware is available.
 :jirab:`DM-2983,DM-4835,DM-5409`
 
+.. _release-v12-0-pipe-drivers:
+
 Add parallel-processing top level tasks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The new ``pipe_drivers`` package builds upon ``ctrl_pool``, above, to provide command-line scripts which coordinate distributed execution of the single-frame, coaddition and multiband processing steps using either the Python multiprocessing module or with a SLURM batch scheduler on a cluster.
 :jirab:`DM-3368,DM-3369,DM-3370`
+
+.. _release-v12-0-test-tolerances:
 
 Adjust test tolerances to be compatible with MKL-based NumPy
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -875,12 +1097,16 @@ Anaconda 2.5 ships, by default, with a version of NumPy built against Intel MKL 
 This can change some numerical results slightly, necessitating a change to test tolerances.
 :jirab:`DM-5108`
 
+.. _release-v12-0-filter-canonical-name:
+
 Now possible to directly get a Filter's canonical name and aliases
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Added the convenience methods :lmeth:`getCanonicalName` and :lmeth:`getAliases` to :lmod:`lsst.afw.image.Filter`, accessible from both C++ and Python.
 These return the canonical name and the aliases, respectively, of the filter. This information was previously only available through an awkward sequence of method calls.
 :jirab:`DM-4816`
+
+.. _release-v12-0-clang-issues:
 
 Fix build issues with recent clang
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -890,6 +1116,8 @@ Although we believe this may be a problem with clang, we have worked around it w
 We hope to track down the source of the error and, if appropriate, report it to the clang developers in future.
 :jirab:`DM-5590,DM-5609`
 
+.. _release-v12-0-cmake-anaconda:
+
 Fix incorrect linking against Anaconda-provided libraries when using CMake
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -898,6 +1126,8 @@ This can incorrectly link against some libraries bundled with the Anaconda Pytho
 We have adjusted the build process of the affected packages to work around this error.
 :jirab:`DM-5595`
 
+.. _release-v12-0-afwdata-tests:
+
 Execute afw test suite when afwdata is not available
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -905,6 +1135,8 @@ Some tests in the ``afw`` package rely on data from the ``afwdata`` package.
 The test suite would search for ``afwdata``, and skip all of the afw tests if ``afwdata`` is not available.
 This check has been made smarter, so that only tests which actually require ``afwdata`` are now skipped.
 :jirab:`DM-609`
+
+.. _release-v12-0-disable-implicit-threading:
 
 Disable implicit threading
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -915,6 +1147,8 @@ We now disable implicit threading when explicitly parallelizing at a higher leve
 Implicit threading can be re-enabled by setting the ``LSST_ALLOW_IMPLICIT_THREADS`` environment variable.
 For more details, see this `Community post <https://community.lsst.org/t/implicit-threading-intervention/728>`__.
 :jirab:`DM-4719`
+
+.. _release-v12-0-migrate-smart-pointers:
 
 Migrate to standard smart pointers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
