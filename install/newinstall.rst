@@ -46,11 +46,13 @@ Debian / Ubuntu
 
 .. code-block:: bash
 
-   apt-get install make bison curl ca-certificates flex \
-       g++ git libbz2-dev libreadline6-dev libx11-dev \
-       libxt-dev m4 zlib1g-dev libxrender1 libfontconfig1 \
-       libncurses5-dev cmake libglib2.0-dev openjdk-7-jre \
-       gettext perl-modules
+   apt-get install bison ca-certificates
+           cmake flex g++ gettext git libbz2-dev \
+           libfontconfig1 libglib2.0-dev libncurses5-dev \
+           libreadline6-dev libssl-dev libx11-dev libxrender1 \
+           libxt-dev m4 openjdk-7-jre openjdk-8-jre \
+           perl-modules zlib1g-dev \
+
 
 .. from https://github.com/lsst-sqre/puppet-lsststack/blob/master/manifests/params.pp
 
