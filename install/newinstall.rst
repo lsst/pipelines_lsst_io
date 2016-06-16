@@ -50,7 +50,7 @@ Debian / Ubuntu
            cmake flex g++ gettext git libbz2-dev \
            libfontconfig1 libglib2.0-dev libncurses5-dev \
            libreadline6-dev libssl-dev libx11-dev libxrender1 \
-           libxt-dev m4 openjdk-7-jre openjdk-8-jre \
+           libxt-dev m4 openjdk-8-jre \
            perl-modules zlib1g-dev \
 
 
