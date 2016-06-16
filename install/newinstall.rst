@@ -172,11 +172,11 @@ To be safe, run:
 3. Installation set-up
 ----------------------
 
-Download and run the installation setup script, which installs the basic packages required to install other packages:
+Download and run the `installation setup script from GitHub <https://raw.githubusercontent.com/lsst/lsst/v12/scripts/newinstall.sh>`__, which installs the basic packages required to install other packages:
 
 .. code-block:: bash
 
-   curl -OL https://sw.lsstcorp.org/eupspkg/newinstall.sh
+   curl -OL http://ls.st/8g2
    bash newinstall.sh
 
 This installs the :command:`loadLSST.*` scripts, which you should source to ensure that LSST tools (e.g., the :command:`eups` command) are included in your path.
