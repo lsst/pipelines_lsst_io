@@ -20,7 +20,9 @@ See what's new in the :ref:`Release Notes <release-v11-0>`.
    :name: part-getting-started
 
    install/index
+   known-issues
    releases/index
+   metrics/index
 
 ..
   FIXME uncomment this section when tutorials are available

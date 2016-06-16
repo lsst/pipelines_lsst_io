@@ -6,4 +6,3 @@ Release History
    :maxdepth: 2
 
    release-notes
-   metrics/index
