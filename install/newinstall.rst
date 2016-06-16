@@ -46,7 +46,7 @@ Debian / Ubuntu
 
 .. code-block:: bash
 
-   apt-get install bison ca-certificates
+   apt-get install bison ca-certificates \
            cmake flex g++ gettext git libbz2-dev \
            libfontconfig1 libglib2.0-dev libncurses5-dev \
            libreadline6-dev libssl-dev libx11-dev libxrender1 \
