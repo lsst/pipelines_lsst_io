@@ -260,7 +260,7 @@ Add getCoordSystem to Coord and add UNKNOWN CoordSystem enum
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Added method :lmeth:`getCoordSystem` to :lclass:`lsst::afw::coord::Coord`.
-Also added ``UNKNOWN=-1`` as a new :class:`CoordSystem` enum (the existing enums retain their existing value).
+Also added ``UNKNOWN=-1`` as a new :lclass:`CoordSystem` enum (the existing enums retain their existing value).
 :lclass:`DM-4606`
 
 .. _release-v12-0-jointmatchlistwithcatalog:
@@ -628,7 +628,7 @@ There is a new task :lclass:`SubtractBackgroundTask`, with full documentation an
 The existing function :lfunc:`getBackground` (which fits a background) is replaced by :lmeth:`SubtractBackgroundTask.fitBackground`.
 Changes from :lfunc:`getBackground` are:
 
-- :lmeth:`getBackground` could return ``None`` if the fit failed; in that situation :lmeth:`fitBackround` will raise :exc:`RuntimeError` instead of returning ``None``.
+- :lmeth:`getBackground` could return ``None`` if the fit failed; in that situation :lmeth:`fitBackround` will raise :exc:`~exceptions.RuntimeError` instead of returning ``None``.
 - The argument ``image`` was renamed to ``maskedImage``, for clarity.
 - The config is not passed as an argument.
 - The debug display code uses different keys and is updated to use :lmod:`afw.display`.
@@ -680,7 +680,7 @@ Code changes
 
 - :lclass:`ProcessCoaddTask` is gone, along with all bin scripts that run it.
   Use the new `Multi-Band <https://confluence.lsstcorp.org/display/DM/S15+Multi-Band+Coadd+Processing+Prototype>`__ code, instead.
-- :class:`ProcessCcdTask` has been rewritten, so its config has changed.
+- :lclass:`ProcessCcdTask` has been rewritten, so its config has changed.
   Config override files will need to be updated.
   This will be done for the ``obs_`` packages as part of the merge, but if you have personal config override files then you will probably need to update them.
 - Camera-specific variants of :lclass:`ProcessCcdTask`.
