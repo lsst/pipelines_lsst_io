@@ -2,13 +2,13 @@
 
 ## Release notes
 
-Release notes are published through `release-notes.rst`, however, source for individual releases' notes is contained in individual files in `note-source/`.
+Release notes are published through `releases/index.rst`, however, source for individual releases' notes is contained in individual files in `releases/note-source/`.
 
 To start release notes for a new release
 
-1. Create a new notes file in `note-source/` based on the template below
-2. Add an include line for that file in `note-source/` in `release-notes.rst` (follow existing pattern)
-3. Add a ref link in `release-notes.rst` (follow existing pattern). Change the release marked 'current'
+1. Create a new notes file in `releases/note-source/` based on the template below
+2. Add an include line for that file in `note-source/` in `releases/index.rst` (follow existing pattern)
+3. Add a ref link in `releases/index.rst` (follow existing pattern). Change the release marked 'current'
 
 ### Template for release notes
 
@@ -18,13 +18,13 @@ To start release notes for a new release
 Cycle 20XY Release (vNN_N)
 ==========================
 
-+---------------------------------------------+------------+
-| Source                                      | Identifier |
-+=============================================+============+
-| Git tag                                     | NN.N       |
-+---------------------------------------------+------------+
-| :doc:`EUPS distrib <../install/newinstall>` | vNN\_N     |
-+---------------------------------------------+------------+
++-------------------------------------------+------------+
+| Source                                    | Identifier |
++===========================================+============+
+| Git tag                                   | NN.N       |
++-------------------------------------------+------------+
+| :doc:`EUPS distrib </install/newinstall>` | vNN\_N     |
++-------------------------------------------+------------+
 
 - :ref:`release-vNN-N-major-changes`
 - :ref:`release-vNN-N-bug-fixes`
@@ -32,9 +32,9 @@ Cycle 20XY Release (vNN_N)
 
 *See also:*
 
-- :doc:`Installation instructions <../install/index>`
-- :doc:`Known issues <known-issues>`
-- :doc:`Measurements & Characterization <metrics/vNN_N/index>`
+- :doc:`Installation instructions </install/index>`
+- :doc:`Known issues </known-issues>`
+- :doc:`Measurements & Characterization </metrics/index>`
 
 .. _release-vNN-N-major-changes:
 

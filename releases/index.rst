@@ -1,8 +1,12 @@
-###############
-Release History
-###############
+.. see README.md for author instructions
 
-.. toctree::
-   :maxdepth: 2
+#############
+Release Notes
+#############
 
-   release-notes
+- :ref:`release-v12-0` --- current
+- :ref:`release-v11-0`
+
+.. include:: note-source/v12_0.rst
+
+.. include:: note-source/v11_0.rst

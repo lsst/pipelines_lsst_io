@@ -3,13 +3,13 @@
 Winter 2016 & X2016 Release (v12_0)
 ===================================
 
-+---------------------------------------------+------------+
-| Source                                      | Identifier |
-+=============================================+============+
-| Git tag                                     | 12.0       |
-+---------------------------------------------+------------+
-| :doc:`EUPS distrib <../install/newinstall>` | v12\_0     |
-+---------------------------------------------+------------+
++-------------------------------------------+------------+
+| Source                                    | Identifier |
++===========================================+============+
+| Git tag                                   | 12.0       |
++-------------------------------------------+------------+
+| :doc:`EUPS distrib </install/newinstall>` | v12\_0     |
++-------------------------------------------+------------+
 
 - :ref:`release-v12-0-major-changes`
 - :ref:`release-v12-0-bug-fixes`
@@ -18,9 +18,8 @@ Winter 2016 & X2016 Release (v12_0)
 *See also:*
 
 - :doc:`Installation instructions <../install/index>`
-- :doc:`Known issues <known-issues>`
-
-.. - :doc:`Measurements & Characterization <metrics/v11_0/index>`
+- :doc:`Known issues </known-issues>`
+- :doc:`Measurements & Characterization </metrics/index>`
 
 .. _release-v12-0-major-changes:
 
