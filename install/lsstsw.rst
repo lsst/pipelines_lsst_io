@@ -9,7 +9,10 @@ Since lsstsw presents the Science Pipelines as a directory of Git repositories c
 
 Science Pipelines developers should also consult the `DM Developer Guide <https://developer.lsst.io>`_, and the `Workflow <https://developer.lsst.io/processes/workflow.html>`_ page in particular.
 
-If you have difficulty installing LSST software, reach out on the `Support forum at community.lsst.org <community.lsst.org/c/support>`_.
+If you have difficulty installing LSST software:
+
+- review the :ref:`known installation issues for your platform <installation-issues>`.
+- reach out on the `Support forum at community.lsst.org <community.lsst.org/c/support>`_.
 
 .. _lsstsw-prerequisites:
 
