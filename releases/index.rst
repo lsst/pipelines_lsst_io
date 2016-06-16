@@ -6,5 +6,4 @@ Release History
    :maxdepth: 2
 
    release-notes
-   known-issues
    metrics/index
