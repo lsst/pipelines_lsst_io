@@ -176,7 +176,7 @@ Download and run the `installation setup script from GitHub <https://raw.githubu
 
 .. code-block:: bash
 
-   curl -OL http://ls.st/8g2
+   curl -OL https://raw.githubusercontent.com/lsst/lsst/v12/scripts/newinstall.sh
    bash newinstall.sh
 
 This installs the :command:`loadLSST.*` scripts, which you should source to ensure that LSST tools (e.g., the :command:`eups` command) are included in your path.
