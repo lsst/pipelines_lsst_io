@@ -8,7 +8,10 @@ The LSST Science Pipelines are officially tested against CentOS 7, however devel
 
 :doc:`We also offer Conda binaries and Docker images <index>` if you do not wish to install the Science Pipelines from source.
 
-If you have difficulty installing LSST software, reach out on the `Support forum at community.lsst.org <community.lsst.org/c/support>`_.
+If you have difficulty installing LSST software:
+
+- review the :ref:`known installation issues for your platform <installation-issues>`.
+- reach out on the `Support forum at community.lsst.org <community.lsst.org/c/support>`_.
 
 .. _source-install-prereqs:
 

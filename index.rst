@@ -11,8 +11,8 @@ We are building the Science Pipelines for the `Large Synoptic Survey Telescope (
 - Report issues in `JIRA <https://jira.lsstcorp.org/projects/DM/issues/>`_
 - Learn more about LSST Data Management by visiting http://dm.lsst.org
 
-**The current release is 11.0.**
-See what's new in the :ref:`Release Notes <release-v11-0>`.
+**The current release is 12.0.**
+See what's new in the :ref:`Release Notes <release-v12-0>`.
 
 .. toctree::
    :maxdepth: 1
@@ -20,7 +20,9 @@ See what's new in the :ref:`Release Notes <release-v11-0>`.
    :name: part-getting-started
 
    install/index
+   known-issues
    releases/index
+   metrics/index
 
 ..
   FIXME uncomment this section when tutorials are available

@@ -1,6 +1,6 @@
-#################################
-Characterization Metrics for 11.0
-#################################
+##############################
+Characterization Metric Report
+##############################
 
 Starting from Summer 2015, administrative ("cycle") releases are
 accompanied by a measurements report characterizing the current

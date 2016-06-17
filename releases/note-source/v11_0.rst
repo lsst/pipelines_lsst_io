@@ -6,17 +6,16 @@ Summer 2015 Release (v11_0)
 These release notes document notable changes since 10.1, which was the
 Winter 2015 release.
 
-+---------------------------------------------+------------+
-| Source                                      | Identifier |
-+=============================================+============+
-| Git tag                                     | 11.0       |
-+---------------------------------------------+------------+
-| :doc:`EUPS distrib <../install/newinstall>` | v11\_0     |
-+---------------------------------------------+------------+
++-------------------------------------------+------------+
+| Source                                    | Identifier |
++===========================================+============+
+| Git tag                                   | 11.0       |
++-------------------------------------------+------------+
+| :doc:`EUPS distrib </install/newinstall>` | v11\_0     |
++-------------------------------------------+------------+
 
 *See also:*
 
-- :doc:`Measurements & Characterization <metrics/v11_0/index>`
 - `Qserv release notes <https://confluence.lsstcorp.org/display/DM/Summer+2015+Qserv+Release>`_
 - `Webserv release notes <https://confluence.lsstcorp.org/display/DM/Summer+2015+WebServ+Release>`_
 - `Science User Interface release notes <https://confluence.lsstcorp.org/pages/viewpage.action?pageId=41785820>`_

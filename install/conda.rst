@@ -6,7 +6,10 @@ This page will guide you through installing the LSST Science Pipelines as a Cond
 Anaconda is a popular Python distribution and package ecosystem.
 With this installation method you don't compile source code, or even need to have an existing Python installation.
 
-If you have difficulty installing LSST software, reach out on the `Support forum at community.lsst.org <community.lsst.org/c/support>`_.
+If you have difficulty installing LSST software:
+
+- review the :ref:`known installation issues for your platform <installation-issues>`.
+- reach out on the `Support forum at community.lsst.org <community.lsst.org/c/support>`_.
 
 1. Install Anaconda or Miniconda
 ================================

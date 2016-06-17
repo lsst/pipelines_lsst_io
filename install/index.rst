@@ -35,4 +35,7 @@ Choose an option below to get started.
 
 Next, :doc:`try out your Science Pipelines installation by running a demo <demo>`.
 
-If you have difficulty installing LSST software, reach out on the `Support forum at community.lsst.org <community.lsst.org/c/support>`_.
+If you have difficulty installing LSST software:
+
+- review the :ref:`known installation issues for your platform <installation-issues>`.
+- reach out on the `Support forum at community.lsst.org <community.lsst.org/c/support>`_.
