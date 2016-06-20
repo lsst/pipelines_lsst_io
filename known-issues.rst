@@ -8,15 +8,20 @@
 Known Issues
 ############
 
-.. _installation-issues:
+Binary installation issues
+==========================
 
-Installation Issues
-===================
+None known at this point. 
+
+.. _src-installation-issues:
+
+Source installation issues
+==========================
 
 .. _installation-issues-cross-platform:
 
 Cross Platform
---------------
+^^^^^^^^^^^^^^
 
 - Compiling some packages---in particular ``afw``\ ---require large amounts of
   RAM to compile. This is compounded as the system will automatically attempt
@@ -28,10 +33,13 @@ Cross Platform
 .. _installation-issues-redhat:
 
 Red Hat (and clones) specific
------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Older platforms
-^^^^^^^^^^^^^^^
+:RHEL 7.*:
+
+- No known
+
+:RHEL 6.*:
 
 - If you have a problem building on **RHEL 6** check the :ref:`Pre-requisites
   <source-install-redhat-prereqs>` to make sure sure you are using a more
@@ -44,16 +52,14 @@ Older platforms
 .. _installation-issues-macos:
 
 OS X specific
--------------
+^^^^^^^^^^^^^
 
-New versions
-^^^^^^^^^^^^
+:El Capitan:
 
-- El Capitan came out after our testing period, and there are known issues
-  :jirap:`DM-3200` that will be addressed in the next release.
+- No specific known issues for El Capitan
 
-Older platforms
-^^^^^^^^^^^^^^^
+
+:Older systems:
 
 - Some old installations of XCode on Macs create a :file:`/Developer`
   directory.  This can interfere with installation.
