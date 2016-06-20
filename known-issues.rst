@@ -8,6 +8,9 @@
 Known Issues
 ############
 
+.. _installation-issues:
+
+
 Binary installation issues
 ==========================
 
