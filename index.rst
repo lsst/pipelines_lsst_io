@@ -21,8 +21,13 @@ See what's new in the :ref:`Release Notes <release-v12-0>`.
 
    install/index
    known-issues
-   releases/index
+   releases/notes
    metrics/index
+
+.. toctree::
+   :hidden:
+
+   releases/index
 
 ..
   FIXME uncomment this section when tutorials are available

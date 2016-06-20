@@ -2,13 +2,13 @@
 
 ## Release notes
 
-Release notes are published through `releases/index.rst`, however, source for individual releases' notes is contained in individual files in `releases/note-source/`.
+Release notes are published through `releases/notes.rst`, however, source for individual releases' notes is contained in individual files in `releases/note-source/`.
 
 To start release notes for a new release
 
 1. Create a new notes file in `releases/note-source/` based on the template below
 2. Add an include line for that file in `note-source/` in `releases/index.rst` (follow existing pattern)
-3. Add a ref link in `releases/index.rst` (follow existing pattern). Change the release marked 'current'
+3. Add a ref link in `releases/notes.rst` (follow existing pattern). Change the release marked 'current'
 
 ### Template for release notes
 
