@@ -1,14 +1,20 @@
 # LSST Science Pipelines Docs
 
-**http://pipelines.lsst.io**
+**https://pipelines.lsst.io**
 
 This repository contains the base source material for LSST's Stack Documentation.
 Documentation is built using [Sphinx](http://sphinx-doc.org), which pulls in documentation material from LSST code repositories.
 
-### This is a prototype
+This repository is in early development.
+While this repo (since Pipelines version 12.0) has authoritative release notes and installation information you make find the earlier documentation projects useful:
 
-Note that this repository is a prototype of the LSST Stack's next-generation documentation platform.
-The official Stack documentation is located at https://confluence.lsstcorp.org/display/LSWUG.
+- [LSST Software User Guide wiki](https://confluence.lsstcorp.org/display/LSWUG.)
+- [Doxyen-generated API reference](https://lsst-web.ncsa.illinois.edu/doxygen/x_masterDoxyDoc/)
+
+Other documentation resources:
+
+- [LSST Community forum](https://community.lsst.org)
+- [DM Developer Guide](https://developer.lsst.io)
 
 ## Build the Docs
 
