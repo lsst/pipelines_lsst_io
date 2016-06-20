@@ -1,0 +1,65 @@
+######################################################################
+LSST Science Pipelines Version 12.0 (Winter 2016 / Extra 2016 Release)
+######################################################################
+
+Version 12.0 of the LSST Science Pipelines (aka W16/X16) is now available.
+
+If you have previously consumed an official release of the LSST Stack, please
+note these important distribution changes from previous releases:
+
+Major Feature Development
+=========================
+
+With a :ref:`new release schedule <v12-0-new-release-schedule>`, this saw
+prolonged development. This release features a complete backport of
+functionality from the Hyper-Suprime Cam pipeline, in addition to many new
+LSST-driven developments. Even :ref:`Astropy views of LSST catalogs objects
+<release-v12-0-astropy-table-views>` are available.
+
+Full details can be found in the :ref:`extensive release notes <release-v12-0>`.
+We have also published a :doc:`Characterization Metric Report
+</metrics/index>`.
+
+New: Install with Anaconda
+==========================
+
+In addition to the customary source installation, this release features two
+binary installation methods:
+
+- :doc:`Anaconda </install/conda>`
+- `CernVM FS <https://github.com/airnandez/lsst-cvmfs>`__
+
+If you are unsure which one to use, we recommend you try the conda binaries.
+This is the first conda binary release though and it is always possible we did
+not anticipate all the problems "in the wild;" if you experience difficulties,
+please `report them <https://community.lsst.org/c/support>`__ so that we can
+improve our testing (and help you!). 
+
+New Documentation at pipelines.lsst.io
+======================================
+
+Our release documentation and installation instructions are no longer on the
+corporate wiki; you can find them at http://pipelines.lsst.io/.
+
+You are welcome and encouraged to contribute improvements to the
+repo on GitHub: https://github.com/lsst/pipelines_docs/.
+
+.. _v12-0-new-release-schedule:
+
+New Release Schedule
+====================
+
+The timing of the formal releases (which mark the end of each DM
+planning cycle) has precessed from Winter/Summer to
+Spring/Fall. This has been done to avoid conflict between DM cycle
+planning activities and the LSST All-Hands Meetings in August and
+February. In the future, formal releases will be in June and
+December. In order to precess the cycles to the new schedule, an
+Extra 3-month cycle (aka X16) was added, so 12.0 is a "bumper"
+release containing approximately 9 months of activity.
+  
+Join Us on the Community Forum
+==============================
+
+If you have questions or comments or comments about the LSST Science Pipelines,
+visit our new community forum for advice: https://community.lsst.org/.
