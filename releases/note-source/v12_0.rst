@@ -17,6 +17,11 @@ Winter 2016 & X2016 Release (v12_0)
 - :ref:`release-v12-0-sui`
 - :ref:`release-v12-0-doc`
 
+.. toctree::
+   :maxdepth: 1
+
+   Qserv and Data Access release notes <v12_0_qserv_dax>
+
 *See also:*
 
 - :doc:`Installation instructions <../install/index>`
