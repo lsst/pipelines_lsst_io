@@ -2,11 +2,8 @@
 Characterization Metric Report
 ##############################
 
-Starting from Summer 2015, administrative ("cycle") releases are
-accompanied by a measurements report characterizing the current
-performance. Metrics included in these reports are expected to increase
-in number and sophistication at subsequent releases. This brief report
-describe measurements of interest that were carried out.
+Starting from Summer 2015, administrative ("cycle") releases are accompanied by a measurements report characterizing the current performance. Metrics included in these reports are expected to increase in number and sophistication at subsequent releases. This brief report describe measurements of interest that were carried out for the Summer 2015 cycle. In Winter 16 we focussed on moving towards the infrastructure to calculate and monitor these automatically so we can provide more extensive updates; therefore there are no changes from last cycle's values. 
+
 
 Summary of Photometric Repeatability Measurements
 =================================================
