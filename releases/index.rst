@@ -1,12 +1,12 @@
-.. see README.md for author instructions
+###############
+Release History
+###############
 
-#############
-Release Notes
-#############
+.. toctree::
 
-- :ref:`release-v12-0` --- current
-- :ref:`release-v11-0`
+   v12_0
 
-.. include:: note-source/v12_0.rst
+.. toctree::
+   :hidden:
 
-.. include:: note-source/v11_0.rst
+   notes

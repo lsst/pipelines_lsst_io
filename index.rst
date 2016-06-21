@@ -5,14 +5,17 @@ The LSST Science Pipelines
 The LSST Science Pipelines enable optical and near-infrared astronomy in the big data era.
 We are building the Science Pipelines for the `Large Synoptic Survey Telescope (LSST) <http://lsst.org>`_, but our command line task and Python API can be extended for any optical or near-infrared dataset.
 
-
 - Join us on the `LSST Community forum, community.lsst.org <http://community.lsst.org>`_
 - Fork our code on GitHub at https://github.com/lsst
 - Report issues in `JIRA <https://jira.lsstcorp.org/projects/DM/issues/>`_
 - Learn more about LSST Data Management by visiting http://dm.lsst.org
 
-**The current release is 12.0.**
-See what's new in the :ref:`Release Notes <release-v12-0>`.
+**The latest release is 12.0:** :doc:`learn what's new in the Winter 2016 / Extra 2015 release <releases/v12_0>`.
+
+.. toctree::
+   :hidden:
+
+   releases/index
 
 .. toctree::
    :maxdepth: 1
@@ -21,7 +24,7 @@ See what's new in the :ref:`Release Notes <release-v12-0>`.
 
    install/index
    known-issues
-   releases/index
+   releases/notes
    metrics/index
 
 ..
