@@ -14,6 +14,8 @@ Winter 2016 & X2016 Release (v12_0)
 - :ref:`release-v12-0-major-changes`
 - :ref:`release-v12-0-bug-fixes`
 - :ref:`release-v12-0-internal-improvements`
+- :ref:`release-v12-0-sui`
+- :ref:`release-v12-0-doc`
 
 *See also:*
 
@@ -1098,3 +1100,57 @@ Migrate to standard smart pointers
 C++11 introduced new smart pointer types (``std::unique_ptr``, ``std::shared_ptr`` and ``std::weak_ptr``).
 We have migrated from the previously used Boost smart pointers to their standard equivalents.
 :jirab:`DM-5879,DM-4008,RFC-100,DM-5966`
+
+Science User Interface Update
+-----------------------------
+
+.. _release-v12-0-sui:
+
+During cycles winter and extra 2016, SUIT group has embarked on a
+major rewrite of the Firefly client side code, converting the Java/GWT
+based code to pure JavaScript (ES6) code, adopting React/Redux
+framework. The goal is to finish more than 90% of the client code
+conversion by the end of X16. We will make a release version of the
+code by end of September 2016.
+
+Documentation improvements
+--------------------------
+
+.. _release-v12-0-doc:
+
+A number of documentation improvements were made, three of which may be of general interest:
+
+
+DM Developer Guide
+^^^^^^^^^^^^^^^^^^
+
+New life has been breathed into the `DM developer guide`_ both on the surface and behind the scenes. While the primary audience for this are LSST developers, it can be a useful guide to anyone who wishes to participate in our open source development - all the fun without the paperwork! You can find it at `developer.lsst.io`_
+
+.. _DM developer guide: https://developer.lsst.io
+.. _developer.lsst.io: https://developer.lsst.io
+
+LSST Techhnotes
+^^^^^^^^^^^^^^^
+
+We have a lightweight bootstrap that allows contributors to produce ReStructuredText documents that are then published via our web services using Sphinx and some of our won sauce. You can see a rich example in Colin Slater's technote, "DMTN-006: False Positive Rates in the LSST Image Differencing Pipeline", at `dmtn-006.lsst.io`_. A `list of available technotes`_ is currently curated on Community. 
+
+.. _dmtn-006.lsst.io: http://dmtn-006.lsst.io/en/latest/
+
+If you have been thinking hard about an LSST-related technical or scientific issue that you feel is below your "worth a paper" threshold, why not contribute it as a technote? We have a technote-boostrap_ to help you get started.
+
+.. _tecnote-bootstrap: https://github.com/lsst-sqre/lsst-technote-bootstrap
+
+Release Notes and Installation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You're reading them now on `pipelines.lsst.io`_ ! We have moved our
+release note and installation instructions to our Spinx-based platform
+as well. This means that if you find a defficiency with our notes that
+needs clarification, or discover a new issue, you are quite welcome to
+fork-and-PR them; the Github repository is `pipelines_docs`_
+
+.. _pipelines.lsst.io: https://pipelines.lsst.io/
+
+.. _pipelines_docs: https://github.com/lsst/pipelines_docs
+   
+
