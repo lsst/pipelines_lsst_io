@@ -27,7 +27,7 @@ In addition to the customary source installation, this release features two
 binary installation methods:
 
 - :doc:`Anaconda </install/conda>`
-- `CernVM FS <https://github.com/airnandez/lsst-cvmfs>`__
+- `CernVM FS <https://github.com/airnandez/lsst-cvmfs>`__ (contributed by Fabio Hernandez)
 
 If you are unsure which one to use, we recommend you try the conda binaries.
 This is the first conda binary release though and it is always possible we did
