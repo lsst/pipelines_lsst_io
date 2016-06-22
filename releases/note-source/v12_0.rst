@@ -686,7 +686,7 @@ Code changes
 - :lclass:`ProcessCcdTask` has been rewritten, so its config has changed.
   Config override files will need to be updated.
   This will be done for the ``obs_`` packages as part of the merge, but if you have personal config override files then you will probably need to update them.
-- Camera-specific variants of :lclass:`ProcessCcdTask`.
+- Camera-specific variants of :lclass:`ProcessCcdTask` are gone.
   You will run :command:`processCcdTask.py` to process images for all cameras.
 - For DECam :command:`processCcdTask.py` will use the LSST Stack's ISR by default.
   To read ``instcal`` files from the DECam Community Pipeline, replace the ISR task with ``DecamNullIsrTask`` by using a config override file containing the following:
