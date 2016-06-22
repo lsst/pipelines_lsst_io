@@ -1,3 +1,7 @@
+:orphan: True
+
+.. _release-v12-0-qserv-dax:
+
 Winter 2016 & X2016 QServ and Data Access Release Notes
 =======================================================
 
