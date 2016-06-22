@@ -15,6 +15,7 @@ Winter 2016 & X2016 Release (v12_0)
 - :ref:`release-v12-0-bug-fixes`
 - :ref:`release-v12-0-internal-improvements`
 - :ref:`release-v12-0-sui`
+- :ref:`Qserv and Data Access <release-v12-0-qserv-dax>`
 - :ref:`release-v12-0-doc`
 
 *See also:*
@@ -1103,8 +1104,8 @@ We have migrated from the previously used Boost smart pointers to their standard
 
 .. _release-v12-0-sui:
 
-Science User Interface Update
------------------------------
+Science User Interface
+----------------------
 
 During cycles winter and extra 2016, SUIT group has embarked on a major rewrite of the Firefly client side code, converting the Java/GWT based code to pure JavaScript (ES6) code, adopting React/Redux framework.
 The goal is to finish more than 90% of the client code conversion by the end of X16.
