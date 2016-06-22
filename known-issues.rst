@@ -10,8 +10,15 @@ Known Issues
 
 .. _installation-issues:
 
-Installation Issues
-===================
+Binary installation issues
+==========================
+
+*No known issues.*
+
+.. _src-installation-issues:
+
+Source installation issues
+==========================
 
 .. _installation-issues-cross-platform:
 
@@ -30,8 +37,13 @@ Cross Platform
 Red Hat (and clones) specific
 -----------------------------
 
-Older platforms
-^^^^^^^^^^^^^^^
+RHEL 7.*
+^^^^^^^^
+
+*No known issues.*
+
+RHEL 6.*
+^^^^^^^^
 
 - If you have a problem building on **RHEL 6** check the :ref:`Pre-requisites
   <source-install-redhat-prereqs>` to make sure sure you are using a more
@@ -46,14 +58,13 @@ Older platforms
 OS X specific
 -------------
 
-New versions
-^^^^^^^^^^^^
+El Capitan
+^^^^^^^^^^
 
-- El Capitan came out after our testing period, and there are known issues
-  :jirap:`DM-3200` that will be addressed in the next release.
+*No known issues.*
 
-Older platforms
-^^^^^^^^^^^^^^^
+Older systems
+^^^^^^^^^^^^^
 
 - Some old installations of XCode on Macs create a :file:`/Developer`
   directory.  This can interfere with installation.
