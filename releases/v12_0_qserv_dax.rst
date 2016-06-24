@@ -47,8 +47,8 @@ support on the workers. Performance was greatly improved.
 Robustness with large (multi-gigbyte) result sets
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Qserv previously had an issue where a dense and highly distributed query could cause workers to "firehose"
-the qserv czar, causing it lock up or fail due to memory and/or CPU exhaustion.  Threading and flow control
+Qserv previously had an issue where dense and highly distributed queries could cause workers to "fire-hose"
+the czar, causing it to lock up or fail due to memory and/or CPU exhaustion.  Threading and flow control
 changes were made on the czar and workers to address this.  A memory management issue in the mysql proxy
 LUA code was also addressed.
 :jirab:`DM-5908,DM-5909,DM-5910,DM-6149`
@@ -59,7 +59,7 @@ Query cancellation
 ^^^^^^^^^^^^^^^^^^
 
 Query cancellation improvements and rework begun in the W16 cycle were completed.  Queries in flight are
-now cancelled robustly on both czar and workers when a user types ^C to the mysql client.
+now canceled robustly on both czar and workers when a user types ^C to the mysql client.
 :jirab:`DM-2699,DM-3562,DM-3564,DM-3946,DM-3945`
 
 .. _release-v12-0-qserv-query:
@@ -83,7 +83,7 @@ of logs for both real users and automated tools.
 
 SQLAlchemy client support
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-The SQlAlchemy client library makes a few probe queries on connect to assess unicode support by the engine.
+The SQlAlchemy client library makes a few probe queries on connect to assess Unicode support by the engine.
 Some of these queries were problematic for the czar.  This was addressed and SQLAlchemy can now be used as
 an alternative client for Qserv.
 :jirab:`DM-4648`
@@ -93,7 +93,7 @@ an alternative client for Qserv.
 SQL-based CSS implementation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Qserv's central shared-state (CSS) metadata service implementation, formerly baseed on Zookeeper, was
+Qserv's central shared-state (CSS) meta-data service implementation, formerly based on Zookeeper, was
 replaced with a more robust and transactional SQL-based implementation. Dependencies on Zookeeper were
 removed from the build.
 :jirab:`DM-4003,DM-4138,DM-3192,DM-3574,DM-2733`
@@ -104,7 +104,7 @@ Multi-node integration tests via Docker
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A multi-node integration test suite was added, which may be run on a single host via Docker.  The multi-node
-integration test has been integrated with Travis CI, and is now run automatically on commits to all branches
+integration test is integrated with Travis CI, and now runs automatically on commits to all branches
 of the LSST Qserv git repo on github.
 :jirab:`DM-5218,DM-3985,DM-4295,DM-3910,DM-3922,DM-4395`
 
@@ -131,10 +131,10 @@ mysqlclient were removed from the build.
 Czar now in-process with mysqlproxy
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 The Qserv czar was previously wrapped with SWIG then hosted within a Python process which communicated with
-mysqlproxy over an XMLRPC interface implemented in Twisted and LUA.  Now the czar is wrapped directly to
-LUA with SWIG and brought into the myslqproxy process instead.  This allowed elimination of a lot of code,
-elimnation of an XMLRPC wire protocol, elimination of several external library dependencies, and removal of
-any Python involvement from the czar process.
+mysqlproxy over an XMLRPC interface implemented in Twisted and LUA.  The czar has been reworked so it is
+now directly wrapped to LUA and brought into the mysqlproxy process.  This allowed elimination of the XMLRPC
+wire protocol and associated code, elimination of several external library dependencies, and removal of all
+Python involvement from the proxy/czar process.
 :jirab:`DM-4348,DM-5307`
 
 .. _release-v12-0-qserv-docs:
@@ -142,7 +142,7 @@ any Python involvement from the czar process.
 Documentation updates
 ^^^^^^^^^^^^^^^^^^^^^
 
-User and installation documentation
+Qserv user and installation documentation
 (`Qserv 2016_05 documentation <https://www.slac.stanford.edu/exp/lsst/qserv/2016_05/>`_)
 was updated/corrected.
 :jirab:`DM-5754,DM-4105`
@@ -160,9 +160,9 @@ Bug Fixes
 
 Service timeout failure fix
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Qserv services would crash in some instances if left running for several days.  The cuase was tracked down
-to a missing null handle check in a mysql wrapper library, provoked when server connection would close be
-closed on timeout.
+Qserv services would crash in some instances if left running for several days.  The cause was tracked down
+to a missing null handle check in a mysql wrapper library, which was provoked when server connections would
+timeout.
 :jirab:`DM-5594`
 
 .. _release-v12-0-qserv-testqdisp:
@@ -207,7 +207,7 @@ Stream based logging macros
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Qserv was cut over to using stream based logging macros exclusively, and the boost format style logging
-macros (considered harmful) were removed from the lsst log package.  A redundant logging wrapping layer
+macros (considered harmful) were removed from the LSST log package.  A redundant logging wrapping layer
 in qserv was also removed.
 :jirab:`DM-4616,DM-5204,DM-5202,DM-3037`
 
@@ -217,9 +217,8 @@ Build improvements
 ^^^^^^^^^^^^^^^^^^
 
 Overly verbose build output from scons was greatly reduced.  Scons files were reworked to treat shared
-libraries consistently instead of the previous ad-hoc approach, and some latent incorrect shared lib linkages
-were corrected.  Scons files were also adjusted to avoid uneccessary copying of the source tree into the
-build tree.
+libraries consistently, and some latent incorrect shared lib linkages were corrected.  Scons files were also
+adjusted to avoid unnecessary copying of the source tree into the build tree.
 :jirab:`DM-3447,DM-2421,DM-4145,DM-3686,DM-3707`
 
 .. _release-v12-0-qserv-compilers:
@@ -230,7 +229,7 @@ Compiler support
 Issues were addressed to ensure that qserv builds and passes all unit tests on Linux with gcc 4.8.5 - 5.3.1,
 and on MacOSX with XCode 7.3.0.  Warnings were addressed wherever possible, and the builds are now largely
 warning free except for some warnings produced by third-party library dependencies.  Warnings generated by
-the Eclipse Neon C++ code analyzer were also addressed where possible.
+the Eclipse Neon C++ code analyzer were also addressed wherever possible.
 :jirab:`DM-3584,DM-3663,DM-3803,DM-3772,DM-3779,DM-3915,DM-4398,DM-4470,DM-4529,DM-4704,DM-5788,DM-6292`
 
 .. _release-v12-0-qserv-style:
@@ -249,9 +248,9 @@ uint type was replaced with unsigned int.
 Library updates
 ^^^^^^^^^^^^^^^
 
-Qserv was rolled forward to scisql 0.3.5, mysqlproxy 0.8.5, and boost 1.60, and the latest changes from
-XRootD.  We also moved from a forked version of the sphgeom library to following the tip of the official
-LSST version.
+Qserv was rolled forward to scisql 0.3.5, mysqlproxy 0.8.5, boost 1.60, and the latest changes from
+XRootD were incorporated.  We also moved from using a forked version of the sphgeom library to following the
+tip of the official LSST version.
 :jirab:`DM-4938,DM-4786,DM-5394,DM-2178,DM-4092,DM-2334`
 
 .. _release-v12-0-qserv-dead-code:
@@ -268,8 +267,8 @@ hinting code was removed from the proxy LUA miniParser.
 Docker improvements
 ^^^^^^^^^^^^^^^^^^^
 
-Docker container build and deploy scripts continued t be extended, enhanced, and debugged.  Scripts are
-currently based on shmux, and have been usable for administration of multiple qserv clusters
+Docker container build and deploy scripts continued to be extended, enhanced, and debugged.  Scripts are
+currently based on shmux, and have been used for administration of multiple qserv clusters
 at both NCSA and IN2P3.
 :jirab:`DM-3199,DM-6130,DM-4438,DM-5187,DM-5402,DM-4523,DM-5336`
 
@@ -278,7 +277,7 @@ at both NCSA and IN2P3.
 Integration test improvements
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Integration tests were added involving blobs and non-box spatial contraints.  Additionally, a facility to
+Integration tests were added involving blobs and non-box spatial constraints.  Additionally, a facility to
 reset the empty chunk list in the czar was added, which greatly streamlines the integration tests.
 :jirab:`DM-991,DM-2900,DM-4383`
 
