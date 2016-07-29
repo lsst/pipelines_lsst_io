@@ -11,6 +11,11 @@ If you have difficulty installing LSST software:
 - review the :ref:`known installation issues for your platform <installation-issues>`.
 - reach out on the `Support forum at community.lsst.org <community.lsst.org/c/support>`_.
 
+.. note::
+
+   Users of LSST Simulations (such as the Metrics Analysis Framework, MAF) should following the `LSST Simulations Installation documentation <https://confluence.lsstcorp.org/display/SIM/Catalogs+and+MAF>`__ instead of this page.
+   The Simulations group publishes their own Conda channel that includes compatibility patches for the Simulations stack.
+
 1. Install Anaconda or Miniconda
 ================================
 
@@ -62,12 +67,14 @@ Here's what these commands are doing, line-by-line:
 3. Activate the ``lsst`` environment (use your environment's name if you chose a different one).
    The :command:`activate` command is provided by Anaconda/Miniconda (e.g. at :file:`~/miniconda2/bin/activate`).
 4. Install the full suite of LSST science software, including Science Pipelines (``lsst-distrib``) and LSST Simulations (``lsst-sims``).
+   Installating ``lsst-sims`` is optional.
 5. Setup LSST packages in your environment with EUPS.
 
 .. warning::
 
-   If the install fails with an error, check that your shell does not have another EUPS stack configured.
-   Conda packaged EUPS will use existing values of ``EUPS_PATH`` and ``EUPS_DIR``. If they exist unset them before installing or using Conda packages.
+   If the install fails with an error, check that your shell does not have another EUPS Stack configured (try ``echo $EUPS_STACK``).
+   Conda packaged EUPS will use existing values of ``EUPS_PATH`` and ``EUPS_DIR``.
+   If they exist, unset them before installing or using Conda packages.
 
 .. _conda-install-activate:
 
