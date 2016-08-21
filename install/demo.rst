@@ -63,12 +63,12 @@ The demo will take a minute or two to execute (depending upon your machine), and
 Upon successful completion, the top-level directory will contain an output ASCII table that can be compared to the expected results from a reference run.
 This table is for convenience only, and would not ordinarily be produced by the production LSST pipelines.  
 
-=============== ==========================
-Demo Invocation Demo Output               
-=============== ==========================
-demo.sh         detected-sources.txt      
-demo.sh --small detected-sources_small.txt
-=============== ==========================
+========================== ==================================
+Demo Invocation            Demo Output               
+========================== ==================================
+:command:`demo.sh`         :file:`detected-sources.txt`
+:command:`demo.sh --small` :file:`detected-sources_small.txt`
+========================== ==================================
 
 The demo output may not be identical to the reference output due to minor variation in numerical routines between operating systems (see :jira:`DM-1086` for details).
 The :command:`bin/compare` script will check whether the output matches the reference to within expected tolerances:
