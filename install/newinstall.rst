@@ -11,7 +11,7 @@ The LSST Science Pipelines are officially tested against CentOS 7, however devel
 If you have difficulty installing LSST software:
 
 - review the :ref:`known installation issues for your platform <installation-issues>`.
-- reach out on the `Support forum at community.lsst.org <community.lsst.org/c/support>`_.
+- reach out on the `Support forum at community.lsst.org <https://community.lsst.org/c/support>`_.
 
 .. _source-install-prereqs:
 
@@ -190,7 +190,7 @@ If these packages are not available, the script will offer to install them for y
 Allowing the installation of these core packages will not replace or modify any other version of these packages that may be installed on your system.
 If you do not choose the Anaconda Python install, and subsequent package build steps fail, you can do one of two things:
 
-* Report the problem to `community.lsst.org <community.lsst.org>`_. Include your OS, a description of the problem, plus any error messages. Community members will provide assistance.
+* Report the problem to `community.lsst.org <https://community.lsst.org>`_. Include your OS, a description of the problem, plus any error messages. Community members will provide assistance.
 * Consider removing all contents of the install directory and start from scratch, and accepting the Anaconda Python installation option.
 
 Once :command:`newinstall.sh` has finished, source the LSST environment to continue the installation by running the appropriate command for your shell:
