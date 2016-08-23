@@ -12,7 +12,7 @@ Science Pipelines developers should also consult the `DM Developer Guide <https:
 If you have difficulty installing LSST software:
 
 - review the :ref:`known installation issues for your platform <installation-issues>`.
-- reach out on the `Support forum at community.lsst.org <community.lsst.org/c/support>`_.
+- reach out on the `Support forum at community.lsst.org <https://community.lsst.org/c/support>`_.
 
 .. _lsstsw-prerequisites:
 
