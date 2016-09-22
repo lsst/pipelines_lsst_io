@@ -19,10 +19,10 @@ If you have difficulty installing LSST software:
 1. Prerequisites
 ================
 
-Ensure you have all software dependencies installed on your system:
+You need to install some prerequisites to build the LSST Stack from source:
 
-- Pipelines build pre-requisites listed in the :ref:`eups distrib installation page <source-install-prereqs>`.
-- `Git LFS configured for LSST DM's servers <https://developer.lsst.io/tools/git_lfs.html>`_.
+- :ref:`Install build dependencies <source-install-prereqs>`.
+- `Install and configure Git LFS <https://developer.lsst.io/tools/git_lfs.html>`_ for LSST DM's data servers.
 
 .. _lsstsw-deploy:
 
