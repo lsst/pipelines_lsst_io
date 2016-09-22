@@ -19,11 +19,10 @@ If you have difficulty installing LSST software:
 1. Prerequisites
 ================
 
-Before embarking on Science Pipelines development, ensure you have all software dependencies installed on your system:
+You need to install some prerequisites to build the LSST Stack from source:
 
-- Pipelines build pre-requisites listed in the :ref:`eups distrib installation page <source-install-prereqs>`.
-- A bash shell; ``lsstsw`` may not work with other shells like zsh or tcsh.
-- `Git LFS configured for LSST DM's servers <https://developer.lsst.io/tools/git_lfs.html>`_.
+- :ref:`Install build dependencies <source-install-prereqs>`.
+- `Install and configure Git LFS <https://developer.lsst.io/tools/git_lfs.html>`_ for LSST DM's data servers.
 
 .. _lsstsw-deploy:
 
@@ -109,6 +108,10 @@ Do this by running the ``setup.sh`` from the ``lsstsw/`` directory:
 .. code-block:: bash
 
    . bin/setup.sh
+
+.. note::
+
+   If you are using a tcsh shell, run ``. bin/setup.csh`` instead (note ``csh`` extension).
 
 .. _lsstsw-testing-your-installation:
 
