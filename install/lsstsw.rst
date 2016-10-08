@@ -74,7 +74,7 @@ From the :file:`lsstsw` directory, run:
 
 .. note::
 
-   For a more complete Scinece Pipelines stack, you can run
+   For a more complete Science Pipelines stack, you can run
 
    .. code-block:: bash
 
