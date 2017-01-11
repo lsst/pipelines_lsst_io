@@ -54,7 +54,7 @@ These commands will download and activate the LSST Science Pipelines in a new Co
    conda config --add channels http://conda.lsst.codes/stack  
    conda create --name lsst python=2
    source activate lsst
-   conda install lsst-distrib lsst-sims
+   conda install lsst-distrib
    source eups-setups.sh
 
 Here's what these commands are doing, line-by-line:
@@ -66,8 +66,7 @@ Here's what these commands are doing, line-by-line:
    See the `Conda documentation on environments for more information <http://conda.pydata.org/docs/using/envs.html>`__.
 3. Activate the ``lsst`` environment (use your environment's name if you chose a different one).
    The :command:`activate` command is provided by Anaconda/Miniconda (e.g. at :file:`~/miniconda2/bin/activate`).
-4. Install the full suite of LSST science software, including Science Pipelines (``lsst-distrib``) and LSST Simulations (``lsst-sims``).
-   Installating ``lsst-sims`` is optional.
+4. Install the full suite of LSST science software, including Science Pipelines (``lsst-distrib``).
 5. Setup LSST packages in your environment with EUPS.
 
 .. warning::
