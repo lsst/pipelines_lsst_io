@@ -12,8 +12,10 @@ Installing the LSST Science Pipelines
 
 We offer a few ways of installing the LSST Science Pipelines.
 Choose an option below to get started.
-Note: to install the LSST simulation tools (including MAF), see
-`this page <https://confluence.lsstcorp.org/display/SIM/Catalogs+and+MAF>`_.
+
+.. note::
+    To install the LSST simulation tools (including MAF), see
+    `this page <https://confluence.lsstcorp.org/display/SIM/Catalogs+and+MAF>`_.
 
 :doc:`Conda installation <conda>`
    Install the Pipelines as an `Anaconda/Miniconda <https://www.continuum.io/why-anaconda>`__ binary package.
