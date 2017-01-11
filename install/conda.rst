@@ -48,6 +48,10 @@ See the `Conda documentation for more information about installing and managing 
 
 These commands will download and activate the LSST Science Pipelines in a new Conda environment:
 
+.. note::
+    Installing the LSST simulation tools (including MAF) requires pointing to a different conda
+    channel.  See `this page <https://confluence.lsstcorp.org/display/SIM/Catalogs+and+MAF>`_ for instructions.
+
 .. code-block:: bash
    :linenos:
 
