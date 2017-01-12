@@ -6,15 +6,15 @@ This page will guide you through installing the LSST Science Pipelines as a Cond
 Anaconda is a popular Python distribution and package ecosystem.
 With this installation method you don't compile source code, or even need to have an existing Python installation.
 
+.. note::
+
+   This documentation does not cover the LSST Simulations software.
+   See the `LSST Simulations installation documentation <https://confluence.lsstcorp.org/display/SIM/Catalogs+and+MAF>`_ instead.
+
 If you have difficulty installing LSST software:
 
 - review the :ref:`known installation issues for your platform <installation-issues>`.
 - reach out on the `Support forum at community.lsst.org <https://community.lsst.org/c/support>`_.
-
-.. note::
-
-   Users of LSST Simulations (such as the Metrics Analysis Framework, MAF) should following the `LSST Simulations Installation documentation <https://confluence.lsstcorp.org/display/SIM/Catalogs+and+MAF>`__ instead of this page.
-   The Simulations group publishes their own Conda channel that includes compatibility patches for the Simulations stack.
 
 1. Install Anaconda or Miniconda
 ================================
@@ -54,8 +54,13 @@ These commands will download and activate the LSST Science Pipelines in a new Co
    conda config --add channels http://conda.lsst.codes/stack  
    conda create --name lsst python=2
    source activate lsst
-   conda install lsst-distrib lsst-sims
+   conda install lsst-distrib
    source eups-setups.sh
+
+.. warning::
+
+   Installing the LSST simulation tools (including MAF) requires pointing to a different Conda channel.
+   See the `LSST Simulations installation documentation <https://confluence.lsstcorp.org/display/SIM/Catalogs+and+MAF>`_.
 
 Here's what these commands are doing, line-by-line:
 
@@ -66,8 +71,7 @@ Here's what these commands are doing, line-by-line:
    See the `Conda documentation on environments for more information <http://conda.pydata.org/docs/using/envs.html>`__.
 3. Activate the ``lsst`` environment (use your environment's name if you chose a different one).
    The :command:`activate` command is provided by Anaconda/Miniconda (e.g. at :file:`~/miniconda2/bin/activate`).
-4. Install the full suite of LSST science software, including Science Pipelines (``lsst-distrib``) and LSST Simulations (``lsst-sims``).
-   Installating ``lsst-sims`` is optional.
+4. Install the full suite of LSST science software, including Science Pipelines (``lsst-distrib``).
 5. Setup LSST packages in your environment with EUPS.
 
 .. warning::
