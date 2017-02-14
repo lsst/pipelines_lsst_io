@@ -18,8 +18,13 @@ If you have difficulty installing LSST software:
 Prerequisites
 =============
 
-**New since 11.0**: The minimum gcc version required to compile the Stack is **gcc 4.8.**
-If you using our previous factory platform, RedHat/CentOS 6, and you are unable to upgrade to version 7 (which comes with gcc 4.8 as default) consult :ref:`the section below on upgrading compilers in legacy Linux <source-install-redhat-legacy>`.
+This section lists system prerequisites for :ref:`macOS <source-install-mac-prereqs>`, :ref:`Debian/Ubuntu <source-install-debian-prereqs>`, and :ref:`RedHat/CentOS <source-install-redhat-prereqs>` platforms.
+All platforms also need :ref:`Python package dependencies <source-install-py-deps>` listed here.
+
+.. note::
+
+   **New since 11.0**: The minimum gcc version required to compile the Stack is **gcc 4.8.**
+   If you using our previous factory platform, RedHat/CentOS 6, and you are unable to upgrade to version 7 (which comes with gcc 4.8 as default) consult :ref:`the section below on upgrading compilers in legacy Linux <source-install-redhat-legacy>`.
 
 .. _source-install-mac-prereqs:
 
