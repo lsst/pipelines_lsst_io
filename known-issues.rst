@@ -58,13 +58,32 @@ RHEL 6.*
 macOS specific
 --------------
 
-macOS 10.12 (Sierra)
-^^^^^^^^^^^^^^^^^^^^
+macOS 10.12 (Sierra) and OS X 10.11 (El Capitan)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-OS X 10.11 (El Capitan)
-^^^^^^^^^^^^^^^^^^^^^^^
+- `MPICH`_ version 3.2, as currently distributed with the stack, fails
+  regularly and unpredictably with a segmentation fault on macOS systems.
+  MPICH is used by the `ctrl_pool`_ task distribution framework, and hence the
+  `pipe_drivers`_ top-level scripts package which provides the following
+  executables:
 
-*No known issues.*
+  - :file:`coaddDriver.py`
+  - :file:`constructBias.py`
+  - :file:`constructDark.py`
+  - :file:`constructFlat.py`
+  - :file:`constructFringe.py`
+  - :file:`multiBandDriver.py`
+  - :file:`singleFrameDriver.py`
+
+  It should be possible to run these commands by restricting them to a single
+  CPU core (i.e., ``--batch-type=smp --cores=1``).
+
+  This issue will be resolved by upgrading to version 3.3 of MPICH when it
+  becomes available. :jirab:`DM-7588`
+
+.. _MPICH: http://www.mpich.org/
+.. _ctrl_pool: https://github.com/lsst/ctrl_pool
+.. _pipe_drivers: https://github.com/lsst/pipe_drivers
 
 Older systems
 ^^^^^^^^^^^^^
