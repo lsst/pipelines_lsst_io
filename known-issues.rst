@@ -55,11 +55,14 @@ RHEL 6.*
 
 .. _installation-issues-macos:
 
-OS X specific
--------------
+macOS specific
+--------------
 
-El Capitan
-^^^^^^^^^^
+macOS 10.12 (Sierra)
+^^^^^^^^^^^^^^^^^^^^
+
+OS X 10.11 (El Capitan)
+^^^^^^^^^^^^^^^^^^^^^^^
 
 *No known issues.*
 
