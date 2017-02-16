@@ -70,17 +70,7 @@ From the :file:`lsstsw` directory, run:
 
 .. code-block:: bash
 
-   rebuild lsst_apps
-
-.. note::
-
-   For a more complete Science Pipelines stack, you can run
-
-   .. code-block:: bash
-
-      rebuild lsst_distrib
-
-   instead.
+   rebuild lsst_distrib
 
 Once the ``rebuild`` step finishes, note the build number printed on screen.
 It is formatted as "``bNNNN``."

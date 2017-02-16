@@ -231,15 +231,12 @@ where :file:`$LSST_INSTALL_DIR` is expanded to your installation directory.
 4. Install packages
 -------------------
 
-Finally, build/install any other components of the LSST Science Pipelines that are relevant for your work.
-A simple way to ensure that you have a fairly complete set of packages for this need is to install ``lsst_apps``.
-The dependency tree for ``lsst_apps`` ensures that many other packages (about 70, including e.g., ``pipe_tasks``) are also installed. 
-
-Installing ``lsst_apps`` may take a little while (about 1.2 hr on a 2014-era iMac with 32 GB of memory and 8 cores):
+Finally, install components of the LSST Science Pipelines that are relevant for your work.
+A simple way to ensure that you have a fairly complete set of packages for this need is to install ``lsst_distrib``:
 
 .. code-block:: bash
 
-   eups distrib install -t v12_1 lsst_apps
+   eups distrib install -t v12_1 lsst_distrib
 
 After this initial setup, it is a good idea to test the installation.
 See :ref:`source-install-testing-your-installation`.
