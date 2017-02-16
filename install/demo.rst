@@ -25,8 +25,8 @@ Then run:
 
    mkdir -p $DEMO_DATA
    cd $DEMO_DATA
-   curl -L https://github.com/lsst/lsst_dm_stack_demo/archive/12.0.tar.gz | tar xvzf -
-   cd lsst_dm_stack_demo-12.0
+   curl -L https://github.com/lsst/lsst_dm_stack_demo/archive/12.1.tar.gz | tar xvzf -
+   cd lsst_dm_stack_demo-12.1
 
 The demo repository consumes roughly 41 MB, contains input images, reference data, and configuration files.
 The demo script will process SDSS images from two fields in Stripe 82, as shown in the following table:

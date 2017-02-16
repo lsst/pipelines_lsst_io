@@ -197,11 +197,11 @@ To be safe, run:
 3. Installation set-up
 ----------------------
 
-Download and run the `installation setup script from GitHub <https://raw.githubusercontent.com/lsst/lsst/12.0/scripts/newinstall.sh>`__, which installs the basic packages required to install other packages:
+Download and run the `installation setup script from GitHub <https://raw.githubusercontent.com/lsst/lsst/12.1/scripts/newinstall.sh>`__, which installs the basic packages required to install other packages:
 
 .. code-block:: bash
 
-   curl -OL https://raw.githubusercontent.com/lsst/lsst/12.0/scripts/newinstall.sh
+   curl -OL https://raw.githubusercontent.com/lsst/lsst/12.1/scripts/newinstall.sh
    bash newinstall.sh
 
 This installs the :command:`loadLSST.*` scripts, which you should source to ensure that LSST tools (e.g., the :command:`eups` command) are included in your path.
@@ -239,7 +239,7 @@ Installing ``lsst_apps`` may take a little while (about 1.2 hr on a 2014-era iMa
 
 .. code-block:: bash
 
-   eups distrib install -t v12_0 lsst_apps
+   eups distrib install -t v12_1 lsst_apps
 
 After this initial setup, it is a good idea to test the installation.
 See :ref:`source-install-testing-your-installation`.
