@@ -236,7 +236,7 @@ A simple way to ensure that you have a fairly complete set of packages for this 
 
 .. code-block:: bash
 
-   eups distrib install -t v12_1 lsst_distrib
+   eups distrib install -t v12_1_2 lsst_distrib
    setup lsst_distrib
 
 After this initial setup, it is a good idea to test the installation.
