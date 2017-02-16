@@ -56,6 +56,7 @@ These commands will download and activate the LSST Science Pipelines in a new Co
    source activate lsst
    conda install lsst-distrib
    source eups-setups.sh
+   setup lsst_distrib
 
 .. warning::
 
@@ -72,7 +73,8 @@ Here's what these commands are doing, line-by-line:
 3. Activate the ``lsst`` environment (use your environment's name if you chose a different one).
    The :command:`activate` command is provided by Anaconda/Miniconda (e.g. at :file:`~/miniconda2/bin/activate`).
 4. Install the full suite of LSST science software, including Science Pipelines (``lsst-distrib``).
-5. Setup LSST packages in your environment with EUPS.
+5. Setup EUPS, LSST's package manager.
+6. Setup LSST packages in your environment with EUPS (setting up ``lsst_distrib`` makes most packages available to you).
 
 .. warning::
 
@@ -92,6 +94,7 @@ Whenever you open a new shell or terminal session, use these commands to re-acti
 
    source activate lsst
    source eups-setups.sh
+   setup lsst_distrib
 
 These commands can also be used to switch from one Conda environment and LSST Science Pipelines installation to another.
 

@@ -237,6 +237,7 @@ A simple way to ensure that you have a fairly complete set of packages for this 
 .. code-block:: bash
 
    eups distrib install -t v12_1 lsst_distrib
+   setup lsst_distrib
 
 After this initial setup, it is a good idea to test the installation.
 See :ref:`source-install-testing-your-installation`.
@@ -246,7 +247,13 @@ See :ref:`source-install-testing-your-installation`.
 5. Source the LSST environment in each shell session
 ----------------------------------------------------
 
-Whenever you want to run the installed LSST Science Pipelines in a new terminal session, be sure to :command:`source` the appropriate :file:`loadLSST.{bash,csh,ksh,zsh}` script.
+Whenever you want to run the installed LSST Science Pipelines in a new terminal session, be sure to :command:`source` the appropriate :file:`loadLSST.bash`, :file:`loadLSST.csh`, :file:`loadLSST.ksh` or :file:`loadLSST.zsh}` script.
+
+Then setup the EUPS packages you need, typically:
+
+.. code-block:: bash
+
+   setup lsst_distrib
 
 .. _source-install-testing-your-installation:
 
