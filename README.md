@@ -36,7 +36,7 @@ The site will be built in the `_build/` directory.
 
 ## Licensing
 
-Copyright 2015-2016 AURA/LSST
+Copyright 2015-2017 Association of Universities for Research in Astronomy.
 
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
 ![Creative Commons License](https://cdn.rawgit.com/lsst-sqre/lsst_stack_docs/master/_static/cc-by_large.svg?raw=true)

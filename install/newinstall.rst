@@ -4,7 +4,7 @@ Source Installation with newinstall.sh
 
 This page will guide you through installing the LSST Science Pipelines from source with :command:`newinstall.sh` (internally based on :command:`eups distrib`).
 
-The LSST Science Pipelines are officially tested against CentOS 7, however developers regularly use `a variety of Linux and Mac OS X operating systems <https://ls.st/faq>`_.
+The LSST Science Pipelines are officially tested against CentOS 7, however developers regularly use `a variety of Linux and macOS operating systems <https://ls.st/faq>`_.
 
 :doc:`We also offer Conda binaries and Docker images <index>` if you do not wish to install the Science Pipelines from source.
 
@@ -18,15 +18,30 @@ If you have difficulty installing LSST software:
 Prerequisites
 =============
 
-**New since 11.0**: The minimum gcc version required to compile the Stack is **gcc 4.8.**
-If you using our previous factory platform, RedHat/CentOS 6, and you are unable to upgrade to version 7 (which comes with gcc 4.8 as default) consult :ref:`the section below on upgrading compilers in legacy Linux. <source-install-redhat-legacy>`.
+This section lists system prerequisites for :ref:`macOS <source-install-mac-prereqs>`, :ref:`Debian/Ubuntu <source-install-debian-prereqs>`, and :ref:`RedHat/CentOS <source-install-redhat-prereqs>` platforms.
+All platforms also need :ref:`Python package dependencies <source-install-py-deps>` listed here.
+
+.. note::
+
+   **New since 11.0**: The minimum gcc version required to compile the Stack is **gcc 4.8.**
+   If you using our previous factory platform, RedHat/CentOS 6, and you are unable to upgrade to version 7 (which comes with gcc 4.8 as default) consult :ref:`the section below on upgrading compilers in legacy Linux <source-install-redhat-legacy>`.
 
 .. _source-install-mac-prereqs:
 
-Mac OS X
---------
+macOS
+-----
+
+To build LSST software, macOS systems need:
+
+1. :ref:`Xcode <source-install-mac-prereqs-xcode>`, or command line tools.
+2. :ref:`cmake <source-install-mac-prereqs-cmake>`.
 
 Versions prior to OS X 10.9 and earlier have not been tested recently and may not work.
+
+.. _source-install-mac-prereqs-xcode:
+
+Xcode
+^^^^^
 
 You will need to install developer tools, which we recommend you obtain with Apple's Xcode command line tools package.
 To do this, run from the command line (e.g. ``Terminal.app`` or similar):
@@ -41,6 +56,13 @@ You can verify where the tools are installed by running:
 .. code-block:: bash
 
    xcode-select -p
+
+.. _source-install-mac-prereqs-cmake:
+
+cmake
+^^^^^
+
+``cmake`` can be `installed directly <https://cmake.org/download/>`__, or though a package manager like `Homebrew <https://brew.sh>`__.
 
 .. _source-install-debian-prereqs:
 
