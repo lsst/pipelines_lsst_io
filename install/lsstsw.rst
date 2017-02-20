@@ -70,17 +70,7 @@ From the :file:`lsstsw` directory, run:
 
 .. code-block:: bash
 
-   rebuild lsst_apps
-
-.. note::
-
-   For a more complete Science Pipelines stack, you can run
-
-   .. code-block:: bash
-
-      rebuild lsst_distrib
-
-   instead.
+   rebuild lsst_distrib
 
 Once the ``rebuild`` step finishes, note the build number printed on screen.
 It is formatted as "``bNNNN``."
@@ -97,6 +87,12 @@ The ``rebuild`` command accomplishes the following:
 2. Runs the Scons-based build process to compile C++, make Swig bindings, and ultimately create the :lmod:`lsst` Python package.
    The Stack is built and installed into the :file:`stack/` directory inside your :file:`lsstsw/` work directory.
 
+Finally, set up the packages with EUPS:
+
+.. code-block:: bash
+
+   setup lsst_distrib
+
 .. _lsstsw-setup:
 
 4. Sourcing the Pipelines in a New Shell
@@ -108,6 +104,7 @@ Do this by running the ``setup.sh`` from the ``lsstsw/`` directory:
 .. code-block:: bash
 
    . bin/setup.sh
+   setup lsst_distrib  # or an alternative top-level package
 
 .. note::
 

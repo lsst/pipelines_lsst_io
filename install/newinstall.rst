@@ -197,11 +197,11 @@ To be safe, run:
 3. Installation set-up
 ----------------------
 
-Download and run the `installation setup script from GitHub <https://raw.githubusercontent.com/lsst/lsst/12.0/scripts/newinstall.sh>`__, which installs the basic packages required to install other packages:
+Download and run the `installation setup script from GitHub <https://raw.githubusercontent.com/lsst/lsst/12.1/scripts/newinstall.sh>`__, which installs the basic packages required to install other packages:
 
 .. code-block:: bash
 
-   curl -OL https://raw.githubusercontent.com/lsst/lsst/12.0/scripts/newinstall.sh
+   curl -OL https://raw.githubusercontent.com/lsst/lsst/12.1/scripts/newinstall.sh
    bash newinstall.sh
 
 This installs the :command:`loadLSST.*` scripts, which you should source to ensure that LSST tools (e.g., the :command:`eups` command) are included in your path.
@@ -231,15 +231,13 @@ where :file:`$LSST_INSTALL_DIR` is expanded to your installation directory.
 4. Install packages
 -------------------
 
-Finally, build/install any other components of the LSST Science Pipelines that are relevant for your work.
-A simple way to ensure that you have a fairly complete set of packages for this need is to install ``lsst_apps``.
-The dependency tree for ``lsst_apps`` ensures that many other packages (about 70, including e.g., ``pipe_tasks``) are also installed. 
-
-Installing ``lsst_apps`` may take a little while (about 1.2 hr on a 2014-era iMac with 32 GB of memory and 8 cores):
+Finally, install components of the LSST Science Pipelines that are relevant for your work.
+A simple way to ensure that you have a fairly complete set of packages for this need is to install ``lsst_distrib``:
 
 .. code-block:: bash
 
-   eups distrib install -t v12_0 lsst_apps
+   eups distrib install -t v12_1_2 lsst_distrib
+   setup lsst_distrib
 
 After this initial setup, it is a good idea to test the installation.
 See :ref:`source-install-testing-your-installation`.
@@ -249,7 +247,13 @@ See :ref:`source-install-testing-your-installation`.
 5. Source the LSST environment in each shell session
 ----------------------------------------------------
 
-Whenever you want to run the installed LSST Science Pipelines in a new terminal session, be sure to :command:`source` the appropriate :file:`loadLSST.{bash,csh,ksh,zsh}` script.
+Whenever you want to run the installed LSST Science Pipelines in a new terminal session, be sure to :command:`source` the appropriate :file:`loadLSST.bash`, :file:`loadLSST.csh`, :file:`loadLSST.ksh` or :file:`loadLSST.zsh}` script.
+
+Then setup the EUPS packages you need, typically:
+
+.. code-block:: bash
+
+   setup lsst_distrib
 
 .. _source-install-testing-your-installation:
 
