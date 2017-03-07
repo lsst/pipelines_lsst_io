@@ -12,7 +12,11 @@ We are building the Science Pipelines for the `Large Synoptic Survey Telescope (
 - DM Developer guidance is at https://developer.lsst.io.
 - Learn more about LSST Data Management by visiting http://dm.lsst.org.
 
-**The latest release is |current-release|: :doc:`learn what's new <releases/index>`.**
+
+Latest release
+--------------
+  
+The latest release is |current-release|: :doc:`learn what's new <releases/index>`.
 
 .. toctree::
    :hidden:
