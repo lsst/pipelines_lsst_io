@@ -15,7 +15,6 @@ Fall 2016 Release (v13_0)
 - :ref:`release-v13-0-bug-fixes`
 - :ref:`release-v13-0-internal-improvements`
 - :ref:`release-v13-0-sui`
-- Qserv and Data Access
 - :ref:`release-v13-0-doc`
 
 *See also:*
