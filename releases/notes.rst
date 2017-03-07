@@ -4,7 +4,8 @@
 Release Notes
 #############
 
-- :ref:`release-v12-0` --- current
+- :ref:`release-v13-0` --- current
+- :ref:`release-v12-0`
 - :ref:`release-v11-0`
 
 .. include:: note-source/v13_0.rst
