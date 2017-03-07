@@ -1,24 +1,20 @@
-#######################################################
-LSST Science Pipelines Version 13.0 (Fall 2016 Release)
-#######################################################
+###################################
+LSST Stack 13.0 / Fall 2016 Release
+###################################
 
-Version 13.0 of the LSST Science Pipelines (aka F16) is now available.
+Version 13.0 of the LSST Science Pipelines (aka F16) is now
 
-If you have previously consumed an official release of the LSST Stack, please
-note these important distribution changes from previous releases:
+LSST Pipelines
+==============
 
-Major Feature Development
-=========================
-
-Full details can be found in the :ref:`extensive release notes <release-v13-0>`.
-We have also published a :doc:`Characterization Metric Report
-</metrics/index>`.
+Full details of the LSST Science Pipelines 13.0 release can be found
+in the :ref:`extensive release notes <release-v13-0>`.  We have also
+published a :doc:`Characterization Metric Report </metrics/index>`.
 
 Qserv and Data Access
 =====================
 
-There is no release of Qserv and the Data Access software accompanying this
-release of the Science Pipelines.
+The database team is on a separate release cadence. Their release notes for the Fall 2016 period can be found in the :doc:`Qserv DAX Fall 2016 highlights  <v13_0_qserv_dax>`
 
 Join Us on the Community Forum
 ==============================
