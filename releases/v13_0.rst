@@ -20,13 +20,6 @@ Qserv and Data Access
 There is no release of Qserv and the Data Access software accompanying this
 release of the Science Pipelines.
 
-Highlights
-==========
-
-.. todo:: Write some stuff here.
-
-?????
-
 Join Us on the Community Forum
 ==============================
 
