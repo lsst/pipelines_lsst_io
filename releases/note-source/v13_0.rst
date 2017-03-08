@@ -780,11 +780,6 @@ This is more efficient than the “map” functionality which was previously bei
 
 :jirab:`DM-5989`
 
-.. _release-v13-0-sui:
-
-Science User Interface
-----------------------
-
 .. _release-v13-0-doc:
 
 Documentation improvements
