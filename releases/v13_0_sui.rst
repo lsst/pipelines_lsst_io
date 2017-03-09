@@ -16,7 +16,11 @@ Fall 2016 Science User Interface Highlights
 
   - Firefly JavaScript API and Python API improvements, providing more controls using Firefly visualization components and features. Python API firefly_client is pip and eups installable.
   - Phase folding capabilities for time series data, and light curve plots.
-  - LSST mask overlay on images.
+  - Overlay layer on images:
+  
+          - LSST mask overlay
+	  - User can change overlay symbol shape, size, and color.
+	  
   - Charts redesign and expansion of capabilities:
 
 	  - Multiple charts of different columns from the same data sets. Display XY 2D plot and histogram at the same time
