@@ -9,7 +9,7 @@ LSST Pipelines
 
 Full details of the LSST Science Pipelines 13.0 release can be found
 in the :ref:`extensive release notes <release-v13-0>`.  We have also
-published a :doc:`Characterization Metric Report </metrics/index>`.
+published a :ref:`Characterization Metric Report <metrics-v13-0>`.
 
 Qserv and Data Access
 =====================
