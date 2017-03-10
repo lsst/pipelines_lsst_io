@@ -14,13 +14,16 @@
 
 # import sys
 import os
+import sys
 # import shlex
 
 from documenteer.sphinxconfig.utils import form_ltd_edition_name
 
+# Work around Sphinx bug related to large and highly-nested source files
+sys.setrecursionlimit(2000)
 
 # master variable for current Stack release
-CURRENT_RELEASE = '12.1'
+CURRENT_RELEASE = '13.0'
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the

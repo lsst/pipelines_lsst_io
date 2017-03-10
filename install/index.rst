@@ -29,9 +29,8 @@ Choose an option below to get started.
    CernVM FS is a virtual machine that makes it easy to run the LSST Science Pipelines without compiling code.
    This distribution is supported by Fabio Hernandez of IN2P3.
 
-`Docker and Amazon Machine Images <https://sqr-002.lsst.io>`__
-   These images are convenient for using the LSST Science Pipelines in distributed or cloud-based computing workflows.
-   The `SQR-002: Binary Science Pipeline Software Distribution <https://sqr-002.lsst.io>`__ technote describes how to obtain and use these images.
+`Docker Containers (external link) <https://hub.docker.com/r/lsstsqre/centos/>`__
+   These images are convenient for using the LSST Science Pipelines in distributed or cloud-based computing workflows, or for one-off installations without modifying your environment. You can get them from our `DockerHub repo <https://hub.docker.com/r/lsstsqre/centos/>`__
 
 :doc:`lsstsw installation <lsstsw>`
    ``lsstsw`` (and ``lsst-build``) are the tools we use internally to build and test the LSST Science Pipelines.

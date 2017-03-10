@@ -25,6 +25,10 @@ If not, you can quickly get started by following Continuum's official installati
 - `Install Anaconda <https://www.continuum.io/downloads>`__ if you want a complete, science-ready Python installation with minimal setup.
 - Otherwise, `install the leaner Miniconda <http://conda.pydata.org/miniconda.html>`__ version and install packages as you need them.
 
+.. warning:: 
+
+   You need the Python 2 (e.g. Miniconda2) distribution. If you want to use the experimental Python 3 support, you should try our source installation. 
+
 If you're new to Anaconda, Continuum's `30-minute test drive <http://conda.pydata.org/docs/test-drive.html>`_ tutorial will get you up-to-speed.
 
 .. warning::
@@ -51,12 +55,14 @@ These commands will download and activate the LSST Science Pipelines in a new Co
 .. code-block:: bash
    :linenos:
 
-   conda config --add channels http://conda.lsst.codes/stack/0.12.1
+   conda config --add channels http://conda.lsst.codes/stack/0.13.0
    conda create --name lsst python=2
    source activate lsst
    conda install lsst-distrib
    source eups-setups.sh
    setup lsst_distrib
+   
+   You can ignore warnings about pre-link and post-link scripts being dangerous and deprecated. Sorry about that.
 
 .. warning::
 

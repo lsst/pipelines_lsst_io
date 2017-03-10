@@ -4,7 +4,7 @@ Source Installation with newinstall.sh
 
 This page will guide you through installing the LSST Science Pipelines from source with :command:`newinstall.sh` (internally based on :command:`eups distrib`).
 
-The LSST Science Pipelines are officially tested against CentOS 7, however developers regularly use `a variety of Linux and macOS operating systems <https://ls.st/faq>`_.
+The reference platform for the LSST Science Pipelines is CentOS 7 however individual developers compile on `a variety of Linux and macOS operating systems <https://ls.st/faq>`_ so if you are on a similar platform you should be able to build from source successfully.
 
 :doc:`We also offer Conda binaries and Docker images <index>` if you do not wish to install the Science Pipelines from source.
 
@@ -197,11 +197,11 @@ To be safe, run:
 3. Installation set-up
 ----------------------
 
-Download and run the `installation setup script from GitHub <https://raw.githubusercontent.com/lsst/lsst/12.1/scripts/newinstall.sh>`__, which installs the basic packages required to install other packages:
+Download and run the `installation setup script from GitHub <https://raw.githubusercontent.com/lsst/lsst/13.0/scripts/newinstall.sh>`__, which installs the basic packages required to install other packages:
 
 .. code-block:: bash
 
-   curl -OL https://raw.githubusercontent.com/lsst/lsst/12.1/scripts/newinstall.sh
+   curl -OL https://raw.githubusercontent.com/lsst/lsst/13.0/scripts/newinstall.sh
    bash newinstall.sh
 
 This installs the :command:`loadLSST.*` scripts, which you should source to ensure that LSST tools (e.g., the :command:`eups` command) are included in your path.
