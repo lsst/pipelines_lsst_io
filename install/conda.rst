@@ -61,6 +61,8 @@ These commands will download and activate the LSST Science Pipelines in a new Co
    conda install lsst-distrib
    source eups-setups.sh
    setup lsst_distrib
+   
+   You can ignore warnings about pre-link and post-link scripts being dangerouns and deprecated. Sorry about that.
 
 .. warning::
 
