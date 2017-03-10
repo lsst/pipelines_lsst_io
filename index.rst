@@ -11,7 +11,7 @@ We are building the Science Pipelines for the `Large Synoptic Survey Telescope (
 - API documentation is currently published with `Doxygen <https://lsst-web.ncsa.illinois.edu/doxygen/x_masterDoxyDoc/>`_.
 - DM Developer guidance is at https://developer.lsst.io.
 - Learn more about LSST Data Management by visiting http://dm.lsst.org.
-- Help us improve our documentation! This guide is on Github at `lsst/pipelines_lsst_io <https://github.com/lsst/pipelines_lsst_io>`_.
+- Help us improve our documentation! This guide is on GitHub at `lsst/pipelines_lsst_io <https://github.com/lsst/pipelines_lsst_io>`_.
   
 Latest release
 ==============
