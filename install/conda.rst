@@ -51,7 +51,7 @@ These commands will download and activate the LSST Science Pipelines in a new Co
 .. code-block:: bash
    :linenos:
 
-   conda config --add channels http://conda.lsst.codes/stack/0.12.1
+   conda config --add channels http://conda.lsst.codes/stack/0.13.0
    conda create --name lsst python=2
    source activate lsst
    conda install lsst-distrib
