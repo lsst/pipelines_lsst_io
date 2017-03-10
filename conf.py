@@ -14,6 +14,7 @@
 
 # import sys
 import os
+import sys
 # import shlex
 
 from documenteer.sphinxconfig.utils import form_ltd_edition_name
