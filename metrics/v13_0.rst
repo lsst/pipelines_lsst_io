@@ -5,7 +5,7 @@ Characterization Metric Report: Science Pipelines Version 13.0
 ##############################################################
 
 Measured using `validation_data_hsc`_, which consists of 8 HSC engineering images: 4 *r*-band, 2 *i*'-band, and 2 *y*-band.
-Measured were made on individual, separately-processed, single-frame images: Jointcal and/or meas_mosaic were not run.
+Measurements were made on individual, separately-processed, single-frame images: Jointcal and/or meas_mosaic were not run.
 Quoted target values are the “minimum” targets defined in the Science Requirements Document (`LPM-17`_).
 All values were computed using the :file:`examples/runHscTest.sh` script in the `validate_drp`_ package.
 

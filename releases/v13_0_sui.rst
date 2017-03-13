@@ -6,7 +6,7 @@ Fall 2016 Science User Interface Highlights
 ===========================================
 
 - PDAC v1 was deployed at NCSA.
-  It provides data query and display of SDSS Strip 82 data processed with LSST pipeline stack in 2013.
+  It provides data query and display of SDSS Stripe 82 data processed with the LSST pipeline stack in 2013.
   Please see `the PDAC v1 guide <https://confluence.lsstcorp.org/display/DM/Guide+to+PDAC+version+1>`_ for details and an access guide.
 
 - Finished the Firefly client side code rewrite in JavaScript using React/Redux framework.
