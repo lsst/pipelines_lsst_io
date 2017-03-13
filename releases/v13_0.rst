@@ -2,7 +2,7 @@
 LSST Stack 13.0 / Fall 2016 Release
 ###################################
 
-Version 13.0 of the LSST Science Pipelines (aka F16) is now
+Version 13.0 of the LSST Science Pipelines (aka F16) is now available.
 
 LSST Pipelines
 ==============
