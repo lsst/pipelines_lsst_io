@@ -556,6 +556,7 @@ Build and Code Improvements
 - :ref:`release-v13-0-catalog-apcorr`
 - :ref:`release-v13-0-sconsutils-opt`
 - :ref:`release-v13-0-mpi4py-mac`
+- :ref:`release-v13-0-obs-base`
 - :ref:`release-v13-0-centralize-butler`
 - :ref:`release-v13-0-scons-order`
 - :ref:`release-v13-0-ndarray-external`
@@ -651,12 +652,21 @@ Added extra logic to ensure we target a version of the macOS SDK which is compat
 
 :jirab:`DM-6133`
 
+.. _release-v13-0-obs-base:
+
+New ``obs_base`` package supersedes ``daf_butlerUtils``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A new ``obs_base`` package has been added to the distribution.
+This contains base classes used by the various ``obs_`` camera packages.
+The contents of the old ``daf_butlerUtils`` package has been migrated to ``obs_base``, and the old package has been retired.
+
 .. _release-v13-0-centralize-butler:
 
-Centralized Butler datasets
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Centralized Butler dataset definitions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Butler dataset definitions which are common to multiple cameras have been consolidated in ``daf_butlerUtils`` rather than being repeated in each camera package.
+Butler dataset definitions which are common to multiple cameras have been consolidated in ``obs_base`` rather than being repeated in each camera package.
 
 :jirab:`RFC-204, DM-6858, DM-7049, DM-7677`
 
