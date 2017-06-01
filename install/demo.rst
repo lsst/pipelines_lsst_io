@@ -19,6 +19,16 @@ The method depends on how the Science Pipelines were installed:
 
 Choose a directory to install demo data into.
 We'll call this directory :file:`$DEMO_DATA`.
+
+.. note::
+
+   The demo's version should match your installed software.
+   If you are building from source (with :doc:`lsstsw <lsstsw>`), clone the demo repository instead of downloading a release:
+
+   .. code-block:: bash
+
+      git clone https://github.com/lsst/lsst_dm_stack_demo.git
+
 Then run:
 
 .. code-block:: bash
