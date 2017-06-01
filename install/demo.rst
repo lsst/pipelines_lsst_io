@@ -21,6 +21,10 @@ Choose a directory to install demo data into.
 We'll call this directory :file:`$DEMO_DATA`.
 Then run:
 
+.. note::
+
+   The demo data version should match your installed software version. For the latest stable follow the link below. If you are building `lsstsw` from source you will also want to clone the demo data from the repository instead of the zipped version below.
+
 .. code-block:: bash
 
    mkdir -p $DEMO_DATA
