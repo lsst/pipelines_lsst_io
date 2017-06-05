@@ -17,26 +17,30 @@ The method depends on how the Science Pipelines were installed:
 2. Download the Demo Project
 ============================
 
-Choose a directory to install demo data into.
-We'll call this directory :file:`$DEMO_DATA`.
+Choose a directory to run the demo in.
+We'll call this directory :file:`demo_data`.
+
+.. code-block:: bash
+
+   mkdir -p demo_data
+   cd demo_data
+
+Then download the demo's data (if you aren't running the current stable release, see the note below):
+
+.. code-block:: bash
+
+   curl -L https://github.com/lsst/lsst_dm_stack_demo/archive/13.0.tar.gz | tar xvzf -
+   cd lsst_dm_stack_demo-13.0
 
 .. note::
 
    The demo's version should match your installed software.
-   If you are building from source (with :doc:`lsstsw <lsstsw>`), clone the demo repository instead of downloading a release:
+   If you installed from source (with :doc:`lsstsw <lsstsw>`), clone the demo repository instead of downloading a release:
 
    .. code-block:: bash
 
       git clone https://github.com/lsst/lsst_dm_stack_demo.git
-
-Then run:
-
-.. code-block:: bash
-
-   mkdir -p $DEMO_DATA
-   cd $DEMO_DATA
-   curl -L https://github.com/lsst/lsst_dm_stack_demo/archive/13.0.tar.gz | tar xvzf -
-   cd lsst_dm_stack_demo-13.0
+      cd lsst_dm_stack_demo
 
 The demo repository consumes roughly 41 MB, contains input images, reference data, and configuration files.
 The demo script will process SDSS images from two fields in Stripe 82, as shown in the following table:
