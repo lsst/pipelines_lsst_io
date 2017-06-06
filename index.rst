@@ -29,6 +29,7 @@ The latest release is |current-release|: :doc:`learn what's new <releases/index>
    :name: part-getting-started
 
    install/index
+   getting-started/index
    known-issues
    releases/notes
    metrics/index
