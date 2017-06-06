@@ -38,6 +38,7 @@ To install the LSST Simulation software, such as MAF, please follow the `LSST Si
    :caption: Installation
 
    install/index
+   getting-started/index
 
 .. _part-release-details:
 
