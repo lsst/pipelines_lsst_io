@@ -4,7 +4,8 @@ Installing the LSST Science Pipelines
 
 .. toctree::
    :hidden:
-   
+
+   prereqs/index
    conda
    newinstall
    lsstsw

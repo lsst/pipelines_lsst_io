@@ -26,7 +26,7 @@ Join us on the `LSST Community forum <https://community.lsst.org>`_ to get help 
 
 .. toctree::
    :hidden:
-   :caption: Getting Started
+   :caption: Getting started
 
    getting-started/index
 
@@ -36,12 +36,13 @@ Installation
 ============
 
 - :doc:`Overview of installation methods <install/index>`
+- :doc:`Prerequisites <install/prereqs/index>`
 - :doc:`Installing with newinstall.sh <install/newinstall>` (recommended)
 - :doc:`Installing from source with lsstsw <install/lsstsw>` (for developers)
 
 .. toctree::
    :hidden:
-   :caption: Installation in-depth
+   :caption: Installation
 
    install/index
 
