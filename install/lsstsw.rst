@@ -21,8 +21,9 @@ If you have difficulty installing LSST software:
 
 You need to install some prerequisites to build the LSST Stack from source:
 
-- :ref:`Install build dependencies <source-install-prereqs>`.
 - `Install and configure Git LFS <https://developer.lsst.io/tools/git_lfs.html>`_ for LSST DM's data servers.
+- Install prerequisites for your platform: :doc:`macOS <prereqs/macos>`, :doc:`Debian / Ubuntu <prereqs/debian>`, or :doc:`Centos / RedHat <prereqs/centos>`.
+- If you opt not to use ``lsstsw`` \’s default Python environment you need to :ref:`install these Python dependencies <python-deps>`.
 
 .. _lsstsw-deploy:
 
