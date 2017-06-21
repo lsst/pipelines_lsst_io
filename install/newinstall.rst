@@ -20,6 +20,8 @@ If you have difficulty installing LSST software:
 
 - Install prerequisites for your platform: :doc:`macOS <prereqs/macos>`, :doc:`Debian / Ubuntu <prereqs/debian>`, or :doc:`Centos / RedHat <prereqs/centos>`.
 - If you opt not to use :command:`newinstall` \’s default Python environment you need to :ref:`install these Python dependencies <python-deps>`.
+- If you intend to use a Git LFS repository, like `ci_hsc`_ or `afwdata`_, :doc:`install and configure Git LFS <git-lfs>`.
+  Regular installations of the Science Pipelines (``lsst_distrib``) *do not* need Git LFS, however.
 
 .. _install-from-source-dir:
 
@@ -125,3 +127,6 @@ Then setup the EUPS packages you need, typically:
 
 Once the LSST Science Pipelines are installed, you can verify that it works by :doc:`running a demo project <demo>`.
 This demo processes a small amount of SDSS data.
+
+.. _`ci_hsc`: https://github.com/lsst/ci_hsc
+.. _`afwdata`: https://github.com/lsst/afwdata

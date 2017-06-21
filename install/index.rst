@@ -6,6 +6,7 @@ Installing the LSST Science Pipelines
    :hidden:
 
    prereqs/index
+   git-lfs
    conda
    newinstall
    lsstsw

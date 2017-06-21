@@ -37,6 +37,7 @@ Installation
 
 - :doc:`Overview of installation methods <install/index>`
 - :doc:`Prerequisites <install/prereqs/index>`
+- :doc:`Configuring Git LFS for data packages <install/git-lfs>`
 - :doc:`Installing with newinstall.sh <install/newinstall>` (recommended)
 - :doc:`Installing from source with lsstsw <install/lsstsw>` (for developers)
 

@@ -21,10 +21,9 @@ If you have difficulty installing LSST software:
 
 You need to install some prerequisites to build the LSST Stack from source:
 
-- :ref:`Install build dependencies <source-install-prereqs>`.
-- `Install and configure Git LFS <https://developer.lsst.io/tools/git_lfs.html>`_ for LSST DM's data servers.
 - Install prerequisites for your platform: :doc:`macOS <prereqs/macos>`, :doc:`Debian / Ubuntu <prereqs/debian>`, or :doc:`Centos / RedHat <prereqs/centos>`.
 - If you opt not to use ``lsstsw`` \’s default Python environment you need to :ref:`install these Python dependencies <python-deps>`.
+- If you intend to use a Git LFS repository, like `ci_hsc`_ or `afwdata`_, :doc:`install and configure Git LFS <git-lfs>`.
 
 .. _lsstsw-deploy:
 
@@ -184,3 +183,6 @@ The `Developer Guide describes Data Management's workflow <https://developer.lss
    .. code-block:: bash
    
       scons -q -j 6 opt=3 tests
+
+.. _`ci_hsc`: https://github.com/lsst/ci_hsc
+.. _`afwdata`: https://github.com/lsst/afwdata
