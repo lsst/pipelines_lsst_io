@@ -26,6 +26,7 @@ Alternative distributions and installation methods:
 
 Related topics:
 
+- :doc:`Configuring Git LFS for data packages <install/git-lfs>`
 - :doc:`install/package-development`
 
 To install the LSST Simulation software, such as MAF, please follow the `LSST Simulations documentation <https://confluence.lsstcorp.org/display/SIM/Catalogs+and+MAF>`_.
