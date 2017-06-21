@@ -12,21 +12,22 @@ Getting started: installing the Science Pipelines software
 
 This page will guide you through installing and activating the LSST Science Pipelines software using the method we recommend for most users.
 
-.. seealso::
-
-   The :doc:`Installation section <../install/index>` of the documentation site describes all of the Science Pipelines installation patterns in detail.
-
 .. _getting-started-newinstall:
 
-Installing the Pipelines
-========================
+Installing the LSST Science Pipelines with newinstall.sh
+========================================================
 
-First, you'll need to download and install the LSST Science Pipelines software.
-If you haven't already, :doc:`follow one of our installation methods <../install/index>`.
+There are :doc:`several ways to install <../install/index>` the LSST Science Pipelines, depending on your needs.
+For getting started, we recommend the :doc:`newinstall method for installing the LSST Science Pipelines <../install/newinstall>`.
+Follow the directions on that page to install system prerequisites, run the :command:`newinstall.sh` script, and ultimately the install ``lsst_distrib`` package that contains the LSST Science Pipelines software.
 
-.. TODO::
+.. _getting-started-git-lfs:
 
-   Change to suggest a binary installation only.
+Installing Git LFS for LSST
+===========================
+
+The tutorial requires Git LFS to download the sample datasets.
+To install and configure Git LFS for LSST, follow the directions on the :doc:`../install/git-lfs` page.
 
 .. _getting-started-activate:
 
@@ -39,20 +40,23 @@ First, open a new command line shell.
 Since the Pipelines adds environment variables to your shell, working in a new shell will make it easier to follow along.
 
 Next, at your shell prompt activate your installation's environment.
-The activation command you'll use depends on your installation method:
+The activation command you'll use depends on your installation method.
+If you installed with :command:`newinstall.sh`, the activation command is:
 
-- If you used :doc:`newinstall.sh <../install/newinstall>`, run ``source loadLSST.bash`` from the installation directory.
-  If you aren't using :command:`bash`, you might need :ref:`a different <install-from-source-setup>` ``loadLSST`` script.
-- If you are using :doc:`lsstsw <../install/lsstsw>`, run ``source bin/setup.sh`` from the :file:`lsstsw` directory.
-  See :ref:`Sourcing the Pipelines in a New Shell <lsstsw-setup>` for details.
+.. code-block:: bash
 
-The ``loadLSST.bash`` or ``setup.sh`` script has only activated the software environment.
-We still need to set up LSST Software; we'll do that next.
+   source <install-dir>/loadLSST.bash
 
-.. todo::
+.. note::
 
-   Add a note to know whether the command has succeeded; or is even necessary.
-   Perhaps use :command:`echo $EUPS_PATH`?
+   If you aren't using the :command:`bash` shell, use a different loading script:
+
+   - :command:`zsh` shell: :command:`loadLSST.zsh`
+   - :command:`ksh` shell: :command:`loadLSST.ksh`
+   - :command:`csh` and :command:`tcsh` shells: :command:`loadLSST.csh`
+
+The ``loadLSST.bash`` script has only activated the software environment.
+We still need to set up the LSST software; we'll do that next.
 
 .. _getting-started-setup:
 

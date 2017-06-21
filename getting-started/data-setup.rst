@@ -12,14 +12,14 @@ Getting started tutorial part 1: setting up the Butler data repository
 ######################################################################
 
 The LSST Science Pipelines can process data from several telescopes using LSST's algorithms.
-In this tutorial, we'll calibrate and reduce Hyper Suprime-Cam (HSC) exposures into coadditions and catalogs of objects.
+In this :ref:`tutorial series <getting-started-tutorial>`, we'll calibrate and reduce Hyper Suprime-Cam (HSC) exposures into coadditions and catalogs of objects.
 
 This hands-on tutorial is intended for anyone just getting started with the LSST Science Pipelines.
-You'll get a feel for setting up a Pipelines environment, working with data repositories, and running command line tasks.
+You'll get a feel for setting up a Pipelines environment, working with data repositories, running command line tasks, and working with the Pipelines' Python APIs.
 Along the way we'll point you to additional documentation.
 
 In this first part of the :ref:`tutorial series <getting-started-tutorial>` we will collect the raw observations and calibration data needed for the tutorial.
-Along the way, you'll be introduced to the Butler, which is the Pipelines's interface for managing, reading, and writing datasets.
+Along the way, you'll be introduced to the Butler, which is the Pipelines' interface for managing, reading, and writing datasets.
 
 Setup check
 ===========
@@ -42,24 +42,36 @@ Downloading the sample HSC data
 ===============================
 
 Sample data for this tutorial comes from the `ci_hsc`_ package.
-Let's install it into our existing software stack:
+`ci_hsc`_ contains a small set of Hyper Suprime-Cam (HSC) exposures.
+The Science Pipelines provides native integrations for many observatories, including HSC, CFHT/MegaCam, SDSS, and of course LSST.
+
+`ci_hsc`_ is a Git LFS-backed package, so make sure you've :doc:`installed and configured Git LFS for LSST <../install/git-lfs>`.
+
+First, clone `ci_hsc`_ using Git:
 
 .. code-block:: bash
 
-   eups distrib install ci_hsc
-   setup ci_hsc
+   git clone https://github.com/lsst/ci_hsc
 
-`ci_hsc`_ contains a small set of Hyper-Suprime Cam (HSC) exposures.
-The Science Pipelines provides native integrations for many observatories, including HSC, CFHT/MegaCam, SDSS, and of course LSST.
-You can also write integrations for your own cameras with the observatory (obs) framework.
+Then :command:`setup` the package to add it to the EUPS stack:
 
-.. todo::
+.. code-block:: bash
 
-   We need an easier way to get HSC data, preferably one that doesn't involve Git LFS
+   setup -j -r ci_hsc
 
-.. todo::
+.. tip::
 
-   Link to obs framework documentation.
+   The ``-r ci_hsc`` argument points to the package's directory.
+
+   The ``-j`` argument means that we're **just** setting up ``ci_hsc`` without affecting other packages.
+
+Now run:
+
+.. code-block:: bash
+
+   echo $CI_HSC_DIR
+
+The ``$CI_HSC_DIR`` environment variable should point to the `ci_hsc`_ directory.
 
 Creating a Butler repository for HSC data
 =========================================
@@ -109,13 +121,6 @@ Run:
    .. code-block:: bash
 
       ingestImages.py -h
-
-.. warning::
-
-   ``$CI_HSC_DIR`` is the directory of the installed `ci_hsc`_ package if you installed it with with :command:`eups distrib install ci_hsc`.
-
-   If you installed `ci_hsc`_ with lsstsw, replace ``$CI_HSC_DIR`` with :file:`$LSSTSW/build/ci_hsc`.
-   Likewise, if you used Git to directly clone `ci_hsc`_ use that clone's directory.
 
 Ingesting calibrations into the Butler repository
 =================================================
