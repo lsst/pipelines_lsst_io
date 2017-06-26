@@ -8,10 +8,10 @@
 .. _getting-started-tutorial-coaddition:
 
 ################################################
-Getting started tutorial part 3: coadding images
+Getting started tutorial part 4: coadding images
 ################################################
 
-This is part 3 of the :ref:`getting started tutorial series <getting-started-tutorial>`.
+This is part 4 of the :ref:`getting started tutorial series <getting-started-tutorial>`.
 Before starting this tutorial, make sure you've completed the previous parts.
 
 In this part of the tutorial series we will combine the individual exposures produced by :command:`processCcd.py` into deeper coadds (mosaic images).

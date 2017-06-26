@@ -8,13 +8,13 @@
 .. _getting-started-tutorial-measuring-sources:
 
 ##################################################
-Getting started tutorial part 4: measuring sources
+Getting started tutorial part 5: measuring sources
 ##################################################
 
-This is part 4 of the :ref:`getting started tutorial series <getting-started-tutorial>`.
+This is part 5 of the :ref:`getting started tutorial series <getting-started-tutorial>`.
 Before starting this tutorial, make sure you've completed the previous parts.
 
-To recap, we collected raw data in a Butler repository (:doc:`part 1 <data-setup>`), calibrated that data (:doc:`part 2 <processccd>`), and made deep coadditions in HSC-R and HSC-I bands across nine patches of the sky (:doc:`part 3 <coaddition>`).
+To recap, we collected raw data in a Butler repository (:doc:`part 1 <data-setup>`), calibrated (:doc:`part 2 <processccd>`) and viewed (:doc:`part 3 <display>`) that data, and made deep coadditions in HSC-R and HSC-I bands across nine patches of the sky (:doc:`part 4 <coaddition>`).
 In this step, we'll measure these coadditions to build catalogs of stars and galaxies.
 
 This is our measurement strategy:
