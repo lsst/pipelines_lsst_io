@@ -166,11 +166,6 @@ In the next part of this tutorial we'll see how to work with these tables.
 Next up
 =======
 
-Congratulations, you've completed the last tutorial in the series (so far).
-
-By now you're ready to start experimenting with the LSST Science Pipelines for your own projects.
-The :doc:`rest of the docs <../index>` will help you along the way.
-
-We'd also love to hear from you on our `LSST Community Forum`_.
+:doc:`Continue this tutorial series in part 6 <multiband-analysis>` where we will analyze and plot the source catalogs we just measured.
 
 .. _LSST Community Forum: https://community.lsst.org

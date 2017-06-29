@@ -34,3 +34,4 @@ These tutorials will give you a feeling for data processing and analysis with th
    Part 3: displaying exposures and source catalogs. <display>
    Part 4: coadding images. <coaddition>
    Part 5: measuring sources. <photometry>
+   Part 6: analyzing measurement catalogs in multiple bands. <multiband-analysis>
