@@ -56,6 +56,16 @@ To install the LSST Simulation software, such as MAF, please follow the `LSST Si
 
    install/index
 
+.. _part-packages:
+
+Packages
+========
+
+.. toctree::
+   :maxdepth: 1
+
+   packages/verify_metrics/index
+
 .. _part-release-details:
 
 Release details
