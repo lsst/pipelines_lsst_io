@@ -32,3 +32,11 @@ The latest release is |current-release|: :doc:`learn what's new <releases/index>
    known-issues
    releases/notes
    metrics/index
+
+Packages
+========
+
+.. toctree::
+   :maxdepth: 1
+
+   packages/verify_metrics/index
