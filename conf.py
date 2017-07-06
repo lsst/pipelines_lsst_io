@@ -18,6 +18,7 @@ import sys
 # import shlex
 
 from documenteer.sphinxconfig.utils import form_ltd_edition_name
+import lsst_sphinx_bootstrap_theme
 
 # Work around Sphinx bug related to large and highly-nested source files
 sys.setrecursionlimit(2000)
@@ -139,14 +140,13 @@ else:
 
 # -- Options for HTML output ----------------------------------------------
 
-# The theme to use for HTML and HTML Help pages.
-# Use the default readthedocs.org theme if on RTD
-if on_rtd:
-    html_theme = 'default'
-else:
-    import sphinx_rtd_theme
-    html_theme = 'sphinx_rtd_theme'
-    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+templates_path = [
+    '_templates',
+    lsst_sphinx_bootstrap_theme.get_html_templates_path()
+]
+
+html_theme = 'lsst_sphinx_bootstrap_theme'
+html_theme_path = [lsst_sphinx_bootstrap_theme.get_html_theme_path()]
 
 
 html_context = {
@@ -179,7 +179,7 @@ html_context = {
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-html_logo = '_static/lsst-logo-dark.svg'
+# html_logo = '_static/lsst-logo-dark.svg'
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
