@@ -102,9 +102,12 @@ language = None
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build',
-                    'releases/note-source/*.rst',
-                    'releases/tickets-source/*.rst']
+exclude_patterns = [
+    '_build',
+    'releases/note-source/*.rst',
+    'releases/tickets-source/*.rst',
+    'ups',
+]
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
