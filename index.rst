@@ -33,10 +33,19 @@ The latest release is |current-release|: :doc:`learn what's new <releases/index>
    releases/notes
    metrics/index
 
+Python modules
+==============
+
+.. toctree::
+   :maxdepth: 1
+
+   modules/lsst.pipe.base/index
+
 Packages
 ========
 
 .. toctree::
    :maxdepth: 1
 
+   packages/pipe_base/index
    packages/verify_metrics/index
