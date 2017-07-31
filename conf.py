@@ -52,6 +52,15 @@ extensions = [
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
     'sphinx-prompt',
+    'astropy_helpers.sphinx.ext.numpydoc',
+    'astropy_helpers.sphinx.ext.astropyautosummary',
+    'astropy_helpers.sphinx.ext.autodoc_enhancements',
+    'astropy_helpers.sphinx.ext.automodsumm',
+    'astropy_helpers.sphinx.ext.automodapi',
+    'astropy_helpers.sphinx.ext.tocdepthfix',
+    'astropy_helpers.sphinx.ext.doctest',
+    'astropy_helpers.sphinx.ext.changelog_links',
+    'astropy_helpers.sphinx.ext.smart_resolver',
     'documenteer.sphinxext'
 ]
 
