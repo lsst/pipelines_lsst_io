@@ -1,4 +1,5 @@
 _build
 modules
 packages
+py-api
 _static/pipe_base
