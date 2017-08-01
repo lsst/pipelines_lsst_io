@@ -149,6 +149,56 @@ if on_rtd:
 else:
     todo_include_todos = True
 
+# The reST default role cross-links Python (used for this markup: `text`)
+default_role = 'py:obj'
+
+
+# Intersphinx
+
+intersphinx_mapping = {
+    'python': ('http://docs.python.org/3/', None),
+    'numpy': ('http://docs.scipy.org/doc/numpy/', None),
+    'scipy': ('http://docs.scipy.org/doc/scipy/reference/', None),
+    'matplotlib': ('http://matplotlib.org/', None),
+    'astropy': ('http://docs.astropy.org/en/stable/', None),
+    'h5py': ('http://docs.h5py.org/en/latest/', None)
+}
+
+
+# API reference generation
+
+# Don't show summaries of the members in each class along with the
+# class' docstring
+numpydoc_show_class_members = False
+
+autosummary_generate = True
+
+automodapi_toctreedirnm = 'py-api'
+
+automodsumm_inherited_members = True
+
+# Class documentation should contain *both* the class docstring and
+# the __init__ docstring
+# autoclass_content = "both"
+
+# Render inheritance diagrams in SVG
+graphviz_output_format = "svg"
+
+graphviz_dot_args = [
+    '-Nfontsize=10',
+    '-Nfontname=Helvetica Neue, Helvetica, Arial, sans-serif',
+    '-Efontsize=10',
+    '-Efontname=Helvetica Neue, Helvetica, Arial, sans-serif',
+    '-Gfontsize=10',
+    '-Gfontname=Helvetica Neue, Helvetica, Arial, sans-serif'
+]
+
+# Configure breathe extension
+# if 'breathe' in extensions:
+#     c['breathe_projects'] = {project_name: doxygen_xml_dirname}
+#     c['breathe_default_project'] = project_name
+
+
 
 # -- Options for HTML output ----------------------------------------------
 
@@ -416,10 +466,6 @@ epub_exclude_files = ['search.html']
 
 # If false, no index is generated.
 # epub_use_index = True
-
-
-# Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {'https://docs.python.org/': None}
 
 
 rst_epilog = """
