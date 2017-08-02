@@ -13,7 +13,19 @@ Known Issues
 Binary installation issues
 ==========================
 
+Cross Platform
+--------------
+
 *No known issues.*
+
+Red Hat (and clones) specific
+-----------------------------
+
+- The DM codebase is not compatible with the Intel Math Kernel Library (MKL).
+  Attempting to use MKL may generate incorrect numerical results.
+
+  If you have installed using Conda, you should install the ``nomkl`` package,
+  and remove ``mkl`` and ``mkl service``. :jirab:`DM-5105`
 
 .. _src-installation-issues:
 
@@ -37,10 +49,14 @@ Cross Platform
 Red Hat (and clones) specific
 -----------------------------
 
+- The DM codebase is not compatible with the Intel Math Kernel Library (MKL).
+  Attempting to use MKL will cause the test suite to fail, automatically
+  aborting the installation. :jirab:`DM-5105`
+
 RHEL 7.*
 ^^^^^^^^
 
-*No known issues.*
+- No specific issues.
 
 RHEL 6.*
 ^^^^^^^^
