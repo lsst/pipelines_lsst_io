@@ -50,7 +50,7 @@ The ``deploy`` script automates several things for you:
 4. clones versiondb_, a robot-made Git repository of package dependency information, and
 5. creates an empty Stack *installation* directory, :file:`stack/`.
 
-``lsstsw`` `clones repositories using HTTPS <https://github.com/lsst/lsstsw/blob/master/etc/repos.yaml>`_.
+``lsstsw`` clones repositories using HTTPS (`see repos.yaml <https://github.com/lsst/repos/blob/master/etc/repos.yaml>`_.
 Our guide to `Setting up a Git credential helper <http://developer.lsst.io/en/latest/tools/git_lfs.html>`_ will allow you to push new commits up to GitHub without repeatedly entering your GitHub credentials.
 
 .. The ``setup.sh`` step enables EUPS_, the package manager used by LSST.
