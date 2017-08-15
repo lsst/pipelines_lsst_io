@@ -3,3 +3,4 @@ modules
 packages
 py-api
 _static/pipe_base
+_static/verify

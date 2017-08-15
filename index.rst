@@ -65,6 +65,7 @@ Python modules
    :maxdepth: 1
 
    modules/lsst.pipe.base/index
+   modules/lsst.verify/index
 
 Packages
 ========
@@ -73,6 +74,7 @@ Packages
    :maxdepth: 1
 
    packages/pipe_base/index
+   packages/verify/index
    packages/verify_metrics/index
 
 .. _part-release-details:
