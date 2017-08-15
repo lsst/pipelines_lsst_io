@@ -1,3 +1,4 @@
 # Specify direct dependencies to all packages included in the documentation
 setupRequired(pipe_base)
 setupRequired(verify_metrics)
+setupRequired(verify)
