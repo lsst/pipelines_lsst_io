@@ -10,8 +10,7 @@ This demo will allow you to quickly test your LSST Science Pipelines installatio
 Remember to first load the LSST Science Pipelines into your shell's environment.
 The method depends on how the Science Pipelines were installed:
 
-- :ref:`Conda <conda-install-activate>`
-- :ref:`newinstall.sh <install-from-source-loadlsst>`
+- :doc:`newinstall.sh <setup>`
 - :ref:`lsstsw <lsstsw-setup>`
 
 2. Download the Demo Project

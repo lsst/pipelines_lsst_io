@@ -6,7 +6,6 @@ Installing the LSST Science Pipelines
    :hidden:
 
    prereqs/index
-   conda
    newinstall
    lsstsw
    demo
@@ -17,10 +16,6 @@ Choose an option below to get started.
 .. note::
 
    To install the LSST Simulation software, such as MAF, please follow the `LSST Simulations documentation <https://confluence.lsstcorp.org/display/SIM/Catalogs+and+MAF>`_ instead of these guides.
-
-:doc:`Conda installation <conda>`
-   Install the Pipelines as an `Anaconda/Miniconda <https://www.continuum.io/why-anaconda>`__ binary package.
-   This is the easiest installation option since no source compilation is required.
 
 :doc:`Source installation (newinstall.sh) <newinstall>`
    ``newinstall.sh`` allows you to build and install the LSST Science Pipelines from source.
