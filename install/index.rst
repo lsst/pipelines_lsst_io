@@ -7,6 +7,7 @@ Installing the LSST Science Pipelines
 
    prereqs/index
    newinstall
+   setup
    top-level-packages
    lsstsw
    demo

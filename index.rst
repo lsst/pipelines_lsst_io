@@ -15,6 +15,7 @@ Installation
 - :doc:`Overview of installation methods <install/index>`
 - :doc:`Prerequisites <install/prereqs/index>`
 - :doc:`Installing with newinstall.sh <install/newinstall>` (recommended)
+- :doc:`install/setup`
 - :doc:`install/top-level-packages`
 - :doc:`Installing from source with lsstsw <install/lsstsw>` (for developers)
 
