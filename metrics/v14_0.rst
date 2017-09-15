@@ -1,7 +1,7 @@
 .. _metrics-v14-0:
 
 ##############################################################
-Characterization Metric Report: Science Pipelines Version 13.0
+Characterization Metric Report: Science Pipelines Version 14.0
 ##############################################################
 
 Measured using `validation_data_hsc`_, which consists of 8 HSC engineering images: 4 *r*-band, 2 *i*'-band, and 2 *y*-band.
@@ -82,9 +82,9 @@ The following metrics are defined following LSR-REQ-0094 (`LSE-29`_) and `LPM-17
 +----------------+------+-----------------+-------------------+--------------+
 | AD1 (*i*-band) | mas  | :math:`\leq 20` | 20.0              | 11.75        |
 +----------------+------+-----------------+-------------------+--------------+
-| AM2 (*r*-band) | mas  | :math:`\leq 10` | 40.0              | 6.13         |
+| AM2 (*r*-band) | mas  | :math:`\leq 10` | 50.0              | 6.13         |
 +----------------+------+-----------------+-------------------+--------------+
-| AM2 (*i*-band) | mas  | :math:`\leq 10` | 40.0              | 10.23        |
+| AM2 (*i*-band) | mas  | :math:`\leq 10` | 50.0              | 10.23        |
 +----------------+------+-----------------+-------------------+--------------+
 | AF2 (*r*-band) | %    | :math:`\leq 10` | 10.0              | 1.19         |
 +----------------+------+-----------------+-------------------+--------------+
