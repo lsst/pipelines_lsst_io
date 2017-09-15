@@ -12,13 +12,21 @@ The latest release is |current-release|: :doc:`learn what's new <releases/index>
 Installation
 ============
 
-- :doc:`Overview of installation methods <install/index>`
-- :doc:`Prerequisites <install/prereqs/index>`
-- :doc:`Installing with newinstall.sh <install/newinstall>` (recommended)
+Recommended installation path:
+
+- :doc:`Installing with newinstall.sh <install/newinstall>`
 - :doc:`install/setup`
 - :doc:`install/top-level-packages`
+
+Alternative distributions and installation methods:
+
 - :doc:`install/docker`
-- :doc:`Installing from source with lsstsw <install/lsstsw>` (for developers)
+- :doc:`Installing from source with lsstsw <install/lsstsw>`
+- `CernVM FS <https://github.com/airnandez/lsst-cvmfs>`_ (contributed by IN2P3)
+
+To install the LSST Simulation software, such as MAF, follow the `LSST Simulations documentation <https://confluence.lsstcorp.org/display/SIM/Catalogs+and+MAF>`_.
+
+.. This toctree is hidden to let us curate the section above, but still add the install/ pages to the Sphinx toctree
 
 .. toctree::
    :hidden:
