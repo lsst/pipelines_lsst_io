@@ -1,5 +1,5 @@
 ######################################################
-Testing the Science Pipelines Installation with a Demo
+Testing the Science Pipelines installation with a demo
 ######################################################
 
 This demo will allow you to quickly test your LSST Science Pipelines installation, :doc:`regardless of your installation method <index>`.
@@ -13,11 +13,11 @@ The method depends on how the Science Pipelines were installed:
 - :doc:`newinstall.sh <setup>`
 - :ref:`lsstsw <lsstsw-setup>`
 
-2. Download the Demo Project
+2. Download the demo project
 ============================
 
 Choose a directory to run the demo in.
-We'll call this directory :file:`demo_data`.
+For example:
 
 .. code-block:: bash
 
@@ -34,7 +34,7 @@ Then download the demo's data (if you aren't running the current stable release,
 .. note::
 
    The demo's version should match your installed software.
-   If you installed from source (with :doc:`lsstsw <lsstsw>`), clone the demo repository instead of downloading a release:
+   If you installed from source (with :doc:`lsstsw <lsstsw>`) or with a :ref`newer tag <newinstall-other-tags>`, clone the demo repository instead of downloading a release:
 
    .. code-block:: bash
 
@@ -53,7 +53,7 @@ run  camcol field filters
 
 *Filters in parentheses are not processed if run with the* ``--small`` *option, see below*
 
-3. Run the Demo
+3. Run the demo
 ===============
 
 Now setup the processing package and run the demo:
@@ -65,11 +65,12 @@ Now setup the processing package and run the demo:
 
 For each input image the script performs the following operations:
 
-* generate a subset of basic image characterization (e.g., determine photometric zero-point, detect sources, and measures positions, shapes, brightness with a variety of techniques),
-* creates a :command:`./output` subdirectory containing subdirectories of configuration files, processing metadata, calibrated images, FITS tables of detected sources. These "raw" outputs are readable by other parts of the LSST pipeline, and
-* generates a master comparison catalog in the working directory from the band-specific source catalogs in the ``output/sci-results/`` subdirectories.
+- Generates a subset of basic image characterizations (such photometric zero-point estimation, source detection, and measurement).
+- Creates a :file:`./output` directory containing subdirectories of configuration files, processing metadata, calibrated images, and FITS tables of detected sources.
+  These ``raw`` outputs are readable by other parts of the LSST pipeline.
+- Generates a master comparison catalog in the working directory from the band-specific source catalogs in the ``output/sci-results/`` subdirectories.
 
-4. Check the Demo Results
+4. Check the demo results
 =========================
 
 The demo will take a minute or two to execute (depending upon your machine), and will generate a large number of status messages.
