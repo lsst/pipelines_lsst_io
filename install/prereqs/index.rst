@@ -21,8 +21,7 @@ System prerequisites
 Python dependencies
 ===================
 
-You can use your own Python 2.7.\* install or let :command:`newinstall.sh` install `Miniconda <https://www.continuum.io/downloads>`__ in your local directory.
-
+Both the :doc:`newinstall.sh <../newinstall>` and :doc:`lsstsw <../lsstsw>`\ -based installation methods provide dedicated Miniconda environments pre-loaded with Python dependencies.
 If you opt to use your own Python, you can re-create the default Python environment made by :command:`newinstall.sh` and ``lsstsw`` with these Conda environments:
 
 - `macOS and Python 2.7 <https://github.com/lsst/lsstsw/blob/master/etc/conda2_packages-osx-64.txt>`_.
