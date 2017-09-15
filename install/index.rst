@@ -9,6 +9,7 @@ Installing the LSST Science Pipelines
    newinstall
    setup
    top-level-packages
+   docker
    lsstsw
    demo
 

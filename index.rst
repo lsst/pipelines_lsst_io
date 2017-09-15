@@ -17,6 +17,7 @@ Installation
 - :doc:`Installing with newinstall.sh <install/newinstall>` (recommended)
 - :doc:`install/setup`
 - :doc:`install/top-level-packages`
+- :doc:`install/docker`
 - :doc:`Installing from source with lsstsw <install/lsstsw>` (for developers)
 
 .. toctree::
