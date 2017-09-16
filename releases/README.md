@@ -34,7 +34,7 @@ Cycle 20XY Release (vNN_N)
 
 - :doc:`Installation instructions </install/index>`
 - :doc:`Known issues </known-issues>`
-- :doc:`Measurements & Characterization </metrics/index>`
+- `Characterization Metric Report (DMTR-NN) <https://ls.st/DMTR-NN>`_
 
 .. _release-vNN-N-major-changes:
 

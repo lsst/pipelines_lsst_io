@@ -42,7 +42,7 @@ To install the LSST Simulation software, such as MAF, follow the `LSST Simulatio
 
    releases/notes
    known-issues
-   metrics/index
+   metrics
 
 .. toctree::
    :hidden:
