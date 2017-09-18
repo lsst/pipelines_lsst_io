@@ -4,6 +4,17 @@ Prerequisites
 
 This page lists software needed to install and use the LSST Science Pipelines.
 
+.. _prereq-platforms:
+
+Platform compatibility
+======================
+
+The LSST Data Management reference platform is CentOS 7-1611.
+This is the platform we officially develop, test, and operate with.
+
+Besides the reference platform, we generally expect the Pipelines to also compile and run under CentOS 6, Debian Linux (including Ubuntu), and macOS.
+See `LSST Stack Testing Status <https://ls.st/faq>`_ reports of building LSST software on various platforms.
+
 .. _system-prereqs:
 
 System prerequisites
