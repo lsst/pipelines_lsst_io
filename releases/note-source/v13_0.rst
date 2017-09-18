@@ -22,7 +22,7 @@ Fall 2016 Release (v13_0)
 
 - :doc:`Installation instructions <../install/index>`
 - :doc:`Known issues </known-issues>`
-- :doc:`Measurements & Characterization </metrics/index>`
+- `Characterization Metric Report (DMTR-15) <https://ls.st/DMTR-15>`_
 
 .. _release-v13-0-major-changes:
 

@@ -17,8 +17,7 @@ LSST-driven developments. Even :ref:`Astropy views of LSST catalogs objects
 <release-v12-0-astropy-table-views>` are available.
 
 Full details can be found in the :ref:`extensive release notes <release-v12-0>`.
-We have also published a :ref:`Characterization Metric Report
-<metrics-v12-0>`.
+We have also published a `Characterization Metric Report <https://ls.st/DMTR-14>`_.
 
 New: Install with Anaconda
 ==========================

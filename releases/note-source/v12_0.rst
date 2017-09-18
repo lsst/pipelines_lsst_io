@@ -22,7 +22,7 @@ Winter 2016 & X2016 Release (v12_0)
 
 - :doc:`Installation instructions <../install/index>`
 - :doc:`Known issues </known-issues>`
-- :doc:`Measurements & Characterization </metrics/index>`
+- `Characterization Metric Report (DMTR-14) <https://ls.st/DMTR-14>`_
 
 .. _release-v12-0-major-changes:
 
