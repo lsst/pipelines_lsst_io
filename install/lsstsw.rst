@@ -19,10 +19,13 @@ If you have difficulty installing LSST software:
 1. Prerequisites
 ================
 
+The LSST Science Pipelines can generally be compiled on CentOS, Debian, and macOS platforms.
+See :ref:`prereq-platforms` for information about LSST's official reference platform and build reports with other platforms.
+
 Before you begin:
 
 - `Install and configure Git LFS <https://developer.lsst.io/tools/git_lfs.html>`_ for LSST DM's data servers.
-- Install prerequisites for your platform: :doc:`macOS <prereqs/macos>`, :doc:`Debian / Ubuntu <prereqs/debian>`, or :doc:`Centos / RedHat <prereqs/centos>`.
+- Install prerequisites for your platform: :doc:`CentOS / RedHat <prereqs/centos>`, :doc:`Debian / Ubuntu <prereqs/debian>`, or :doc:`macOS <prereqs/macos>`.
 - If you opt not to use ``lsstsw`` \’s default Python environment you need to :ref:`install these Python dependencies <python-deps>`.
 
 .. _lsstsw-deploy:
