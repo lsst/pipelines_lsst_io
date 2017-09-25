@@ -108,6 +108,7 @@ This example installs the ``v14_0_rc1`` tagged version (current release) of the 
 
 If prebuilt binaries are available for your platform (and you ran :command:`newinstall.sh` with the :option:`-t <newinstall.sh -t>` argument) the installation should take roughly 10 minutes.
 Otherwise, the installation falls back to a source build that can take two hours, depending on the top-level package and your machine's performance.
+See :ref:`newinstall-find-binaries`.
 
 .. TK add mention of how-to for debugging binary package root issues.
 
@@ -161,6 +162,7 @@ These topics provide additional information about the installation and ways to c
 - :ref:`newinstall-py2`.
 - :ref:`newinstall-user-python`.
 - :ref:`newinstall-binary-packages`.
+- :ref:`newinstall-find-binaries`.
 - :ref:`newinstall-binary-compatibility`.
 - :ref:`newinstall-other-tags`.
 - :ref:`newinstall-reference`.
@@ -315,6 +317,50 @@ Here is an example of the output:
 
 Based on this example, :command:`eups distrib install` will preferentially install EUPS distrib binary packages for the macOS 10.9 system, ``clang-800.0.42.1`` compiler, and ``miniconda3-4.2.12-7c8e67`` Python and lsstsw combination.
 If :command:`eups distrib install` cannot find packages at that EUPS package root it will look in the second EUPS package root (https://eups.lsst.codes/stack/src), which provides source packages.
+
+**See also:**
+
+- :ref:`newinstall-find-binaries`
+- :ref:`newinstall-binary-compatibility`
+
+.. _newinstall-find-binaries:
+
+How to determine if tarball packages are available for your platform
+--------------------------------------------------------------------
+
+When you run :ref:`eups distrib install <newinstall-install>`, it will attempt to install prebuilt binary packages first and fall back to compiling the Science Pipelines if binary packages aren't available for your platform (by default).
+This fallback is automatic.
+You'll know packages are being compiled from source if you see compiler processes (like :command:`gcc` or :command:`clang`) load your machine.
+
+The instructions in this section will help you diagnose *why* :command:`eups distrib install` is falling back to a source installation.
+
+First, get your EUPS package root URLs:
+
+.. code-block:: bash
+
+   eups distrib path
+
+If the only URL listed is https://eups.lsst.codes/stack/src, it means that :command:`newinstall.sh` configured your environment to not use binary packages.
+Try re-running :command:`newinstall.sh` (see :ref:`newinstall-run`) with the :option:`-t <newinstall.sh -t>` argument.
+Also, ensure that you accept the default Miniconda Python environment.
+
+If :command:`eups distrib path` includes an additional URL that doesn't end with ``/src`` (for example, ``https://eups.lsst.codes/stack/osx/10.9/clang-800.0.42.1/miniconda3-4.2.12-7c8e67``), it means :command:`newinstall.sh` has configured a binary package root.
+The construction of the binary package root URL is based on your OS, compilers, and Python environment (see :ref:`newinstall-binary-packages`).
+
+:command:`eups distrib install` will only install binary packages if they exist on the binary package root.
+To check this, open the binary package root URL in a web browser.
+If the binary package root URL does not load in a browser it means LSST does not publish prebuilt binaries for your platform.
+Either continue the installation from source or consider using the :doc:`LSST Docker images <docker>`.
+
+If the URL does open, though, search for files with a ``.list`` extension.
+A ``.list`` file is created for each release that has binary packages.
+The name of the ``.list`` file matches the release tag (for example, ``w_2017_33.list``).
+See :ref:`newinstall-other-tags` for more information about tags.
+
+For example, if the binary package root is ``https://eups.lsst.codes/stack/osx/10.9/clang-800.0.42.1/miniconda3-4.2.12-7c8e67`` and you wish to install the ``w_2017_33`` tag, the file ``https://eups.lsst.codes/stack/osx/10.9/clang-800.0.42.1/miniconda3-4.2.12-7c8e67/w_2017_33.list`` must exist for a binary installation.
+
+If the ``.list`` file does not exist for the tag you want to install, but does exist for other tags in that EUPS package root, it may be due to an issue with the LSST binary package publishing system.
+You can either continue with an installation from source, consider switching to a tag that is known to have binary packages, or consider using :ref:`LSST's Docker images <docker>`.
 
 .. _newinstall-binary-compatibility:
 
