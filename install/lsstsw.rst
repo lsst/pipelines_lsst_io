@@ -2,17 +2,16 @@
 Installation with lsstsw and lsst-build
 #######################################
 
-This page will guide you through installing the LSST Science Pipelines from source with lsstsw and lsst-build.
+This page guides you through installing the LSST Science Pipelines from source with lsstsw and lsst-build.
 These are the same tools LSST Data Management uses to build and test the Science Pipelines.
 
-Since lsstsw presents the Science Pipelines as a directory of Git repositories clone from `github.com/lsst <https://github.com/lsst>`__, this installation method can be very convenient for developing Science Pipelines code.
+Since lsstsw presents the Science Pipelines as a directory of Git repositories cloned from `github.com/lsst <https://github.com/lsst>`__, this installation method can be very convenient for developing Science Pipelines code.
+Other methods of installing LSST Science Pipelines software are :doc:`newinstall.sh <newinstall>` and :doc:`Docker <docker>`.
 
-Science Pipelines developers should also consult the `DM Developer Guide <https://developer.lsst.io>`_, and the `Workflow <https://developer.lsst.io/processes/workflow.html>`_ page in particular.
+If you have issues using lsstsw, here are two ways to get help:
 
-If you have difficulty installing LSST software:
-
-- review the :ref:`known installation issues for your platform <installation-issues>`.
-- reach out on the `Support forum at community.lsst.org <https://community.lsst.org/c/support>`_.
+- Review the :ref:`known installation issues <installation-issues>`.
+- Ask a question on the `LSST Community support forum <https://community.lsst.org/c/support>`_.
 
 .. _lsstsw-prerequisites:
 
@@ -26,15 +25,12 @@ Before you begin:
 
 - `Install and configure Git LFS <https://developer.lsst.io/tools/git_lfs.html>`_ for LSST DM's data servers.
 - Install prerequisites for your platform: :doc:`CentOS / RedHat <prereqs/centos>`, :doc:`Debian / Ubuntu <prereqs/debian>`, or :doc:`macOS <prereqs/macos>`.
-- If you opt not to use ``lsstsw`` \’s default Python environment you need to :ref:`install these Python dependencies <python-deps>`.
+- If you opt not to use the default Python environment provided by ``lsstsw`` you will need to :ref:`install these Python dependencies <python-deps>`.
 
 .. _lsstsw-deploy:
 
 2. Deploy lsstsw
 ================
-
-.. Code for the LSST Stack is distributed across many Git repositories (see `github.com/lsst <https://github.com/lsst>`_).
-.. `lsstsw <https://github.com/lsst/lsstsw>`_ is a tool that helps you manage the codebase by automating the process of cloning all of these repositories and building that development Stack for testing.
 
 Begin by choosing a working directory, then deploy ``lsstsw`` into it:
 
@@ -45,10 +41,7 @@ Begin by choosing a working directory, then deploy ``lsstsw`` into it:
    ./bin/deploy
    source bin/setup.sh
 
-For more information about the :command:`deploy` command, such as using Python 2.7 instead of 3, see :ref:`lsstsw-about-deploy`.
-
-.. The ``setup.sh`` step enables EUPS_, the package manager used by LSST.
-.. **Whenever you open a new terminal session, you need to run '. bin/setup.sh' to activate your lsstsw environment.**
+For more information about the :command:`deploy` command, such as using Python 2.7 instead of Python 3, see :ref:`lsstsw-about-deploy`.
 
 .. _lsstsw-rebuild:
 
@@ -76,6 +69,15 @@ Finally, set up the packages with EUPS:
    setup lsst_distrib
 
 See :doc:`setup` for more information.
+
+.. note::
+
+   You can do more with the :command:`build` command, including building from branches of GitHub repositories.
+   For more information:
+
+   - :ref:`lsstsw-about-rebuild`.
+   - :ref:`lsstsw-branches`.
+   - :ref:`lsstsw-rebuild-ref`.
 
 .. _lsstsw-testing-your-installation:
 
@@ -112,7 +114,7 @@ Run these two steps:
    
       setup lsst_distrib
 
-   Instead of ``lsst_distrib``, you can set up a different top-level package like ``lsst_apps`` or any individual EUPS package.
+   Instead of ``lsst_distrib``, you can set up a different top-level package like ``lsst_apps`` or any individual EUPS package you previously installed.
    See :doc:`top-level-packages`.
 
 .. _lsstsw-next:
@@ -170,12 +172,12 @@ About the lsstsw rebuild command
 The :command:`rebuild` command accomplishes the following:
 
 1. Clones all Science Pipelines packages from `github.com/lsst <https://github.com/lsst>`__.
-   :command:`rebuild`
+   The `repos.yaml`_ file in the https://github.com/lsst/repos repository maps package names to GitHub repositories.
 
 2. Runs the Scons-based build process to compile C++, make Pybind11 bindings, and ultimately create the :lmod:`lsst` Python package.
    The stack is built and installed into the :file:`stack/` directory inside your :file:`lsstsw/` work directory.
 
-``lsstsw`` clones repositories using HTTPS (`see repos.yaml <https://github.com/lsst/repos/blob/master/etc/repos.yaml>`_.
+lsstsw clones repositories using HTTPS (`see repos.yaml <https://github.com/lsst/repos/blob/master/etc/repos.yaml>`_).
 Our guide to `Setting up a Git credential helper <http://developer.lsst.io/en/latest/tools/git_lfs.html>`_ will allow you to push new commits up to GitHub without repeatedly entering your GitHub credentials.
 
 See also: :ref:`lsstsw-rebuild-ref`.
@@ -185,7 +187,7 @@ See also: :ref:`lsstsw-rebuild-ref`.
 Building from branches
 ----------------------
 
-lsstsw's :command:`rebuild` enables you to clone and build development branches.
+lsstsw's :command:`rebuild` command enables you to clone and build development branches.
 
 To build ``lsst_distrb``, but use the Git branch ``my-feature`` when it's available in a package's repository:
 
@@ -267,3 +269,4 @@ lsstsw rebuild command reference
 .. _versiondb: https://github.com/lsst/versiondb
 .. _EUPS: https://github.com/RobertLuptonTheGood/eups
 .. _Miniconda: http://conda.pydata.org/miniconda.html
+.. _`repos.yaml`: https://github.com/lsst/repos/blob/master/etc/repos.yaml

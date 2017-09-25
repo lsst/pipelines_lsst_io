@@ -4,7 +4,7 @@
 Setting up installed LSST Science Pipelines
 ###########################################
 
-Whenever you start a new command-line shell you need to set up the LSST Science Pipelines software before you can use it.
+Whenever you start a new command-line shell, you need to set up the LSST Science Pipelines software before you can use it.
 
 .. _setup-howto:
 

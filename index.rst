@@ -22,7 +22,7 @@ Alternative distributions and installation methods:
 
 - :doc:`install/docker`
 - :doc:`Installing from source with lsstsw <install/lsstsw>`
-- `CernVM FS <https://github.com/airnandez/lsst-cvmfs>`_ (contributed by IN2P3)
+- `CernVM FS <https://github.com/airnandez/lsst-cvmfs>`_ (contributed by CC-IN2P3)
 
 To install the LSST Simulation software, such as MAF, follow the `LSST Simulations documentation <https://confluence.lsstcorp.org/display/SIM/Catalogs+and+MAF>`_.
 

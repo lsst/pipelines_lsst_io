@@ -6,8 +6,9 @@ Running with Docker
 
 LSST provides versioned Docker images containing the Science Pipelines software.
 With Docker, you can quickly install download and run the LSST Science Pipelines on any platform without compiling from source.
+Docker is an effective and reliable alternative to the :doc:`newinstall.sh <newinstall>` and :doc:`lsstsw`\ -based methods that install LSST software directly on your system.
 
-If you have issues, reach out on the `LSST Community support forum <https://community.lsst.org/c/support>`_.
+If you have issues using the LSST Docker images, reach out on the `LSST Community support forum <https://community.lsst.org/c/support>`_.
 
 .. _docker-prereqs:
 
@@ -38,8 +39,16 @@ Then in the container's shell, load the LSST environment and set up a :doc:`top-
    source /opt/lsst/software/stack/loadLSST.bash
    setup lsst_distrib
 
-This step is equivalent to the :doc:`setup instructions <setup>` for a :doc:`newinstall.sh <newinstall>`\ -based installation.
+This step is equivalent to the :doc:`set up instructions <setup>` for a :doc:`newinstall.sh <newinstall>`\ -based installation.
 In fact, the images are internally based on :command:`newinstall.sh`.
+
+When you're done with the container, exit from the container's shell:
+
+.. code-block:: bash
+
+   exit
+
+This will return you to the original shell on your host system.
 
 Next, learn more with these topics:
 
@@ -51,7 +60,7 @@ Finding images for different LSST Science Pipelines releases
 ============================================================
 
 LSST Science Pipelines Docker images are published as `lsstsqre/centos`_ on Docker Hub.
-These images are based on the CentOS base image.
+These images are based on a CentOS_ base image.
 
 Docker images are versioned with tags, allowing you to run any release of the LSST Science Pipelines software.
 The schema of these tags is:
@@ -75,3 +84,4 @@ This tag corresponds to:
 You can see what tags are available by browsing `lsstsqre/centos on Docker Hub <https://hub.docker.com/r/lsstsqre/centos/tags/>`_.
 
 .. _`lsstsqre/centos`: https://hub.docker.com/r/lsstsqre/centos/
+.. _CentOS: https://www.centos.org

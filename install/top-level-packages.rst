@@ -3,7 +3,7 @@ Top-level packages to install
 #############################
 
 The LSST Science Pipelines are part of LSST's EUPS_ package stack.
-This means that the Science Pipelines software is actually a collection of packages that you install and setup together.
+This means that the Science Pipelines software is actually a collection of packages that you install and set up together.
 By specifying different **top-level packages** to the :ref:`eups distrib install <newinstall-install>` and :doc:`setup <setup>` commands, you can control the size of the software installation or add new capabilities.
 
 This page describes the common top-level packages that make up the LSST Science Pipelines and related EUPS stacks.
