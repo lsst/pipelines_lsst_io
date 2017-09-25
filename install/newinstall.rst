@@ -5,10 +5,10 @@ Install with newinstall.sh and eups distrib
 This page guides you through installing the LSST Science Pipelines software.
 This installation method is recommended for anyone who uses or develops the Pipelines software.
 
-If you have installation issues, here are some ways to get help:
+If you have issues with the installation, here are two ways to get help:
 
 - Review the :ref:`known installation issues <installation-issues>`.
-- Ask a question in the `LSST Community support forum <https://community.lsst.org/c/support>`_.
+- Ask a question on the `LSST Community support forum <https://community.lsst.org/c/support>`_.
 
 .. _newinstall-prereqs:
 
@@ -32,8 +32,8 @@ Before you begin, install prerequisite software for your platform:
 2. Make an installation directory
 =================================
 
-First, choose where you want to install the LSST Science Pipelines.
-Create and change into that directory:
+Create a directory where you want to install the LSST Science Pipelines into.
+For example:
 
 .. code-block:: bash
 
@@ -58,11 +58,11 @@ For most use cases we recommend downloading and running :command:`newinstall.sh`
    curl -OL https://raw.githubusercontent.com/lsst/lsst/14.0/scripts/newinstall.sh
    bash newinstall.sh -ct
 
-Always execute `newinstall.sh` with bash, as shown, regardless of what shell you are in.
+Always execute :command:`newinstall.sh` with :command:`bash`, as shown, regardless of what shell you're in.
 
 We recommend that you opt into the provided Miniconda Python environment (see the links below for more information).
 
-Then load this environment into your shell:
+Then load the LSST software environment into your shell:
 
 .. TODO Use sphinx-tabs here?
 
@@ -80,7 +80,7 @@ Then load this environment into your shell:
    - The default Python environment is Python 3.5.
      **Python 2.7 users,** see :ref:`newinstall-py2`.
    - :ref:`newinstall-user-python`.
-   - The recommended installation uses precompiled binary tarballs if available for your platform (and falls back to a source build).
+   - The recommended installation uses precompiled binary tarballs if they're available for your platform (and falls back to a source build).
      See :ref:`newinstall-binary-packages`.
      If you will be compiling and linking C++ code against this installation you'll need to ensure your compilers match the distribution's.
      **Developers should review** :ref:`newinstall-binary-compatibility`.
@@ -96,9 +96,9 @@ Then load this environment into your shell:
 4. Install Science Pipelines packages
 =====================================
 
-Install the LSST Science Pipelines packages by running :command:`eups distrib install` for a top-level package and a tagged version.
+Install the LSST Science Pipelines packages by running :command:`eups distrib install` for a :doc:`top-level package <top-level-packages>` and a tagged version.
 
-This example installs the ``v14_0_rc1`` tagged version (current release) of the ``lsst_distrib`` top-level package:
+This example installs the ``v14_0_rc1`` tagged version (current release) of the ``lsst_distrib`` :doc:`top-level package <top-level-packages>`:
 
 .. code-block:: bash
 
@@ -106,8 +106,10 @@ This example installs the ``v14_0_rc1`` tagged version (current release) of the 
    curl -sSL https://raw.githubusercontent.com/lsst/shebangtron/master/shebangtron | python
    setup lsst_distrib
 
-If pre-built binaries are available for your platform (and you ran :command:`newinstall.sh` with the :option:`-t <newinstall.sh -t>` argument) the installation should take roughly 10 minutes.
-Otherwise, installation falls back to a source build which can take two hours, depending on the top-level package and your machine's performance.
+If prebuilt binaries are available for your platform (and you ran :command:`newinstall.sh` with the :option:`-t <newinstall.sh -t>` argument) the installation should take roughly 10 minutes.
+Otherwise, the installation falls back to a source build that can take two hours, depending on the top-level package and your machine's performance.
+
+.. TK add mention of how-to for debugging binary package root issues.
 
 The last command, :command:`setup`, activates the installed packages in your shell environment.
 You'll need to run :command:`setup` in each shell session you'll use the LSST Science Pipelines in.
@@ -115,7 +117,7 @@ See :doc:`setup` for more information.
 
 .. note::
 
-   - ``lsst_distrib`` is a top-level package that brings-in most LSST Data Management pipelines software, but other top-level packages may be more applicable for your work, such as ``lsst_apps`` or ``lsst_sims``.
+   - ``lsst_distrib`` is a top-level package that provides most LSST Data Management pipelines software, but other top-level packages may be more applicable for your work, such as ``lsst_apps`` or ``lsst_sims``.
      See :doc:`top-level-packages` for more information.
 
    - ``v14_0_rc1`` is the current release.
@@ -168,7 +170,7 @@ These topics provide additional information about the installation and ways to c
 Setting unix permissions for shared installations
 -------------------------------------------------
 
-You can make the LSST Science Pipelines installation accessible to multiple users on the same machine.
+You can make a single LSST Science Pipelines installation accessible to multiple users on the same machine.
 
 First, create a separate unix group (called ``lsst``, for example) with a ``umask`` of ``002`` (all access permissions for the group and allow other users to read/execute).
 
@@ -198,8 +200,8 @@ You activate this environment in a shell by sourcing the :command:`loadLSST` scr
 
 Here is how :command:`newinstall.sh` prepares the environment:
 
-- Identifies your operating system and compilers to determine what EUPS binary packages should be installed (the EUPS package root, see :ref:`newinstall-binary-packages`).
-- Installs a specific version of Python, through Miniconda, that is compatible with EUPS binary packages (see :ref:`newinstall-miniconda`).
+- Identifies your operating system and compilers to determine what EUPS binary packages should be installed (the *EUPS package root,* see :ref:`newinstall-binary-packages`).
+- Installs a specific version of Python, through Miniconda_, that is compatible with EUPS binary packages (see :ref:`newinstall-miniconda`).
 - Installs Conda packages that the LSST Science Pipelines depends on (see :ref:`python-deps`).
 - Checks for :command:`git` on your systems and offers to install it if necessary.
 - Installs EUPS_, the package manager used by the LSST software stack.
@@ -255,8 +257,8 @@ How to use your own Python with newinstall.sh
 :command:`newinstall.sh` creates a new Python environment by default (pre-configured with Python dependencies).
 If necessary, you can use your own pre-existing Python environment.
 
-To do so, run :command:`newinstall.sh` (see :command:`newinstall-run` for details and command arguments).
-When :command:`newinstall-run` prompts you to install Miniconda, type ``no``.
+To do so, run :command:`newinstall.sh` (see :ref:`newinstall-run` for details and command arguments).
+When :command:`newinstall.sh` prompts you to install Miniconda, type ``no``.
 
 Be aware of these caveats when using your own Python installation:
 
@@ -409,23 +411,24 @@ newinstall.sh argument reference
 
 .. option:: -t
 
-   Use pre-compiled EUPS "tarball" packages, if available.
+   Allows :command:`eups distrib install` to install prebuilt binary (tarball) packages, where available
 
 .. option:: -T
 
-   **Do not** use pre-compiled EUPS "tarball" packages. (**default**)
+   Prevents :command:`eups distrib install` from installing prebuilt binary (tarball) packages. (**default**)
 
 .. option:: -s
 
-   Use EUPS source "eupspkg" packages, if available (compile from source).
+   Allows :command:`eups distrib install` to compile and install packages from source (eupspkg). (**default**)
 
 .. option:: -S
 
    **Do not** use EUPS source "eupspkg" packages (do not compile from source).
+   Prevents :command:`eups distrib install` from compiling and installing packages from source (eupspkg).
 
 .. option:: -h
 
-   Display this help message.
+   Display a help message.
 
 
 .. _Miniconda: https://conda.io/miniconda.html
