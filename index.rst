@@ -24,6 +24,10 @@ Alternative distributions and installation methods:
 - :doc:`Installing from source with lsstsw <install/lsstsw>`
 - `CernVM FS <https://github.com/airnandez/lsst-cvmfs>`_ (contributed by CC-IN2P3)
 
+Related topics:
+
+- :doc:`install/package-development`
+
 To install the LSST Simulation software, such as MAF, follow the `LSST Simulations documentation <https://confluence.lsstcorp.org/display/SIM/Catalogs+and+MAF>`_.
 
 .. This toctree is hidden to let us curate the section above, but still add the install/ pages to the Sphinx toctree
