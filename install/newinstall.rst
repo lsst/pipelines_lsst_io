@@ -142,12 +142,11 @@ See :doc:`demo` for instructions.
 Next steps
 ==========
 
-Add links to topics the reader should go to next.
-Examples:
+Now that you have a working LSST Science Pipelines installation, these topics will help you learn and do more:
 
-- A topic reminding a user to setup the stack in a new shell.
-- Topic explaining top-level packages.
-- Topic on compiling a package alongside an existing stack.
+- :doc:`setup`.
+- :doc:`top-level-packages`.
+- :doc:`package-development`.
 
 Advanced installation topics
 ============================
