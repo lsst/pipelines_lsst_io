@@ -5,6 +5,11 @@ Building a package with the installed Science Pipelines stack
 You can build packages alongside an LSST Science Pipelines stack that you have installed with :doc:`newinstall.sh <newinstall>`, :doc:`lsstsw <lsstsw>`, or :doc:`Docker <docker>`.
 This pages describes how to build and set up packages cloned directly from GitHub.
 
+.. note::
+
+   If you are developing with the LSST Docker images, refer to :ref:`docker-develop`.
+   That page describes Docker-specific patterns and complements the general information on this page.
+
 .. _package-dev-prereq:
 
 0. Prerequisites
