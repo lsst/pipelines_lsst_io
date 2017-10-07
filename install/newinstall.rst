@@ -15,12 +15,13 @@ If you have installation issues, here are some ways to get help:
 1. Prerequisites
 ================
 
-You can install the LSST Science Pipelines on CentOS 7 (LSST's reference platform) as well as other Linux distributions and macOS (see the `LSST Stack Testing Status <https://ls.st/faq>`_ for information on the platforms we have tested with).
+The LSST Science Pipelines can be compiled and run on CentOS, Debian, and macOS.
+See :ref:`prereq-platforms` for information about LSST's official reference platform and build reports with other platforms.
 
 Before you begin, install prerequisite software for your platform:
 
 - :doc:`macOS <prereqs/macos>`
-- :doc:`Centos / RedHat <prereqs/centos>`
+- :doc:`CentOS / RedHat <prereqs/centos>`
 - :doc:`Debian / Ubuntu <prereqs/debian>`
 
 ..
