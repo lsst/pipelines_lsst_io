@@ -25,4 +25,4 @@ Join Us on the Community Forum
 ==============================
 
 If you have questions or comments or comments about the LSST Science Pipelines,
-visit our new community forum for advice: https://community.lsst.org/.
+visit our community forum for advice: https://community.lsst.org/.
