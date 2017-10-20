@@ -2,7 +2,7 @@
 LSST Stack 14.0 Release
 #######################
 
-Version 14.0 of the LSST Science Pipelines is now available.
+Version 14.0 of the LSST Science Pipelines is now available. It is based on 2017 weekly 33.
 
 LSST Pipelines
 ==============
