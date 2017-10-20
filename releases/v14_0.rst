@@ -1,8 +1,8 @@
-#####################################
-LSST Stack 14.0 / Spring 2017 Release
-#####################################
+#######################
+LSST Stack 14.0 Release
+#######################
 
-Version 14.0 of the LSST Science Pipelines (aka S17) is now available.
+Version 14.0 of the LSST Science Pipelines is now available.
 
 LSST Pipelines
 ==============
