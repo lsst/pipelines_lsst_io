@@ -25,7 +25,7 @@ Spring 2017 Release (v14_0)
 - `Characterization Metric Report (DMTR-41) <https://ls.st/DMTR-41>`_
 
 These release notes highlight significant changes to the Science Pipelines codebase which are likely to be of wide interest.
-A complete list of issues addressed in this release is available :ref:`here <release-v14-0-tickets>`.
+For a complete list of changes, see :ref:`release-v14-0-tickets`.
 
 .. _release-v14-0-major-changes:
 
@@ -175,7 +175,7 @@ This is analogous to the flags used to indicate sources used in PSF modeling.
 Convolved flux measurement
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The meas_extensions_convolved package has been added to the distribution.
+The meas_extensions_convolved package has been added to the lsst\_distrib distribution.
 This convolves images to a specified PSF before measuring aperture fluxes.
 This may be useful when, for example:
 
@@ -198,7 +198,7 @@ The ``afw.cameraGeom.Camera`` object now provides an API for accessing a model o
 Joint calibration
 ^^^^^^^^^^^^^^^^^
 
-The Jointcal package, which provides for simultaneous photometric and astrometric calibration over multiple exposures, has been added to the distribution.
+The Jointcal package, which provides for simultaneous photometric and astrometric calibration over multiple exposures, has been added to the lsst\_distrib distribution.
 While we believe that Jointcal works well, note that it is still under heavy development and is not currently run as part of regular processing by the LSST development team: regard this package as a technology preview.
 
 :jirab:`DM-9752`
