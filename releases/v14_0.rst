@@ -1,0 +1,28 @@
+#######################
+LSST Stack 14.0 Release
+#######################
+
+Version 14.0 of the LSST Science Pipelines is now available. It is based on 2017 weekly 33.
+
+LSST Pipelines
+==============
+
+Full details of the LSST Science Pipelines 14.0 release can be found
+in the :ref:`extensive release notes <release-v14-0>`.  We have also
+published a `Characterization Metric Report <https://ls.st/DMTR-41>`_.
+
+Qserv and Data Access
+=====================
+
+The database team is on a separate release cadence.
+
+Science User Interface
+======================
+
+The Science User Interface (SUI) team releases their codebase independently.
+
+Join Us on the Community Forum
+==============================
+
+If you have questions or comments or comments about the LSST Science Pipelines,
+visit our community forum for advice: https://community.lsst.org/.

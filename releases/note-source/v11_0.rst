@@ -19,6 +19,7 @@ Winter 2015 release.
 - `Qserv release notes <https://confluence.lsstcorp.org/display/DM/Summer+2015+Qserv+Release>`_
 - `Webserv release notes <https://confluence.lsstcorp.org/display/DM/Summer+2015+WebServ+Release>`_
 - `Science User Interface release notes <https://confluence.lsstcorp.org/pages/viewpage.action?pageId=41785820>`_
+- `Characterization Metric Report (DMTR-11) <https://ls.st/DMTR-11>`_
 
 .. _release-11-0-major-changes:
 

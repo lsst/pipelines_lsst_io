@@ -17,8 +17,7 @@ LSST-driven developments. Even :ref:`Astropy views of LSST catalogs objects
 <release-v12-0-astropy-table-views>` are available.
 
 Full details can be found in the :ref:`extensive release notes <release-v12-0>`.
-We have also published a :ref:`Characterization Metric Report
-<metrics-v12-0>`.
+We have also published a `Characterization Metric Report <https://ls.st/DMTR-14>`_.
 
 New: Install with Anaconda
 ==========================
@@ -26,7 +25,7 @@ New: Install with Anaconda
 In addition to the customary source installation, this release features two
 binary installation methods:
 
-- :doc:`Anaconda </install/conda>`
+- Anaconda
 - `CernVM FS <https://github.com/airnandez/lsst-cvmfs>`__ (contributed by Fabio Hernandez)
 
 If you are unsure which one to use, we recommend you try the conda binaries.
