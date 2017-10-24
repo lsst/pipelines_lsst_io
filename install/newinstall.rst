@@ -102,7 +102,7 @@ This example installs the ``v14_0`` tagged version (current release) of the ``ls
 
 .. code-block:: bash
 
-   eups distrib install lsst_distrib -t v14_0 lsst_distrib
+   eups distrib install -t v14_0 lsst_distrib
    curl -sSL https://raw.githubusercontent.com/lsst/shebangtron/master/shebangtron | python
    setup lsst_distrib
 
