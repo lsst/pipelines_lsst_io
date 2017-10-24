@@ -19,6 +19,14 @@ Debian or Ubuntu systems require the following packages:
 
 Prefix the :command:`apt-get` command with :command:`sudo` if necessary.
 
+If you get an error run:
+
+.. code-block:: bash
+
+   apt-get update --fix-missing
+
+and try again.
+
 .. note::
 
    **New since 11.0**: The minimum gcc version required to compile the LSST Science Pipelines is **gcc 4.8.**
