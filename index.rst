@@ -22,7 +22,7 @@ Alternative distributions and installation methods:
 
 - :doc:`install/docker`
 - :doc:`Installing from source with lsstsw <install/lsstsw>`
-- `CernVM FS <https://github.com/airnandez/lsst-cvmfs>`_ (contributed by CC-IN2P3)
+- `CernVM FS <https://github.com/airnandez/lsst-cvmfs>`_ (contributed by CC-IN2P3, 14.0 coming soon)
 
 Related topics:
 
