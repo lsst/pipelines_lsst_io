@@ -146,8 +146,8 @@ C++ code is now exposed to Python using Pybind11
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The technology used to wrap our low-level C++ functionality into Python has been switched from `Swig <http://www.swig.org>`_ to `Pybind11 <http://pybind11.readthedocs.io>`_.
-Swig provides a more convenient environment for developers and enables several API improvements in our Python code.
-`A summary of the changes is available community.lsst.org <https://community.lsst.org/t/pybind11-merged/1697>`_
+Pybind11 provides a more convenient environment for developers and enables several API improvements in our Python code.
+`A summary of the changes is available on community.lsst.org <https://community.lsst.org/t/pybind11-merged/1697>`_
 
 :jirab:`DM-8467`
 
