@@ -27,6 +27,10 @@ System prerequisites
    debian
    centos
 
+.. note::
+
+  **New since 14.0**: The minimum :command:`cmake` version required to compile the Stack is **2.8.12**.
+
 .. _python-deps:
 
 Python dependencies
