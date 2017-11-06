@@ -19,7 +19,7 @@ Prefix the :command:`yum` command with :command:`sudo` if necessary.
 .. note::
 
    **New since 11.0**: The minimum gcc version required to compile the LSST Science Pipelines is **gcc 4.8.**
-   If you using our previous factory platform, RedHat/CentOS 6, and you are unable to upgrade to version 7 (which comes with gcc 4.8 as default) consult :ref:`the section below on upgrading compilers in legacy Linux <source-install-redhat-legacy>`.
+   If you are using our previous factory platform, RedHat/CentOS 6, and you are unable to upgrade to version 7 (which comes with gcc 4.8 as default) consult :ref:`the section below on upgrading compilers in legacy Linux <source-install-redhat-legacy>`.
 
 .. _source-install-redhat-legacy:
 
