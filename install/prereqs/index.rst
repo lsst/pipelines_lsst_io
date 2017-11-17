@@ -31,6 +31,15 @@ System prerequisites
 
   **New since 14.0**: The minimum :command:`cmake` version required to compile the Stack is **2.8.12**.
 
+.. _filesystem-prereqs:
+
+Filesystem prerequisites
+========================
+
+Filesystems used for compiling the Stack and hosting output data repositories must support the ``flock`` system call for file locking.
+Local filesystems virtually always have this support.
+Network filesystems are sometimes mounted without such support to improve performance; the output of the :command:`mount` command may show the ``nolock`` or ``noflock`` option in those cases.
+
 .. _python-deps:
 
 Python dependencies
