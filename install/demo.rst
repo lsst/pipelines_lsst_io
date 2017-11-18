@@ -75,10 +75,10 @@ For each input image the script performs the following operations:
 
 The demo will take a minute or two to execute (depending upon your machine), and will generate a large number of status messages.
 Upon successful completion, the top-level directory will contain an output ASCII table that can be compared to the expected results from a reference run.
-This table is for convenience only, and would not ordinarily be produced by the production LSST pipelines.  
+This table is for convenience only, and would not ordinarily be produced by the production LSST pipelines.
 
 ========================== ==================================
-Demo Invocation            Demo Output               
+Demo Invocation            Demo Output
 ========================== ==================================
 :command:`demo.sh`         :file:`detected-sources.txt`
 :command:`demo.sh --small` :file:`detected-sources_small.txt`
