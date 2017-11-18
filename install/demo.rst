@@ -34,7 +34,7 @@ Then download the demo's data (if you aren't running the current stable release,
 .. note::
 
    The demo's version should match your installed software.
-   If you installed from source (with :doc:`lsstsw <lsstsw>`) or with a :ref`newer tag <newinstall-other-tags>`, clone the demo repository instead of downloading a release:
+   If you installed from source (with :doc:`lsstsw <lsstsw>`) or with a :ref:`newer tag <newinstall-other-tags>`, clone the demo repository instead of downloading a release:
 
    .. code-block:: bash
 
