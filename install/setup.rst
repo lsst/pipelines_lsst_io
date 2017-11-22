@@ -47,10 +47,10 @@ To see what packages (and their versions) are currently set up:
 
 .. code-block:: bash
 
-   setup list -s
+   eups list -s
 
 To see all packages that are installed, even if not currently set up, run:
 
 .. code-block:: bash
 
-   setup list
+   eups list
