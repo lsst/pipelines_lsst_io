@@ -61,5 +61,5 @@ More info
 - Report issues in `JIRA <https://jira.lsstcorp.org/projects/DM/issues/>`_.
 - API documentation is currently published with `Doxygen <http://doxygen.lsst.codes/stack/doxygen/x_masterDoxyDoc/>`_.
 - DM Developer guidance is at https://developer.lsst.io.
-- Learn more about LSST Data Management by visiting http://dm.lsst.org.
+- Learn more about LSST Data Management by visiting http://lsst.org/about/dm.
 - Contribute to our documentation. This guide is on GitHub at `lsst/pipelines_lsst_io <https://github.com/lsst/pipelines_lsst_io>`_.
