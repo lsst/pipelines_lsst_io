@@ -28,7 +28,7 @@ Related topics:
 
 - :doc:`install/package-development`
 
-To install the LSST Simulation software, such as MAF, follow the `LSST Simulations documentation <https://confluence.lsstcorp.org/display/SIM/Catalogs+and+MAF>`_.
+To install the LSST Simulation software, such as MAF, please follow the `LSST Simulations documentation <https://confluence.lsstcorp.org/display/SIM/Catalogs+and+MAF>`_.
 
 .. This toctree is hidden to let us curate the section above, but still add the install/ pages to the Sphinx toctree
 
