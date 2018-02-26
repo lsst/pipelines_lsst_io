@@ -6,6 +6,23 @@ The LSST Science Pipelines enable optical and near-infrared astronomy in the big
 We are building the Science Pipelines for the `Large Synoptic Survey Telescope (LSST) <http://lsst.org>`_, but our command line task and Python API can be extended for any optical or near-infrared dataset.
 
 The latest release is |current-release|: :doc:`learn what's new <releases/index>`.
+
+.. _part-getting-started:
+
+Getting started
+===============
+
+If you're new to the LSST Science Pipelines, these tutorials will get you up and running with step-by-step installation and processing tutorials.
+
+- Data processing tutorial: Part 1 :doc:`Data repositories <getting-started/data-setup>` · Part 2 :doc:`Single frame processing <getting-started/processccd>` · Part 3 :doc:`Image coaddition <getting-started/coaddition>` · Part 4 :doc:`Source measurement <getting-started/photometry>`.
+
+Join us on the `LSST Community forum <https://community.lsst.org>`_ to get help and share ideas.
+
+.. toctree::
+   :hidden:
+   :caption: Getting Started
+
+   getting-started/index
   
 .. _part-installation:
 
@@ -26,6 +43,7 @@ Alternative distributions and installation methods:
 
 Related topics:
 
+- :doc:`Configuring Git LFS for data packages <install/git-lfs>`
 - :doc:`install/package-development`
 
 To install the LSST Simulation software, such as MAF, please follow the `LSST Simulations documentation <https://confluence.lsstcorp.org/display/SIM/Catalogs+and+MAF>`_.
@@ -40,18 +58,19 @@ To install the LSST Simulation software, such as MAF, please follow the `LSST Si
 
 .. _part-release-details:
 
-.. toctree::
-   :maxdepth: 1
-   :caption: Release details
+Release details
+===============
 
-   releases/notes
-   known-issues
-   metrics
+-  :doc:`releases/notes`
+-  :doc:`known-issues`
+-  :doc:`metrics`
 
 .. toctree::
    :hidden:
 
    releases/index
+   known-issues
+   metrics
 
 More info
 =========

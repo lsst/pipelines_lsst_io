@@ -14,4 +14,5 @@ Installing the LSST Science Pipelines
    docker
    lsstsw
    demo
+   git-lfs
    package-development
