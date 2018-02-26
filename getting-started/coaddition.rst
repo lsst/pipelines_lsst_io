@@ -8,7 +8,7 @@
 .. _getting-started-tutorial-coaddition:
 
 ################################################
-Getting started tutorial part 3: coadding images
+Getting started tutorial part 4: coadding images
 ################################################
 
 In this part of the :ref:`tutorial series <getting-started-tutorial>` you will combine the individual exposures produced by :command:`processCcd.py` (from :doc:`part 2 <processccd>`) into deeper coadds (mosaic images).
@@ -18,7 +18,7 @@ Finally, you will coadd the warped images together into deep images.
 Set up
 ======
 
-Pick up your shell session where you left off in :doc:`part 2 <data-setup>`.
+Pick up your shell session where you left off in :doc:`part 2 <processccd>`.
 That means your current working directory must *contain* the :file:`DATA` directory (the Butler repository).
 
 The ``lsst_distrib`` package also needs to be set up in your shell environment.
@@ -214,4 +214,4 @@ Here are some key takeaways:
 - The :command:`assembleCoadd.py` command coadds warped exposures into deep mosaics for a given patch and filter combination.
 - The ``--rerun rerunA:rerunB`` syntax lets you chain reruns together. Inputs are read from ``rerunA`` and outputs are written to ``rerunB``.
 
-Continue this tutorial in :doc:`part 4, where you'll measure sources <photometry>` in the coadds.
+Continue this tutorial in :doc:`part 5, where you'll measure sources <photometry>` in the coadds.

@@ -19,5 +19,6 @@ These tutorials will give you a feeling for data processing and analysis with th
 
    Part 1: setting up the Butler data repository. <data-setup>
    Part 2: calibrating single frames. <processccd>
-   Part 3: coadding images. <coaddition>
-   Part 4: measuring sources. <photometry>
+   Part 3: displaying exposures and source catalogs. <display>
+   Part 4: coadding images. <coaddition>
+   Part 5: measuring sources. <photometry>

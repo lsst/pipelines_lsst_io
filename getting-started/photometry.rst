@@ -8,10 +8,10 @@
 .. _getting-started-tutorial-measuring-sources:
 
 ##################################################
-Getting started tutorial part 4: measuring sources
+Getting started tutorial part 5: measuring sources
 ##################################################
 
-In this step of the :ref:`tutorial series <getting-started-tutorial>` you'll measure the coadditions you assembled in :doc:`part 3 <coaddition>` to build catalogs of stars and galaxies.
+In this step of the :ref:`tutorial series <getting-started-tutorial>` you'll measure the coadditions you assembled in :doc:`part 4 <coaddition>` to build catalogs of stars and galaxies.
 This is the measurement strategy:
 
 1. :ref:`Detect sources in individual coadd patches <getting-started-tutorial-detect-coadds>`.
@@ -27,7 +27,7 @@ This is the measurement strategy:
 Set up
 ======
 
-Pick up your shell session where you left off in :doc:`part 3 <coaddition>`.
+Pick up your shell session where you left off in :doc:`part 4 <coaddition>`.
 That means your current working directory must *contain* the :file:`DATA` directory (the Butler repository).
 
 The ``lsst_distrib`` package also needs to be set up in your shell environment.
