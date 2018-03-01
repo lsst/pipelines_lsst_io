@@ -76,7 +76,7 @@ This command created a ``deepCoadd_mergeDet`` dataset, which is a consistent tab
 .. _getting-started-tutorial-measure-coadds:
 
 Measuring source catalogs on coadds
------------------------------------
+===================================
 
 Now, use the merged detection catalog to measure sources in both the ``HSC-R`` and ``HSC-I`` coadd patches.
 You can accomplish this with :command:`measureCoaddSources.py`:
@@ -98,7 +98,7 @@ You'll see how to access these tables later.
 .. _getting-started-tutorial-merge-coadds:
 
 Merging multi-band source catalogs from coadds
-----------------------------------------------
+==============================================
 
 The previous step you created measurement catalogs for each patch in both the ``HSC-R`` and ``HSC-I`` bands.
 You'll get even more complete and consistent multi-band photometry by measuring the same source in multiple bands at a fixed position (the forced photometry method) rather than fitting the source's location individually for each band.
@@ -116,7 +116,7 @@ This command created a ``deepCoadd_ref`` dataset.
 .. _getting-started-tutorial-forced-coadds:
 
 Running Forced photometry on coadds
------------------------------------
+===================================
 
 Now you have accurate positions for all detected sources in the coadds.
 Re-measure the coadds using these fixed source positions (the forced photometry method) to create the best possible photometry of sources in your coadds:
@@ -151,9 +151,4 @@ Here are some key takeaways:
 - *Forced photometry* is a method of measuring sources in several bandpasses using a common source list.
 - The pipeline for forced photometry consists of the :command:`detectCoaddSources.py`, :command:`mergeCoaddDetections.py`, :command:`measureCoaddDetections.py`, :command:`mergeCoaddMeasurements.py`, and :command:`forcedPhotCoadd.py` command-line tasks.
 
-Congratulations, you've completed the last part of this tutorial series (so far).
-The :doc:`rest of the docs <../index>` will help you learn more about the LSST Science Pipelines software.
-
-We'd also love to hear from you on our `LSST Community Forum`_.
-
-.. _LSST Community Forum: https://community.lsst.org
+:doc:`Continue this tutorial series in part 6 <multiband-analysis>` where you will analyze and plot the source catalogs that you've just measured.
