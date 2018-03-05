@@ -160,8 +160,8 @@ Now you can use this array to slice the photometry arrays and get only primary s
 
 .. code-block:: python
 
-   rMag[isPimary]
-   iMag[isPimary]
+   rMags[isPrimary]
+   iMags[isPrimary]
 
 .. note::
 
