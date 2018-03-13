@@ -83,7 +83,7 @@ If you run :command:`ls` from the container's prompt you should see all files in
 
    ls mnt
 
-Note that ``/home/vagrant`` is the default home directory for LSST Science Pipelines Docker images.
+Note that ``/home/lsst`` is the default home directory for LSST Science Pipelines Docker images.
 
 As usual with interactive mode (``docker run -it``), you can ``exit`` from the container's shell to stop the container and return to the host shell:
 
