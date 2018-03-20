@@ -77,13 +77,21 @@ For example:
    docker run -it -v `pwd`:/home/vagrant/mnt lsstsqre/centos:7-stack-lsst_distrib-w_2017_35
 
 The example mounts the current working directory (```pwd```) to the ``/home/vagrant/mnt`` directory in the container.
+
+.. note::
+
+   If you are using a ``w_2017_37``, or later, Docker image, the home directory is ``/home/lsst``.
+   Then the example to mount the current working directory is:
+
+   .. code-block:: bash
+
+      docker run -it -v `pwd`:/home/lsst/mnt lsstsqre/centos:7-stack-lsst_distrib-w_2017_37
+
 If you run :command:`ls` from the container's prompt you should see all files in the current working directory of the host filesystem:
 
 .. code-block:: bash
 
    ls mnt
-
-Note that ``/home/lsst`` is the default home directory for LSST Science Pipelines Docker images.
 
 As usual with interactive mode (``docker run -it``), you can ``exit`` from the container's shell to stop the container and return to the host shell:
 
@@ -167,6 +175,15 @@ These steps show how to run a container and build a LSST Science Pipelines packa
    .. code-block:: bash
 
       docker run -itd -v `pwd`:/home/vagrant/mnt --name lsst lsstsqre/centos:7-stack-lsst_distrib-w_2017_35
+
+   .. note::
+
+      If you are using a ``w_2017_37``, or later, Docker image, the home directory is ``/home/lsst``.
+      Then the example to mount the current working directory is:
+
+      .. code-block:: bash
+
+         docker run -itd -v `pwd`:/home/lsst/mnt --name lsst lsstsqre/centos:7-stack-lsst_distrib-w_2017_37
 
    This starts the container in a detached mode so you can open and exit multiple container shells.
    Follow the steps in :ref:`docker-detached` to open a shell in the container.
