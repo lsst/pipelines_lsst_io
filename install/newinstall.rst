@@ -55,7 +55,7 @@ For most use cases we recommend downloading and running :command:`newinstall.sh`
 
 .. code-block:: bash
 
-   curl -OL https://raw.githubusercontent.com/lsst/lsst/14.0/scripts/newinstall.sh
+   curl -OL https://raw.githubusercontent.com/lsst/lsst/15.0/scripts/newinstall.sh
    bash newinstall.sh -ct
 
 Always execute :command:`newinstall.sh` with :command:`bash`, as shown, regardless of what shell you're in.
