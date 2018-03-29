@@ -9,7 +9,7 @@ LSST Pipelines
 
 Full details of the LSST Science Pipelines 15.0 release can be found
 in the :ref:`extensive release notes <release-v15-0>`.  We have also
-published a `Characterization Metric Report <https://ls.st/DMTR-tbd>`_.
+published a `Characterization Metric Report <https://ls.st/DMTR-62>`_.
 
 Qserv and Data Access
 =====================
