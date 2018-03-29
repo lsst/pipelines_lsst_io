@@ -77,7 +77,7 @@ Then load the LSST software environment into your shell:
 
    Here are ways to customize the :command:`newinstall.sh` installation for specific needs:
 
-   - The default Python environment is Python 3.5.
+   - The default Python environment is Python 3.6.
      **Python 2.7 users,** see :ref:`newinstall-py2`.
    - :ref:`newinstall-user-python`.
    - The recommended installation uses precompiled binary tarballs if they're available for your platform (and falls back to a source build).
