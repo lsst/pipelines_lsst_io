@@ -10,6 +10,8 @@ Release Notes
 - :ref:`release-v12-0`
 - :ref:`release-v11-0`
 
+.. include:: note-source/v15_0.rst
+
 .. include:: note-source/v14_0.rst
 
 .. include:: note-source/v13_0.rst
