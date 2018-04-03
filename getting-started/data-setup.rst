@@ -140,6 +140,17 @@ Run:
 
       ingestImages.py -h
 
+Install transmission curves
+===========================
+
+Run this command to install transmission curves corresponding to the raw data:
+
+.. code-block:: bash
+
+   installTransmissionCurves.py DATA
+
+Transmission calibrations, like this, are currently a special feature for HSC data `implemented in the obs_subaru package <https://github.com/lsst/obs_subaru/tree/master/hsc/transmission>`_.
+
 Ingesting calibrations into the Butler repository
 =================================================
 
