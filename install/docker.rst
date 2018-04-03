@@ -253,5 +253,9 @@ This tag corresponds to:
 
 You can see what tags are available by browsing `lsstsqre/centos on Docker Hub <https://hub.docker.com/r/lsstsqre/centos/tags/>`_.
 
+.. seealso::
+
+   See :ref:`newinstall-other-tags` for information on the different types of EUPS tags.
+
 .. _`lsstsqre/centos`: https://hub.docker.com/r/lsstsqre/centos/
 .. _CentOS: https://www.centos.org
