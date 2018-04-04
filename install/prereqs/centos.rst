@@ -4,15 +4,7 @@
 RedHat / CentOS system prerequisites
 ####################################
 
-..   yum install bison curl blas bzip2-devel bzip2 flex fontconfig \
-       freetype-devel gcc-c++ gcc-gfortran git libuuid-devel \
-       libXext libXrender libXt-devel make openssl-devel patch perl \
-       readline-devel tar zlib-devel ncurses-devel cmake glib2-devel \
-       java-1.8.0-openjdk gettext perl-ExtUtils-MakeMaker \
-       centos-release-scl devtoolset-6-gcc devtoolset-6-gcc-c++ \
-       devtoolset-6-gcc-gfortran mesa-libGL-devel
-
-First install the packages required to build the ditribution products:
+First install the packages required to build the distribution products:
 
 .. code-block:: bash
 
@@ -33,7 +25,7 @@ Then install the CentOS Linux Software Collections release file:
 
    yum install centos-release-scl 
 
-and finally the latest compiler packages:
+And finally the latest compiler packages:
 
 .. code-block:: bash
 
@@ -53,10 +45,10 @@ Check with the command:
 
    gcc -v
 
-that the version of your compiler is at least **6.3**.
+That the version of your compiler is at least **6.3**.
 
 Now you are ready to proceed with the installation.
 
 .. note::
 
-   **New since 15.0**: The gcc compiler to be used shall support **C++ 14**. The gcc version used in both RedHat / centOS 6 and 7 to compile the LSST Science Pipelines is **gcc 6.3**, provided by devtoolset-6.
+   **New since 15.0**: The gcc compiler to be used must support **C++ 14**. The gcc compiler version used in both Red Hat / CentOS 6 and 7 to verify the LSST Science Pipelines 15.0 distribution is **gcc 6.3.1**, provided by devtoolset-6.
