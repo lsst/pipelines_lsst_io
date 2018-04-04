@@ -36,8 +36,6 @@ The site will be built in the `_build/` directory.
 
 ## Licensing
 
-Copyright 2015-2017 Association of Universities for Research in Astronomy.
+Copyright 2015-2018 Association of Universities for Research in Astronomy.
 
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
-![Creative Commons License](https://cdn.rawgit.com/lsst-sqre/lsst_stack_docs/master/_static/cc-by_large.svg?raw=true)
-</a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">LSST Stack Handbook</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://docs.lsst.codes" property="cc:attributionName" rel="cc:attributionURL">LSST Project</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>
+Licensed under [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
