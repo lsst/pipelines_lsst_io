@@ -91,7 +91,7 @@ Tickets Addressed in Spring 2018 Release (v15_0)
 - `DM-11916 <https://jira.lsstcorp.org/browse/DM-11916>`_: Warnings "Extent2I object has no attribute getWidth" when running meas_mosaic, jointcal [jointcal]
 - `DM-11917 <https://jira.lsstcorp.org/browse/DM-11917>`_: Error in coaddDriver following compression changes [pipe_drivers]
 - `DM-11927 <https://jira.lsstcorp.org/browse/DM-11927>`_: Set maxOffsetPix consistently [obs_subaru]
-- `DM-11929 <https://jira.lsstcorp.org/browse/DM-11929>`_: add `from builtins import super` to registries.py [daf_persistence]
+- `DM-11929 <https://jira.lsstcorp.org/browse/DM-11929>`_: add ``from builtins import super`` to registries.py [daf_persistence]
 - `DM-11931 <https://jira.lsstcorp.org/browse/DM-11931>`_: Fix jointcal exit status and doRaise handling [jointcal, pipe_base]
 - `DM-11933 <https://jira.lsstcorp.org/browse/DM-11933>`_: Run SafeClip and CompareWarp in mockCoadd.py [pipe_tasks]
 - `DM-11941 <https://jira.lsstcorp.org/browse/DM-11941>`_: Disable astropy reading of FITS images [afw]
