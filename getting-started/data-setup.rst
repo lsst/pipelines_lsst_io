@@ -60,16 +60,6 @@ First, clone `ci_hsc`_ using Git:
 .. code-block:: bash
 
    git clone https://github.com/lsst/ci_hsc
-   cd ci_hsc
-   git checkout -b tutorial ffa10de
-   cd ..
-
-.. note::
-
-   We're specifically checking out the ``ffa10de`` commit of ``ci_hsc`` to be compatible with the v14.0 release of the LSST Science Pipelines.
-
-   If you're using a newer version of the Pipelines, it should be fine to use the ``master`` branch.
-   However, if you don't see *r*-band images listed in later steps, that's because the v14.0 Pipelines cannot read the compressed FITS images in the ``ci_hsc`` repository.
 
 Then :command:`setup` the package to add it to the EUPS stack:
 
@@ -149,6 +139,17 @@ Run:
    .. code-block:: bash
 
       ingestImages.py -h
+
+Install transmission curves
+===========================
+
+Run this command to install transmission curves corresponding to the raw data:
+
+.. code-block:: bash
+
+   installTransmissionCurves.py DATA
+
+Transmission calibrations, like this, are currently a special feature for HSC data `implemented in the obs_subaru package <https://github.com/lsst/obs_subaru/tree/master/hsc/transmission>`_.
 
 Ingesting calibrations into the Butler repository
 =================================================
