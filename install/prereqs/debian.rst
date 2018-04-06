@@ -35,13 +35,15 @@ Debian or Ubuntu systems require the following packages:
 
 Prefix the :command:`apt-get` command with :command:`sudo` if necessary.
 
-If you get an error run:
+.. tip::
 
-.. code-block:: bash
+   If you get an error, run:
 
-   apt-get update --fix-missing
+   .. code-block:: bash
 
-Then re-run the :command:`apt-get install` command, above.
+      apt-get update --fix-missing
+
+   Then re-run the :command:`apt-get install` command, above.
 
 .. note::
 
