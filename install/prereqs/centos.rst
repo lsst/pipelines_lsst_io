@@ -38,7 +38,7 @@ Activate the compiler provided by devtoolset-6 as follows:
 
    scl enable devtoolset-6 bash
 
-Check that the :command:`gcc` compiler is *version 6.3 or later* by running:
+Check that the :command:`gcc` compiler is *version 6.3 or later*.
 
 Now you are ready to proceed with the installation.
 
