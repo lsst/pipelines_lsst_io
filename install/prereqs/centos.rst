@@ -67,6 +67,10 @@ Activate the compiler provided by devtoolset-6 as follows:
 
 Check that the :command:`gcc` compiler is *version 6.3 or later* by running:
 
+.. code-block:: bash
+
+   gcc -v
+
 Now you are ready to proceed with the installation.
 
 .. note::
