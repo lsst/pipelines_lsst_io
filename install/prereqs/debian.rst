@@ -8,12 +8,28 @@ Debian or Ubuntu systems require the following packages:
 
 .. code-block:: bash
 
-   apt-get install bison ca-certificates cmake flex gettext\
-           git libbz2-dev libfontconfig1 libglib2.0-dev \
-           libncurses5-dev libreadline6-dev \
-           libcurl4-openssl-dev libx11-dev libxrender1 \
-           libxt-dev m4 default-jre perl-modules zlib1g-dev \
-           curl git libbz2-dev make
+   apt-get install \
+       bison \
+       ca-certificates \
+       cmake \
+       curl \
+       default-jre \
+       flex \
+       gettext \
+       git \
+       libbz2-dev \
+       libcurl4-openssl-dev \
+       libfontconfig1 \
+       libglib2.0-dev \
+       libncurses5-dev \
+       libreadline6-dev \
+       libx11-dev \
+       libxrender1 \
+       libxt-dev \
+       m4 \
+       make \
+       perl-modules \
+       zlib1g-dev
 
 .. from https://github.com/lsst-sqre/puppet-lsststack/blob/master/manifests/params.pp
 
