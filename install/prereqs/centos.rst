@@ -57,8 +57,7 @@ And finally the latest compiler packages:
 
 .. code-block:: bash
 
-   yum install devtoolset-6-gcc-gfortran centos-release-scl devtoolset-6-gcc devtoolset-6-gcc-c++
-
+   yum install devtoolset-6-gcc-gfortran devtoolset-6-gcc devtoolset-6-gcc-c++
 
 Activate the compiler provided by devtoolset-6 as follows:
 
