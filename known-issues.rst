@@ -53,16 +53,34 @@ Red Hat (and clones) specific
   Attempting to use MKL will cause the test suite to fail, automatically
   aborting the installation. :jirab:`DM-5105`
 
-RHEL 7.* and 6.*
-^^^^^^^^^^^^^^^^
-
 - Ensure that the :command:`gcc` compiler version supports **C++14** as 
   specified in :ref:`Pre-requisites <source-install-redhat-prereqs>`.
+
+RHEL 7.*
+^^^^^^^^
+
+- No specific issues.
+
+RHEL 6.*
+^^^^^^^^
+
+- curl looks for certificates in :file:`/etc/pki/tls/certs/ca-bundle.crt`
+  rather than :file:`/etc/ssl/certs/ca-certificates.crt`. The solution is to
+  copy :file:`ca-certificates.crt` to :file:`ca-bundle.crt`.
+
 
 .. _installation-issues-macos:
 
 macOS specific
 --------------
+
+- Macs must use the :command:`clang` compiler, not :command:`gcc`.
+  :jirab:`DM-3405`
+
+  One version of this problem occurs when using Macports_, which, by
+  default, will create a symlink from :file:`/opt/local/bin/c++` to its
+  version of :command:`g++`. Try removing that, starting a new shell, and
+  restarting :command:`eups distrib install`.
 
 macOS 10.12 (Sierra) and OS X 10.11 (El Capitan)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -96,13 +114,5 @@ Older systems
 
 - Some old installations of XCode on Macs create a :file:`/Developer`
   directory.  This can interfere with installation.
-
-- Macs must use the :command:`clang` compiler, not :command:`gcc`.
-  :jirab:`DM-3405`
-
-  One version of this problem occurs when using Macports_, which, by
-  default, will create a symlink from :file:`/opt/local/bin/c++` to its
-  version of :command:`g++`. Try removing that, starting a new shell, and
-  restarting :command:`eups distrib install`.
 
 .. _Macports: https://www.macports.org/index.php
