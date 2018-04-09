@@ -53,21 +53,11 @@ Red Hat (and clones) specific
   Attempting to use MKL will cause the test suite to fail, automatically
   aborting the installation. :jirab:`DM-5105`
 
-RHEL 7.*
-^^^^^^^^
+RHEL 7.* and 6.*
+^^^^^^^^^^^^^^^^
 
-- No specific issues.
-
-RHEL 6.*
-^^^^^^^^
-
-- If you have a problem building on **RHEL 6** check the :ref:`Pre-requisites
-  <source-install-redhat-prereqs>` to make sure sure you are using a more
-  recent version of :command:`gcc` (minimum required is 4.8)
-
-- curl looks for certificates in :file:`/etc/pki/tls/certs/ca-bundle.crt`
-  rather than :file:`/etc/ssl/certs/ca-certificates.crt`. The solution is to
-  copy :file:`ca-certificates.crt` to :file:`ca-bundle.crt`.
+- Ensure that the :command:`gcc` compiler version supports **C++14** as 
+  specified in :ref:`Pre-requisites <source-install-redhat-prereqs>`.
 
 .. _installation-issues-macos:
 
