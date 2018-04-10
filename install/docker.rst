@@ -30,7 +30,7 @@ This command downloads a :ref:`weekly build <docker-tags>` of the LSST Science P
 
 .. code-block:: bash
 
-   docker run -ti lsstsqre/centos:7-stack-lsst_distrib-w_2017_35
+   docker run -ti lsstsqre/centos:7-stack-lsst_distrib-v15_0
 
 Then in the container's shell, load the LSST environment and set up a :doc:`top-level package <top-level-packages>` (``lsst_distrib`` in this case):
 
@@ -74,18 +74,9 @@ For example:
 
 .. code-block:: bash
 
-   docker run -it -v `pwd`:/home/vagrant/mnt lsstsqre/centos:7-stack-lsst_distrib-w_2017_35
+   docker run -it -v `pwd`:/home/lsst/mnt lsstsqre/centos:7-stack-lsst_distrib-v15_0
 
-The example mounts the current working directory (```pwd```) to the ``/home/vagrant/mnt`` directory in the container.
-
-.. note::
-
-   If you are using a ``w_2017_37``, or later, Docker image, the home directory is ``/home/lsst``.
-   Then the example to mount the current working directory is:
-
-   .. code-block:: bash
-
-      docker run -it -v `pwd`:/home/lsst/mnt lsstsqre/centos:7-stack-lsst_distrib-w_2017_37
+The example mounts the current working directory (```pwd```) to the ``/home/lsst/mnt`` directory in the container.
 
 If you run :command:`ls` from the container's prompt you should see all files in the current working directory of the host filesystem:
 
@@ -115,7 +106,7 @@ To get started, run the container with the ``-d`` flag (**detached**):
 
 .. code-block:: bash
 
-   docker run -itd --name lsst lsstsqre/centos:7-stack-lsst_distrib-w_2017_35
+   docker run -itd --name lsst lsstsqre/centos:7-stack-lsst_distrib-v15_0
 
 You still use the ``-it`` arguments to put the container in interactive mode, even though Docker doesn't immediately open a container prompt for you.
 
@@ -174,16 +165,7 @@ These steps show how to run a container and build a LSST Science Pipelines packa
 
    .. code-block:: bash
 
-      docker run -itd -v `pwd`:/home/vagrant/mnt --name lsst lsstsqre/centos:7-stack-lsst_distrib-w_2017_35
-
-   .. note::
-
-      If you are using a ``w_2017_37``, or later, Docker image, the home directory is ``/home/lsst``.
-      Then the example to mount the current working directory is:
-
-      .. code-block:: bash
-
-         docker run -itd -v `pwd`:/home/lsst/mnt --name lsst lsstsqre/centos:7-stack-lsst_distrib-w_2017_37
+      docker run -itd -v `pwd`:/home/lsst/mnt --name lsst lsstsqre/centos:7-stack-lsst_distrib-v15_0
 
    This starts the container in a detached mode so you can open and exit multiple container shells.
    Follow the steps in :ref:`docker-detached` to open a shell in the container.
@@ -270,6 +252,10 @@ This tag corresponds to:
 - ``w_2017_35`` EUPS tag. See :ref:`newinstall-other-tags` for an overview of LSST's EUPS tag schema.
 
 You can see what tags are available by browsing `lsstsqre/centos on Docker Hub <https://hub.docker.com/r/lsstsqre/centos/tags/>`_.
+
+.. seealso::
+
+   See :ref:`newinstall-other-tags` for information on the different types of EUPS tags.
 
 .. _`lsstsqre/centos`: https://hub.docker.com/r/lsstsqre/centos/
 .. _CentOS: https://www.centos.org

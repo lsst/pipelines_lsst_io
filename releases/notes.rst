@@ -4,10 +4,13 @@
 Release Notes
 #############
 
-- :ref:`release-v14-0` --- current
+- :ref:`release-v15-0` --- current
+- :ref:`release-v14-0`
 - :ref:`release-v13-0`
 - :ref:`release-v12-0`
 - :ref:`release-v11-0`
+
+.. include:: note-source/v15_0.rst
 
 .. include:: note-source/v14_0.rst
 

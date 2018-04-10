@@ -138,11 +138,20 @@ To display the ``calexp`` you will use the display framework, which is imported 
    import lsst.afw.display as afwDisplay
 
 The display framework provides a uniform API for multiple display backends, including DS9_ and LSST's Firefly viewer.
-For this tutorial you'll create a display with the ``ds9`` backend:
+The default backend is ``ds9``, so you can create a display like this:
 
 .. code-block:: python
 
-   display = afwDisplay.getDisplay(backend='ds9')
+   display = afwDisplay.getDisplay()
+
+.. note::
+
+   You can choose a different backend by setting the ``backend`` parameter.
+   For example:
+
+   .. code-block:: python
+
+      display = afwDisplay.getDisplay(backend='firefly')
 
 Display the calexp (calibrated exposure)
 ========================================

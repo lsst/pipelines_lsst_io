@@ -23,7 +23,7 @@ from documenteer.sphinxconfig.utils import form_ltd_edition_name
 sys.setrecursionlimit(2000)
 
 # master variable for current Stack release
-CURRENT_RELEASE = '14.0'
+CURRENT_RELEASE = '15.0'
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -70,7 +70,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'LSST Science Pipelines'
-copyright = u'2015-2017 Association of Universities for Research in Astronomy, Inc.'
+copyright = u'2015-2018 Association of Universities for Research in Astronomy'
 author = u'LSST Data Management'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -103,7 +103,8 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 exclude_patterns = ['_build',
-                    'releases/note-source/*.rst']
+                    'releases/note-source/*.rst',
+                    'releases/tickets-source/*.rst']
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.

@@ -115,7 +115,7 @@ This command created a ``deepCoadd_ref`` dataset.
 
 .. _getting-started-tutorial-forced-coadds:
 
-Running Forced photometry on coadds
+Running forced photometry on coadds
 ===================================
 
 Now you have accurate positions for all detected sources in the coadds.
