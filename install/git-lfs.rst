@@ -44,6 +44,8 @@ Create or edit the :file:`~/.gitconfig` file to add these new lines:
        helper = store
    [credential "https://s3.lsst.codes"]
        helper = store
+   [credential "https://s3.amazonaws.com"]
+       helper = store
 
 Also create or edit the :file:`~/.git-credentials` file to add these new lines:
 
@@ -51,6 +53,7 @@ Also create or edit the :file:`~/.git-credentials` file to add these new lines:
 
    https://:@lsst-sqre-prod-git-lfs.s3-us-west-2.amazonaws.com
    https://:@s3.lsst.codes
+   https://:@s3.amazonaws.com
 
 .. _git-lfs-test:
 
