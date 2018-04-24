@@ -74,6 +74,6 @@ Trying cloning the `testdata_decam`_ Git repository to test your configuration:
 .. _`Git LFS homepage`:
 .. _Git LFS: https://git-lfs.github.com/
 .. _`Developer Guide for details`:
-.. _`instructions in the Developer Guide`:  https://developer.lsst.io/tools/git_lfs.html
+.. _`instructions in the Developer Guide`: https://developer.lsst.io/git/git-lfs.html
 .. _`testdata_decam`: https://github.com/lsst/testdata_decam
 .. _`ci_hsc`: https://github.com/lsst/ci_hsc
