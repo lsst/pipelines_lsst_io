@@ -26,7 +26,10 @@ To check that it's available, run:
 
 You can also install Git LFS independently of the LSST Science Pipelines.
 Follow the instructions on the `Git LFS homepage`_ to install Git LFS onto your system.
-**LSST requires Git LFS 1.1.0 or later.**
+**LSST requires Git LFS 2.3.4 or later.**
+
+.. Generally our stated Git LFS version requirements should track what's used in CI:
+.. https://github.com/lsst/lsstsw/blob/master/bin/deploy
 
 .. _git-lfs-config:
 
