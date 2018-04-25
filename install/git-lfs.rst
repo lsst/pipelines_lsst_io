@@ -26,7 +26,10 @@ To check that it's available, run:
 
 You can also install Git LFS independently of the LSST Science Pipelines.
 Follow the instructions on the `Git LFS homepage`_ to install Git LFS onto your system.
-**LSST requires Git LFS 1.1.0 or later.**
+**LSST requires Git LFS 2.3.4 or later.**
+
+.. Generally our stated Git LFS version requirements should track what's used in CI:
+.. https://github.com/lsst/lsstsw/blob/master/bin/deploy
 
 .. _git-lfs-config:
 
@@ -71,6 +74,6 @@ Trying cloning the `testdata_decam`_ Git repository to test your configuration:
 .. _`Git LFS homepage`:
 .. _Git LFS: https://git-lfs.github.com/
 .. _`Developer Guide for details`:
-.. _`instructions in the Developer Guide`:  https://developer.lsst.io/tools/git_lfs.html
+.. _`instructions in the Developer Guide`: https://developer.lsst.io/git/git-lfs.html
 .. _`testdata_decam`: https://github.com/lsst/testdata_decam
 .. _`ci_hsc`: https://github.com/lsst/ci_hsc
