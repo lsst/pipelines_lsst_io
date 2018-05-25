@@ -117,6 +117,7 @@ exclude_patterns = [
     'releases/note-source/*.rst',
     'releases/tickets-source/*.rst',
     'ups',
+    '.pyvenv',
 ]
 
 # The reST default role (used for this markup: `text`) to use for all
