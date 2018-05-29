@@ -65,12 +65,12 @@ When releases of the Science Pipelines are made, the appropriate version of the
 repository is tagged with that version string. For example, to checkout the
 matching software for the 15.0 release:
 
-.. code-bock:: bash
+.. code-block:: bash
 
    git checkout -t 15.0
 
 If you have installed one of the weekly pipelines builds, the tag is in the form
-`w.2018.28`. Note that the weekly git tags uses periods as a separator, while
+``w.2018.28``. Note that the weekly git tags uses periods as a separator, while
 the EUPS tags use underscores.
 
 3. Set up the package
@@ -82,7 +82,7 @@ From the package's directory, set up the package itself in the EUPS stack:
 
    setup -r .
 
-The `-r .` argument tells EUPS to use your current working directory as a
+The ``-r .`` argument tells EUPS to use your current working directory as a
 package.
 
 This will make the package available in your current terminal session, supplanting
