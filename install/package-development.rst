@@ -67,7 +67,7 @@ matching software for the 15.0 release:
 
 .. code-block:: bash
 
-   git checkout -t 15.0
+   git checkout 15.0
 
 If you have installed one of the weekly pipelines builds, the tag is in the form
 ``w.2018.28``. Note that the weekly git tags uses periods as a separator, while
