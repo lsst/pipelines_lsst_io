@@ -46,11 +46,6 @@ You can also create a new package repository, though this is beyond this documen
 You will work from a Git branch when developing a package.
 The `DM Developer Guide <https://developer.lsst.io/processes/workflow.html>`_ describes the branching workflow that LSST staff use.
 
-.. note::
-
-   **Docker users:** Clone the package onto your host filesystem rather then directly into the container by mounting a host directory in the container.
-   See :ref:`docker-develop`.
-
 .. warning::
 
    **lsstsw users:** The :file:`lsstsw/build` directory already includes clones of Git repositories.
@@ -59,18 +54,45 @@ The `DM Developer Guide <https://developer.lsst.io/processes/workflow.html>`_ de
 
 .. _package-dev-setup:
 
-2. Set up the package
+2. Checkout the appropriate version
+===================================
+
+In order for your local version of a package to work properly with the rest of
+the LSST software that you've already installed, it is necessary to checkout the
+matching version of your local package from git.
+
+When releases of the Science Pipelines are made, the appropriate version of the
+repository is tagged with that version string. For example, to checkout the
+matching software for the 15.0 release:
+
+.. code-bock:: bash
+
+   git checkout -t 15.0
+
+If you have installed one of the weekly pipelines builds, the tag is in the form
+`w.2018.28`. Note that the weekly git tags uses periods as a separator, while
+the EUPS tags use underscores.
+
+3. Set up the package
 =====================
 
 From the package's directory, set up the package itself in the EUPS stack:
 
 .. code-block:: bash
 
-   setup -r . -t $USER
+   setup -r .
+
+The `-r .` argument tells EUPS to use your current working directory as a
+package.
+
+This will make the package available in your current terminal session, supplanting
+any other version that was previously setup. This only applies to your current
+terminal and only for the duration of that session. Future sessions will need to
+re-setup this package to continue development.
 
 .. _package-dev-scons:
 
-3. Build the package with Scons
+4. Build the package with Scons
 ===============================
 
 .. code-block:: bash
