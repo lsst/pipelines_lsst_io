@@ -1,4 +1,12 @@
-# Specify direct dependencies to all packages included in the documentation
+# Specify direct dependencies to all packages included in the documentation.
+# Sort alphabetically for maintainability.
+setupRequired(afw)
+setupRequired(base)
+setupRequired(log)
+setupRequired(obs_base)
+setupRequired(obs_test)
+setupRequired(pex_exceptions)
 setupRequired(pipe_base)
-setupRequired(verify_metrics)
+setupRequired(utils)
 setupRequired(verify)
+setupRequired(verify_metrics)
