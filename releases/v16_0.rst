@@ -2,11 +2,11 @@
 LSST Stack 16.0 Release
 #######################
 
-Version 16.0 of the LSST Science Pipelines is now available. 
+Version 16.0 of the LSST Science Pipelines is now available.
 It is based on 2018 weekly 10.
 
-LSST Pipelines
-==============
+LSST Science Pipelines
+======================
 
 Full details of the LSST Science Pipelines 16.0 release can be found
 in the :ref:`extensive release notes <release-v16-0>`.  We have also
