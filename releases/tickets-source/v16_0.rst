@@ -1,4 +1,4 @@
 .. _release-v16-0-tickets:
-  
+
 Tickets Addressed in 2018 Summer Release (v16_0)
 ================================================
