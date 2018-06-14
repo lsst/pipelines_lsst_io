@@ -4,7 +4,8 @@ Summer 2018 Release (v16_0)
 ===========================
 
 .. ATTENTION::
-   This is the first major release that do not supports Python 2.
+
+   This is the first major release that does not support Python 2.
 
 +-------------------------------------------+------------+
 | Source                                    | Identifier |
