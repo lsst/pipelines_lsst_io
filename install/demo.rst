@@ -28,7 +28,7 @@ Then download the demo's data (if you aren't running the current stable release,
 
 .. code-block:: bash
 
-   curl -L https://github.com/lsst/lsst_dm_stack_demo/archive/15.6.tar.gz | tar xvzf -
+   curl -L https://github.com/lsst/lsst_dm_stack_demo/archive/16.0.tar.gz | tar xvzf -
    cd lsst_dm_stack_demo-16.0
 
 .. note::
