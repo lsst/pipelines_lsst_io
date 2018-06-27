@@ -137,10 +137,10 @@ About the lsstsw deploy script
 The ``deploy`` script automates several things to prepare an LSST development environment:
 
 1. Installs Git.
-2. Installs Git LFS (*you* are still responsible for `configuring it <http://developer.lsst.io/en/latest/tools/git_lfs.html>`_).
 3. Installs a Miniconda_ Python environment specific to this lsstsw workspace.
    The default Python is Python 3, but you can switch to Python 2.7 if necessary.
    See :ref:`lsstsw-py2`.
+2. Installs Git LFS (*you* are still responsible for :doc:`configuring it <git-lfs>`).
 4. Installs EUPS_ into :file:`eups/current/`.
 5. Clones `lsst-build`_, which runs the build process.
 6. Clones versiondb_, a robot-managed Git repository of package dependency information.
