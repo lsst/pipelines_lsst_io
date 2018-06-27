@@ -4,7 +4,8 @@ Summer 2018 Release (v16_0)
 ===========================
 
 .. ATTENTION::
-   This is the first major release that do not supports Python 2.
+
+   This is the first major release that does not support Python 2.
 
 +-------------------------------------------+------------+
 | Source                                    | Identifier |
@@ -32,77 +33,58 @@ For a complete list of changes, see :ref:`release-v16-0-tickets`.
 
 Major Functionality and Interface Changes
 -----------------------------------------
-- :ref:`release-v16-0-diffim`
-- :ref:`release-v16-0-mem`
-- :ref:`release-v16-0-artifacts`
-- :ref:`release-v16-0-skysub`
-- :ref:`release-v16-0-wcs`
-- :ref:`release-v16-0-firefly`
-- :ref:`release-v16-0-compression`
-- :ref:`release-v16-0-cmdline`
-- :ref:`release-v16-0-prereqs`
+
+- :ref:`release-v16-0-new-geom`
+- :ref:`release-v16-0-decam-ingest`
+- :ref:`release-v16-0-py3`
+- :ref:`release-v16-0-starselector`
+- :ref:`release-v16-0-selectimages`
 
 
+.. _release-v16-0-new-geom:
 
-.. _release-v16-0-diffim:
+Reworked “geom” package, replacing much of “afw.geom”
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Image differencing algorithm improvements
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The ``Angle``, ``Point``, ``Extent``, ``SpherePoint``, ``Box``, ``LinearTransform`` and ``AffineTransform`` primitivies have been moved from afw.geom to geom.
+Aliases for compatibility purposes remain within afw for this release, but new code should use the geom package.
+For further details, refer to `this community.lsst.org post`__.
 
-Algorithms appropriate for differencing in a variety of contexts have been implemented as tasks in the LSST stack. These various algorithms and configurations have been compared.  The results are written up in `DMTN-061 <https://dmtn-061.lsst.io>`_. This represents a significant step forward in being able to determine the baseline image differencing algorithm. Relevant code changes are in the ``ip_diffim`` `package <https://github.com/lsst/ip_diffim>`_.
+__ https://community.lsst.org/t/new-geom-package-replaces-much-of-lsst-afw-geom/2932
 
-.. _release-v16-0-mem:
+.. _release-v16-0-decam-ingest:
 
-Performance improvements in coaddition
+DECam ingest now defaults to raw image
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Now all coaddition algorithms have significantly reduced memory footprints.
+``ingestImagesDecam.py`` (encapsulating ``DecamIngestTask``) now ingests raw images by default instead of “instcals”.
+This change means that ``DecamIngestTask`` behaves more like ``IngestTask`` and other ingestion tasks.
+For further details, refer to `this community.lsst.org post`__.
 
-.. _release-v16-0-artifacts:
+__ https://community.lsst.org/t/ingestimagesdecam-py-default-changed/2915
 
-Significantly improved artifact rejection in coaddition
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. _release-v16-0-py3:
 
-Coaddition algorithms that do artifact clipping can now handle artifacts that overlap from epoch to epoch. ``SafeClipAssembleCoaddTask`` and ``CompareWarpAssembleCoaddTask`` are the two examples.
+Python 2 is no longer supported
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. _release-v16-0-skysub:
+This release is no longer tested on or expected to work with Python 2.
+For further details, refer to `this community.lsst.org post`__.
 
-Full focal plane sky subtraction
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+__ https://community.lsst.org/t/python-2-no-longer-supported/2845
 
-There are now tasks to create and apply models of the sky that extend over the entire field of view. View notes in `the LSST Community form post <https://community.lsst.org/t/sky-subtraction/2415>`_.
+.. _release-v16-0-starselector:
 
-.. _release-v16-0-wcs:
+Improvements to the ``StarSelector`` interface
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Replace all ``Wcs`` classes with the AST backed ``SkyWcs``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The call signatures for source and star selectors have been modernized and unified as described on :jira:`RFC-198`.
+Some legacy code has not yet adopted the new interface.
 
-The last release introduced a transform system backed by the `AST <https://arxiv.org/abs/1602.06681>`_ package. Since that release the stack has been converted to using that system in all contexts where a world coordinate system is required.
+.. _release-v16-0-selectimages:
 
-.. _release-v16-0-firefly:
+Automatically select the :math:`N` images with the best seeing when building templates
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Plotting frontend for Firefly
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-This release includes, for the first time, the package that allows the LSST plotting abstraction layer to plot directly in the Science Portal plotting tool, Firefly. View ``display_firefly`` on `GitHub <https://github.com/lsst/display_firefly>`_.
-
-.. _release-v16-0-compression:
-
-Lossless compression on by default
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Lossless compression is turned on by default when persisting any image-like data product. Read the `decision <https://jira.lsstcorp.org/browse/RFC-378>`_ and view the notes in `this LSST Community forum post <https://community.lsst.org/t/lossless-fits-compression-enabled/2410>`_ and links therein.
-
-.. _release-v16-0-cmdline:
-
-Changes to command-line tasks
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Command-line tasks now handle clobbering of versions, data, and configs in a more intuitive way. E.g. output repositories are now expected to differ from the input repository.  This eliminates the need to explicitly turn on clobbering when making multiple runs to different outputs (reruns) when using the same inputs. Additional details are in an `LSST Community forum post <https://community.lsst.org/t/changes-to-command-line-task-behavior/2408>`_.
-
-.. _release-v16-0-prereqs:
-
-Updated pre-requisites
-^^^^^^^^^^^^^^^^^^^^^^
-
-:ref:`Pre-requisites <python-deps>` for installing the science pipelines have been updated. Of note are that ``numpy 1.13``, ``astropy 2.0`` and ``matplotlib 2.0`` are all required. The baseline version of ``Python`` is now ``Python 3.6``.  See the announcement in `this post on the LSST Community forum <https://community.lsst.org/t/dm-python-and-associated-packages-version-baseline-change/2251>`_.
+The ``MaxPsfWcsSelectImagesTask`` can now automatically determine the thresholds needed to select images with an appropriate PSF when building templates, rather than having them specified by the user.
+For details, refer to :jira:`DM-11953`.
