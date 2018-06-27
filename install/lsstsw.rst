@@ -41,7 +41,7 @@ Begin by choosing a working directory, then deploy ``lsstsw`` into it:
    ./bin/deploy
    source bin/setup.sh
 
-For more information about the :command:`deploy` command, such as using Python 2.7 instead of Python 3, see :ref:`lsstsw-about-deploy`.
+For more information about the :command:`deploy` command, see :ref:`lsstsw-about-deploy`.
 
 .. _lsstsw-rebuild:
 
@@ -123,7 +123,6 @@ Next steps and advanced topics
 ==============================
 
 - :ref:`lsstsw-about-deploy`.
-- :ref:`lsstsw-py2`.
 - :ref:`lsstsw-about-rebuild`.
 - :ref:`lsstsw-branches`.
 - :ref:`lsstsw-deploy-ref`.
@@ -137,10 +136,8 @@ About the lsstsw deploy script
 The ``deploy`` script automates several things to prepare an LSST development environment:
 
 1. Installs Git.
-3. Installs a Miniconda_ Python environment specific to this lsstsw workspace.
-   The default Python is Python 3, but you can switch to Python 2.7 if necessary.
-   See :ref:`lsstsw-py2`.
 2. Installs Git LFS (*you* are still responsible for :doc:`configuring it <git-lfs>`).
+3. Installs a Miniconda_ Python 3 environment specific to this lsstsw workspace.
 4. Installs EUPS_ into :file:`eups/current/`.
 5. Clones `lsst-build`_, which runs the build process.
 6. Clones versiondb_, a robot-managed Git repository of package dependency information.
@@ -150,19 +147,6 @@ This environment, including the EUPS, Miniconda, Git, and Git LFS software, is o
 Otherwise, lsstsw does not affect the software installed on your computer.
 
 See also: :ref:`lsstsw-deploy-ref`.
-
-.. _lsstsw-py2:
-
-How to use Python 2.7
----------------------
-
-The lsstsw :command:`deploy` script installs Miniconda_ as self-contained Python environment.
-By default, :command:`deploy` installs a Python 3 version of Miniconda_.
-For testing Python 2.7 compatibility, you can create an lsstsw deployment with a Python 2.7 version of Miniconda using the :option:`deploy -2` argument:
-
-.. code-block:: bash
-
-   ./bin/deploy -2
 
 .. _lsstsw-about-rebuild:
 
@@ -218,7 +202,7 @@ lsstsw deploy command reference
 
 .. option:: -2
 
-   Install a Python 2-based Miniconda_.
+   Install a Python 2-based Miniconda_ (not supported for ``v16_0`` of the LSST Science Pipelines and later)
 
 .. option:: -3
 
