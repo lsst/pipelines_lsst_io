@@ -24,7 +24,7 @@ Summer 2018 Release (v16_0)
 
 - :doc:`Installation instructions <../install/index>`
 - :doc:`Known issues </known-issues>`
-- `Characterization Metric Report (DMTR-tbd) <https://ls.st/DMTR-tbd>`_
+- `Characterization Metric Report (DMTR-81) <https://ls.st/DMTR-81>`_
 
 These release notes highlight significant changes to the Science Pipelines codebase which are likely to be of wide interest.
 For a complete list of changes, see :ref:`release-v16-0-tickets`.
