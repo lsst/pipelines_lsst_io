@@ -16,7 +16,10 @@ Binary installation issues
 Cross Platform
 --------------
 
-*No known issues.*
+- In case the release is executed using a different package baseline, errors
+  may be found. See issues :jirab:`DM-15040` and :jirab:`DM-15041` as an example.
+  See :ref:`release-v16-0-scope` for detailed package baseline.
+
 
 Red Hat (and clones) specific
 -----------------------------
