@@ -16,10 +16,10 @@ Binary installation issues
 Cross Platform
 --------------
 
-- In case the release is executed using a different package baseline, errors
-  may be found. See issues :jirab:`DM-15040` and :jirab:`DM-15041` as an example.
-  See :ref:`release-v16-0-scope` for detailed package baseline.
-
+- The installation is only tested with the Conda environment provided by the <newinstall.sh> 
+  or <lsstsw> installation methods. You may attempt to install ``lsst_distrib`` without this 
+  Conda environment provided that you also install the packages listed in :ref:`prereq-platforms`, 
+  though these installations may not behave as expected. See :jira:`DM-15040` and :jira:`DM-15041`.
 
 Red Hat (and clones) specific
 -----------------------------

@@ -29,21 +29,6 @@ Summer 2018 Release (v16_0)
 These release notes highlight significant changes to the Science Pipelines codebase which are likely to be of wide interest.
 For a complete list of changes, see :ref:`release-v16-0-tickets`.
 
-.. _release-v16-0-scope:
-
-Release 16.0 Scope
-------------------
-
-The scope of the release is to be executed on a controlled environment.
-It has been proven to run on newinstall.sh environment, and it is expected
-to run without problems on a package baseline that corresponds to what 
-installed by newinstall.sh version 16.0.
-
-Any deviation from that baseline may imply that that the results are 
-different from the expected ones, i.e. running the corresponding 16.0
-demo package.
-
-
 .. _release-v16-0-major-changes:
 
 Major Functionality and Interface Changes
@@ -54,7 +39,6 @@ Major Functionality and Interface Changes
 - :ref:`release-v16-0-py3`
 - :ref:`release-v16-0-starselector`
 - :ref:`release-v16-0-selectimages`
-
 
 .. _release-v16-0-new-geom:
 
