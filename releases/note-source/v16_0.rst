@@ -40,7 +40,6 @@ Major Functionality and Interface Changes
 - :ref:`release-v16-0-starselector`
 - :ref:`release-v16-0-selectimages`
 
-
 .. _release-v16-0-new-geom:
 
 Reworked “geom” package, replacing much of “afw.geom”
