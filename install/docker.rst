@@ -30,7 +30,7 @@ This command downloads a :ref:`weekly build <docker-tags>` of the LSST Science P
 
 .. code-block:: bash
 
-   docker run -ti lsstsqre/centos:7-stack-lsst_distrib-v15_0
+   docker run -ti lsstsqre/centos:7-stack-lsst_distrib-v16_0
 
 Then in the container's shell, load the LSST environment and set up a :doc:`top-level package <top-level-packages>` (``lsst_distrib`` in this case):
 
@@ -74,7 +74,7 @@ For example:
 
 .. code-block:: bash
 
-   docker run -it -v `pwd`:/home/lsst/mnt lsstsqre/centos:7-stack-lsst_distrib-v15_0
+   docker run -it -v `pwd`:/home/lsst/mnt lsstsqre/centos:7-stack-lsst_distrib-v16_0
 
 The example mounts the current working directory (```pwd```) to the ``/home/lsst/mnt`` directory in the container.
 
@@ -106,7 +106,7 @@ To get started, run the container with the ``-d`` flag (**detached**):
 
 .. code-block:: bash
 
-   docker run -itd --name lsst lsstsqre/centos:7-stack-lsst_distrib-v15_0
+   docker run -itd --name lsst lsstsqre/centos:7-stack-lsst_distrib-v16_0
 
 You still use the ``-it`` arguments to put the container in interactive mode, even though Docker doesn't immediately open a container prompt for you.
 
@@ -165,7 +165,7 @@ These steps show how to run a container and build a LSST Science Pipelines packa
 
    .. code-block:: bash
 
-      docker run -itd -v `pwd`:/home/lsst/mnt --name lsst lsstsqre/centos:7-stack-lsst_distrib-v15_0
+      docker run -itd -v `pwd`:/home/lsst/mnt --name lsst lsstsqre/centos:7-stack-lsst_distrib-v16_0
 
    This starts the container in a detached mode so you can open and exit multiple container shells.
    Follow the steps in :ref:`docker-detached` to open a shell in the container.

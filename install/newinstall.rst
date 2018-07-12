@@ -55,7 +55,7 @@ For most use cases we recommend downloading and running :command:`newinstall.sh`
 
 .. code-block:: bash
 
-   curl -OL https://raw.githubusercontent.com/lsst/lsst/15.0/scripts/newinstall.sh
+   curl -OL https://raw.githubusercontent.com/lsst/lsst/16.0/scripts/newinstall.sh
    bash newinstall.sh -ct
 
 Always execute :command:`newinstall.sh` with :command:`bash`, as shown, regardless of what shell you're in.
@@ -77,8 +77,6 @@ Then load the LSST software environment into your shell:
 
    Here are ways to customize the :command:`newinstall.sh` installation for specific needs:
 
-   - The default Python environment is Python 3.6.
-     **Python 2.7 users,** see :ref:`newinstall-py2`.
    - :ref:`newinstall-user-python`.
    - The recommended installation uses precompiled binary tarballs if they're available for your platform (and falls back to a source build).
      See :ref:`newinstall-binary-packages`.
@@ -98,11 +96,11 @@ Then load the LSST software environment into your shell:
 
 Install the LSST Science Pipelines packages by running :command:`eups distrib install` for a :doc:`top-level package <top-level-packages>` and a tagged version.
 
-This example installs the ``v15_0`` tagged version (current release) of the ``lsst_distrib`` :doc:`top-level package <top-level-packages>`:
+This example installs the ``v16_0`` tagged version (current release) of the ``lsst_distrib`` :doc:`top-level package <top-level-packages>`:
 
 .. code-block:: bash
 
-   eups distrib install -t v15_0 lsst_distrib
+   eups distrib install -t v16_0 lsst_distrib
    curl -sSL https://raw.githubusercontent.com/lsst/shebangtron/master/shebangtron | python
    setup lsst_distrib
 
@@ -121,7 +119,7 @@ See :doc:`setup` for more information.
    - ``lsst_distrib`` is a top-level package that provides most LSST Data Management pipelines software, but other top-level packages may be more applicable for your work, such as ``lsst_apps`` or ``lsst_sims``.
      See :doc:`top-level-packages` for more information.
 
-   - ``v15_0`` is the current release.
+   - ``v16_0`` is the current release.
      You can install other tagged versions of the LSST Science Pipelines, though.
      See :ref:`newinstall-other-tags`.
 
@@ -158,7 +156,6 @@ These topics provide additional information about the installation and ways to c
 - :ref:`newinstall-unset-variables`.
 - :ref:`newinstall-background`.
 - :ref:`newinstall-miniconda`.
-- :ref:`newinstall-py2`.
 - :ref:`newinstall-user-python`.
 - :ref:`newinstall-binary-packages`.
 - :ref:`newinstall-find-binaries`.
@@ -219,8 +216,7 @@ This Python installation isn't required, but we recommend it.
 See :ref:`newinstall-user-python` if required.
 
 The Python environment installed by :command:`newinstall.sh` is Miniconda_, a minimal version of Anaconda_.
-By default, :command:`newinstall.sh` installs Python 3.5.2.
-If you need to work with your own Python 2.7-only packages, see :ref:`newinstall-py2`.
+By default, :command:`newinstall.sh` installs Python 3.6.
 
 In this Miniconda environment, :command:`newinstall.sh` installs the Science Pipeline's Python prerequisites.
 See :ref:`python-deps` for more information.
@@ -231,24 +227,6 @@ The LSST Miniconda environment is only active when you source the ``loadLSST`` s
 If you install other Python packages in a shell where the LSST Miniconda is activated (with :command:`pip install` or :command:`conda install`) those packages are installed into the LSST Miniconda's :file:`site-packages`, not your system's.
 The Python installed by :command:`newinstall.sh` works like an isolated Python environment dedicated to LSST Science Pipelines code and your own related modules---effectively like a `Conda environment <https://conda.io/docs/user-guide/concepts.html#conda-environments>`_ or Python `venv <https://docs.python.org/3/library/venv.html>`_.
 This pattern is useful because it reduces the risk of having Python package version incompatibilities.
-
-.. _newinstall-py2:
-
-How to install a Python 2.7 environment with newinstall.sh
-----------------------------------------------------------
-
-LSST Science Pipelines is backwards compatible with Python 2.7.
-If you need to run your own Python 2.7-only Python packages in conjunction with the Pipelines, you can have :command:`newinstall.sh` install a Python 2.7 environment for you instead of the default Python 3.5 environment.
-
-To select Python 2.7, run :command:`newinstall.sh` with the :option:`-2 <newinstall.sh -2>` flag (in addition to other flags, like :option:`-t <newinstall.sh -t>`):
-
-.. code-block:: bash
-
-   bash newinstall.sh -2
-
-Then follow the remaining instructions at :ref:`newinstall-run`.
-
-See also: :ref:`newinstall-miniconda`.
 
 .. _newinstall-user-python:
 
@@ -290,10 +268,11 @@ EUPS distrib binary packages are currently being built for these platform combin
    :header: "OS","Compiler","Python"
 
    "macOS ``osx/10.9``", "``clang-800.0.42.1``", "``miniconda3-4.2.12`` (Python 3)"
-   "macOS ``osx/10.9``", "``clang-800.0.42.1``", "``miniconda2-4.2.12`` (Python 2)"
+   "macOS ``osx/10.9``", "``clang-800.0.42.1``", "``miniconda3-4.2.21`` (Python 3)"
+   "Redhat ``redhat/el7``", "``devtoolset-6``", "``miniconda3-4.2.21`` (Python 3)"
    "Redhat ``redhat/el7``", "``gcc-system``", "``miniconda3-4.2.12`` (Python 3)"
-   "Redhat ``redhat/el7``", "``gcc-system``", "``miniconda2-4.2.12`` (Python 2)"
-   "Redhat ``redhat/el6``", "``devtoolset-3``", "``miniconda2-4.2.12`` (Python 2)"
+   "Redhat ``redhat/el7``", "``gcc-system``", "``miniconda3-4.2.21`` (Python 3)"
+   "Redhat ``redhat/el6``", "``devtoolset-6``", "``miniconda3-4.2.21`` (Python 3)"
 
 When you run :command:`newinstall.sh`, it looks at your system to identify your operating system and compiler.
 The version of :command:`newinstall.sh` you run also determines the Miniconda_ version and the lsstsw_ build system versions.
@@ -448,7 +427,7 @@ newinstall.sh argument reference
 
 .. option:: -2
 
-   Use Python 2 if the script is installing its own Python.
+   Use Python 2 if the script is installing its own Python (unsupported by the LSST Science Pipelines ``v16_0`` and newer).
 
 .. option:: -3
 

@@ -1,0 +1,89 @@
+.. _release-v16-0:
+
+Summer 2018 Release (v16_0)
+===========================
+
+.. ATTENTION::
+
+   This is the first major release that does not support Python 2.
+
++-------------------------------------------+------------+
+| Source                                    | Identifier |
++===========================================+============+
+| Git tag                                   | 16.0       |
++-------------------------------------------+------------+
+| :doc:`EUPS distrib </install/newinstall>` | v16\_0     |
++-------------------------------------------+------------+
+
+- :ref:`release-v16-0-major-changes`
+
+.. - :ref:`release-v16-0-sui`
+.. - :ref:`Qserv and Data Access <release-v16-0-qserv-dax>`
+
+*See also:*
+
+- :doc:`Installation instructions <../install/index>`
+- :doc:`Known issues </known-issues>`
+- `Characterization Metric Report (DMTR-81) <https://ls.st/DMTR-81>`_
+
+These release notes highlight significant changes to the Science Pipelines codebase which are likely to be of wide interest.
+For a complete list of changes, see :ref:`release-v16-0-tickets`.
+
+.. _release-v16-0-major-changes:
+
+Major Functionality and Interface Changes
+-----------------------------------------
+
+- :ref:`release-v16-0-new-geom`
+- :ref:`release-v16-0-decam-ingest`
+- :ref:`release-v16-0-py3`
+- :ref:`release-v16-0-starselector`
+- :ref:`release-v16-0-selectimages`
+
+.. _release-v16-0-new-geom:
+
+Reworked “geom” package, replacing much of “afw.geom”
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``Angle``, ``Point``, ``Extent``, ``SpherePoint``, ``Box``, ``LinearTransform`` and ``AffineTransform`` primitivies have been moved from afw.geom to geom.
+Aliases for compatibility purposes remain within afw for this release, but new code should use the geom package.
+For further details, refer to `this community.lsst.org post`__.
+
+__ https://community.lsst.org/t/new-geom-package-replaces-much-of-lsst-afw-geom/2932
+
+.. _release-v16-0-decam-ingest:
+
+DECam ingest now defaults to raw image
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``ingestImagesDecam.py`` (encapsulating ``DecamIngestTask``) now ingests raw images by default instead of “instcals”.
+This change means that ``DecamIngestTask`` behaves more like ``IngestTask`` and other ingestion tasks.
+For further details, refer to `this community.lsst.org post`__.
+
+__ https://community.lsst.org/t/ingestimagesdecam-py-default-changed/2915
+
+.. _release-v16-0-py3:
+
+Python 2 is no longer supported
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This release is no longer tested on or expected to work with Python 2.
+For further details, refer to `this community.lsst.org post`__.
+
+__ https://community.lsst.org/t/python-2-no-longer-supported/2845
+
+.. _release-v16-0-starselector:
+
+Improvements to the ``StarSelector`` interface
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The call signatures for source and star selectors have been modernized and unified as described on :jira:`RFC-198`.
+Some legacy code has not yet adopted the new interface.
+
+.. _release-v16-0-selectimages:
+
+Automatically select the :math:`N` images with the best seeing when building templates
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``MaxPsfWcsSelectImagesTask`` can now automatically determine the thresholds needed to select images with an appropriate PSF when building templates, rather than having them specified by the user.
+For details, refer to :jira:`DM-11953`.
