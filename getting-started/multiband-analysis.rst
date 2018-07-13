@@ -101,7 +101,8 @@ Filtering for unique, deblended sources with the detect_isPrimary flag
 
 Before going ahead and plotting a CMD from the full source table, you'll typically need to do some basic filtering.
 Exactly what filtering is done depends on the application, but source tables should *always* be filtered for unique sources.
-There are two ways that measured sources might not be unique: deblended sources, and sources in patch overlaps.
+There are two ways that measured sources might not be unique: deblended sources and sources in patch overlaps.
+Additionally, some sources are "sky" objects added by ``detectCoaddSources.py`` for noise characterization that you need to filter out.
 
 Finding deblended sources
 -------------------------
@@ -145,10 +146,24 @@ Then make an index array from the combination of ``detect_isPatchInner`` and ``d
 
    inInnerRegions = refTable['detect_isPatchInner'] & refTable['detect_isTractInner']
 
+Rejecting sky objects
+---------------------
+
+``detectCoaddSources.py`` is configured, by default, to add "sky" objects to the catalog.
+These "sky" objects do not correspond to detections but are used for characterizing the image's noise properties.
+
+The ``merge_peak_sky`` flag identifies these "sky" objects:
+
+.. code-block:: python
+
+   isSkyObject = refTable['merge_peak_sky']
+
+You will want to reject these if you are only interested in real sources.
+
 The go-to flag: detect_isPrimary
 --------------------------------
 
-You actually want the combination of the ``isDeblended`` and ``inInnerRegions`` arrays you just made.
+You actually want the combination of the ``isDeblended``, ``inInnerRegions`` , and ``isSkyObject`` arrays you just made.
 The ``deepCoadd_ref`` table provides a shortcut for this: the ``detect_isPrimary`` flag identifies sources that are both fully deblended and in inner regions.
 Run:
 
@@ -169,7 +184,7 @@ Now you can use this array to slice the photometry arrays and get only primary s
 
    .. code-block:: text
 
-      (deblend_nChild == 0) & detect_isPatchInner & detect_isTractInner
+      (deblend_nChild == 0) & detect_isPatchInner & detect_isTractInner & (merge_peak_sky == False)
 
 .. tip::
 
