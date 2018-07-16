@@ -1,9 +1,7 @@
 # Specify direct dependencies to all packages included in the documentation.
 # Sort alphabetically for maintainability.
 setupRequired(afw)
-setupRequired(ap_assoc)
 setupRequired(base)
-setupRequired(cbp)
 setupRequired(coadd_chisquared)
 setupRequired(coadd_utils)
 setupRequired(daf_base)
