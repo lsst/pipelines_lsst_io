@@ -1,41 +1,29 @@
-# LSST Science Pipelines Docs
+# LSST Science Pipelines Documentation
 
 **https://pipelines.lsst.io**
 
-This repository contains the base source material for LSST's Stack Documentation.
-Documentation is built using [Sphinx](http://sphinx-doc.org), which pulls in documentation material from LSST code repositories.
+This repository, combined with content from the `doc/` directories of individual LSST Science Pipelines packages, is what you see at [pipelines.lsst.io](https://pipelines.lsst.io).
 
-This repository is in early development.
-While this repo (since Pipelines version 12.0) has authoritative release notes and installation information you make find the earlier documentation projects useful:
-
-- [LSST Software User Guide wiki](https://confluence.lsstcorp.org/display/LSWUG.)
-- [Doxyen-generated API reference](https://lsst-web.ncsa.illinois.edu/doxygen/x_masterDoxyDoc/)
-
-Other documentation resources:
+Other related documentation and resources:
 
 - [LSST Community forum](https://community.lsst.org)
 - [DM Developer Guide](https://developer.lsst.io)
 
-## Build the Docs
+## How the site is built
 
-Create a [Python virtual environment](http://docs.python-guide.org/en/latest/dev/virtualenvs/) for this project using your tool of choice: [virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/en/latest/) or [pyvenv](https://docs.python.org/3.5/library/venv.html) (for Python 3).
+This site is built automatically for each `lsst_distrib` release by the [sqre/infra/documenteer](https://ci.lsst.codes/blue/organizations/jenkins/sqre%2Finfra%2Fdocumenteer/activity) Jenkins job.
+You can find builds for each tagged release by visiting https://pipelines.lsst.io/v.
 
-Install the Python dependencies by running
+This documentation is built by [Sphinx](http://www.sphinx-doc.org/en/master/) and LSST's own [Documenteer](https://documenteer.lsst.io).
+You can read an [Overview of the Stack documentation system](https://developer.lsst.io/stack/documentation-system-overview.html).
 
-```
-pip install -r requirements.txt
-```
+## Contributing
 
-Compile the HTML by running
-
-```
-make html
-```
-
-The site will be built in the `_build/` directory.
+For links on how to contribute to the pipelines.lsst.io documentation, see the [CONTRIBUTING](./.github/CONTRIBUTING.rst) file.
 
 ## Licensing
 
-Copyright 2015-2018 Association of Universities for Research in Astronomy.
+The documentation in this repository is licensed under the [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
+See the included [LICENSE](./LICENSE) file.
 
-Licensed under [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
+See the included [COPYRIGHT](./COPYRIGHT) file for copyrights.

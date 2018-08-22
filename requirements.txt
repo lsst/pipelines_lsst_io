@@ -1,3 +1,1 @@
-Sphinx>=1.5.3
-sphinx-rtd-theme==0.2.0
-documenteer>=0.1.11
+documenteer[pipelines]==0.3.0a5

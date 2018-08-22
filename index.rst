@@ -56,6 +56,18 @@ To install the LSST Simulation software, such as MAF, please follow the `LSST Si
 
    install/index
 
+.. _part-packages:
+
+Python modules
+==============
+
+.. module-toctree::
+
+Packages
+========
+
+.. package-toctree::
+
 .. _part-release-details:
 
 Release details
