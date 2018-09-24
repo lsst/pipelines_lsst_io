@@ -53,14 +53,14 @@ These datasets correspond to coadds for a single patch (``1,1`` in tract ``0``) 
 Getting calibrated PSF photometry
 =================================
 
-The ``base_PsfFlux_flux`` column of these ``deepCoadd_forced_src`` datasets is the flux from the linear least-squares fit of the PSF model to the source.
+The ``base_PsfFlux_instFlux`` column of these ``deepCoadd_forced_src`` datasets is the instrumental flux from the linear least-squares fit of the PSF model to the source.
 From the source table's schema you know this flux has units of counts:
 
 .. code-block:: python
 
-   iSources.getSchema().find('base_PsfFlux_flux').field.getUnits()
+   iSources.getSchema().find('base_PsfFlux_instFlux').field.getUnits()
 
-Transforming this flux into a magnitude requires knowing the coadd's zeropoint, which you can get from the coadd dataset.
+Transforming this instrumental flux into a magnitude requires knowing the coadd's zeropoint, which you can get from the coadd dataset.
 The coadd you made in :doc:`part 4 <coaddition>` with :command:`assembleCoadd.py` doesn't have calibration info attached to it, though.
 Instead, you want the ``deepCoadd_calexp`` dataset, which was created by the :command:`detectCoaddSources.py` command-line task, because it does have calibrations.
 You can access these calibrations directly from ``deepCoadd_calexp_calib`` datasets for each filter:
@@ -80,15 +80,15 @@ You can access these calibrations directly from ``deepCoadd_calexp_calib`` datas
       rCoaddCalib = rCoaddCalexp.getCalib()
 
 These ``Calib`` objects not only have methods for directing accessing calibration information, but also for applying those calibrations.
-Use the ``Calib.getMagnitude()`` method to transform fluxes in counts to magnitudes in the HSC instrument's system (AB magnitudes):
+Use the ``Calib.getMagnitude()`` method to transform instrumental fluxes in counts to magnitudes in the HSC instrument's system (AB magnitudes):
 
 .. code-block:: python
 
    rCoaddCalib.setThrowOnNegativeFlux(False)
    iCoaddCalib.setThrowOnNegativeFlux(False)
 
-   rMags = rCoaddCalib.getMagnitude(rSources['base_PsfFlux_flux'])
-   iMags = iCoaddCalib.getMagnitude(iSources['base_PsfFlux_flux'])
+   rMags = rCoaddCalib.getMagnitude(rSources['base_PsfFlux_instFlux'])
+   iMags = iCoaddCalib.getMagnitude(iSources['base_PsfFlux_instFlux'])
 
 .. note::
 
@@ -222,7 +222,7 @@ Using measurement flags
 =======================
 
 Lastly, you may want to work with only high-quality measurements.
-Earlier, you got PSF fluxes of sources (``base_PsfFlux_flux``).
+Earlier, you got PSF fluxes of sources (``base_PsfFlux_instFlux``).
 The ``base_PsfFlux`` measurement plugin also creates flags that describe measurement errors and issues.
 You can find these flags, as usual, from the table schema.
 Here's a way to find columns produced by the ``base_PsfFlux`` plugin:
