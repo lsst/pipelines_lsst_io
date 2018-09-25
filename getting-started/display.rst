@@ -281,7 +281,7 @@ Given a name, you can get a column's values as a familiar Numpy array like this:
 
 .. code-block:: python
 
-   print(src['base_PsfFlux_flux'])
+   print(src['base_PsfFlux_instFlux'])
 
 .. tip::
 
