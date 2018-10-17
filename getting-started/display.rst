@@ -271,11 +271,11 @@ To get just the names of columns, run:
 
    print(src.getSchema().getNames())
 
-To get metadata about a specific column, like ``calib_pdfUsed``:
+To get metadata about a specific column, like ``calib_psf_used``:
 
 .. code-block:: python
 
-   print(src.schema.find("calib_psfUsed"))
+   print(src.schema.find("calib_psf_used"))
 
 Given a name, you can get a column's values as a familiar Numpy array like this:
 
@@ -329,24 +329,24 @@ Selecting PSF-fitting sources to plot on the display
 
 Next, use the display to understand what sources were used for PSF measurement.
 
-The ``src`` table's ``calib_psfUsed`` column describes whether the source was used for PSF measurement.
-Since columns are Numpy arrays we can iterate over rows where ``src['calib_psfUsed']`` is ``True`` with Numpy's boolean array indexing:
+The ``src`` table's ``calib_psf_used`` column describes whether the source was used for PSF measurement.
+Since columns are Numpy arrays we can iterate over rows where ``src['calib_psf_used']`` is ``True`` with Numpy's boolean array indexing:
 
 .. code-block:: python
 
    with display.Buffering():
-       for s in src[src['calib_psfUsed']]:
+       for s in src[src['calib_psf_used']]:
            display.dot("x", s.getX(), s.getY(), size=10, ctype='red')
 
 Red **x** symbols on the display mark all stars used by PSF measurement.
 
 Some sources might be considered as PSF candidates, but later rejected.
-In this statement, you can use a logical ``&`` (and) operator to combine boolean index arrays where both ``src['calib_psfCandidate']`` is ``True`` and ``src['calib_psfUsed'] == False`` as well:
+In this statement, you can use a logical ``&`` (and) operator to combine boolean index arrays where both ``src['calib_psfCandidate']`` is ``True`` and ``src['calib_psf_used'] == False`` as well:
 
 .. code-block:: python
 
    rejectedPsfSources = src[src['calib_psfCandidate'] &
-                            (src['calib_psfUsed'] == False)]
+                            (src['calib_psf_used'] == False)]
    with display.Buffering():
        for s in rejectedPsfSources:
            display.dot("+", s.getX(), s.getY(), size=10, ctype='green')

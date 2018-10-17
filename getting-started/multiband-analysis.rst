@@ -119,7 +119,7 @@ Make a boolean index array of deblended sources:
 
 .. code-block:: python
 
-   deblended = rSources['deblend_nChild'] == 0
+   isDeblended = rSources['deblend_nChild'] == 0
 
 Finding primary detections
 --------------------------
