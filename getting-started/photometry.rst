@@ -16,7 +16,7 @@ This is the measurement strategy:
 
 1. :ref:`Detect sources in individual coadd patches <getting-started-tutorial-detect-coadds>`.
 2. :ref:`Merge those multi-band source detections into a single detection catalog <getting-started-tutorial-merge-coadd-detections>`.
-3. :ref:`Measure and deblend sources in the individual coadds using the unified detection catalog <getting-started-tutorial-measure-coadds>`.
+3. :ref:`Deblend and measure sources in the individual coadds using the unified detection catalog <getting-started-tutorial-measure-coadds>`.
 4. :ref:`Merge the multi-band catalogs of source measurements to identify the best positional measurements for each source <getting-started-tutorial-merge-coadds>`.
 5. :ref:`Re-measure the coadds in each band using fixed positions (forced photometry) <getting-started-tutorial-forced-coadds>`.
 
@@ -75,8 +75,17 @@ This command created a ``deepCoadd_mergeDet`` dataset, which is a consistent tab
 
 .. _getting-started-tutorial-measure-coadds:
 
-Measuring source catalogs on coadds
-===================================
+Deblending and measuring source catalogs on coadds
+==================================================
+
+Using the merged table of sources, the deblender retains all peaks and deblends any missing peaks (dropouts in that band) as PSFs. Repeating this procedure with the same master catalog across multiple coadds will generate a consistent set of child sources. Run the HSC-SDSS deblender separately in each band:
+
+.. code-block:: bash
+
+   deblendCoaddSources.py DATA --rerun coaddPhot --id filter=HSC-R
+   deblendCoaddSources.py DATA --rerun coaddPhot --id filter=HSC-I
+
+The :command:`deblendCoaddSources` command-line task produces ``deepCoadd_deblendedFlux`` datasets in the Butler data repository.
 
 Now, use the merged detection catalog to measure sources in both the ``HSC-R`` and ``HSC-I`` coadd patches.
 You can accomplish this with :command:`measureCoaddSources.py`:
