@@ -4,8 +4,13 @@
 
 This repository, combined with content from the `doc/` directories of individual LSST Science Pipelines packages, is what you see at [pipelines.lsst.io](https://pipelines.lsst.io).
 
-[pipelines.lsst.io](https://pipelines.lsst.io) is automatically built by LSST's Jenkins CI for each `lsst_distrib` release (major, weekly, and daily releases).
-You can find builds for each tagged release by visiting https://pipelines.lsst.io/v.
+[pipelines.lsst.io](https://pipelines.lsst.io) is automatically built by LSST's Jenkins CI for each `lsst_distrib` release (major, weekly, and daily releases):
+
+- The main site, https://pipelines.lsst.io, tracks the latest major release.
+- The latest weekly release is published at https://pipelines.lsst.io/v/weekly/
+- The latest daily release is published at https://pipelines.lsst.io/v/daily/
+
+You can find links for all editions of this documentation by visiting https://pipelines.lsst.io/v.
 
 ## Contributing to pipelines.lsst.io
 
