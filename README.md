@@ -4,22 +4,22 @@
 
 This repository, combined with content from the `doc/` directories of individual LSST Science Pipelines packages, is what you see at [pipelines.lsst.io](https://pipelines.lsst.io).
 
-Other related documentation and resources:
+[pipelines.lsst.io](https://pipelines.lsst.io) is automatically built by LSST's Jenkins CI for each `lsst_distrib` release (major, weekly, and daily releases):
+
+- The main site, https://pipelines.lsst.io, tracks the latest major release.
+- The latest weekly release is published at https://pipelines.lsst.io/v/weekly/
+- The latest daily release is published at https://pipelines.lsst.io/v/daily/
+
+You can find links for all editions of this documentation by visiting https://pipelines.lsst.io/v.
+
+## Contributing to pipelines.lsst.io
+
+To learn how to contribute to the [pipelines.lsst.io](https://pipelines.lsst.io) documentation by reporting issues or contributing pull requests, see the [CONTRIBUTING](./.github/CONTRIBUTING.rst) file.
+
+## Related projects and resources
 
 - [LSST Community forum](https://community.lsst.org)
 - [DM Developer Guide](https://developer.lsst.io)
-
-## How the site is built
-
-This site is built automatically for each `lsst_distrib` release by the [sqre/infra/documenteer](https://ci.lsst.codes/blue/organizations/jenkins/sqre%2Finfra%2Fdocumenteer/activity) Jenkins job.
-You can find builds for each tagged release by visiting https://pipelines.lsst.io/v.
-
-This documentation is built by [Sphinx](http://www.sphinx-doc.org/en/master/) and LSST's own [Documenteer](https://documenteer.lsst.io).
-You can read an [Overview of the Stack documentation system](https://developer.lsst.io/stack/documentation-system-overview.html).
-
-## Contributing
-
-For links on how to contribute to the pipelines.lsst.io documentation, see the [CONTRIBUTING](./.github/CONTRIBUTING.rst) file.
 
 ## Licensing
 
