@@ -1,1 +1,1 @@
-documenteer[pipelines]==0.4.1
+documenteer[pipelines]==0.4.2
