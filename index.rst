@@ -5,9 +5,9 @@ The LSST Science Pipelines
 The LSST Science Pipelines enable optical and near-infrared astronomy in the big data era.
 We are building the Science Pipelines for the `Large Synoptic Survey Telescope (LSST) <http://lsst.org>`_, but our command line task and Python API can be extended for any optical or near-infrared dataset.
 
-This documentation covers version |current-version|.
+This documentation covers version |eups-tag-bold|.
 :doc:`Learn what's new <releases/index>`.
-You can also find the documentation for `other versions <https://pipelines.lsst.io/v>`__.
+You can also find documentation for `other versions <https://pipelines.lsst.io/v>`__.
 
 .. _part-getting-started:
 

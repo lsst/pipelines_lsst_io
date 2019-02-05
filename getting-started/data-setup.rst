@@ -26,11 +26,10 @@ Install the LSST Science Pipelines
 
 If you haven't already, you'll need to install the LSST Science Pipelines.
 We recommend that you install the pre-built binary packages by following the instructions at :doc:`/install/newinstall`.
-This tutorial is intended to work with the latest release (|current-release|).
+This tutorial is intended to work with |eups-tag-mono| tag of the ``lsst_distrib`` EUPS package.
 
 When working with the LSST Science Pipelines, you need to remember to activate the installation and *set up* the package stack in each new shell session.
 Follow the instructions :doc:`/install/setup` to do this.
-We recommend that you use ``lsst_distrib`` as a general top-level package.
 
 To make sure the environment is set up properly, you can run:
 
