@@ -50,8 +50,12 @@ The LSST Science Pipelines require Python 3.6 or newer.
 Both the :doc:`newinstall.sh <../newinstall>` and :doc:`lsstsw <../lsstsw>`\ -based installation methods provide dedicated Miniconda environments pre-loaded with Python dependencies.
 If you opt to use your own Python, you can re-create the default Python environment made by :command:`newinstall.sh` and ``lsstsw`` with these Conda environments:
 
-- `macOS <https://github.com/lsst/lsstsw/blob/10a4fa6/etc/conda3_packages-osx-64.txt>`_.
-- `Linux <https://github.com/lsst/lsstsw/blob/10a4fa6/etc/conda3_packages-linux-64.txt>`_.
+.. jinja:: default
+
+   - `macOS <https://github.com/lsst/scipipe_conda_env/blob/{{ scipipe_conda_ref }}/etc/conda3_packages-osx-64.txt>`_.
+   - `Linux <https://github.com/lsst/scipipe_conda_env/blob/{{ scipipe_conda_ref }}/etc/conda3_packages-linux-64.txt>`_.
+
+   These conda environments are maintained in the `lsst/scipipe_conda_env <https://github.com/lsst/scipipe_conda_env/tree/{{ scipipe_conda_ref }}>`__ repository.
 
 .. _optional-deps:
 

@@ -26,13 +26,15 @@ Docker's `Getting Started <https://docs.docker.com/get-started/>`_ documentation
 Quick start
 ===========
 
-This command downloads a :ref:`weekly build <docker-tags>` of the LSST Science Pipelines, starts a container, and opens a prompt:
+This command downloads a current version of the LSST Science Pipelines Docker image (see also :ref:`docker-tags`), starts a container, and opens a prompt:
 
-.. code-block:: bash
+.. jinja:: default
 
-   docker run -ti lsstsqre/centos:7-stack-lsst_distrib-v16_0
+   .. code-block:: bash
 
-Then in the container's shell, load the LSST environment and set up a :doc:`top-level package <top-level-packages>` (``lsst_distrib`` in this case):
+      docker run -ti lsstsqre/centos:7-stack-lsst_distrib-{{ release_eups_tag }}
+
+Then in the container's shell, load the LSST environment and activate the ``lsst_distrib`` top-level package:
 
 .. code-block:: bash
 
@@ -72,9 +74,11 @@ This is useful for processing data with the LSST Science Pipelines and even deve
 To mount a local directory, add a ``-v <host directory>/<mount directory>`` argument to the :command:`docker run` command.
 For example:
 
-.. code-block:: bash
+.. jinja:: default
 
-   docker run -it -v `pwd`:/home/lsst/mnt lsstsqre/centos:7-stack-lsst_distrib-v16_0
+   .. code-block:: bash
+
+      docker run -it -v `pwd`:/home/lsst/mnt lsstsqre/centos:7-stack-lsst_distrib-{{ release_eups_tag }}
 
 The example mounts the current working directory (```pwd```) to the ``/home/lsst/mnt`` directory in the container.
 
@@ -104,9 +108,11 @@ With a detached container, the container won't stop until you specify it.
 
 To get started, run the container with the ``-d`` flag (**detached**):
 
-.. code-block:: bash
+.. jinja:: default
 
-   docker run -itd --name lsst lsstsqre/centos:7-stack-lsst_distrib-v16_0
+   .. code-block:: bash
+
+      docker run -itd --name lsst lsstsqre/centos:7-stack-lsst_distrib-{{ release_eups_tag }}
 
 You still use the ``-it`` arguments to put the container in interactive mode, even though Docker doesn't immediately open a container prompt for you.
 
@@ -163,9 +169,11 @@ These steps show how to run a container and build a LSST Science Pipelines packa
 
 2. **From the host shell,** start the container with the current working directory mounted:
 
-   .. code-block:: bash
+   .. jinja:: default
 
-      docker run -itd -v `pwd`:/home/lsst/mnt --name lsst lsstsqre/centos:7-stack-lsst_distrib-v16_0
+      .. code-block:: bash
+
+         docker run -itd -v `pwd`:/home/lsst/mnt --name lsst lsstsqre/centos:7-stack-lsst_distrib-{{ release_eups_tag }}
 
    This starts the container in a detached mode so you can open and exit multiple container shells.
    Follow the steps in :ref:`docker-detached` to open a shell in the container.
@@ -241,15 +249,17 @@ The schema of these tags is:
 
 For example:
 
-.. code-block:: text
+.. jinja:: default
 
-   7-stack-lsst_distrib-w_2017_35
+   .. code-block:: text
 
-This tag corresponds to:
+      7-stack-lsst_distrib-{{ release_eups_tag }}
 
-- CentOS 7 operating system.
-- ``lsst_distrib`` :doc:`top-level package <top-level-packages>`.
-- ``w_2017_35`` EUPS tag. See :ref:`newinstall-other-tags` for an overview of LSST's EUPS tag schema.
+   This tag corresponds to:
+
+   - CentOS 7 operating system.
+   - ``lsst_distrib`` :doc:`top-level package <top-level-packages>`.
+   - ``{{ release_eups_tag }}`` EUPS tag. See :ref:`newinstall-other-tags` for an overview of LSST's EUPS tag schema.
 
 You can see what tags are available by browsing `lsstsqre/centos on Docker Hub <https://hub.docker.com/r/lsstsqre/centos/tags/>`_.
 
