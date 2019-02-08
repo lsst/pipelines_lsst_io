@@ -26,20 +26,22 @@ For example:
 
 Then download the demo's data (if you aren't running the current stable release, see the note below):
 
-.. code-block:: bash
-
-   curl -L https://github.com/lsst/lsst_dm_stack_demo/archive/16.0.tar.gz | tar xvzf -
-   cd lsst_dm_stack_demo-16.0
-
-.. note::
-
-   The demo's version should match your installed software.
-   If you installed from source (with :doc:`lsstsw <lsstsw>`) or with a :ref:`newer tag <newinstall-other-tags>`, clone the demo repository instead of downloading a release:
+.. jinja:: default
 
    .. code-block:: bash
 
-      git clone https://github.com/lsst/lsst_dm_stack_demo.git
-      cd lsst_dm_stack_demo
+      curl -L https://github.com/lsst/lsst_dm_stack_demo/archive/{{ pipelines_demo_ref }}.tar.gz | tar xvzf -
+      cd lsst_dm_stack_demo-{{ pipelines_demo_ref }}
+
+.. caution::
+
+   The demo's version should match your LSST Science Pipelines installed software.
+   If you installed from source (with :doc:`lsstsw <lsstsw>`) or with a :ref:`newer tag <newinstall-other-tags>`, you'll likely need to run the latest version of the demo (``master`` branch):
+
+   .. code-block:: bash
+
+      curl -L https://github.com/lsst/lsst_dm_stack_demo/archive/master.tar.gz | tar xvzf -
+      cd lsst_dm_stack_demo-master
 
 The demo repository consumes roughly 41 MB, contains input images, reference data, and configuration files.
 The demo script will process SDSS images from two fields in Stripe 82, as shown in the following table:

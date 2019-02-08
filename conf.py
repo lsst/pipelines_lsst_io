@@ -10,5 +10,4 @@ from documenteer.sphinxconfig.stackconf import \
 
 globals().update(build_pipelines_lsst_io_configs(
     project_name='LSST Science Pipelines',
-    current_release='v16_0')
-)
+))

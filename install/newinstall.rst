@@ -53,10 +53,12 @@ If you need to reuse a shell, see :ref:`newinstall-unset-variables`.
 Next, run :command:`newinstall.sh` to set up the environment you'll install the LSST Science Pipelines into.
 For most use cases we recommend downloading and running :command:`newinstall.sh` like this:
 
-.. code-block:: bash
+.. jinja:: default
 
-   curl -OL https://raw.githubusercontent.com/lsst/lsst/16.0/scripts/newinstall.sh
-   bash newinstall.sh -ct
+   .. code-block:: bash
+
+      curl -OL https://raw.githubusercontent.com/lsst/lsst/{{ newinstall_ref }}/scripts/newinstall.sh
+      bash newinstall.sh -ct
 
 Always execute :command:`newinstall.sh` with :command:`bash`, as shown, regardless of what shell you're in.
 
@@ -94,15 +96,16 @@ Then load the LSST software environment into your shell:
 4. Install Science Pipelines packages
 =====================================
 
-Install the LSST Science Pipelines packages by running :command:`eups distrib install` for a :doc:`top-level package <top-level-packages>` and a tagged version.
+.. jinja:: default
 
-This example installs the ``v16_0`` tagged version (current release) of the ``lsst_distrib`` :doc:`top-level package <top-level-packages>`:
+   The LSST Science Pipelines is distributed as the ``lsst_distrib`` EUPS package.
+   Install the current version, ``{{ release_eups_tag }}``:
 
-.. code-block:: bash
+   .. code-block:: bash
 
-   eups distrib install -t v16_0 lsst_distrib
-   curl -sSL https://raw.githubusercontent.com/lsst/shebangtron/master/shebangtron | python
-   setup lsst_distrib
+      eups distrib install -t {{ release_eups_tag }} lsst_distrib
+      curl -sSL https://raw.githubusercontent.com/lsst/shebangtron/master/shebangtron | python
+      setup lsst_distrib
 
 If prebuilt binaries are available for your platform (and you ran :command:`newinstall.sh` with the :option:`-t <newinstall.sh -t>` argument) the installation should take roughly 10 minutes.
 Otherwise, the installation falls back to a source build that can take two hours, depending on the top-level package and your machine's performance.
@@ -116,10 +119,7 @@ See :doc:`setup` for more information.
 
 .. note::
 
-   - ``lsst_distrib`` is a top-level package that provides most LSST Data Management pipelines software, but other top-level packages may be more applicable for your work, such as ``lsst_apps`` or ``lsst_sims``.
-     See :doc:`top-level-packages` for more information.
-
-   - ``v16_0`` is the current release.
+   - |eups-tag-mono| is the current version corresponding to this documentation.
      You can install other tagged versions of the LSST Science Pipelines, though.
      See :ref:`newinstall-other-tags`.
 
