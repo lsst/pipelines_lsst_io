@@ -65,6 +65,8 @@ Python modules
 
 .. module-toctree::
 
+Additional C++ API reference documentation is currently available at the `doxygen.lsst.codes <http://doxygen.lsst.codes/stack/doxygen/x_masterDoxyDoc/namespaces.html>`__ site.
+
 Packages
 ========
 
