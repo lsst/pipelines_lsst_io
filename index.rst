@@ -58,12 +58,16 @@ To install the LSST Simulation software, such as MAF, please follow the `LSST Si
 
    install/index
 
-.. _part-packages:
+.. _part-modules:
 
 Python modules
 ==============
 
 .. module-toctree::
+
+Additional C++ API reference documentation is currently available at the `doxygen.lsst.codes <http://doxygen.lsst.codes/stack/doxygen/x_masterDoxyDoc/namespaces.html>`__ site.
+
+.. _part-packages:
 
 Packages
 ========
