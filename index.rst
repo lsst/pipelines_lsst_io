@@ -92,7 +92,7 @@ More info
 - Join us on the `LSST Community forum, community.lsst.org <http://community.lsst.org>`_.
 - Fork our code on GitHub at https://github.com/lsst.
 - Report issues in `JIRA <https://jira.lsstcorp.org/projects/DM/issues/>`_.
-- API documentation is currently published with `Doxygen <http://doxygen.lsst.codes/stack/doxygen/x_masterDoxyDoc/>`_.
+- Some API documentation, particularly for C++, is currently published separately on a `Doxygen site <http://doxygen.lsst.codes/stack/doxygen/x_masterDoxyDoc/>`_.
 - DM Developer guidance is at https://developer.lsst.io.
 - Learn more about LSST Data Management by visiting http://lsst.org/about/dm.
 - Contribute to our documentation. This guide is on GitHub at `lsst/pipelines_lsst_io <https://github.com/lsst/pipelines_lsst_io>`_.
