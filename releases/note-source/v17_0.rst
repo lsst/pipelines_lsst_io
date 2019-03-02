@@ -13,6 +13,7 @@ Spring 2019 Release (v17_0)
 
 - :ref:`release-v17-0-functionality`
 - :ref:`release-v17-0-interface`
+- :ref:`release-v17-0-deprecations`
 
 *See also:*
 
@@ -263,3 +264,36 @@ Further, utility functions have been added to make it easy to check that the exp
 For more information, refer to `this community.lsst.org post`__.
 
 __ https://community.lsst.org/t/logging-changes/3580
+
+.. _release-v17-0-deprecations:
+
+Pending Deprecations
+--------------------
+
+- :ref:`release-v17-0-deprecate-calib`
+- :ref:`release-v17-0-deprecate-gen2`
+
+.. _release-v17-0-deprecate-calib:
+
+Upcoming removal of `lsst.afw.image.Calib`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This is the final major release which provides the `lsst.afw.image.Calib` photometric calibration object.
+Begining with 18.0, `~lsst.afw.image.Calib`, which provides only a photometric zeropoint per CCD, will be replaced with `~lsst.afw.image.PhotoCalib`, which provides a spatially-varying photometric model.
+Some `~lsst.afw.image.Calib` interfaces are supported by `~lsst.afw.image.PhotoCalib`, but full API compatibility is not possible.
+By the time this transition is made, `~lsst.afw.image.PhotoCalib` will be able to read files persisted with `~lsst.afw.image.Calib` objects, so backwards compatibility of on-disk data will be maintained.
+For more information, refer to :jira:`RFC-289` and :jira:`RFC-573`.
+
+.. _release-v17-0-deprecate-gen2:
+
+Upcoming removal of “Generation 2” Middleware
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The “Generation 3” middleware :ref:`included in this release <release-v17-0-gen3>` is ultimately intended to supplant the current (“Generation 2”) Data Butler and command-line task functionality.
+We expect to deliver a final major release supporting the Generation 2 functionality in late calendar year 2019.
+Following that release, it will be removed from the codebase.
+This will include:
+
+- The daf_persistence package, to be replaced by daf_butler;
+- `lsst.pipe.base.CmdLineTask`, to be replaced by `lsst.pipe.base.PipelineTask`;
+- The pipe_drivers and ctrl_pool packages, for which replacements are still in development.
