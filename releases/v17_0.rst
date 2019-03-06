@@ -10,9 +10,7 @@ LSST Science Pipelines
 
 Full details of the LSST Science Pipelines 17.0 release can be found in the :ref:`extensive release notes <release-v17-0>`.
 
-.. todo:: Provide link to appropriate DMTR.
-
-We have also published a `Characterization Metric Report <https://ls.st/DMTR-??>`_.
+We have also published a `Characterization Metric Report <https://ls.st/DMTR-131>`_.
 
 Qserv and Data Access
 =====================
@@ -27,5 +25,5 @@ The Science User Interface (SUI) team releases their codebase independently.
 Join Us on the Community Forum
 ==============================
 
-If you have questions or comments or comments about the LSST Science Pipelines,
+If you have questions or comments about the LSST Science Pipelines,
 visit our community forum for advice: https://community.lsst.org/.
