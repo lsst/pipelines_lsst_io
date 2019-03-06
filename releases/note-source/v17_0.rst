@@ -271,6 +271,7 @@ Pending Deprecations
 
 - :ref:`release-v17-0-deprecate-calib`
 - :ref:`release-v17-0-deprecate-gen2`
+- :ref:`release-v17-0-deprecate-lsstsim`
 
 .. _release-v17-0-deprecate-calib:
 
@@ -296,3 +297,16 @@ This will include:
 - The daf_persistence package, to be replaced by daf_butler;
 - `lsst.pipe.base.CmdLineTask`, to be replaced by `lsst.pipe.base.PipelineTask`;
 - The pipe_drivers and ctrl_pool packages, for which replacements are still in development.
+
+.. _release-v17-0-deprecate-lsstSim:
+
+Upcoming removal of the `obs_lsstSim` package
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+With the introduction of the new `obs_lsst` package, there is no longer a need for the `obs_lsstSim` package.
+Current work should move to using `obs_lsst` as soon as possible.
+Repositories using `obs_lsstSim` will need to be reprocessed using `obs_lsst`.
+For the most part this transition will be transparent to end users.
+The only code updates needed are in the simulations related packages.
+The porting work for simulations is planned for the Summer of 2019.
+We believe that `obs_lsstSim` can be archived after the release in late calendar year 2019.
