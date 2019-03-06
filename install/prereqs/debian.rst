@@ -52,7 +52,7 @@ Prefix the :command:`apt-get` command with :command:`sudo` if necessary.
 Additional installation steps for Ubuntu 16
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In the case you are deploying ``lsst_distrib`` in an Ubuntu 16.04 operating system, the :command:`gcc` compiler installed using the above steps is the **5.4**. In order to get a :command:`gcc` version compatible with **C++ 14**, following steps have to be completed in addition at the above ones.
+If you are deploying ``lsst_distrib`` in an Ubuntu 16.04 operating system, the :command:`gcc` compiler version installed using the above steps is the **5.4**. In order to get a :command:`gcc` version compatible with **C++ 14**, following steps have to be completed in addition at the above ones.
 
 .. code-block:: bash
 
