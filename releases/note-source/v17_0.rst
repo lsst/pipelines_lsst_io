@@ -317,4 +317,6 @@ We believe that `obs_lsstSim` can be archived after the release in late calendar
 17.0.1 patch release
 ^^^^^^^^^^^^^^^^^^^^
 
-The 17.0.1 patch release is fixing issue `DM-18167 <https://jira.lsstcorp.org/browse/DM-18167>`_: display_firefly needs to handle viewer_ids properly, that affects the usage of the science pipelines in the LSP.
+This patch fixes an issue that affects :ref:`lsst.display.firefly` display backend users on the Notebook Aspect of the LSST Science Platform.
+The viewer ID was not being set.
+See :jira:`DM-18167` for additional information.
