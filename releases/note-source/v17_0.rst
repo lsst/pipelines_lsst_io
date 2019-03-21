@@ -317,6 +317,6 @@ We believe that `obs_lsstSim` can be archived after the release in late calendar
 17.0.1 patch release
 ^^^^^^^^^^^^^^^^^^^^
 
-This patch fixes an issue that affects :ref:`lsst.display.firefly` display backend users on the Notebook Aspect of the LSST Science Platform.
+This patch fixes an issue that affects users of the :ref:`lsst.display.firefly` display backend on the Notebook Aspect of the LSST Science Platform.
 The viewer ID was not being set.
 See :jira:`DM-18167` for additional information.
