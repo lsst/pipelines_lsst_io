@@ -47,12 +47,12 @@ Prefix the :command:`apt-get` command with :command:`sudo` if necessary.
 
 .. note::
 
-   **New since 15.0**: The gcc compiler to be used shall support **C++ 14**. The gcc version used in Ubuntu 16 to compile the LSST Science Pipelines is **gcc 5.4**.
+   **New since 17.0**: The gcc compiler to be used shall fully support **C++ 14**. The gcc version used to compile the LSST Science Pipelines shall be at least **gcc 6.1**.
 
-Additional installation steps for Ubuntu 14
+Additional installation steps for Ubuntu 16
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In the case you are deploying ``lsst_distrib`` in an Ubuntu 14.04 operating system, the :command:`gcc` compiler installed using the above steps is the **4.8**. In order to get :command:`gcc` version **5.4**, following steps have to be completed in addition at the above ones.
+If you are deploying ``lsst_distrib`` in an Ubuntu 16.04 operating system, the :command:`gcc` compiler version installed using the above steps is the **5.4**. In order to get a :command:`gcc` version compatible with **C++ 14**, following steps have to be completed in addition at the above ones.
 
 .. code-block:: bash
 
@@ -60,8 +60,8 @@ In the case you are deploying ``lsst_distrib`` in an Ubuntu 14.04 operating syst
    sudo apt-get install build-essential software-properties-common
    sudo add-apt-repository ppa:ubuntu-toolchain-r/test 
    sudo apt-get update
-   sudo apt-get install gcc-5 g++-5
-   sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 60 --slave /usr/bin/g++ g++ /usr/bin/g++-5
+   sudo apt-get install gcc-6 g++-6
+   sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 60 --slave /usr/bin/g++ g++ /usr/bin/g++-6
 
 .. warning::
 
