@@ -14,6 +14,7 @@ Spring 2019 Release (v17_0)
 - :ref:`release-v17-0-functionality`
 - :ref:`release-v17-0-interface`
 - :ref:`release-v17-0-deprecations`
+- :ref:`release-v17-0-1-patch`
 
 *See also:*
 
@@ -310,3 +311,12 @@ For the most part this transition will be transparent to end users.
 The only code updates needed are in the simulations related packages.
 The porting work for simulations is planned for the Summer of 2019.
 We believe that `obs_lsstSim` can be archived after the release in late calendar year 2019.
+
+.. _release-v17-0-1-patch:
+
+17.0.1 patch release
+^^^^^^^^^^^^^^^^^^^^
+
+This patch fixes an issue that affects users of the :ref:`lsst.display.firefly` display backend on the Notebook Aspect of the LSST Science Platform.
+The viewer ID was not being set.
+See :jira:`DM-18167` for additional information.
