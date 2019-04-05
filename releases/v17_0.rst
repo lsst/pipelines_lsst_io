@@ -3,7 +3,7 @@ LSST Stack 17.0 Release
 #######################
 
 Version 17.0 of the LSST Science Pipelines is now available.
-It is based on 2019 weekly 06.
+It is based on 2019 weekly 07.
 
 LSST Science Pipelines
 ======================
