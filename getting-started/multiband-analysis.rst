@@ -60,41 +60,32 @@ From the source table's schema you know this flux has units of counts:
 
    iSources.getSchema().find('base_PsfFlux_instFlux').field.getUnits()
 
-Transforming this instrumental flux into a magnitude requires knowing the coadd's zeropoint, which you can get from the coadd dataset.
+Transforming this instrumental flux into a magnitude requires knowing the coadd's photometric calibration, which you can get from the coadd dataset.
 The coadd you made in :doc:`part 4 <coaddition>` with :command:`assembleCoadd.py` doesn't have calibration info attached to it, though.
 Instead, you want the ``deepCoadd_calexp`` dataset, which was created by the :command:`detectCoaddSources.py` command-line task, because it does have calibrations.
-You can access these calibrations directly from ``deepCoadd_calexp_calib`` datasets for each filter:
+You can access these calibrations directly from ``deepCoadd_calexp_photoCalib`` datasets for each filter:
 
 .. code-block:: python
 
-   rCoaddCalib = butler.get('deepCoadd_calexp_calib',  {'filter': 'HSC-R', 'tract': 0, 'patch': '1,1'})
-   iCoaddCalib = butler.get('deepCoadd_calexp_calib',  {'filter': 'HSC-I', 'tract': 0, 'patch': '1,1'})
+   rCoaddPhotoCalib = butler.get('deepCoadd_calexp_photoCalib',  {'filter': 'HSC-R', 'tract': 0, 'patch': '1,1'})
+   iCoaddPhotoCalib = butler.get('deepCoadd_calexp_photoCalib',  {'filter': 'HSC-I', 'tract': 0, 'patch': '1,1'})
 
 .. note::
 
-   An alternative way to get the ``lsst.afw.image.calib.Calib`` object is from the ``deepCoadd_calexp`` dataset object:
+   An alternative way to get the ``lsst.afw.image.PhotoCalib`` object is from the ``deepCoadd_calexp`` dataset object:
 
    .. code-block:: python
 
       rCoaddCalexp = butler.get('deepCoadd_calexp',  {'filter': 'HSC-R', 'tract': 0, 'patch': '1,1'})
-      rCoaddCalib = rCoaddCalexp.getCalib()
+      rCoaddPhotoCalib = rCoaddCalexp.getPhotoCalib()
 
-These ``Calib`` objects not only have methods for directing accessing calibration information, but also for applying those calibrations.
-Use the ``Calib.getMagnitude()`` method to transform instrumental fluxes in counts to magnitudes in the HSC instrument's system (AB magnitudes):
+These ``PhotoCalib`` objects not only have methods for directly accessing calibration information, but also for applying those calibrations.
+Use the ``PhotoCalib.instFluxToMagnitude()`` method to transform instrumental fluxes in counts to AB magnitudes, and ``PhotoCalib.instFluxToNanojanksy()`` to transform counts into nanojansky. When called with an ``lsst.afw.table.SourceCatalog`` and string specifying the flux field name, these methods each return an array with the magnitude and magnitude error as columns.
 
 .. code-block:: python
 
-   rCoaddCalib.setThrowOnNegativeFlux(False)
-   iCoaddCalib.setThrowOnNegativeFlux(False)
-
-   rMags = rCoaddCalib.getMagnitude(rSources['base_PsfFlux_instFlux'])
-   iMags = iCoaddCalib.getMagnitude(iSources['base_PsfFlux_instFlux'])
-
-.. note::
-
-   The reason you called the ``Calib.setThrowOnNegativeFlux`` method was to prevent an exception from being raised for sources with negative fluxes.
-   This is commonly required for forced photometry analysis since some sources may not be visible in a band so that the flux measurement is effectively of blank sky.
-   Because of background variance, the measured flux of non-detections can be randomly negative.
+   rMags = rCoaddPhotoCalib.instFluxToMagnitude(rSources, 'base_PsfFlux')
+   iMags = iCoaddPhotoCalib.instFluxToMagnitude(iSources, 'base_PsfFlux'])
 
 Filtering for unique, deblended sources with the detect_isPrimary flag
 ======================================================================
@@ -259,8 +250,8 @@ You can use matplotlib_ to create this visualization:
 
    plt.style.use('seaborn-notebook')
    plt.figure(1, figsize=(4, 4), dpi=140)
-   plt.scatter(rMags[selected] - iMags[selected],
-               iMags[selected],
+   plt.scatter(rMags[selected][0] - iMags[selected][0],
+               iMags[selected][0],
                edgecolors='None', s=2, c='k')
    plt.xlim(-0.5, 3)
    plt.ylim(25, 14)
