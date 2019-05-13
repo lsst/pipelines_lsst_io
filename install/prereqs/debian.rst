@@ -29,6 +29,7 @@ Debian or Ubuntu systems require the following packages:
        m4 \
        make \
        perl-modules \
+       rsync \
        zlib1g-dev
 
 .. from https://github.com/lsst-sqre/puppet-lsststack/blob/master/manifests/params.pp
