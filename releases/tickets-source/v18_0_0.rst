@@ -1,0 +1,5 @@
+.. _release-v18-0-0-tickets:
+
+Tickets Addressed in Summer 2019 Release (v18_0_0)
+================================================
+
