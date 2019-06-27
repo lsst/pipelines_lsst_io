@@ -1,14 +1,14 @@
 .. _release-v18-0-0:
 
 Summer 2019 Release (v18_0_0)
-===========================
+=============================
 
 +-------------------------------------------+------------+
 | Source                                    | Identifier |
 +===========================================+============+
-| Git tag                                   | 18.0.0       |
+| Git tag                                   | 18.0.0     |
 +-------------------------------------------+------------+
-| :doc:`EUPS distrib </install/newinstall>` | v18\_0\_0     |
+| :doc:`EUPS distrib </install/newinstall>` | v18\_0\_0  |
 +-------------------------------------------+------------+
 
 - :ref:`release-v18-0-0-functionality`
@@ -21,7 +21,7 @@ Summer 2019 Release (v18_0_0)
 - :doc:`Installation instructions <../install/index>`
 - :doc:`Known issues </known-issues>`
 - `Characterization Metric Report (DMTR-XXX) <https://ls.st/DMTR-XXX>`_
-- `Doxygen Documentation <http://doxygen.lsst.codes/stack/doxygen/xlink_master_2019_06_08_08.07.58/>`_
+- `Doxygen Documentation <http://doxygen.lsst.codes/stack/doxygen/xlink_master_2019_06_08_08.07.58/>`__
 
 These release notes highlight significant changes to the Science Pipelines codebase which are likely to be of wide interest.
 For a complete list of changes, see :ref:`release-v18-0-0-tickets`.
@@ -230,4 +230,3 @@ For the most part this transition will be transparent to end users.
 The only code updates needed are in the simulations related packages.
 The porting work for simulations is planned for the Summer of 2019.
 We believe that `obs_lsstSim` can be archived after the release in late calendar year 2019.
-
