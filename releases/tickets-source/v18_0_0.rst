@@ -27,7 +27,7 @@ Tickets Addressed in Summer 2019 Release (v18_0_0)
 - `DM-16268 <https://jira.lsstcorp.org/browse/DM-16268>`_: Rewrite meas_extensions_ngmix for better functionality and upstream collaboration [obs_base]
 - `DM-16292 <https://jira.lsstcorp.org/browse/DM-16292>`_: Calibration products need more metadata [astro_metadata_translator, pipe_drivers]
 - `DM-16429 <https://jira.lsstcorp.org/browse/DM-16429>`_: Ensure WCS (and other Exposure components) are retrieved properly when loaded individually [obs_base]
-- `DM-16501 <https://jira.lsstcorp.org/browse/DM-16501>`_: Proporgate calexp_fakes through skyCorrection and coaddDriver [pipe_drivers]
+- `DM-16501 <https://jira.lsstcorp.org/browse/DM-16501>`_: Propagate calexp_fakes through skyCorrection and coaddDriver [pipe_drivers]
 - `DM-16536 <https://jira.lsstcorp.org/browse/DM-16536>`_: Migrate all metrics from ap.verify.measurements [ap_association, ap_verify, ip_diffim, verify, verify_metrics]
 - `DM-16539 <https://jira.lsstcorp.org/browse/DM-16539>`_: Add level of indirection betwen calib identifier and exposure range in schema [ctrl_mpexec, daf_butler, ip_isr, obs_subaru, pipe_base, pipe_tasks]
 - `DM-16606 <https://jira.lsstcorp.org/browse/DM-16606>`_: ap_pipe should not create DB automatically [ap_pipe, ap_verify, dax_ppdb]
