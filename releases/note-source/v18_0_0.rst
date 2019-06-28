@@ -23,6 +23,13 @@ Summer 2019 Release (v18_0_0)
 - `Characterization Metric Report (DMTR-XXX) <https://ls.st/DMTR-XXX>`_
 - `Doxygen Documentation <http://doxygen.lsst.codes/stack/doxygen/xlink_master_2019_06_08_08.07.58/>`__
 
+As of this release, we have adopted the “`Semantic Versioning`__” system, verison 2.0.0.
+In this system, releases are described by a three part number representing major (``18`` in this case), minor (``0``), and patch (``0``) version.
+The major version is incremented on incompatible API changes; the minor version when new functionality is added; and the patch version when bug fixes are made.
+For further details, refer to :dmtn:`106`.
+
+__ https://semver.org/spec/v2.0.0.html
+
 These release notes highlight significant changes to the Science Pipelines codebase which are likely to be of wide interest.
 In addition, a large number of minor upgrades and stability improvements have been made across the codebase; in particular, we expect Jointcal to be significantly more stable in this release.
 For a complete list of changes made, see :ref:`release-v18-0-0-tickets`.
