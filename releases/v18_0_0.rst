@@ -1,6 +1,6 @@
-#######################
+#########################
 LSST Stack 18.0.0 Release
-#######################
+#########################
 
 Version 18.0.0 of the LSST Science Pipelines is now available.
 It is based on 2019 weekly 23.
