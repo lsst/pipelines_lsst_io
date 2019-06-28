@@ -16,7 +16,7 @@ Binary installation issues
 Cross Platform
 --------------
 
-- This release may not work when installed without the Conda environments provided by the documented :doc:`newinstall.sh </install/newinstall>`, :doc:`lsstsw </install/lsstsw>`, or :doc:`Docker <docker>` installation methods.
+- This release may not work when installed without the Conda environments provided by the documented :doc:`newinstall.sh </install/newinstall>`, :doc:`lsstsw </install/lsstsw>`, or :doc:`Docker </install/docker>` installation methods.
   The :ref:`documented Python dependencies <python-deps>` may differ slightly from those in the release, causing issues with the :doc:`validation demo </install/demo>`.
   See :jira:`DM-15040` and :jira:`DM-15041` for more discussion.
 
