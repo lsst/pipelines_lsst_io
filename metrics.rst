@@ -12,3 +12,4 @@ Metrics included in these reports are expected to increase in number and sophist
 - `V15.0 (DMTR-62) <https://ls.st/DMTR-62>`_
 - `V16.0 (DMTR-81) <https://ls.st/DMTR-81>`_
 - `V17.0 (DMTR-131) <https://ls.st/DMTR-131>`_
+- `V18.0.0 (DMTR-141) <https://ls.st/DMTR-141>`_

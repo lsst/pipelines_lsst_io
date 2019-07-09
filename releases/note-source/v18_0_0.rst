@@ -20,7 +20,7 @@ Summer 2019 Release (v18_0_0)
 
 - :doc:`Installation instructions <../install/index>`
 - :doc:`Known issues </known-issues>`
-- `Characterization Metric Report (DMTR-XXX) <https://ls.st/DMTR-XXX>`_
+- `Characterization Metric Report (DMTR-141) <https://ls.st/DMTR-141>`_
 - `Doxygen Documentation <http://doxygen.lsst.codes/stack/doxygen/xlink_master_2019_06_08_08.07.58/>`__
 
 As of this release, we have adopted the “`Semantic Versioning`__” system, verison 2.0.0.

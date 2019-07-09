@@ -10,7 +10,7 @@ LSST Science Pipelines
 
 Full details of the LSST Science Pipelines 18.0.0 release can be found in the :ref:`extensive release notes <release-v18-0-0>`.
 
-We have also published a `Characterization Metric Report <https://ls.st/DMTR-XXX>`_.
+We have also published a `Characterization Metric Report <https://ls.st/DMTR-141>`_.
 
 Qserv and Data Access
 =====================
