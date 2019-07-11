@@ -1,0 +1,29 @@
+#########################
+LSST Stack 18.0.0 Release
+#########################
+
+Version 18.0.0 of the LSST Science Pipelines is now available.
+It is based on 2019 weekly 23.
+
+LSST Science Pipelines
+======================
+
+Full details of the LSST Science Pipelines 18.0.0 release can be found in the :ref:`extensive release notes <release-v18-0-0>`.
+
+We have also published a `Characterization Metric Report <https://ls.st/DMTR-141>`_.
+
+Qserv and Data Access
+=====================
+
+The database team is on a separate release cadence.
+
+Science User Interface
+======================
+
+The Science User Interface (SUI) team releases their codebase independently.
+
+Join Us on the Community Forum
+==============================
+
+If you have questions or comments about the LSST Science Pipelines,
+visit our community forum for advice: https://community.lsst.org/.
