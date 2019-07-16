@@ -13,6 +13,7 @@ Summer 2019 Release (v18_0_0)
 
 - :ref:`release-v18-0-0-functionality`
 - :ref:`release-v18-0-0-interface`
+- :ref:`release-v18-0-0-pending-deprecations`
 - :ref:`release-v18-0-0-deprecations`
 
 *See also:*
@@ -141,15 +142,16 @@ Some `~lsst.afw.image.Calib` interfaces are supported by `~lsst.afw.image.PhotoC
 `~lsst.afw.image.PhotoCalib` is able to read files persisted with `~lsst.afw.image.Calib` objects, so backwards compatibility of on-disk data is maintained.
 For more information, refer to :jira:`RFC-289` and :jira:`RFC-573`.
 
-.. _release-v18-0-0-deprecations:
+.. _release-v18-0-0-pending-deprecations:
 
 Pending Deprecations
 --------------------
 
+These packages/functions will be deprecated in the next major release.
+
 - :ref:`release-v18-0-0-deprecate-gen2`
 - :ref:`release-v18-0-0-deprecate-lsstsim`
-- :ref:`release-v18-0-0-deprecate-calib`
-- :ref:`release-v18-0-0-deprecate-ap-silent`
+- :ref:`release-v18-0-0-deprecate-afwGeom`
 
 .. _release-v18-0-0-deprecate-gen2:
 
@@ -175,6 +177,27 @@ All LSST code is expected to transition to the new system later in summer 2019.
 Some work will be required to update old data repositories to the new system.
 After that, a final release will be made containing obs_lsstSim in late 2019, after which the package will be retired.
 
+.. _release-v18-0-0-deprecate-afwGeom:
+
+Upcoming removal of `lsst.afw.geom` classes that have been relocated to `lsst.geom`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+As announced in v16.0 (:ref:`release-v16-0-new-geom`) some primitives have been moved from `afw.geom` to `geom`.
+We currently provide aliases for compatibility purposes, but new code should use the `geom` package.
+These aliases will be removed after the version 19.0.0 will be released.
+
+.. _release-v18-0-0-deprecations:
+
+Deprecations
+------------
+
+These packages/functions are deprecated and will not be available in the next major release.
+
+- :ref:`release-v18-0-0-deprecate-calib`
+- :ref:`release-v18-0-0-deprecate-ap-silent`
+- :ref:`release-v18-0-0-deprecate-isr`
+- :ref:`release-v18-0-0-deprecate-meas_algorithms`
+
 .. _release-v18-0-0-deprecate-calib:
 
 Upcoming removal of `lsst.afw.image.Calib` compatibility API
@@ -191,5 +214,24 @@ Upcoming removal of the ``--silent`` argument to :command:`ap_verify.py`
 The ``--silent`` argument used to disable upload of metrics from :command:`ap_verify.py` to `SQuaSH`__.
 The capability to upload metrics has been removed from :command:`ap_verify.py` (see :jira:`DM-16536`), but ``--silent`` has been retained as a no-op for compatibility reasons.
 It will be removed before the next release.
+
+.. _release-v18-0-0-deprecate-isr:
+
+Upcoming removal of `ip_isr` functions from `isrFunctions.py`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+These functions are replaced by functionality in `lsst.meas.algorithms.Defects`:
+
+- ``defectListFromFootprintList`` replaced by ``Defects.fromFootPrintList()``
+- ``transposeDefectList`` replaced by ``Defects.transpose()``
+- ``maskPixelsFromDefectList`` replaced by ``Defects.maskPixels()``
+- ``getDefectListFromMask`` replaced by ``Defects.fromMask()``
+
+.. _release-v18-0-0-deprecate-meas_algorithms:
+
+Upcoming removal of `meas_algorithms` functions from `defects.py`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- ``policyToBadRegionList``, policy defect files no longer supported.
 
 __ https://squash.lsst.codes
