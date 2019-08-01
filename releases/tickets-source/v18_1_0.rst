@@ -1,0 +1,6 @@
+.. _release-v18-1-0-tickets:
+
+Tickets Addressed in RFC-618 Release (v18_1_0)
+==================================================
+
+- `DM-20664 <https://jira.lsstcorp.org/browse/DM-20664>`_: Backport issue DM-20506 to 18.1.x branch
