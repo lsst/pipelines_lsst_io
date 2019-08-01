@@ -32,6 +32,8 @@ Major Functionality Changes
 
 No functional changes implemented in this release
 
+Please note that eigen version jumped from 3.3.4.lsst1-1-g221959b to 3.3.7 due to a tag been added after 18.0.0 but forgotten when DM-18895 was implemented.
+
 Significant Interface Changes
 -----------------------------
 
