@@ -1,26 +1,11 @@
-#########################
-LSST Stack 18.1.0 Release
-#########################
+#####################################
+LSST Science Pipelines 18.1.0 Release
+#####################################
 
 Version 18.1.0 of the LSST Science Pipelines is now available.
-It is based on 18.0.0 release (2019 weekly 23).
-
-LSST Science Pipelines
-======================
-
-Full details of the LSST Science Pipelines 18.1.0 release can be found in the :ref:`extensive release notes <release-v18-1-0>`.
-
+This is a minor feature release, based on the 18.0.0 release.
+Full details of the LSST Science Pipelines 18.1.0 release can be found in the :ref:`release notes <release-v18-1-0>`.
 No characterization report is provided with this release.
-
-Qserv and Data Access
-=====================
-
-The database team is on a separate release cadence.
-
-Science User Interface
-======================
-
-The Science User Interface (SUI) team releases their codebase independently.
 
 Join Us on the Community Forum
 ==============================

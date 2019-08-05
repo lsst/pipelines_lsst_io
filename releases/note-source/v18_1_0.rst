@@ -1,7 +1,7 @@
 .. _release-v18-1-0:
 
 RFC-618 Release (v18_1_0)
-=============================
+=========================
 
 +-------------------------------------------+------------+
 | Source                                    | Identifier |
@@ -11,42 +11,23 @@ RFC-618 Release (v18_1_0)
 | :doc:`EUPS distrib </install/newinstall>` | v18\_1\_0  |
 +-------------------------------------------+------------+
 
-- :ref:`release-v18-1-0-functionality`
-- :ref:`release-v18-1-0-interface`
-- :ref:`release-v18-1-0-pending-deprecations`
-- :ref:`release-v18-1-0-deprecations`
+This is a minor feature release, as requested by :jira:`RFC-618`.
+
+It contains two changes relative to the :ref:`release-v18-0-0`:
+
+- `lsst.daf.base.PropertySet` now supports storing unsigned 64-bit integers.
+  For more information, refer to :jira:`DM-20506` and :jira:`DM-20664`.
+- The version number of the eigen package has changed from 3.3.4.lsst1-1-g221959b to 3.3.7.
+  There are no changes to the contents of this package; the version included with release 18.0.0 was incorrectly labelled.
+
+There are no changes to interfaces or deprecations in this release.
 
 *See also:*
 
 - :doc:`Installation instructions <../install/index>`
 - :doc:`Known issues </known-issues>`
-- `18.0.0 Characterization Metric Report (DMTR-141) <https://ls.st/DMTR-141>`_
+- `18.0.0 Characterization Metric Report (DMTR-141) <https://ls.st/DMTR-141>`_; no changes are expected in this release.
+
+.. note:: Generate Doxygen documentation for this release.
+
 - `18.0.0 Doxygen Documentation <http://doxygen.lsst.codes/stack/doxygen/xlink_master_2019_06_08_08.07.58/>`__
-
-For a complete list of changes made, see :ref:`release-v18-1-0-tickets`.
-
-.. _release-v18-1-0-functionality:
-
-Major Functionality Changes
----------------------------
-
-No functional changes implemented in this release
-
-Please note that eigen version jumped from 3.3.4.lsst1-1-g221959b to 3.3.7 due to a tag been added after 18.0.0 but forgotten when DM-18895 was implemented.
-
-Significant Interface Changes
------------------------------
-
-No interface changes implemented in this release
-
-Pending Deprecations
---------------------
-
-No pending deprecation introduced in this release.
-
-Deprecations
-------------
-
-No deprecations to higlight in this release.
-
-__ https://squash.lsst.codes
