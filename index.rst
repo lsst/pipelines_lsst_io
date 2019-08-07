@@ -90,6 +90,19 @@ Release details
    known-issues
    metrics
 
+.. _part-indices:
+
+Indices
+=======
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   Tasks <tasks>
+
+- :doc:`Tasks <tasks>`
+
 More info
 =========
 
