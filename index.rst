@@ -102,6 +102,8 @@ Indices
    Tasks <tasks>
 
 - :doc:`Tasks <tasks>`
+- :ref:`genindex`
+- :ref:`Search <search>`
 
 More info
 =========
