@@ -30,4 +30,4 @@ There are no changes to interfaces or deprecations in this release.
 
 .. note:: Generate Doxygen documentation for this release.
 
-- `18.0.0 Doxygen Documentation <http://doxygen.lsst.codes/stack/doxygen/xlink_master_2019_06_08_08.07.58/>`__
+- `18.1.0 Doxygen Documentation <http://doxygen.lsst.codes/stack/doxygen/xlink_master_2019_07_31_23.44.46/>`__
