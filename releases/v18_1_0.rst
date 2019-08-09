@@ -1,0 +1,14 @@
+#####################################
+LSST Science Pipelines 18.1.0 Release
+#####################################
+
+Version 18.1.0 of the LSST Science Pipelines is now available.
+This is a minor feature release, based on the 18.0.0 release.
+Full details of the LSST Science Pipelines 18.1.0 release can be found in the :ref:`release notes <release-v18-1-0>`.
+No characterization report is provided with this release.
+
+Join Us on the Community Forum
+==============================
+
+If you have questions or comments about the LSST Science Pipelines,
+visit our community forum for advice: https://community.lsst.org/.
