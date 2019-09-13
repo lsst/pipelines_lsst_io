@@ -52,8 +52,8 @@ If you opt to use your own Python, you can re-create the default Python environm
 
 .. jinja:: default
 
-   - `macOS <https://github.com/lsst/scipipe_conda_env/blob/{{ scipipe_conda_ref }}/etc/conda3_packages-osx-64.txt>`_.
-   - `Linux <https://github.com/lsst/scipipe_conda_env/blob/{{ scipipe_conda_ref }}/etc/conda3_packages-linux-64.txt>`_.
+   - `macOS <https://github.com/lsst/scipipe_conda_env/blob/{{ scipipe_conda_ref }}/etc/conda3_packages-osx-64.yml>`_.
+   - `Linux <https://github.com/lsst/scipipe_conda_env/blob/{{ scipipe_conda_ref }}/etc/conda3_packages-linux-64.yml>`_.
 
    These conda environments are maintained in the `lsst/scipipe_conda_env <https://github.com/lsst/scipipe_conda_env/tree/{{ scipipe_conda_ref }}>`__ repository.
 
