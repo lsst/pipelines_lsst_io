@@ -269,10 +269,10 @@ EUPS distrib binary packages are currently being built for these platform combin
 
    "macOS ``osx/10.9``", "``clang-800.0.42.1``", "``miniconda3-4.2.12`` (Python 3)"
    "macOS ``osx/10.9``", "``clang-800.0.42.1``", "``miniconda3-4.2.21`` (Python 3)"
-   "Redhat ``redhat/el7``", "``devtoolset-6``", "``miniconda3-4.2.21`` (Python 3)"
+   "Redhat ``redhat/el7``", "``devtoolset-8``", "``miniconda3-4.2.21`` (Python 3)"
    "Redhat ``redhat/el7``", "``gcc-system``", "``miniconda3-4.2.12`` (Python 3)"
    "Redhat ``redhat/el7``", "``gcc-system``", "``miniconda3-4.2.21`` (Python 3)"
-   "Redhat ``redhat/el6``", "``devtoolset-6``", "``miniconda3-4.2.21`` (Python 3)"
+   "Redhat ``redhat/el6``", "``devtoolset-8``", "``miniconda3-4.2.21`` (Python 3)"
 
 When you run :command:`newinstall.sh`, it looks at your system to identify your operating system and compiler.
 The version of :command:`newinstall.sh` you run also determines the Miniconda_ version and the lsstsw_ build system versions.

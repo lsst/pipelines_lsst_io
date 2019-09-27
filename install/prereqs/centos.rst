@@ -51,19 +51,19 @@ Then install the CentOS Linux Software Collections release file:
 
 .. code-block:: bash
 
-   yum install centos-release-scl 
+   yum install centos-release-scl
 
 And finally the latest compiler packages:
 
 .. code-block:: bash
 
-   yum install devtoolset-6-gcc-gfortran devtoolset-6-gcc devtoolset-6-gcc-c++
+   yum install devtoolset-8-gcc-gfortran devtoolset-8-gcc devtoolset-8-gcc-c++
 
-Activate the compiler provided by devtoolset-6 as follows:
+Activate the compiler provided by devtoolset-8 as follows:
 
 .. code-block:: bash
 
-   scl enable devtoolset-6 bash
+   scl enable devtoolset-8 bash
 
 Check that the :command:`gcc` compiler is *version 6.3 or later* by running:
 
@@ -75,4 +75,4 @@ Now you are ready to proceed with the installation.
 
 .. note::
 
-   **New since 15.0**: The gcc compiler to be used must support **C++ 14**. The gcc compiler version used in both Red Hat / CentOS 6 and 7 to verify the LSST Science Pipelines 15.0 distribution is **gcc 6.3.1**, provided by devtoolset-6.
+   **New after 18.1**: The gcc compiler to be used must support **C++ 14**. The gcc compiler version used in both Red Hat / CentOS 6 and 7 to verify the LSST Science Pipelines distribution is **gcc 8.3.1**, provided by devtoolset-8.
