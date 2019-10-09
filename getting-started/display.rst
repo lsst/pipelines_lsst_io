@@ -341,11 +341,11 @@ Since columns are Numpy arrays we can iterate over rows where ``src['calib_psf_u
 Red **x** symbols on the display mark all stars used by PSF measurement.
 
 Some sources might be considered as PSF candidates, but later rejected.
-In this statement, you can use a logical ``&`` (and) operator to combine boolean index arrays where both ``src['calib_psfCandidate']`` is ``True`` and ``src['calib_psf_used'] == False`` as well:
+In this statement, you can use a logical ``&`` (and) operator to combine boolean index arrays where both ``src['calib_psf_candidate']`` is ``True`` and ``src['calib_psf_used'] == False`` as well:
 
 .. code-block:: python
 
-   rejectedPsfSources = src[src['calib_psfCandidate'] &
+   rejectedPsfSources = src[src['calib_psf_candidate'] &
                             (src['calib_psf_used'] == False)]
    with display.Buffering():
        for s in rejectedPsfSources:
