@@ -44,42 +44,42 @@ It may simply be that you're working in a brand new shell.
 Downloading the sample HSC data
 ===============================
 
-Sample data for this tutorial comes from the `ci_hsc`_ package.
-`ci_hsc`_ contains a small set of Hyper Suprime-Cam (HSC) exposures.
+Sample data for this tutorial comes from the `testdata_ci_hsc`_ package.
+`testdata_ci_hsc`_ contains a small set of Hyper Suprime-Cam (HSC) exposures.
 The Science Pipelines provides native integrations for many observatories, including HSC, CFHT/MegaCam, SDSS, and of course LSST.
 
-`ci_hsc`_ is a Git LFS-backed package, so make sure you've :doc:`installed and configured Git LFS for LSST <../install/git-lfs>`.
+`testdata_ci_hsc`_ is a Git LFS-backed package, so make sure you've :doc:`installed and configured Git LFS for LSST <../install/git-lfs>`.
 
 .. important::
 
    Even if you've used Git LFS before, you do need to :doc:`configure it to work with LSST's servers <../install/git-lfs>`.
 
-First, clone `ci_hsc`_ using Git:
+First, clone `testdata_ci_hsc`_ using Git:
 
 .. code-block:: bash
 
-   git clone https://github.com/lsst/ci_hsc
+   git clone https://github.com/lsst/testdata_ci_hsc
 
 Then :command:`setup` the package to add it to the EUPS stack:
 
 .. code-block:: bash
 
-   setup -j -r ci_hsc
+   setup -j -r testdata_ci_hsc
 
 .. tip::
 
-   The ``-r ci_hsc`` argument is the the package's directory path (either absolute or relative).
+   The ``-r testdata_ci_hsc`` argument is the the package's directory path (either absolute or relative).
    In this case
 
-   The ``-j`` argument means that we're **just** setting up ``ci_hsc`` without affecting other packages.
+   The ``-j`` argument means that we're **just** setting up ``testdata_ci_hsc`` without affecting other packages.
 
 Now run:
 
 .. code-block:: bash
 
-   echo $CI_HSC_DIR
+   echo $TESTDATA_CI_HSC_DIR
 
-The ``$CI_HSC_DIR`` environment variable should be the `ci_hsc`_ directory's path.
+The ``$TESTDATA_CI_HSC_DIR`` environment variable should be the `testdata_ci_hsc`_ directory's path.
 
 Creating a Butler repository for HSC data
 =========================================
@@ -111,19 +111,19 @@ This is what your current working directory should look like right now:
 
 .. code-block:: text
 
-   ci_hsc/
+   testdata_ci_hsc/
    DATA/
 
 Ingesting raw data into the Butler repository
 =============================================
 
-Next, populate the repository with data from `ci_hsc`_.
+Next, populate the repository with data from `testdata_ci_hsc`_.
 The Pipelines' :command:`ingestImages.py` command (called a **command-line task**) links raw images into a Butler repository, allowing the mapper to organize the data.
 Run:
 
 .. code-block:: bash
 
-   ingestImages.py DATA $CI_HSC_DIR/raw/*.fits --mode=link
+   ingestImages.py DATA $TESTDATA_CI_HSC_DIR/raw/*.fits --mode=link
 
 .. tip::
 
@@ -157,24 +157,24 @@ Next, add calibration images (such as dark, flat, and bias frames) associated wi
 
 .. code-block:: bash
 
-   ln -s $CI_HSC_DIR/CALIB/ DATA/CALIB
+   ln -s $TESTDATA_CI_HSC_DIR/CALIB/ DATA/CALIB
 
 .. note::
 
    In general, you can use the :command:`ingestCalibs.py` command-line task to ingest calibrations into a Butler repository.
-   For this tutorial, we've taken a shortcut by manually symlinking pre-structured calibrations from the `ci_hsc`_ package.
+   For this tutorial, we've taken a shortcut by manually symlinking pre-structured calibrations from the `testdata_ci_hsc`_ package.
 
 Ingesting a reference catalog into the Butler repository
 ========================================================
 
 The Pipelines use external stellar catalogs to refine the WCS and photometric calibration of images.
-`ci_hsc`_ includes a subset of the Pan-STARRS PS1 catalog that has been prepared as an astrometric and photometric reference catalog.
+`testdata_ci_hsc`_ includes a subset of the Pan-STARRS PS1 catalog that has been prepared as an astrometric and photometric reference catalog.
 Ingest that catalog into the Butler repository by creating a symlink:
 
 .. code-block:: bash
 
    mkdir -p DATA/ref_cats
-   ln -s $CI_HSC_DIR/ps1_pv3_3pi_20170110 DATA/ref_cats/ps1_pv3_3pi_20170110
+   ln -s $TESTDATA_CI_HSC_DIR/ps1_pv3_3pi_20170110 DATA/ref_cats/ps1_pv3_3pi_20170110
 
 .. Processing tasks use these reference catalogs through configurations.
 .. The Pipelines will use this Pan-STARRS catalog by default 
@@ -201,4 +201,4 @@ Here are some key takeaways:
 
 In :doc:`part 2 of this tutorial series <processccd>` you will process the HSC data in this newly-created Butler repository into calibrated exposures.
 
-.. _ci_hsc: https://github.com/lsst/ci_hsc
+.. _testdata_ci_hsc: https://github.com/lsst/testdata_ci_hsc

@@ -108,4 +108,4 @@ Here are some key takeaways:
   Reruns (``--rerun`` argument) are a convenient way to create output data repositories.
   Make sure that all datasets in a rerun are processed consistently.
 
-Continue this tutorial in :doc:`part 3, where you'll learn how display these calibrated exposures <display>`.
+Continue this tutorial in :doc:`part 3, where you'll learn how to display these calibrated exposures <display>`.

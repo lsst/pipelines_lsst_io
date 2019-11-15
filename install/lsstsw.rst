@@ -24,7 +24,7 @@ See :ref:`prereq-platforms` for information about LSST's official reference plat
 Before you begin:
 
 - Install prerequisites for your platform: :doc:`CentOS / RedHat <prereqs/centos>`, :doc:`Debian / Ubuntu <prereqs/debian>`, or :doc:`macOS <prereqs/macos>`.
-- If you intend to use a Git LFS repository, like `ci_hsc`_ or `afwdata`_, :doc:`install and configure Git LFS <git-lfs>`.
+- If you intend to use a Git LFS repository, like `testdata_ci_hsc`_ or `afwdata`_, :doc:`install and configure Git LFS <git-lfs>`.
 - If you opt not to use the default Python environment provided by ``lsstsw`` you will need to :ref:`install these Python dependencies <python-deps>`.
 
 .. _lsstsw-deploy:
@@ -254,5 +254,5 @@ lsstsw rebuild command reference
 .. _EUPS: https://github.com/RobertLuptonTheGood/eups
 .. _Miniconda: http://conda.pydata.org/miniconda.html
 .. _`repos.yaml`: https://github.com/lsst/repos/blob/master/etc/repos.yaml
-.. _`ci_hsc`: https://github.com/lsst/ci_hsc
+.. _`testdata_ci_hsc`: https://github.com/lsst/testdata_ci_hsc
 .. _`afwdata`: https://github.com/lsst/afwdata
