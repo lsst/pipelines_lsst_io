@@ -5,7 +5,7 @@ Configuring Git LFS for downloading LSST data packages
 LSST uses `Git LFS`_ to efficiently store large files in Git repositories.
 Typical Science Pipelines installations, like ``lsst_distrib``, *do not* require Git LFS.
 However, some tutorials might require Git LFS to clone a specific Git repository that does use Git LFS.
-The `ci_hsc`_ package is one example.
+The `testdata_ci_hsc`_ package is one example.
 This page describes how to configure Git LFS to work with LSST's servers.
 
 .. note::
@@ -76,4 +76,4 @@ Trying cloning the `testdata_decam`_ Git repository to test your configuration:
 .. _`Developer Guide for details`:
 .. _`instructions in the Developer Guide`: https://developer.lsst.io/git/git-lfs.html
 .. _`testdata_decam`: https://github.com/lsst/testdata_decam
-.. _`ci_hsc`: https://github.com/lsst/ci_hsc
+.. _`testdata_ci_hsc`: https://github.com/lsst/testdata_ci_hsc
