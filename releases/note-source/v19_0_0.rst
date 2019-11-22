@@ -33,12 +33,12 @@ For a complete list of changes made, see :ref:`release-v18-0-0-tickets`.
 Major Functionality Changes
 ---------------------------
 
-- :ref:`release-v18-0-0-ngmix`
-- :ref:`release-v18-0-0-fakes`
-- :ref:`release-v18-0-0-fgcm`
-- :ref:`release-v18-0-0-timeseries`
+- :ref:`release-v19-0-0-ngmix`
+- :ref:`release-v19-0-0-fakes`
+- :ref:`release-v19-0-0-fgcm`
+- :ref:`release-v19-0-0-timeseries`
 
-.. _release-v18-0-0-ngmix:
+.. _release-v19-0-0-ngmix:
 
 Improved integration with the ngmix package
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -49,7 +49,7 @@ For more information, refer to :jira:`DM-16268`.
 
 __ https://github.com/esheldon/ngmix
 
-.. _release-v18-0-0-fakes:
+.. _release-v19-0-0-fakes:
 
 New tasks for inserting “fake” sources
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -59,7 +59,7 @@ For more information, refer to `this community.lsst.org post`__.
 
 __ https://community.lsst.org/t/new-tasks-for-fake-source-insertion/3722
 
-.. _release-v18-0-0-fgcm:
+.. _release-v19-0-0-fgcm:
 
 FCGM can now use reference stars
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -70,7 +70,7 @@ For more information, refer to :jira:`DM-16702`.
 
 __ http://adsabs.harvard.edu/abs/2018AJ....155...41B
 
-.. _release-v18-0-0-timeseries:
+.. _release-v19-0-0-timeseries:
 
 DIAObjects now include basic lightcurve characterization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -84,12 +84,12 @@ For more details about this functionality, refer to :jira:`DM-18318`; for inform
 Significant Interface Changes
 -----------------------------
 
-- :ref:`release-v18-0-0-propertyset`
-- :ref:`release-v18-0-0-ap_pipe`
-- :ref:`release-v18-0-0-selectors`
-- :ref:`release-v18-0-0-calib`
+- :ref:`release-v19-0-0-propertyset`
+- :ref:`release-v19-0-0-ap_pipe`
+- :ref:`release-v19-0-0-selectors`
+- :ref:`release-v19-0-0-calib`
 
-.. _release-v18-0-0-propertyset:
+.. _release-v19-0-0-propertyset:
 
 Python interface to PropertySet and PropertyList changed
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -101,7 +101,7 @@ For more information, refer to `this community.lsst.org post`__ and :jira:`RFC-5
 
 __ https://community.lsst.org/t/changes-to-propertyset-and-propertylist-python-interface/3715
 
-.. _release-v18-0-0-ap_pipe:
+.. _release-v19-0-0-ap_pipe:
 
 Alert Production Pipeline command-line interface changed
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -113,7 +113,7 @@ For more information, refer to `this community.lsst.org post`__ and :jira:`RFC-5
 
 __ https://community.lsst.org/t/ap-pipeline-ap-pipe-py-command-line-interface-change/3646
 
-.. _release-v18-0-0-selectors:
+.. _release-v19-0-0-selectors:
 
 New configurations for AstrometryTask source and reference selectors
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -125,7 +125,7 @@ For more information, refer to `this community.lsst.org post`__ and :jira:`RFC-5
 
 __ https://community.lsst.org/t/new-configurations-for-astrometrytask-source-and-reference-selectors/3661
 
-.. _release-v18-0-0-calib:
+.. _release-v19-0-0-calib:
 
 `lsst.afw.image.Calib` removed
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -180,6 +180,7 @@ These packages/functions are deprecated and will not be available in the next ma
 - :ref:`release-v19-0-0-deprecate-addDistortionModel`
 - :ref:`release-v19-0-0-deprecate-_extractAmpId`
 - :ref:`release-v19-0-0-deprecate-pex_policy`
+- :ref:`release-v19-0-0-deprecate-astrometry_net_data`
 
 .. _release-v19-0-0-deprecate-lsstSim:
 
@@ -229,3 +230,11 @@ Removal of `pex_policy`
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 The package pex_policy is deprecated, use makePropertySet instead.
+
+.. _release-v19-0-0-deprecate-astrometry_net_data:
+
+Removal of `astrometry_net_data`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The package ``astrometry_net_data`` is not used anymore and therefore will be removed from the distribution.
+See `DM-22233 <https://jira.lsstcorp.org/browse/DM-22233>`_: Remove astrometry_net_data dependency from pipe_tasks.
