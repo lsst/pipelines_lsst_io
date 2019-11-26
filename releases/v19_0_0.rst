@@ -8,7 +8,7 @@ It is based on 2019 weekly 46.
 LSST Science Pipelines
 ======================
 
-Full details of the LSST Science Pipelines 18.0.0 release can be found in the :ref:`extensive release notes <release-v19-0-0>`.
+Full details of the LSST Science Pipelines 19.0.0 release can be found in the :ref:`extensive release notes <release-v19-0-0>`.
 
 We have also published a `Characterization Metric Report <https://ls.st/DMTR-191>`_.
 
