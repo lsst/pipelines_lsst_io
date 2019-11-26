@@ -52,7 +52,7 @@ Prefix the :command:`apt-get` command with :command:`sudo` if necessary.
 
 .. note::
 
-   **since 19.0.0**: ubuntu 16 is not supported anymore. Note alse that due to compiler or glibc change, the demo execution on ubuntu 19.04 and 19.10 will produce slight numeric differences.
+   **since 19.0.0**: ubuntu 16 is not supported anymore. Note also that due to compiler or Glibc changes, the demo execution on ubuntu 19.04 and 19.10 will produce slight numeric differences.
 
 Additional installation steps for Ubuntu 19.10
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
