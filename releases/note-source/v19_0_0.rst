@@ -22,7 +22,7 @@ Fall 2019 Release (v19_0_0)
 - :doc:`Installation instructions <../install/index>`
 - :doc:`Known issues </known-issues>`
 - `Characterization Metric Report (DMTR-191) <https://ls.st/DMTR-191>`_
-- `Doxygen Documentation <http://doxygen.lsst.codes/stack/doxygen/xlink_master_2019_11_16_09.13.30/>`__
+- `Doxygen Documentation <http://doxygen.lsst.codes/stack/doxygen/xlink_master_2019_11_16_09.13.30/>`_
 
 These release notes highlight significant changes to the Science Pipelines codebase which are likely to be of wide interest.
 In addition, a large number of minor upgrades and stability improvements have been made across the codebase; in particular, we expect Jointcal to be significantly more stable in this release.
