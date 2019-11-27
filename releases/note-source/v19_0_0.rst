@@ -86,6 +86,9 @@ These packages/functions are deprecated and will not be available in the next ma
 - :ref:`release-v19-0-0-deprecate-_extractAmpId`
 - :ref:`release-v19-0-0-deprecate-pex_policy`
 - :ref:`release-v19-0-0-deprecate-astrometry_net_data`
+- :ref:`release-v19-0-0-deprecate-getHasRawInfo`
+- :ref:`release-v19-0-0-deprecate-doAddDistortionModel`
+- :ref:`release-v19-0-0-deprecate-pixelScale`
 
 .. _release-v19-0-0-deprecate-lsstSim:
 
@@ -143,3 +146,24 @@ Removal of `astrometry_net_data`
 
 The package ``astrometry_net_data`` is not used anymore and therefore will be removed from the distribution.
 See `DM-22233 <https://jira.lsstcorp.org/browse/DM-22233>`_: Remove astrometry_net_data dependency from pipe_tasks.
+
+.. _release-v19-0-0-deprecate-getHasRawInfo:
+
+Removal of `getHasRawInfo` in `Amplifier.h`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The function `getHasRawInfo` will be removed from `Amplifier.h` since amplifier objects always have raw information.
+
+.. _release-v19-0-0-deprecate-doAddDistortionModel:
+
+Removal of `doAddDistortionModel` config in `isrTask.py`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This option no longer is used, camera geometry is incorporated when reading the raw files.
+
+.. _release-v19-0-0-deprecate-pixelScale:
+
+Removal of `pixelScale` config in `fgcmFitCycle.py`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This field is no longer used, and has been deprecated by `DM-16490 <https://jira.lsstcorp.org/browse/DM-16490>`_.
