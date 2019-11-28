@@ -33,18 +33,135 @@ Major Functionality Changes
 ---------------------------
 
 
+
 .. _release-v19-0-0-interface:
 
 Significant Interface Changes
 -----------------------------
 
+- :ref:`release-v19-0-0-exposureinfo`
+- :ref:`release-v19-0-0-gen3-api`
+- :ref:`release-v19-0-0-pipetask`
+- :ref:`release-v19-0-0-isr`
+- :ref:`release-v19-0-0-calib-compat`
+- :ref:`release-v19-0-0-ap-silent`
+- :ref:`release-v19-0-0-test-util`
+- :ref:`release-v19-0-0-pytest`
+- :ref:`release-v19-0-0-adn`
+- :ref:`release-v19-0-0-mosaic`
 
-.. _release-v19-0-0-pending-deprecations:
+.. _release-v19-0-0-exposureinfo:
+
+Upgrades to `lsst.afw.image.ExposureInfo`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+As part of an ongoing project to make `~lsst.afw.image.ExposureInfo` more flexible, a number of new methods have been made available that make it possible to attach almost arbitrary objects to an `~lsst.afw.image.ExposureInfo` instance.
+This makes it much more convenient to extend `~lsst.afw.image.ExposureInfo` to address new use cases.
+This change is fully backwards compatible with the old `~lsst.afw.image.ExposureInfo` interface.
+For more details and usage instructions, refer to `this community.lsst.org post`__.
+
+__ https://community.lsst.org/t/changes-to-exposureinfo/3788
+
+.. _release-v19-0-0-gen3-api:
+
+“Gen 3”-driven changes to loading reference catalogs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The “Generation 3” middleware :ref:`included in the 17.0.0 release <release-v17-0-gen3>` is undergoing rapid development, and some API instability is to be expected: these notes will not attempt to produce a comprehensive guide to all of the changes.
+However, it is worth nothing that, as of :jira:`DM-17023`, tasks which derive from *both* `~lsst.pipe.base.CmdLineTask` and `~lsst.pipe.base.PipelineTask` now have *separate* configuration options for specifying reference catalog configuration depending on whether they are being executed by “Gen 2” or “Gen 3” middleware.
+Further, these options must be manually kept synchronized.
+For more details and instructions, refer to `this community.lsst.org post`__.
+
+__ https://community.lsst.org/t/gen3-api-changes-and-configuring-reference-catalogs/3854/3
+
+.. _release-v19-0-0-pipetask:
+
+``pipetask`` interface changes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``pipetask`` command is used to invoke processing based on the `~lsst.pipe.base.PipelineTask` middleware.
+Its command-line interface has been overhauled in this release, adding a number of new capabilities and changing the ordering of sub-commands and some options.
+These changes are described in `this community.lsst.org post`__.
+
+__ https://community.lsst.org/t/pipetask-command-line-interface-changes/3923
+
+.. _release-v19-0-0-isr:
+
+Replacement of functions in `lsst.ip.isr`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+As `announced in the 18.0.0 release notes <release-v18-0-0-deprecate-isr>`, a number of functions formerly provided in `lsst.ip.isr` have been removed.
+They are replaced by functionality in `lsst.meas.algorithms.Defects`.
+Specifically:
+
+- ``defectListFromFootprintList`` is replaced by `lsst.meas.algorithms.Defects.fromFootPrintList`
+- ``transposeDefectList`` is replaced by `lsst.meas.algorithms.Dfects.transpose`
+- ``maskPixelsFromDefectList`` is replaced by `lsst.meas.algorithms.Dfects.maskPixels`
+- ``getDefectListFromMask`` is replaced by `lsst.meas.algorithms.Dfects.fromMask`
+
+.. _release-v19-0-0-calib-compat:
+
+Removal of `lsst.afw.image.Calib` compatibility API
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+As `announced in the 18.0.0 release notes <release-v18-0-0-deprecate-calib>`, the compatibility layer for the now-removed `~lsst.afw.image.Calib` API has been removed.
+
+.. _release-v19-0-0-ap-silent:
+
+Removal of the ``--silent`` command-line option from ap_verify
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``--silent`` option to ap_verify did nothing, and was maintained only for backwards compatibility reasons.
+As `announced in the 18.0.0 release notes <release-v18-0-0-deprecate-ap-silent>`, it has now been removed.
+
+.. _release-v19-0-0-test-util:
+
+Removal of deprecated test utility functions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The following functions have been removed from the `lsst.utils` package:
+
+- `lsst.utils.tests.run`
+- `lsst.utils.tests.assertRaisesLsstCpp`
+- `lsst.utils.tests.assertClose`
+- `lsst.utils.tests.assertNotClose`
+
+The class `lsst.utils.tests.TestDeprecations` has also been removed.
+All of this code had been deprecated several releases in the past.
+
+.. _release-v19-0-0-pytest:
+
+Removal of the pytest EUPS package
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The `pytest <https://pytest.org/>`_ unit testing framework is no longer installed by EUPS as part of the Science Pipelines software distribution.
+It is still required, and must be provided through the environment.
+The standard Science Pipelines Conda environment (as installed by e.g. :ref:`newinstall.sh <newinstall-run>` with the default options) provides a suitable version of pytest.
+
+.. _release-v19-0-0-adn:
+
+Removal of meas_extensions_astrometryNet
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The meas_extensions_astrometryNet package was unused in the Science Pipelines codebase, and was included only through a vestigial dependency.
+This has now been dropped, and hence meas_extensions_astrometryNet does not appear in this release.
+
+.. _release-v19-0-0-mosaic:
+
+Removal of meas_mosaic
+^^^^^^^^^^^^^^^^^^^^^^
+
+:ref:`Jointcal <lsst.jointcal>` now provides all the features necessary to replace meas_mosaic, and has been successfully tested in at-scale data processing.
+The meas_mosaic package has therefore been removed from the Science Pipelines codebase, and does not appear in this release.
+
+.. _release-v19-0-0-citizen:
 
 Removal of :cpp:class:`lsst::daf::base::Citizen`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 :cpp:class:`~lsst::daf::base::Citizen`, an obsolete system for debugging memory leaks in C++ code, has been removed per :jira:`RFC-280`.
+
+.. _release-v19-0-0-pending-deprecations:
 
 Pending Deprecations
 --------------------
