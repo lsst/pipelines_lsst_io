@@ -25,8 +25,7 @@ Fall 2019 Release (v19_0_0)
 - `Doxygen Documentation <http://doxygen.lsst.codes/stack/doxygen/xlink_master_2019_11_16_09.13.30/>`__
 
 These release notes highlight significant changes to the Science Pipelines codebase which are likely to be of wide interest.
-In addition, a large number of minor upgrades and stability improvements have been made across the codebase; in particular, we expect Jointcal to be significantly more stable in this release.
-For a complete list of changes made, see :ref:`release-v18-0-0-tickets`.
+For a complete list of changes made, see :ref:`release-v19-0-0-tickets`.
 
 .. _release-v19-0-0-functionality:
 
@@ -56,7 +55,7 @@ Upcoming removal of “Generation 2” Middleware
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The “Generation 3” middleware :ref:`included in the previous release <release-v17-0-gen3>` is ultimately intended to supplant the current (“Generation 2”) Data Butler and command-line task functionality.
-We expect to deliver a final major release supporting the Generation 2 functionality in late calendar year 2019 (likely version 19.0.0, but that remains to be confirmed).
+We expect to deliver a final major release supporting the Generation 2 functionality early in calendar year 2020.
 Following that release, the “Generation 2” middleware will be removed from the codebase.
 This will include:
 
@@ -70,7 +69,7 @@ Upcoming removal of makeDistortedTanWcs from `afw.geom.wcsUtils`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The function ``makeDistortedTanWcs`` will be removed after release 20.
-Camera geometry-based SkyWcs are now set when reading raws.
+A SkyWcs derived from the camera geometry is now set when reading raw data.
 
 .. _release-v19-0-0-deprecations:
 
@@ -87,83 +86,75 @@ These packages/functions are deprecated and will not be available in the next ma
 - :ref:`release-v19-0-0-deprecate-pex_policy`
 - :ref:`release-v19-0-0-deprecate-astrometry_net_data`
 - :ref:`release-v19-0-0-deprecate-getHasRawInfo`
-- :ref:`release-v19-0-0-deprecate-doAddDistortionModel`
 - :ref:`release-v19-0-0-deprecate-pixelScale`
 
 .. _release-v19-0-0-deprecate-lsstSim:
 
 Removal of the obs_lsstSim package
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The obs_lsst package, :ref:`included in the previous release <release-v17-0-obs-lsst>`, obviates the need for the obs_lsstSim package.
-All LSST code is expected to transition to the new system later in summer 2019.
-Some work will be required to update old data repositories to the new system.
-After that, a final release will be made containing obs_lsstSim in late 2019, after which the package will be retired.
+The obs_lsst package, :ref:`included in the release 17 <release-v17-0-obs-lsst>`, obviates the need for the obs_lsstSim package.
+This package will be removed before the release of version 20.0.0.
 
 .. _release-v19-0-0-deprecate-afwGeom:
 
 Removal of `lsst.afw.geom` classes that have been relocated to `lsst.geom`
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 As announced in v16.0 (:ref:`release-v16-0-new-geom`) some primitives have been moved from `afw.geom` to `geom`.
-We currently provide aliases for compatibility purposes, but new code should use the `geom` package.
-These aliases will be removed after the version 19.0.0 will be released.
+We currently provide aliases for compatibility purposes, but new all code should use the `geom` package directly.
+The aliases will be removed before the release of version 20.0.0.
 
 .. _release-v19-0-0-deprecate-PixelScaleBoundedField:
 
-Removal of PixelScaleBoundedField from `lsst.afw.math`
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Removal of `lsst.afw.math.PixelScaleBoundedField`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The field ``PixelScaleBoundedField`` will be removed prior to release 20.
-The field ``PixelAreaBoundedField`` shall be used instead.
+`~lsst.afw.math.PixelAreaBoundedField`, :ref:`added in this release <release-v19-0-0-pixel-area-bounded-field>`, is intended to replace `~lsst.afw.math.PixelScaleBoundedField`.
+The latter will be removed before the release of version 20.0.0.
 
 .. _release-v19-0-0-deprecate-addDistortionModel:
 
-Removal of addDistortionModel from `isrFunctions.py`
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Removal of `lsst.ip.isr.addDistortionModel` and related configuration classes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Function ``addDistortionModel`` will be removed from `isrFunctions.py`.
-Camera geometry-based SkyWcs are now set when reading raws.
+Camera geometry-based distortions are now automatically incorporated into the WCS automatically when reading raw data, rendering this functionality obsolete.
+It will be removed before the release of version 20.0.0.
 
 .. _release-v19-0-0-deprecate-_extractAmpId:
 
-Removal of _extractAmpId from `cameraMapper.py` in `obs/base`
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Removal of `lsst.obs.base.CameraMapper._extractAmpId`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The method ``_extractAmpId`` is no longer used for ISR and should have been removed after v11.
+This method is no longer used and will be removed before the release of version 20.0.0.
 
 .. _release-v19-0-0-deprecate-pex_policy:
 
 Removal of `pex_policy`
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-The package pex_policy is deprecated, use makePropertySet instead.
+The pex_policy package is obsolete, and will be removed in version 20.0.0.
+Calls to `lsst.pex.policy.makePolicy` should be modernized to become calls to `lsst.pex.config.makePropertySet`.
+See also :jira:`RFC-626`.
 
 .. _release-v19-0-0-deprecate-astrometry_net_data:
 
-Removal of `astrometry_net_data`
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Removal of astrometry_net_data
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The package ``astrometry_net_data`` is not used anymore and therefore will be removed from the distribution.
-See `DM-22233 <https://jira.lsstcorp.org/browse/DM-22233>`_: Remove astrometry_net_data dependency from pipe_tasks.
+The astrometry_net_data package is obsolete, and will be removed in version 20.0.0.
 
 .. _release-v19-0-0-deprecate-getHasRawInfo:
 
-Removal of `getHasRawInfo` in `Amplifier.h`
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The function `getHasRawInfo` will be removed from `Amplifier.h` since amplifier objects always have raw information.
-
-.. _release-v19-0-0-deprecate-doAddDistortionModel:
-
-Removal of `doAddDistortionModel` config in `isrTask.py`
+Removal of `lsst.afw.cameraGeom.Amplifier.getHasRawInfo`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This option no longer is used, camera geometry is incorporated when reading the raw files.
+`~lsst.afw.cameraGeom.Amplifier.getHasRawInfo` is redundant, since amplifier objects *always* have raw information.
+It will be removed before the release of version 20.0.0
 
 .. _release-v19-0-0-deprecate-pixelScale:
 
-Removal of `pixelScale` config in `fgcmFitCycle.py`
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Removal of `lsst.fgcmcal.FgcmFitCycleConfg.pixelScale`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This field is no longer used, and has been deprecated by `DM-16490 <https://jira.lsstcorp.org/browse/DM-16490>`_.
+This configuration field is no longer used, and therefore will be removed before the release of version 20.0.0.
