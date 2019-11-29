@@ -32,23 +32,26 @@ For a complete list of changes made, see :ref:`release-v19-0-0-tickets`.
 Major Functionality Changes
 ---------------------------
 
-
-
-.. _release-v19-0-0-interface:
-
-Significant Interface Changes
------------------------------
-
+- :ref:`release-v19-0-0-scarlet`
 - :ref:`release-v19-0-0-exposureinfo`
-- :ref:`release-v19-0-0-gen3-api`
-- :ref:`release-v19-0-0-pipetask`
-- :ref:`release-v19-0-0-isr`
-- :ref:`release-v19-0-0-calib-compat`
-- :ref:`release-v19-0-0-ap-silent`
-- :ref:`release-v19-0-0-test-util`
-- :ref:`release-v19-0-0-pytest`
-- :ref:`release-v19-0-0-adn`
-- :ref:`release-v19-0-0-mosaic`
+- :ref:`release-v19-0-0-dcr`
+- :ref:`release-v19-0-0-config-deprecation`
+- :ref:`release-v19-0-0-parallax`
+- :ref:`release-v19-0-0-defects`
+- :ref:`release-v19-0-0-wcs`
+- :ref:`release-v19-0-0-fgcm-tract`
+- :ref:`release-v19-0-0-diaobject-property`
+- :ref:`release-v19-0-0-PixelAreaBoundedField`
+
+.. _release-v19-0-0-scarlet:
+
+Addition of meas_extensions_scarlet
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This releases introduces the new meas_extensions_scarlet package.
+This package provides integration between the `SCARLET`_ deblender system and the LSST codebase.
+
+.. _SCARLET: https://pmelchior.github.io/scarlet/
 
 .. _release-v19-0-0-exposureinfo:
 
@@ -61,6 +64,95 @@ This change is fully backwards compatible with the old `~lsst.afw.image.Exposure
 For more details and usage instructions, refer to `this community.lsst.org post`__.
 
 __ https://community.lsst.org/t/changes-to-exposureinfo/3788
+
+.. _release-v19-0-0-dcr:
+
+Performance improvements to DCR model generation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The generation of Differential Chromatic Refraction (DCR) models in `lsst.pipe.tasks.DcrAssembleCoaddTask` is now tens of percent faster than in the previous release.
+
+.. _release-v19-0-0-config-deprecation:
+
+Mechanism for deprecating configuration fields
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A new system for marking configuration fields (instances of `lsst.pex.config.ConfigField`) as deprecated has been added to the codebase.
+In the same way as API changes, configuration fields will not be removed until they have been marked as deprecated for at least one major release.
+For technical details of the mechanism refer to the `Developer Guide <https://developer.lsst.io/stack/deprecating-interfaces.html#config-deprecation>`_.
+
+.. _release-v19-0-0-config-parallax:
+
+Reference catalog creation now includes parallaxes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The code used for incorporating external reference catalogs into the LSST system now also ingests parallaxes, where available.
+For more information, refer to the :ref:`documentation on reference catalog creation <creating-a-reference-catalog>`.
+
+.. _release-v19-0-0-defects:
+
+Task for identifying defects in CCD data
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+`lsst.cp.pipe.FindDefectsTask` provides a mechanism to identify defects in CCD images by identifying outlying bright and/or dark pixels in dark frames and flat field images.
+
+.. _release-v19-0-0-wcs:
+
+New approach to the WCS of raw exposures
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Previously, when reading raw data to create an `~lsst.afw.image.Exposure`, a simple world coordinate system (WCS) was provided based on the standard FITS header keys provided with the data (``CRVAL``, ``CRPIX``, ``CDX_Y``).
+
+In the new system, when raw data is read, an `~lsst.afw.geom.SkyWcs` instance is generated based on the combination of the known telescope boresight and rotation angle, the positions of the detectors on the focal plane, and an optical distortion model.
+
+For more information, refer to :jira:`RFC-616`.
+
+.. _release-v19-0-0-fgcm-tract:
+
+Tract-based FGCM
+^^^^^^^^^^^^^^^^
+
+LSST's implementation of the Forward Global Calibration Method (FGCM; `Burke et al.,  2018`_) has been upgraded by the addition of “tract mode”.
+This enables FGCM to process a single tract of data at a time — refer to :ref:`lsst.skymap` for the definition of a tract — rather than attempting to calibrate the entire survey.
+FGCM also internally calculates aperture corrections when operating in this mode (or, if there is insufficient data for it to determine the aperture corrections itself, it falls back to externally-provided values).
+
+.. _Burke et al., 2018: http://adsabs.harvard.edu/abs/2018AJ....155...41B
+
+.. _release-v19-0-0-diaobject-property:
+
+Plugin-based system for calculating DIAObject properties
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+DIAObjects, corresponding to astronomical objects detected on difference images, are accompanied by a suite of summary values derived from their constituent DIASources — average positions, fluxes, variability characteristics, and so on.
+The suite of quantities calculated is expected to increase over the remainder of construction, in particular in response to input from the scientific community.
+To support this, a “plugin” system has been implemented which makes it easy to add new quantities without disrupting the existing codebase.
+
+.. _release-v19-0-0-PixelAreaBoundedField:
+
+Add `lsst.afw.math.PixelAreaBoundedField`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The new `~lsst.afw.math.PixelAreaBoundedField` class provides a convenient mechanism for evaluating the pixel area of an `~lsst.afw.geom.SkyWcs`.
+It is typically used to move an image or source flux between surface brightness and fluence.
+It is intended to replace `lsst.afw.math.PixelScaleBoundedField`, which applies a per-CCD normalization that introduces discontinuities which make it awkward to use.
+`~lsst.afw.math.PixelScaleBoundedField` is now :ref:`deprecated <release-v19-0-0-deprecate-PixelScaleBoundedField>`, and will be removed in the next release.
+Refer to :jira:`RFC-644` for further details.
+
+.. _release-v19-0-0-interface:
+
+Significant Interface Changes
+-----------------------------
+
+- :ref:`release-v19-0-0-gen3-api`
+- :ref:`release-v19-0-0-pipetask`
+- :ref:`release-v19-0-0-isr`
+- :ref:`release-v19-0-0-calib-compat`
+- :ref:`release-v19-0-0-ap-silent`
+- :ref:`release-v19-0-0-test-util`
+- :ref:`release-v19-0-0-pytest`
+- :ref:`release-v19-0-0-adn`
+- :ref:`release-v19-0-0-mosaic`
+- :ref:`release-v19-0-0-citizen`
 
 .. _release-v19-0-0-gen3-api:
 
