@@ -376,7 +376,7 @@ This configuration field is no longer used, and therefore will be removed before
 
 .. _release-v19-0-0-deprecate-obs_sdss:
 
-Removal of `obs_sdss`
-^^^^^^^^^^^^^^^^^^^^^
+Removal of obs_sdss
+^^^^^^^^^^^^^^^^^^^
 
-Due to approval of RFC-645 by the DM-CCB, the package `obs_sdss` will be removed from the Science Pipelines before the release of version 20.0.0.
+Due to approval of :jirab:`RFC-645`, the package obs_sdss will be removed from the Science Pipelines before the release of version 20.0.0.
