@@ -301,6 +301,7 @@ These packages/functions are deprecated and will not be available in the next ma
 - :ref:`release-v19-0-0-deprecate-astrometry_net_data`
 - :ref:`release-v19-0-0-deprecate-getHasRawInfo`
 - :ref:`release-v19-0-0-deprecate-pixelScale`
+- :ref:`_release-v19-0-0-deprecate-obs_sdss`
 
 .. _release-v19-0-0-deprecate-lsstSim:
 
@@ -372,3 +373,10 @@ Removal of `lsst.fgcmcal.FgcmFitCycleConfg.pixelScale`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This configuration field is no longer used, and therefore will be removed before the release of version 20.0.0.
+
+.. _release-v19-0-0-deprecate-obs_sdss:
+
+Removal of `obs_sdss`
+^^^^^^^^^^^^^^^^^^^^^
+
+Due to approval of RFC-645 by the DM-CCB, the package `obs_sdss` will be removed from the Science Pipelines before the release of version 20.0.0.
