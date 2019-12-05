@@ -45,9 +45,9 @@ Cross Platform
   parallelization by setting ``EUPSPKG_NJOBS=1`` in your environment before
   running ``eups distrib``.
 
-- The demo execution may provide slightly different numeric results if executed 
-  on operating systems different from the ones supported, macOS and centOS, or
-  if using a different version of Python packages.
+- The lsst_dm_stack_demo package may produce slightly different numeric results
+  if executed on operating systems other than the officially supported versions
+  of macOS and CentOS, or if using a different Python environment.
 
 .. _installation-issues-redhat:
 
