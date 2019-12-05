@@ -18,7 +18,6 @@ Cross Platform
 
 - This release may not work when installed without the Conda environments provided by the documented :doc:`newinstall.sh </install/newinstall>`, :doc:`lsstsw </install/lsstsw>`, or :doc:`Docker </install/docker>` installation methods.
   The :ref:`documented Python dependencies <python-deps>` may differ slightly from those in the release, causing issues with the :doc:`validation demo </install/demo>`.
-  See :jira:`DM-15040` and :jira:`DM-15041` for more discussion.
 
 Red Hat (and clones) specific
 -----------------------------
@@ -45,6 +44,10 @@ Cross Platform
   fail altogether. On machines with less than 8 GB of RAM, disable
   parallelization by setting ``EUPSPKG_NJOBS=1`` in your environment before
   running ``eups distrib``.
+
+- The demo execution may provide slightly different numeric results if executed 
+  on operating systems different from the ones supported, macOS and centOS, or
+  if using a different version of Python packages.
 
 .. _installation-issues-redhat:
 
