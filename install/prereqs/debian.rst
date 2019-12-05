@@ -46,13 +46,16 @@ Prefix the :command:`apt-get` command with :command:`sudo` if necessary.
 
    Then re-run the :command:`apt-get install` command, above.
 
-.. note::
+.. note:: **Since 17.0**
 
-   **New since 17.0**: The gcc compiler to be used shall fully support **C++ 14**. The gcc version used to compile the LSST Science Pipelines shall be at least **gcc 6.1**.
+   The compiler used must fully support **C++ 14**.
+   In particular, at least version **6.1** of GCC is required.
 
-.. note::
+.. note:: **Since 19.0.0**
 
-   **since 19.0.0**: ubuntu 16 is not supported anymore. Note also that due to compiler or Glibc changes, the demo execution on ubuntu 19.04 and 19.10 will produce slight numeric differences. See :jirab:`DM-22377` jira issue.
+   - Ubuntu 16 is no longer supported.
+   - Due to changes to the compiler or system libraries, the lsst_dm_stack_demo package may show slight numeric differences on Ubuntu 19.04 and 19.10.
+     See :jirab:`DM-22377` for details.
 
 Additional installation steps for Ubuntu 19.10
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
