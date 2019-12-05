@@ -58,7 +58,7 @@ Prefix the :command:`apt-get` command with :command:`sudo` if necessary.
      See :jirab:`DM-22377` for details.
 
 Additional installation steps for Ubuntu 19.10
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If you are deploying ``lsst_distrib`` in an Ubuntu 19.10 operating system, the :command:`gcc` compiler version installed using the above steps is the **8.3.0**. The compiler provided by default with the Ubuntu 19.10 distribution is 9.2.1 and needs to be downgraded. This can be done using the following steps, in addition at the above ones.
 
