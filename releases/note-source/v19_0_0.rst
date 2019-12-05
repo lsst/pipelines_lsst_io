@@ -81,7 +81,7 @@ A new system for marking configuration fields (instances of `lsst.pex.config.Con
 In the same way as API changes, configuration fields will not be removed until they have been marked as deprecated for at least one major release.
 For technical details of the mechanism refer to the `Developer Guide <https://developer.lsst.io/stack/deprecating-interfaces.html#config-deprecation>`_.
 
-.. _release-v19-0-0-config-parallax:
+.. _release-v19-0-0-parallax:
 
 Reference catalog creation now includes parallaxes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
