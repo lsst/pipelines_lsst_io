@@ -22,7 +22,9 @@ Fall 2019 Release (v19_0_0)
 - :doc:`Installation instructions <../install/index>`
 - :doc:`Known issues </known-issues>`
 - `Characterization Metric Report (DMTR-191) <https://ls.st/DMTR-191>`_
-- `Doxygen Documentation <http://doxygen.lsst.codes/stack/doxygen/xlink_master_2019_11_16_09.13.30/>`_
+- `Doxygen Documentation`__
+
+__ http://doxygen.lsst.codes/stack/doxygen/xlink_master_2019_11_16_09.13.30/
 
 These release notes highlight significant changes to the Science Pipelines codebase which are likely to be of wide interest.
 For a complete list of changes made, see :ref:`release-v19-0-0-tickets`.
