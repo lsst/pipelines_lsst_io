@@ -184,7 +184,7 @@ __ https://community.lsst.org/t/pipetask-command-line-interface-changes/3923
 Replacement of functions in `lsst.ip.isr`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-As `announced in the 18.0.0 release notes <release-v18-0-0-deprecate-isr>`, a number of functions formerly provided in `lsst.ip.isr` have been removed.
+As :ref:`announced in the 18.0.0 release notes <release-v18-0-0-deprecate-isr>`, a number of functions formerly provided in `lsst.ip.isr` have been removed.
 They are replaced by functionality in `lsst.meas.algorithms.Defects`.
 Specifically:
 
@@ -303,7 +303,7 @@ These packages/functions are deprecated and will not be available in the next ma
 - :ref:`release-v19-0-0-deprecate-astrometry_net_data`
 - :ref:`release-v19-0-0-deprecate-getHasRawInfo`
 - :ref:`release-v19-0-0-deprecate-pixelScale`
-- :ref:`_release-v19-0-0-deprecate-obs_sdss`
+- :ref:`release-v19-0-0-deprecate-obs_sdss`
 
 .. _release-v19-0-0-deprecate-lsstSim:
 
@@ -381,4 +381,4 @@ This configuration field is no longer used, and therefore will be removed before
 Removal of obs_sdss
 ^^^^^^^^^^^^^^^^^^^
 
-Due to approval of :jirab:`RFC-645`, the package obs_sdss will be removed from the Science Pipelines before the release of version 20.0.0.
+Due to approval of :jirab:`RFC-645`, the obs_sdss package will be removed from the Science Pipelines before the release of version 20.0.0.
