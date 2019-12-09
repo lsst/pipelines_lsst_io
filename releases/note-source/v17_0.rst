@@ -22,7 +22,9 @@ Spring 2019 Release (v17_0)
 - :doc:`Installation instructions <../install/index>`
 - :doc:`Known issues </known-issues>`
 - `Characterization Metric Report (DMTR-131) <https://ls.st/DMTR-131>`_
-- `Doxygen Documentation <http://doxygen.lsst.codes/stack/doxygen/xlink_master_2019_02_15_09.16.46/>`_
+- `Doxygen Documentation`__
+
+__ http://doxygen.lsst.codes/stack/doxygen/xlink_master_2019_02_15_09.16.46/
 
 These release notes highlight significant changes to the Science Pipelines codebase which are likely to be of wide interest.
 For a complete list of changes, see :ref:`release-v17-0-tickets`.

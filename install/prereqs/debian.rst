@@ -46,23 +46,26 @@ Prefix the :command:`apt-get` command with :command:`sudo` if necessary.
 
    Then re-run the :command:`apt-get install` command, above.
 
-.. note::
+.. note:: **Since 17.0**
 
-   **New since 17.0**: The gcc compiler to be used shall fully support **C++ 14**. The gcc version used to compile the LSST Science Pipelines shall be at least **gcc 6.1**.
+   The compiler used must fully support **C++ 14**.
+   In particular, at least version **6.1** of GCC is required.
 
-Additional installation steps for Ubuntu 16
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. note:: **Since 19.0.0**
 
-If you are deploying ``lsst_distrib`` in an Ubuntu 16.04 operating system, the :command:`gcc` compiler version installed using the above steps is the **5.4**. In order to get a :command:`gcc` version compatible with **C++ 14**, following steps have to be completed in addition at the above ones.
+   - Ubuntu 16 is no longer supported.
+   - Due to changes to the compiler or system libraries, the lsst_dm_stack_demo package may show slight numeric differences on Ubuntu 19.04 and 19.10.
+     See :jirab:`DM-22377` for details.
+
+Additional installation steps for Ubuntu 19.10
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you are deploying ``lsst_distrib`` in an Ubuntu 19.10 operating system, the :command:`gcc` compiler version installed using the above steps is the **8.3.0**. The compiler provided by default with the Ubuntu 19.10 distribution is 9.2.1 and needs to be downgraded. This can be done using the following steps, in addition at the above ones.
 
 .. code-block:: bash
 
-   sudo apt-get update
-   sudo apt-get install build-essential software-properties-common
-   sudo add-apt-repository ppa:ubuntu-toolchain-r/test 
-   sudo apt-get update
-   sudo apt-get install gcc-6 g++-6
-   sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 60 --slave /usr/bin/g++ g++ /usr/bin/g++-6
+   sudo apt-get install gcc-8 g++-8
+   sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8
 
 .. warning::
 

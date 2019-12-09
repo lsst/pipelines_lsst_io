@@ -27,4 +27,6 @@ There are no changes to interfaces or deprecations in this release.
 - :doc:`Installation instructions <../install/index>`
 - :doc:`Known issues </known-issues>`
 - `18.0.0 Characterization Metric Report (DMTR-141) <https://ls.st/DMTR-141>`_; no changes are expected in this release.
-- `18.1.0 Doxygen Documentation <http://doxygen.lsst.codes/stack/doxygen/xlink_master_2019_08_08_20.19.03/>`__
+- `Doxygen Documentation`__
+
+__ http://doxygen.lsst.codes/stack/doxygen/xlink_master_2019_08_08_20.19.03/

@@ -1,0 +1,11 @@
+#####################################
+LSST Science Pipelines 19.0.0 Release
+#####################################
+
+Version 19.0.0 of the LSST Science Pipelines is now available.
+This release is based on the ``w_2019_46`` weekly build.
+
+Full details of the LSST Science Pipelines 19.0.0 release can be found in the :ref:`extensive release notes <release-v19-0-0>`.
+These notes are accompanied by a `Characterization Metric Report <https://ls.st/DMTR-191>`_.
+
+If you have questions or comments about the LSST Science Pipelines, visit our community forum for advice: https://community.lsst.org/.
