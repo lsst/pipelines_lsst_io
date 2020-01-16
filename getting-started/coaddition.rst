@@ -156,7 +156,8 @@ Putting this together, run the following command to warp ``HSC-R``-band exposure
    makeCoaddTempExp.py DATA --rerun coadd \
        --selectId filter=HSC-R \
        --id filter=HSC-R tract=0 patch=0,0^0,1^0,2^1,0^1,1^1,2^2,0^2,1^2,2 \
-       --config doApplyUberCal=False doApplySkyCorr=False
+       --config doApplyExternalPhotoCalib=False doApplyExternalSkyWcs=False \
+       doApplySkyCorr=False
 
 .. tip::
 
@@ -164,7 +165,7 @@ Putting this together, run the following command to warp ``HSC-R``-band exposure
 
 .. note::
 
-   Since this tutorial doesn't prepare an uber calibration or sky correction, you needed to explicitly disable these calibration steps from the default HSC processing configuration.
+   Since this tutorial doesn't prepare an external calibration (producing replacement photometric calibration and WCS solutions) or sky correction, you needed to explicitly disable these calibration steps from the default HSC processing configuration.
 
 Next, repeat the warping step for ``HSC-I``-band images:
 
@@ -173,7 +174,8 @@ Next, repeat the warping step for ``HSC-I``-band images:
    makeCoaddTempExp.py DATA --rerun coadd \
        --selectId filter=HSC-I \
        --id filter=HSC-I tract=0 patch=0,0^0,1^0,2^1,0^1,1^1,2^2,0^2,1^2,2 \
-       --config doApplyUberCal=False doApplySkyCorr=False
+       --config doApplyExternalPhotoCalib=False doApplyExternalSkyWcs=False \
+       doApplySkyCorr=False
 
 Coadding warped images
 ======================
