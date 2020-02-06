@@ -4,6 +4,7 @@ Release History
 
 .. toctree::
 
+   v20_0_0
    v19_0_0
    v18_1_0
    v18_0_0
