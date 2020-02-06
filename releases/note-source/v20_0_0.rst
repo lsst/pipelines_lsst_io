@@ -160,6 +160,8 @@ Deprecations
 These packages/functions are deprecated and will not be available in the next major release.
 
 - :ref:`release-v20-0-0-deprecate-makeDistortedTanWcs`
+- :ref:`release-v20-0-0-deprecate-afw`
+- :ref:`release-v20-0-0-deprecate-synpipe`
 
 .. _release-v20-0-0-deprecate-makeDistortedTanWcs:
 
@@ -168,6 +170,22 @@ Removal of `lsst.afw.geom.wcsUtils.makeDistortedTanWcs`
 
 Camera geometry-based distortions are now automatically incorporated into the WCS automatically when reading raw data, rendering `~lsst.afw.geom.wcsUtils.makeDistortedTanWcs` obsolete.
 The function ``makeDistortedTanWcs`` will be removed before the release of version 21.0.0
-:jirab:`DM-20564`
+:jirab:`DM-20937`
 
+.. _release-v20-0-0-deprecate-afw:
+
+Modernization of the C++ API in `lsst.afw`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A number of long-discouraged C++ APIs in `lsst.afw` have been marked as deprecated and will be removed before the release of version 21.0.0.
+:jirab:`DM-17566, DM-23076`
+
+.. _release-v20-0-0-deprecate-synpipe:
+
+Removal of the Synpipe package
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The Synpipe package for inserting fake galaxies and stars during pipeline execution has been rendered obsolete by the tasks for fake source insertion which were :ref:`added to pipe_tasks in release 18.0.0 <release-v18-0-0-fakes>`.
+It will therefore be removed before the release of version 21.0.0.
+:jirab:`DM-23343`
 
