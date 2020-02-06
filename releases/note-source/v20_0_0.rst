@@ -1,0 +1,57 @@
+.. _release-v20-0-0:
+
+Spring 2020 Release (v20_0_0)
+=============================
+
++-------------------------------------------+------------+
+| Source                                    | Identifier |
++===========================================+============+
+| Git tag                                   | 20.0.0     |
++-------------------------------------------+------------+
+| :doc:`EUPS distrib </install/newinstall>` | v20\_0\_0  |
++-------------------------------------------+------------+
+
+- :ref:`release-v20-0-0-functionality`
+- :ref:`release-v20-0-0-interface`
+- :ref:`release-v20-0-0-pending-deprecations`
+- :ref:`release-v20-0-0-deprecations`
+
+*See also:*
+
+.. todo::
+
+   Insert link to the CMR when it is available.
+
+.. todo::
+
+   Insert link to Doxygen documentation when the release is frozen.
+
+- :doc:`Installation instructions <../install/index>`
+- :doc:`Known issues </known-issues>`
+- `Characterization Metric Report (DMTR-XXX) <https://ls.st/DMTR-XXX>`_
+- `Doxygen Documentation`__
+
+__ http://doxygen.lsst.codes/stack/doxygen/xlink_master_XXXX/
+
+These release notes highlight significant changes to the Science Pipelines codebase which are likely to be of wide interest.
+For a complete list of changes made, see :ref:`release-v20-0-0-tickets`.
+
+.. _release-v20-0-0-functionality:
+
+Major Functionality Changes
+---------------------------
+
+.. _release-v20-0-0-interface:
+
+Significant Interface Changes
+-----------------------------
+
+.. _release-v20-0-0-pending-deprecations:
+
+Pending Deprecations
+--------------------
+
+.. _release-v20-0-0-deprecations:
+
+Deprecations
+------------

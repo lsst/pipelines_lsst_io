@@ -1,0 +1,21 @@
+#####################################
+LSST Science Pipelines 20.0.0 Release
+#####################################
+
+.. todo::
+
+   Refer to correct weekly.
+
+Version 20.0.0 of the LSST Science Pipelines is now available.
+This release is based on the ``w_2020_XX`` weekly build.
+
+.. todo::
+
+   Refer to correct DMTR.
+
+Full details of the LSST Science Pipelines 20.0.0 release can be found in the :ref:`release notes <release-v20-0-0>`.
+These notes are accompanied by a `Characterization Metric Report <https://ls.st/DMTR-XXX>`_.
+
+If you have questions or comments about the LSST Science Pipelines, visit our `community forum`_ for advice.
+
+.. _community forum: https://community.lsst.org/.
