@@ -4,7 +4,8 @@
 Release Notes
 #############
 
-- :ref:`release-v19-0-0` --- current
+- :ref:`release-v20-0-0` --- current
+- :ref:`release-v19-0-0`
 - :ref:`release-v18-1-0`
 - :ref:`release-v18-0-0`
 - :ref:`release-v17-0`
@@ -14,6 +15,8 @@ Release Notes
 - :ref:`release-v13-0`
 - :ref:`release-v12-0`
 - :ref:`release-v11-0`
+
+.. include:: note-source/v20_0_0.rst
 
 .. include:: note-source/v19_0_0.rst
 
