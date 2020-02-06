@@ -381,4 +381,4 @@ This configuration field is no longer used, and therefore will be removed before
 Removal of obs_sdss
 ^^^^^^^^^^^^^^^^^^^
 
-Due to approval of :jirab:`RFC-645`, the obs_sdss package will be removed from the Science Pipelines before the release of version 20.0.0.
+Due to approval of :jira:`RFC-645`, the obs_sdss package will be removed from the Science Pipelines before the release of version 20.0.0.
