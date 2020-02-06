@@ -46,12 +46,128 @@ Major Functionality Changes
 Significant Interface Changes
 -----------------------------
 
+- :ref:`release-v20-0-0-remove-obs_lsstSim`
+- :ref:`release-v20-0-0-remove-afwGeom`
+- :ref:`release-v20-0-0-remove-PixelScaleBoundedField`
+- :ref:`release-v20-0-0-remove-addDistortionModel`
+- :ref:`release-v20-0-0-remove-_extractAmpId`
+- :ref:`release-v20-0-0-remove-pex_policy`
+- :ref:`release-v20-0-0-remove-astrometry_net_data`
+- :ref:`release-v20-0-0-remove-getHasRawInfo`
+- :ref:`release-v20-0-0-remove-pixelScale`
+- :ref:`release-v20-0-0-remove-obs_sdss`
+
+
+.. _release-v20-0-0-remove-obs_lsstSim:
+
+Removal of the obs_lsstSim package
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The obs_lsst package, :ref:`included in release 17 <release-v17-0-obs-lsst>`, obviates the need for the obs_lsstSim package, which has now been removed.
+:jirab:`DM-20573`
+
+.. _release-v20-0-0-remove-afwGeom:
+
+Removal of `lsst.afw.geom` aliases for code relocated to `lsst.geom`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+As announced in v16.0 (:ref:`release-v16-0-new-geom`) some primitives have been moved from `afw.geom` to `geom`.
+Compatibility aliases making them accessible under their old names have now been removed, and all code must use the `geom` package directly.
+:jirab:`DM-20565`
+
+.. _release-v20-0-0-remove-PixelScaleBoundedField:
+
+Removal of `lsst.afw.math.PixelScaleBoundedField`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+`~lsst.afw.math.PixelAreaBoundedField`, :ref:`added in release 19.0.0 <release-v19-0-0-PixelAreaBoundedField>`, replaces `~lsst.afw.math.PixelScaleBoundedField`, which has now been removed.
+:jirab:`DM-22192`
+
+.. _release-v20-0-0-remove-addDistortionModel:
+
+Removal of `lsst.ip.isr.addDistortionModel` and related configuration classes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Camera geometry-based distortions are now automatically incorporated into the WCS automatically when reading raw data, rendering this functionality obsolete.
+It has therefore been removed.
+:jirab:`DM-23369`
+
+.. _release-v20-0-0-remove-_extractAmpId:
+
+Removal of `lsst.obs.base.CameraMapper._extractAmpId`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This method was no longer used and has therefore been removed.
+:jirab:`DM-23371`
+
+.. _release-v20-0-0-remove-pex_policy:
+
+Removal of the pex_policy package
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The obsolete pex_policy package has been removed.
+Calls to `lsst.pex.policy.makePolicy` should be modernized to become calls to `lsst.pex.config.makePropertySet`.
+See also :jira:`RFC-626`.
+:jirab:`DM-23374`
+
+.. _release-v20-0-0-remove-astrometry_net_data:
+
+Removal of astrometry_net_data
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The obsolete astrometry_net_data has been removed.
+:jirab:`DM-22233`
+
+.. _release-v20-0-0-remove-getHasRawInfo:
+
+Removal of `lsst.afw.cameraGeom.Amplifier.getHasRawInfo`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+`~lsst.afw.cameraGeom.Amplifier.getHasRawInfo` is redundant, since amplifier objects *always* have raw information.
+It has now been removed.
+:jirab:`DM-21711`
+
+.. _release-v20-0-0-remove-pixelScale:
+
+Removal of `lsst.fgcmcal.FgcmFitCycleConfig.pixelScale`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This configuration field is no longer used, and has therefore been removed.
+:jirab:`DM-23380`
+
+.. _release-v20-0-0-remove-obs_sdss:
+
+Removal of obs_sdss
+^^^^^^^^^^^^^^^^^^^
+
+The obsolete obs_sdss package has been removed.
+See also :jira:`RFC-645`.
+:jirab:`DM-22578`.
+
+
 .. _release-v20-0-0-pending-deprecations:
 
 Pending Deprecations
 --------------------
 
+These packages/functions will be deprecated in the next major release.
+
 .. _release-v20-0-0-deprecations:
 
 Deprecations
 ------------
+
+These packages/functions are deprecated and will not be available in the next major release.
+
+- :ref:`release-v20-0-0-deprecate-makeDistortedTanWcs`
+
+.. _release-v20-0-0-deprecate-makeDistortedTanWcs:
+
+Removal of `lsst.afw.geom.wcsUtils.makeDistortedTanWcs`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Camera geometry-based distortions are now automatically incorporated into the WCS automatically when reading raw data, rendering `~lsst.afw.geom.wcsUtils.makeDistortedTanWcs` obsolete.
+The function ``makeDistortedTanWcs`` will be removed before the release of version 21.0.0
+:jirab:`DM-20564`
+
+
