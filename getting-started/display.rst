@@ -37,6 +37,7 @@ Launch DS9 and start a Python interpreter
 =========================================
 
 In this tutorial, you will use an interactive Python session to control DS9.
+You can also view Science Pipelines image files by loading them directly into DS9, but some features (like color-coded mask planes) will be missing, and many versions of DS9 incorrectly read the mask bits as all zeros.
 
 If you haven't already, launch the DS9 application.
 

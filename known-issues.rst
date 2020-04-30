@@ -115,3 +115,11 @@ Older systems
   directory.  This can interfere with installation.
 
 .. _Macports: https://www.macports.org/index.php
+
+
+.. _other-issues:
+
+Other issues
+============
+
+Many versions of the DS9 image viewer software incorrectly read mask planes in Science Pipelines image files as all zeros.
