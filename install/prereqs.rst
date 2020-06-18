@@ -45,7 +45,7 @@ They may be installed as follows:
 
    sudo yum install patch diffutils
 
-If you wish to follow the instructions for :doc:`../lsstsw` (recommended for some developers, but not necessary for most users), you will also need to install git:
+If you wish to follow the instructions for :doc:`lsstsw` (recommended for some developers, but not necessary for most users), you will also need to install git:
 
 .. code-block:: bash
 
@@ -61,7 +61,7 @@ These may be installed as follows:
 
    sudo apt-get update && sudo apt-get install curl patch
 
-If you wish to follow the instructions for :doc:`../lsstsw` (recommended for some developers, but not necessary for most users), you will also need to install git:
+If you wish to follow the instructions for :doc:`lsstsw` (recommended for some developers, but not necessary for most users), you will also need to install git:
 
 .. code-block:: bash
 
