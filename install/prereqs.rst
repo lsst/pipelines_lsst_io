@@ -23,7 +23,7 @@ System prerequisites
 The Science Pipelines are developed and built using a standard `Conda`_ environment.
 This provides (almost; see below) all necessary tools and libraries for building and running the Pipelines.
 On installation, you will be given the option of automatically installing that environment.
-If you decline, you will have to satisfy all of these dependencies yourself; they are defined here:
+If you decline, your system must have all of the prerequisites listed below available:
 
 .. jinja:: default
 

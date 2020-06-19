@@ -16,7 +16,7 @@ If you have issues with the installation, here are two ways to get help:
 ================
 
 The LSST Science Pipelines are developed and tested primarily on CentOS, but can be compiled and run on macOS, Debian, Ubuntu, and other Linux distributions.
-See :ref:`prereq-platforms` for information about LSST's official reference platform and build reports with other platforms, and follow the instructions on that page to ensure you have installed the prerequisite software for your platform.
+See :ref:`prereq-platforms` for information about LSST's official reference platform and build reports with other platforms, and follow the instructions under :ref:`system-prereqs` to ensure you have installed the prerequisite software for your platform.
 
 ..
   TK recommended memory, disk space, and build time.
@@ -234,7 +234,7 @@ When :command:`newinstall.sh` prompts you to install Miniconda, type ``no``.
 Be aware of these caveats when using your own Python installation:
 
 - You are responsible for installing Python package dependencies.
-  See :ref:`python-deps`.
+  See :ref:`system-prereqs`.
 
 - Prebuilt binaries will not be available.
   :command:`eups distrib install` will always install from source.
