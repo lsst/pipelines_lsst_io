@@ -152,6 +152,15 @@ Pending Deprecations
 
 These packages/functions will be deprecated in the next major release.
 
+Removal of “Generation 2” Middleware
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The “Generation 3” middleware :ref:`included in the 17.0.0 release <release-v17-0-gen3>` is ultimately intended to supplant the current (“Generation 2”) Data Butler and command-line task functionality.
+When the new middleware is stable and has reached feature parity with the old code, deprecation of the Generation 2 system will be announced.
+At that time, guidance for transitioning to the new system will be made available.
+This will include moving migrating from `lsst.daf.persistence` to to `lsst.daf.butler`, and from `lsst.pipe.base.CmdLineTask`, to be replaced by `lsst.pipe.base.PipelineTask`.
+Progress towards the deprecation of Generation 2 may be tracked on :jira:`DM-20572`.
+
 .. _release-v20-0-0-deprecations:
 
 Deprecations
