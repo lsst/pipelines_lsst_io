@@ -38,14 +38,27 @@ For a complete list of changes made, see :ref:`release-v20-0-0-tickets`.
 
 .. _release-v20-0-0-functionality:
 
-Major Functionality Changes
----------------------------
+Major New Features
+------------------
+
+- :ref:`release-v20-0-0-fgcmcal-docs`
+
+.. _release-v20-0-0-fgcmcal-docs:
+
+Documentation for fgcmcal
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Documentation for :ref:`fgcmcal <lsst.fgcmcal>`, including reference material on all included tasks and a “cookbook” providing a tutorial-style introduction, is now available.
+This package runs the Forward Global Calibration Method to perform global photometric survey calibration; refer to `Burke, Rykoff, et al. 2018 <http://adsabs.harvard.edu/abs/2018AJ....155...41B>`_ for details.
+:jirab:`DM-22469`
 
 .. _release-v20-0-0-interface:
 
 Significant Interface Changes
 -----------------------------
 
+- :ref:`release-v20-0-0-conda`
+- :ref:`release-v20-0-0-fits-headers`
 - :ref:`release-v20-0-0-remove-obs_lsstSim`
 - :ref:`release-v20-0-0-remove-afwGeom`
 - :ref:`release-v20-0-0-remove-PixelScaleBoundedField`
@@ -57,14 +70,42 @@ Significant Interface Changes
 - :ref:`release-v20-0-0-remove-pixelScale`
 - :ref:`release-v20-0-0-remove-obs_sdss`
 
+.. _release-v20-0-0-conda:
+
+Third party packages managed through Conda
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The `Conda <https://conda.io>`_ package management system, together with the `Conda-Forge <https://conda-forge.org>`_ package collection, is now used to provide all compilers and most third-party dependencies.
+This substantially simplifies :ref:`part-installation` and makes it easier to integrate the Science Pipelines with other tools, while also facilitating quicker updates to third-party code during development.
+
+For more information, refer to `community.lsst.org <https://community.lsst.org/t/conda-updates-implementing-the-switch-to-conda-forge-conda-compilers-rfc-679/4127>`_.
+:jirab:`RFC-679, DM-24232`
+
+.. _release-v20-0-0-fits-headers:
+
+All FITS headers are now stored in uppercase
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The version of `CFITSIO`_ used in this release requires that all header keys be written in uppercase to better comply with the `FITS standard`_.
+Before this release, some Science Pipelines code would store information in FITS headers in lowercase.
+This has the consequence that:
+
+- If user code attempts to write a lowercase header to FITS, it will be automatically converted to uppercase, and a warning will be issued;
+- If user code attempts to read FITS data which includes lowercase headers (for example, because it was written by an earlier Pipelines release), they will automatically be converted to uppercase, and an informational message may be logged.
+
+:jirab:`RFC-640, RFC-686, DM-21989, DM-21991, DM-24376, DM-24570, DM-24618`
+
+
+.. _CFITSIO: https://heasarc.gsfc.nasa.gov/fitsio/
+.. _FITS standard: https://fits.gsfc.nasa.gov/fits_standard.html
 
 .. _release-v20-0-0-remove-obs_lsstSim:
 
 Removal of the obs_lsstSim package
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The obs_lsst package, :ref:`included in release 17 <release-v17-0-obs-lsst>`, obviates the need for the obs_lsstSim package, which has now been removed.
-:jirab:`DM-20573`
+The :ref:`obs_lsst package <lsst.obs.lsst>`, :ref:`included in release 17 <release-v17-0-obs-lsst>`, obviates the need for the obs_lsstSim package, which has now been removed.
+:jirab:`RFC-533, DM-20573, DM-24716`
 
 .. _release-v20-0-0-remove-afwGeom:
 
@@ -80,8 +121,9 @@ Compatibility aliases making them accessible under their old names have now been
 Removal of `lsst.afw.math.PixelScaleBoundedField`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-`~lsst.afw.math.PixelAreaBoundedField`, :ref:`added in release 19.0.0 <release-v19-0-0-PixelAreaBoundedField>`, replaces `~lsst.afw.math.PixelScaleBoundedField`, which has now been removed.
-:jirab:`DM-22192`
+`~lsst.afw.math.PixelAreaBoundedField`, :ref:`added in release 19.0.0 <release-v19-0-0-PixelAreaBoundedField>`, replaced `~lsst.afw.math.PixelScaleBoundedField`.
+The latter has now been removed.
+:jirab:`RFC-644, DM-22192`
 
 .. _release-v20-0-0-remove-addDistortionModel:
 
@@ -90,14 +132,15 @@ Removal of `lsst.ip.isr.addDistortionModel` and related configuration classes
 
 Camera geometry-based distortions are now automatically incorporated into the WCS automatically when reading raw data, rendering this functionality obsolete.
 It has therefore been removed.
-:jirab:`DM-23369`
+:jirab:`RFC-616, DM-23369`
 
 .. _release-v20-0-0-remove-_extractAmpId:
 
 Removal of `lsst.obs.base.CameraMapper._extractAmpId`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This method was no longer used and has therefore been removed.
+This obsolete method has been unused since release 11.0 (September 2015).
+It has therefore been removed.
 :jirab:`DM-23371`
 
 .. _release-v20-0-0-remove-pex_policy:
@@ -115,7 +158,7 @@ See also :jira:`RFC-626`.
 Removal of astrometry_net_data
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The obsolete astrometry_net_data has been removed.
+The obsolete astrometry_net_data package has been removed.
 :jirab:`DM-22233`
 
 .. _release-v20-0-0-remove-getHasRawInfo:
@@ -123,16 +166,16 @@ The obsolete astrometry_net_data has been removed.
 Removal of `lsst.afw.cameraGeom.Amplifier.getHasRawInfo`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-`~lsst.afw.cameraGeom.Amplifier.getHasRawInfo` is redundant, since amplifier objects *always* have raw information.
+`~lsst.afw.cameraGeom.Amplifier.getHasRawInfo` was redundant, since amplifier objects *always* have raw information.
 It has now been removed.
-:jirab:`DM-21711`
+:jirab:`RFC-585, RFC-632, DM-21711`
 
 .. _release-v20-0-0-remove-pixelScale:
 
 Removal of `lsst.fgcmcal.FgcmFitCycleConfig.pixelScale`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This configuration field is no longer used, and has therefore been removed.
+This configuration field was no longer used, and has therefore been removed.
 :jirab:`DM-23380`
 
 .. _release-v20-0-0-remove-obs_sdss:
@@ -171,6 +214,7 @@ These packages/functions are deprecated and will not be available in the next ma
 - :ref:`release-v20-0-0-deprecate-makeDistortedTanWcs`
 - :ref:`release-v20-0-0-deprecate-afw`
 - :ref:`release-v20-0-0-deprecate-synpipe`
+- :ref:`release-v20-0-0-deprecate-SourceDetectionTask-makeSourceCatalog`
 
 .. _release-v20-0-0-deprecate-makeDistortedTanWcs:
 
@@ -187,7 +231,7 @@ Modernization of the C++ API in `lsst.afw`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A number of long-discouraged C++ APIs in `lsst.afw` have been marked as deprecated and will be removed before the release of version 21.0.0.
-:jirab:`DM-17566, DM-23076`
+:jirab:`RFC-687, DM-17566, DM-23076, 24565`
 
 .. _release-v20-0-0-deprecate-synpipe:
 
@@ -196,5 +240,13 @@ Removal of the Synpipe package
 
 The Synpipe package for inserting fake galaxies and stars during pipeline execution has been rendered obsolete by the tasks for fake source insertion which were :ref:`added to pipe_tasks in release 18.0.0 <release-v18-0-0-fakes>`.
 It will therefore be removed before the release of version 21.0.0.
-:jirab:`DM-23343`
+:jirab:`RFC-661, DM-23343`
 
+.. _release-v20-0-0-deprecate-SourceDetectionTask-makeSourceCatalog:
+
+Removal of `lsst.meas.algorithms.SourceDetectionTask.makeSourceCatalog`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This method is an alias for `~lsst.meas.algorithms.SourceDetectionTask.run` which exists only for backwards compatibility purposes.
+It will be removed before the release of version 21.0.0.
+:jirab:`DM-23085`
