@@ -64,11 +64,9 @@ Significant Interface Changes
 - :ref:`release-v20-0-0-remove-PixelScaleBoundedField`
 - :ref:`release-v20-0-0-remove-addDistortionModel`
 - :ref:`release-v20-0-0-remove-_extractAmpId`
-- :ref:`release-v20-0-0-remove-pex_policy`
 - :ref:`release-v20-0-0-remove-astrometry_net_data`
 - :ref:`release-v20-0-0-remove-getHasRawInfo`
 - :ref:`release-v20-0-0-remove-pixelScale`
-- :ref:`release-v20-0-0-remove-obs_sdss`
 
 .. _release-v20-0-0-conda:
 
@@ -143,16 +141,6 @@ This obsolete method has been unused since release 11.0 (September 2015).
 It has therefore been removed.
 :jirab:`DM-23371`
 
-.. _release-v20-0-0-remove-pex_policy:
-
-Removal of the pex_policy package
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The obsolete pex_policy package has been removed.
-Calls to `lsst.pex.policy.makePolicy` should be modernized to become calls to `lsst.pex.config.makePropertySet`.
-See also :jira:`RFC-626`.
-:jirab:`DM-23374`
-
 .. _release-v20-0-0-remove-astrometry_net_data:
 
 Removal of astrometry_net_data
@@ -177,15 +165,6 @@ Removal of `lsst.fgcmcal.FgcmFitCycleConfig.pixelScale`
 
 This configuration field was no longer used, and has therefore been removed.
 :jirab:`DM-23380`
-
-.. _release-v20-0-0-remove-obs_sdss:
-
-Removal of obs_sdss
-^^^^^^^^^^^^^^^^^^^
-
-The obsolete obs_sdss package has been removed.
-See also :jira:`RFC-645`.
-:jirab:`DM-22578`.
 
 
 .. _release-v20-0-0-pending-deprecations:
@@ -215,6 +194,8 @@ These packages/functions are deprecated and will not be available in the next ma
 - :ref:`release-v20-0-0-deprecate-afw`
 - :ref:`release-v20-0-0-deprecate-synpipe`
 - :ref:`release-v20-0-0-deprecate-SourceDetectionTask-makeSourceCatalog`
+- :ref:`release-v20-0-0-deprecate-obs_sdss`
+- :ref:`release-v20-0-0-deprecate-pex_policy`
 
 .. _release-v20-0-0-deprecate-makeDistortedTanWcs:
 
@@ -223,7 +204,7 @@ Removal of `lsst.afw.geom.wcsUtils.makeDistortedTanWcs`
 
 Camera geometry-based distortions are now automatically incorporated into the WCS automatically when reading raw data, rendering `~lsst.afw.geom.wcsUtils.makeDistortedTanWcs` obsolete.
 The function ``makeDistortedTanWcs`` will be removed before the release of version 21.0.0
-:jirab:`DM-20937`
+:jirab:`RFC-616, DM-20937, DM-22114`
 
 .. _release-v20-0-0-deprecate-afw:
 
@@ -231,7 +212,7 @@ Modernization of the C++ API in `lsst.afw`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A number of long-discouraged C++ APIs in `lsst.afw` have been marked as deprecated and will be removed before the release of version 21.0.0.
-:jirab:`RFC-687, DM-17566, DM-23076, 24565`
+:jirab:`RFC-687, DM-17566, DM-22814, DM-23076, DM-24565`
 
 .. _release-v20-0-0-deprecate-synpipe:
 
@@ -250,3 +231,23 @@ Removal of `lsst.meas.algorithms.SourceDetectionTask.makeSourceCatalog`
 This method is an alias for `~lsst.meas.algorithms.SourceDetectionTask.run` which exists only for backwards compatibility purposes.
 It will be removed before the release of version 21.0.0.
 :jirab:`DM-23085`
+
+.. _release-v20-0-0-deprecate-obs_sdss:
+
+Removal of the obs_sdss package
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The obs_sdss camera package will be removed from the Science Pipelines before the release of version 21.0.0.
+Note that this package was previously slated for removal before the release of version 20.0.0, but this has been delayed.
+The lsst_dm_stack_demo package, which makes use of obs_sdss, will be replaced with a new package providing similar functionality.
+:jirab:`RFC-645, DM-22578`.
+
+.. _release-v20-0-0-deprecate-pex_policy:
+
+Removal of the pex_policy package
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The obsolete pex_policy package will be removed from the Science Pipelines before the release of version 21.0.0.
+Note that this package was previously slated for removal before the release of version 20.0.0, but this has been delayed.
+Calls to `lsst.pex.policy.makePolicy` should be modernized to become calls to `lsst.pex.config.makePropertySet`.
+:jirab:`RFC-626, DM-23374`
