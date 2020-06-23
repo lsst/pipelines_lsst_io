@@ -97,19 +97,19 @@ Run these two steps:
 1. Activate the lsstsw software environment by sourcing the :file:`envconfig.sh` script in lsstsw's :file:`bin` directory:
 
    .. code-block:: bash
-   
+
       source bin/envconfig.sh
 
    If you are running in a :command:`csh` or :command:`tcsh`, run this set up script instead:
 
    .. code-block:: bash
-   
+
       source bin/envconfig.csh
 
 2. Set up a :doc:`top-level package <top-level-packages>`:
 
    .. code-block:: bash
-   
+
       setup lsst_distrib
 
    Instead of ``lsst_distrib``, you can set up a different top-level package like ``lsst_apps`` or any individual EUPS package you previously installed.
