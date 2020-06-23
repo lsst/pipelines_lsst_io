@@ -23,9 +23,7 @@ If you have issues using lsstsw, here are two ways to get help:
 The LSST Science Pipelines are developed and tested primarily on CentOS, but can be compiled and run on macOS, Debian, Ubuntu, and other Linux distributions.
 See :ref:`prereq-platforms` for information about LSST's official reference platform and build reports with other platforms, and follow the instructions under :ref:`system-prereqs` to ensure you have installed the prerequisite software for your platform.
 
-Before you begin:
-
-- If you intend to use a Git LFS repository, like `testdata_ci_hsc`_ or `afwdata`_, :doc:`install and configure Git LFS <git-lfs>`.
+If you intend to use a Git LFS repository, like `testdata_ci_hsc`_ or `afwdata`_, you should `configure Git LFS <git-lfs>` before you begin.
 
 .. _lsstsw-deploy:
 
