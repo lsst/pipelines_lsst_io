@@ -42,9 +42,12 @@ Major New Features
 ------------------
 
 - :ref:`release-v20-0-0-cbp`
+- :ref:`release-v20-0-0-alert-gen`
 - :ref:`release-v20-0-0-linearity`
 - :ref:`release-v20-0-0-sky-sources`
 - :ref:`release-v20-0-0-fgcmcal-docs`
+- :ref:`release-v20-0-0-fgcmcal-bg`
+- :ref:`release-v20-0-0-gen2to3`
 
 .. _release-v20-0-0-cbp:
 
@@ -55,6 +58,19 @@ This release adds the :ref:`cbp <lsst.cbp>` package to the Science Pipelines.
 This provides codes for working with the `collimated beam projector <https://arxiv.org/abs/1805.05867>`_ (CBP).
 In particular, cbp can compute the telescope and CBP pointing that will produce a desired beam arrangement, and can compute the hole positions for a CBP mask.
 :jira:`RFC-658`
+
+.. _release-v20-0-0-alert-gen:
+
+Alert packets are now generated during Alert Production Pipeline execution
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The Alert Production system can now generate schema-compliant alerts in `Apache Avro`_ format.
+Note that these alerts do not yet provide all contents specified by :lse:`163` (the Data Products Definition Document) — in particular, they do not include cut-out images — and are currently written to disk, rather than broadcast over the Alert Distribution system.
+In support of this effort, the :ref:`alert_packet <lsst.alert.packet>` package was added to the Science Pipelines.
+This provides a number of utility routines for manipulating alert packets.
+:jirab:`DM-24324`
+
+.. _Apache Avro: https://avro.apache.org.
 
 .. _release-v20-0-0-linearity:
 
@@ -85,6 +101,24 @@ Documentation for :ref:`fgcmcal <lsst.fgcmcal>`, including reference material on
 This package runs the Forward Global Calibration Method to perform global photometric survey calibration; refer to `Burke, Rykoff, et al. 2018 <http://adsabs.harvard.edu/abs/2018AJ....155...41B>`_ for details.
 :jirab:`DM-22469`
 
+.. _release-v20-0-0-fgcmcal-bg:
+
+fgcmcal calibration on local background-corrected fluxes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The :ref:`fgcmcal <lsst.fgcmcal>` tool can now correct for the local background on aperture fluxes during calibration.
+This brings faint stars more into line with their bright counterparts, and thereby improves the resultant calibration.
+:jirab:`DM-23036`
+
+.. _release-v20-0-0-gen2to3:
+
+Conversion of Generation 2 to Generation 3 data repositories
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+It is now possible to convert Generation 2 to Generation 3 data repositories using the :command:`butler convert` command.
+For details, refer to the :ref:`obs_base <lsst.obs.base>` :ref:`lsst.obs.base-cli`.
+:jirab:`DM-22655`
+
 .. _release-v20-0-0-interface:
 
 Significant Interface Changes
@@ -94,6 +128,7 @@ Significant Interface Changes
 - :ref:`release-v20-0-0-fits-headers`
 - :ref:`release-v20-0-0-collections`
 - :ref:`release-v20-0-0-lsstsw-envconfig`
+- :ref:`release-v20-0-0-jointcal-gaia`
 - :ref:`release-v20-0-0-remove-obs_lsstSim`
 - :ref:`release-v20-0-0-remove-afwGeom`
 - :ref:`release-v20-0-0-remove-PixelScaleBoundedField`
@@ -157,6 +192,15 @@ The initialization scripts used by the :ref:`lsstsw <install-lsstsw>` system, us
 Where previously you sourced :file:`setup.sh` (or :file:`setup.csh`), you should now source :file:`envconfig.sh` (or :file:`envconfig.csh`).
 This helps distinguish this script from the :command:`setup` command provided by `EUPS <https://github.com/RobertLuptonTheGood/eups>`_.
 :jirab:`DM-23098`
+
+.. _release-v20-0-0-jointcal-gaia:
+
+Jointcal now defaults to using Gaia and PanSTARRS1 reference catalogs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+By default, Jointcal will attempt to use reference catalogs from Gaia (``gaia_dr2_20200414``) and PanSTARRS1 (``ps1_pv3_3pi_20170110``) for astrometry and photometry respectively.
+If these catalogs are not available, you must specify alternatives by setting ``astrometryRefObjLoader.ref_dataset_name`` and/or ``photometryRefObjLoader.ref_dataset_name`` within :lsst-config:`lsst.jointcal.JointcalConfig`.
+:jirab:`DM-17597`
 
 .. _release-v20-0-0-remove-obs_lsstSim:
 
@@ -226,7 +270,6 @@ Removal of `lsst.fgcmcal.FgcmFitCycleConfig.pixelScale`
 
 This configuration field was no longer used, and has therefore been removed.
 :jirab:`DM-23380`
-
 
 .. _release-v20-0-0-pending-deprecations:
 
