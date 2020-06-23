@@ -1,3 +1,5 @@
+.. _install-lsstsw:
+
 #######################################
 Installation with lsstsw and lsst-build
 #######################################
