@@ -105,4 +105,4 @@ Command-line tasks now handle clobbering of versions, data, and configs in a mor
 Updated pre-requisites
 ^^^^^^^^^^^^^^^^^^^^^^
 
-:ref:`Pre-requisites <python-deps>` for installing the science pipelines have been updated. Of note are that ``numpy 1.13``, ``astropy 2.0`` and ``matplotlib 2.0`` are all required. The baseline version of ``Python`` is now ``Python 3.6``.  See the announcement in `this post on the LSST Community forum <https://community.lsst.org/t/dm-python-and-associated-packages-version-baseline-change/2251>`_.
+Pre-requisites for installing the science pipelines have been updated. Of note are that ``numpy 1.13``, ``astropy 2.0`` and ``matplotlib 2.0`` are all required. The baseline version of ``Python`` is now ``Python 3.6``.  See the announcement in `this post on the LSST Community forum <https://community.lsst.org/t/dm-python-and-associated-packages-version-baseline-change/2251>`_.
