@@ -41,9 +41,20 @@ For a complete list of changes made, see :ref:`release-v20-0-0-tickets`.
 Major New Features
 ------------------
 
+- :ref:`release-v20-0-0-cbp`
 - :ref:`release-v20-0-0-linearity`
 - :ref:`release-v20-0-0-sky-sources`
 - :ref:`release-v20-0-0-fgcmcal-docs`
+
+.. _release-v20-0-0-cbp:
+
+Collimated beam projector support
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This release adds the :ref:`cbp <lsst.cbp>` package to the Science Pipelines.
+This provides codes for working with the `collimated beam projector <https://arxiv.org/abs/1805.05867>`_ (CBP).
+In particular, cbp can compute the telescope and CBP pointing that will produce a desired beam arrangement, and can compute the hole positions for a CBP mask.
+:jira:`RFC-658`
 
 .. _release-v20-0-0-linearity:
 
