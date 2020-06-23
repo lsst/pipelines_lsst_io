@@ -37,7 +37,7 @@ Begin by choosing a working directory, then deploy ``lsstsw`` into it:
    git clone https://github.com/lsst/lsstsw.git
    cd lsstsw
    ./bin/deploy
-   source bin/setup.sh
+   source bin/envconfig.sh
 
 For more information about the :command:`deploy` command, see :ref:`lsstsw-about-deploy`.
 
@@ -94,17 +94,17 @@ In every new shell session you will need to set up the Science Pipelines environ
 
 Run these two steps:
 
-1. Activate the lsstsw software environment by sourcing the :file:`setup.sh` script in lsstsw's :file:`bin` directory:
+1. Activate the lsstsw software environment by sourcing the :file:`envconfig.sh` script in lsstsw's :file:`bin` directory:
 
    .. code-block:: bash
    
-      source bin/setup.sh
+      source bin/envconfig.sh
 
    If you are running in a :command:`csh` or :command:`tcsh`, run this set up script instead:
 
    .. code-block:: bash
    
-      source bin/setup.csh
+      source bin/envconfig.csh
 
 2. Set up a :doc:`top-level package <top-level-packages>`:
 
@@ -141,7 +141,7 @@ The ``deploy`` script automates several things to prepare an LSST development en
 6. Clones versiondb_, a robot-managed Git repository of package dependency information.
 7. Creates an empty stack *installation* directory, :file:`stack/`.
 
-This environment, including the EUPS, Miniconda, Git, and Git LFS software, is only activated when you source the :file:`bin/setup.sh` or :file:`bin/setup.csh` scripts in a shell.
+This environment, including the EUPS, Miniconda, Git, and Git LFS software, is only activated when you source the :file:`bin/envconfig.sh` or :file:`bin/envconfig.csh` scripts in a shell.
 Otherwise, lsstsw does not affect the software installed on your computer.
 
 See also: :ref:`lsstsw-deploy-ref`.
