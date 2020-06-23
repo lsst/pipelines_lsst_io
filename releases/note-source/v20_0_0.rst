@@ -41,7 +41,29 @@ For a complete list of changes made, see :ref:`release-v20-0-0-tickets`.
 Major New Features
 ------------------
 
+- :ref:`release-v20-0-0-linearity`
+- :ref:`release-v20-0-0-sky-sources`
 - :ref:`release-v20-0-0-fgcmcal-docs`
+
+.. _release-v20-0-0-linearity:
+
+Improved linearity correction
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The mechanisms for correcting for detector linearity have been substantially improved.
+In particular, the new system makes it easy for user-supplied linearity corrections to override the defaults, and a new generic polynomial linearity correction type has been added.
+Refer to `community.lsst.org <https://github.com/lsst/ip_isr/pull/126>`_ and :jira:`RFC-665` for details.
+:jirab:`DM-23023`
+
+.. _release-v20-0-0-sky-sources:
+
+Sky sources added to single frame processing
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+“Sky sources” — corresponding to measurements made on empty patches of sky — may now be inserted into single-frame processing.
+These provide an important source of QA data.
+See `community.lsst.org <https://community.lsst.org/t/sky-sources-added-to-single-frame-processing/4137>`_ for details.
+:jirab:`DM-23078`
 
 .. _release-v20-0-0-fgcmcal-docs:
 
@@ -59,6 +81,8 @@ Significant Interface Changes
 
 - :ref:`release-v20-0-0-conda`
 - :ref:`release-v20-0-0-fits-headers`
+- :ref:`release-v20-0-0-collections`
+- :ref:`release-v20-0-0-lsstsw-envconfig`
 - :ref:`release-v20-0-0-remove-obs_lsstSim`
 - :ref:`release-v20-0-0-remove-afwGeom`
 - :ref:`release-v20-0-0-remove-PixelScaleBoundedField`
@@ -93,9 +117,35 @@ This has the consequence that:
 
 :jirab:`RFC-640, RFC-686, DM-21989, DM-21991, DM-24376, DM-24570, DM-24618`
 
-
 .. _CFITSIO: https://heasarc.gsfc.nasa.gov/fitsio/
 .. _FITS standard: https://fits.gsfc.nasa.gov/fits_standard.html
+
+.. _release-v20-0-0-collections:
+
+Changes to collections, runs, and ``pipetask`` arguments in Generation 3 middleware
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The way in which collections behave in the Generation 3 middleware has been substantially overhauled.
+In particular:
+
+- a “run” is now a special type of collection, rather than an entity that is associated with a collection;
+- the only kind of collection we had before is now called a “tagged” collection;
+- we now also have “chained” collections, which are simply an ordered list of other collections to be searched.
+
+This changes some prominent interfaces, including both the arguments used to construct a `~lsst.daf.butler.Butler` and the command-line arguments to the ``pipetask`` tool.
+
+For more information, see `this community.lsst.org posting <https://community.lsst.org/t/changes-to-collections-runs-and-pipetask-arguments-in-gen3-middleware/4078>`_ and the :ref:`daf_butler <lsst.daf.butler>` documentation.
+:jirab:`RFC-663, DM-21849`
+
+.. _release-v20-0-0-lsstsw-envconfig:
+
+Changes to building using lsstsw
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The initialization scripts used by the :ref:`lsstsw <install-lsstsw>` system, used by some developers to install and update the Science Pipelines, have been renamed.
+Where previously you sourced :file:`setup.sh` (or :file:`setup.csh`), you should now source :file:`envconfig.sh` (or :file:`envconfig.csh`).
+This helps distinguish this script from the :command:`setup` command provided by `EUPS <https://github.com/RobertLuptonTheGood/eups>`_.
+:jirab:`DM-23098`
 
 .. _release-v20-0-0-remove-obs_lsstSim:
 
