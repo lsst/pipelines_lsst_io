@@ -1,8 +1,8 @@
 .. _release-v11-0:
 
-###################################
-LSST Science Pipelines 11.0 Release
-###################################
+#########################
+Release 11.0 (2015-09-24)
+#########################
 
 These release notes document notable changes since 10.1, which was the
 Winter 2015 release.

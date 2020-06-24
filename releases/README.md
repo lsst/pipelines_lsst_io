@@ -18,9 +18,9 @@ To start release notes for a new release:
 .. _release-latest:
 .. _release-vNN-N:
 
-#####################################
-LSST Science Pipelines XX.Y.Z Release
-#####################################
+##################################################
+LSST Science Pipelines XX.Y.Z Release (YYYY-MM-DD)
+##################################################
 
 .. toctree::
    :hidden:
