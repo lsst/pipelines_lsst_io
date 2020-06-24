@@ -32,16 +32,12 @@ If you have questions or comments about this release, visit our `community forum
 
 *See also:*
 
-.. todo::
-
-   Insert link to Doxygen documentation when the release is frozen.
-
 - :doc:`Installation instructions <../install/index>`
 - :doc:`Known issues </known-issues>`
 - `Characterization Metric Report (DMTR-251) <https://ls.st/DMTR-251>`_
 - `Doxygen Documentation`__
 
-__ http://doxygen.lsst.codes/stack/doxygen/xlink_master_XXXX/
+__ http://doxygen.lsst.codes/stack/doxygen/xlink_master_2020_06_24_18.09.15/
 
 .. _release-v20-0-0-functionality:
 
