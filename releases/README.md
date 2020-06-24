@@ -113,5 +113,5 @@ Use the
 ```
 
 role at the of release note items to indicate and link to the corresponding link tickets and RFCs.
-If the item is a single paragraph, the JIRA link should occur at the end of the paragraph.
-If the item has several paragraphs, the JIRA link should occur in its own paragraph at the end of the release note item.
+If the item is a single paragraph, the Jira link should occur at the end of the paragraph.
+If the item has several paragraphs, the Jira link should occur in its own paragraph at the end of the release note item.

@@ -106,7 +106,7 @@ More info
 
 - Join us on the `LSST Community forum, community.lsst.org <http://community.lsst.org>`_.
 - Fork our code on GitHub at https://github.com/lsst.
-- Report issues in `JIRA <https://jira.lsstcorp.org/projects/DM/issues/>`_.
+- Report issues in `Jira <https://jira.lsstcorp.org/projects/DM/issues/>`_.
 - Some API documentation, particularly for C++, is currently published separately on a `Doxygen site <http://doxygen.lsst.codes/stack/doxygen/x_masterDoxyDoc/>`_.
 - DM Developer guidance is at https://developer.lsst.io.
 - Learn more about LSST Data Management by visiting http://lsst.org/about/dm.
