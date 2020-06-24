@@ -34,15 +34,11 @@ If you have questions or comments about this release, visit our `community forum
 
 .. todo::
 
-   Insert link to the CMR when it is available.
-
-.. todo::
-
    Insert link to Doxygen documentation when the release is frozen.
 
 - :doc:`Installation instructions <../install/index>`
 - :doc:`Known issues </known-issues>`
-- `Characterization Metric Report (DMTR-XXX) <https://ls.st/DMTR-XXX>`_
+- `Characterization Metric Report (DMTR-251) <https://ls.st/DMTR-251>`_
 - `Doxygen Documentation`__
 
 __ http://doxygen.lsst.codes/stack/doxygen/xlink_master_XXXX/
