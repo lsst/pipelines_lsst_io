@@ -6,7 +6,7 @@ The LSST Science Pipelines enable optical and near-infrared astronomy in the big
 We are building the Science Pipelines for the `Rubin Observatory Legacy Survey of Space and Time (Rubin’s LSST) <https://lsst.org/>`_, but our command-line task and Python API can be extended for any optical or near-infrared dataset.
 
 This documentation covers version |eups-tag-bold|.
-:doc:`Learn what's new <releases/index>`.
+:ref:`Learn what's new <release-latest>`.
 You can also find documentation for `other versions <https://pipelines.lsst.io/v>`__.
 
 .. _part-getting-started:
@@ -79,12 +79,8 @@ Packages
 Release details
 ===============
 
--  :doc:`releases/notes`
--  :doc:`known-issues`
--  :doc:`metrics`
-
 .. toctree::
-   :hidden:
+   :maxdepth: 2
 
    releases/index
    known-issues
