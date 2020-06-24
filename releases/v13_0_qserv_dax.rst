@@ -1,9 +1,8 @@
-:orphan: True
-
 .. _release-v13-0-qserv-dax:
 
+##########################################
 Fall 2016 QServ and Data Access Highlights
-==========================================
+##########################################
 
 - Query analysis fixes (more robust handling of ORDER BY, fix for missed usages of chunk/subchunk secondary index to limit query dispatch to involved chunks).
 

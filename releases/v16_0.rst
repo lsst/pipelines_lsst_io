@@ -1,29 +1,96 @@
-#######################
-LSST Stack 16.0 Release
-#######################
+.. _release-v16-0:
 
-Version 16.0 of the LSST Science Pipelines is now available.
-It is based on 2018 weekly 22.
+###################################
+LSST Science Pipelines 16.0 Release
+###################################
 
-LSST Science Pipelines
-======================
+.. toctree::
+   :hidden:
 
-Full details of the LSST Science Pipelines 16.0 release can be found
-in the :ref:`extensive release notes <release-v16-0>`.  We have also
-published a `Characterization Metric Report <https://ls.st/DMTR-81>`_.
+   tickets/v16_0
 
-Qserv and Data Access
-=====================
+.. warning::
 
-The database team is on a separate release cadence.
+   :ref:`release-v16-0-py3`.
 
-Science User Interface
-======================
++-------------------------------------------+------------+
+| Source                                    | Identifier |
++===========================================+============+
+| Git tag                                   | 16.0       |
++-------------------------------------------+------------+
+| :doc:`EUPS distrib </install/newinstall>` | v16\_0     |
++-------------------------------------------+------------+
 
-The Science User Interface (SUI) team releases their codebase independently.
+This release is based on the ``w_2018_22`` weekly build.
 
-Join Us on the Community Forum
-==============================
+These release notes highlight significant changes to the Science Pipelines codebase which are likely to be of wide interest.
+For a complete list of changes made, see :doc:`tickets/v16_0`.
 
-If you have questions or comments or comments about the LSST Science Pipelines,
-visit our community forum for advice: https://community.lsst.org/.
+If you have questions or comments about this release, visit our `Community Forum <https://community.lsst.org>`_ for advice.
+
+- :ref:`release-v16-0-major-changes`
+
+*See also:*
+
+- :doc:`Installation instructions <../install/index>`
+- :doc:`Known issues </known-issues>`
+- `Characterization Metric Report (DMTR-81) <https://ls.st/DMTR-81>`_
+
+.. _release-v16-0-major-changes:
+
+Major Functionality and Interface Changes
+=========================================
+
+- :ref:`release-v16-0-new-geom`
+- :ref:`release-v16-0-decam-ingest`
+- :ref:`release-v16-0-py3`
+- :ref:`release-v16-0-starselector`
+- :ref:`release-v16-0-selectimages`
+
+.. _release-v16-0-new-geom:
+
+Reworked “geom” package, replacing much of “afw.geom”
+-----------------------------------------------------
+
+The ``Angle``, ``Point``, ``Extent``, ``SpherePoint``, ``Box``, ``LinearTransform`` and ``AffineTransform`` primitivies have been moved from afw.geom to geom.
+Aliases for compatibility purposes remain within afw for this release, but new code should use the geom package.
+For further details, refer to `this community.lsst.org post`__.
+
+__ https://community.lsst.org/t/new-geom-package-replaces-much-of-lsst-afw-geom/2932
+
+.. _release-v16-0-decam-ingest:
+
+DECam ingest now defaults to raw image
+--------------------------------------
+
+``ingestImagesDecam.py`` (encapsulating ``DecamIngestTask``) now ingests raw images by default instead of “instcals”.
+This change means that ``DecamIngestTask`` behaves more like ``IngestTask`` and other ingestion tasks.
+For further details, refer to `this community.lsst.org post`__.
+
+__ https://community.lsst.org/t/ingestimagesdecam-py-default-changed/2915
+
+.. _release-v16-0-py3:
+
+Python 2 is no longer supported
+-------------------------------
+
+This release is no longer tested on or expected to work with Python 2.
+For further details, refer to `this community.lsst.org post`__.
+
+__ https://community.lsst.org/t/python-2-no-longer-supported/2845
+
+.. _release-v16-0-starselector:
+
+Improvements to the ``StarSelector`` interface
+----------------------------------------------
+
+The call signatures for source and star selectors have been modernized and unified as described on :jira:`RFC-198`.
+Some legacy code has not yet adopted the new interface.
+
+.. _release-v16-0-selectimages:
+
+Automatically select the :math:`N` images with the best seeing when building templates
+--------------------------------------------------------------------------------------
+
+The ``MaxPsfWcsSelectImagesTask`` can now automatically determine the thresholds needed to select images with an appropriate PSF when building templates, rather than having them specified by the user.
+For details, refer to :jira:`DM-11953`.

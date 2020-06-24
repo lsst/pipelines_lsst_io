@@ -1,14 +1,31 @@
+.. _release-v18-1-0:
+
 #####################################
 LSST Science Pipelines 18.1.0 Release
 #####################################
 
-Version 18.1.0 of the LSST Science Pipelines is now available.
-This is a minor feature release, based on the 18.0.0 release.
-Full details of the LSST Science Pipelines 18.1.0 release can be found in the :ref:`release notes <release-v18-1-0>`.
-No characterization report is provided with this release.
+.. toctree::
+   :hidden:
 
-Join Us on the Community Forum
-==============================
+   tickets/v18_1_0
 
-If you have questions or comments about the LSST Science Pipelines,
-visit our community forum for advice: https://community.lsst.org/.
++-------------------------------------------+------------+
+| Source                                    | Identifier |
++===========================================+============+
+| Git tag                                   | 18.1.0     |
++-------------------------------------------+------------+
+| :doc:`EUPS distrib </install/newinstall>` | v18\_1\_0  |
++-------------------------------------------+------------+
+
+This is a minor feature release, based on the :ref:`release-v18-0-0`, and requested by :jira:`RFC-618`.
+
+It contains two changes relative to the :ref:`release-v18-0-0`:
+
+- `lsst.daf.base.PropertySet` now supports storing unsigned 64-bit integers.
+  For more information, refer to :jira:`DM-20506` and :jira:`DM-20664`.
+- The version number of the eigen package has changed from 3.3.4.lsst1-1-g221959b to 3.3.7.
+  There are no changes to the contents of this package; the version included with release 18.0.0 was incorrectly labelled.
+
+There are no changes to interfaces or deprecations in this release.
+
+If you have questions or comments about the LSST Science Pipelines, visit our community forum for advice: https://community.lsst.org/.
