@@ -25,7 +25,7 @@ Join us on the `LSST Community forum <https://community.lsst.org>`_ to get help 
    :caption: Getting Started
 
    getting-started/index
-  
+
 .. _part-installation:
 
 Installation
