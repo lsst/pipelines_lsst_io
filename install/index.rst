@@ -7,7 +7,7 @@ Installing the LSST Science Pipelines
 .. toctree::
    :maxdepth: 1
 
-   prereqs/index
+   prereqs
    newinstall
    setup
    top-level-packages

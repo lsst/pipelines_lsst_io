@@ -1,7 +1,8 @@
 .. _release-v11-0:
 
-Summer 2015 Release (v11_0)
-===========================
+#########################
+Release 11.0 (2015-09-24)
+#########################
 
 These release notes document notable changes since 10.1, which was the
 Winter 2015 release.
@@ -14,6 +15,10 @@ Winter 2015 release.
 | :doc:`EUPS distrib </install/newinstall>` | v11\_0     |
 +-------------------------------------------+------------+
 
+- :ref:`release-v11-0-major-changes`
+- :ref:`release-v11-0-bug-fixes`
+- :ref:`release-v11-0-internal-improvements`
+
 *See also:*
 
 - `Qserv release notes <https://confluence.lsstcorp.org/display/DM/Summer+2015+Qserv+Release>`_
@@ -21,7 +26,7 @@ Winter 2015 release.
 - `Science User Interface release notes <https://confluence.lsstcorp.org/pages/viewpage.action?pageId=41785820>`_
 - `Characterization Metric Report (DMTR-11) <https://ls.st/DMTR-11>`_
 
-.. _release-11-0-major-changes:
+.. _release-v11-0-major-changes:
 
 Major Functionality and Interface Changes
 -----------------------------------------
@@ -382,7 +387,7 @@ of how this functionality works in practice is available as an IPython
 notebook.
 :jirab:`DM-2347`
 
-.. _release-11-0-bug-fixes:
+.. _release-v11-0-bug-fixes:
 
 Bug Fixes
 ---------

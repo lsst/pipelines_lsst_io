@@ -15,14 +15,8 @@ If you have issues with the installation, here are two ways to get help:
 1. Prerequisites
 ================
 
-The LSST Science Pipelines can be compiled and run on CentOS, Debian, and macOS.
-See :ref:`prereq-platforms` for information about LSST's official reference platform and build reports with other platforms.
-
-Before you begin, install prerequisite software for your platform:
-
-- :doc:`macOS <prereqs/macos>`
-- :doc:`CentOS / RedHat <prereqs/centos>`
-- :doc:`Debian / Ubuntu <prereqs/debian>`
+The LSST Science Pipelines are developed and tested primarily on CentOS, but can be compiled and run on macOS, Debian, Ubuntu, and other Linux distributions.
+See :ref:`prereq-platforms` for information about LSST's official reference platform and build reports with other platforms, and follow the instructions under :ref:`system-prereqs` to ensure you have installed the prerequisite software for your platform.
 
 ..
   TK recommended memory, disk space, and build time.
@@ -200,8 +194,7 @@ Here is how :command:`newinstall.sh` prepares the environment:
 
 - Identifies your operating system and compilers to determine what EUPS binary packages should be installed (the *EUPS package root,* see :ref:`newinstall-binary-packages`).
 - Installs a specific version of Python, through Miniconda_, that is compatible with EUPS binary packages (see :ref:`newinstall-miniconda`).
-- Installs Conda packages that the LSST Science Pipelines depends on (see :ref:`python-deps`).
-- Checks for :command:`git` on your systems and offers to install it if necessary.
+- Installs Conda packages that the LSST Science Pipelines depend on (see :ref:`system-prereqs`).
 - Installs EUPS_, the package manager used by the LSST software stack.
 
 For information about :command:`newinstall.sh`\ ’s arguments, see :ref:`newinstall-reference`.
@@ -216,10 +209,9 @@ This Python installation isn't required, but we recommend it.
 See :ref:`newinstall-user-python` if required.
 
 The Python environment installed by :command:`newinstall.sh` is Miniconda_, a minimal version of Anaconda_.
-By default, :command:`newinstall.sh` installs Python 3.6.
+It provides the version of Python that we are currently using to test and develop the Science Pipelines.
 
-In this Miniconda environment, :command:`newinstall.sh` installs the Science Pipeline's Python prerequisites.
-See :ref:`python-deps` for more information.
+In this Miniconda environment, :command:`newinstall.sh` installs the libraries and tools needed to build and run the Science Pipelines.
 
 This Miniconda installation won't affect your other Python installations (like the system's Python, your own Anaconda or Miniconda, or virtual environments).
 The LSST Miniconda environment is only active when you source the ``loadLSST`` script installed by :command:`newinstall.sh` (see :doc:`setup`).
@@ -242,7 +234,7 @@ When :command:`newinstall.sh` prompts you to install Miniconda, type ``no``.
 Be aware of these caveats when using your own Python installation:
 
 - You are responsible for installing Python package dependencies.
-  See :ref:`python-deps`.
+  See :ref:`system-prereqs`.
 
 - Prebuilt binaries will not be available.
   :command:`eups distrib install` will always install from source.

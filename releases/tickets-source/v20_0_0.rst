@@ -1,5 +1,0 @@
-.. _release-v20-0-0-tickets:
-
-Tickets Addressed in the Spring 2020 release (v20_0_0)
-======================================================
-

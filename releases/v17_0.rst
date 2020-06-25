@@ -1,29 +1,332 @@
-#######################
-LSST Stack 17.0 Release
-#######################
+.. _release-v17-0:
 
-Version 17.0 of the LSST Science Pipelines is now available.
-It is based on 2019 weekly 07.
+#########################
+Release 17.0 (2019-02-15)
+#########################
 
-LSST Science Pipelines
-======================
+.. toctree::
 
-Full details of the LSST Science Pipelines 17.0 release can be found in the :ref:`extensive release notes <release-v17-0>`.
+   tickets/v17_0
 
-We have also published a `Characterization Metric Report <https://ls.st/DMTR-131>`_.
++-------------------------------------------+------------+
+| Source                                    | Identifier |
++===========================================+============+
+| Git tag                                   | 17.0       |
++-------------------------------------------+------------+
+| :doc:`EUPS distrib </install/newinstall>` | v17\_0     |
++-------------------------------------------+------------+
 
-Qserv and Data Access
-=====================
+This release is based on the ``w_2019_07`` weekly build.
 
-The database team is on a separate release cadence.
+These release notes highlight significant changes to the Science Pipelines codebase which are likely to be of wide interest.
+For a complete list of changes made, see :doc:`tickets/v17_0`.
 
-Science User Interface
-======================
+If you have questions or comments about this release, visit our `Community Forum <https://community.lsst.org>`_ for advice.
 
-The Science User Interface (SUI) team releases their codebase independently.
+- :ref:`release-v17-0-functionality`
+- :ref:`release-v17-0-interface`
+- :ref:`release-v17-0-deprecations`
+- :ref:`release-v17-0-1-patch`
 
-Join Us on the Community Forum
-==============================
+*See also:*
 
-If you have questions or comments about the LSST Science Pipelines,
-visit our community forum for advice: https://community.lsst.org/.
+- :doc:`Installation instructions <../install/index>`
+- :doc:`Known issues </known-issues>`
+- `Characterization Metric Report (DMTR-131) <https://ls.st/DMTR-131>`_
+- `Doxygen Documentation`__
+
+__ http://doxygen.lsst.codes/stack/doxygen/xlink_master_2019_02_15_09.16.46/
+
+.. _release-v17-0-functionality:
+
+Major Functionality Changes
+===========================
+
+- :ref:`release-v17-0-proper-motion`
+- :ref:`release-v17-0-ingestDriver`
+- :ref:`release-v17-0-runIsr`
+- :ref:`release-v17-0-ap`
+- :ref:`release-v17-0-obs-lsst`
+- :ref:`release-v17-0-dcr`
+- :ref:`release-v17-0-ppmb`
+- :ref:`release-v17-0-gen3`
+
+.. _release-v17-0-proper-motion:
+
+Proper motion support added to reference catalogs
+-------------------------------------------------
+
+Reference catalogs now support providing proper motions and parallaxes.
+If proper motions are available, then it will be applied to the specified epoch when the catalog is read.
+No correction for parallax is currently made.
+For more information, refer to `this community.lsst.org post`__ and :jira:`RFC-368`.
+
+__ https://community.lsst.org/t/proper-motion-support-added-to-reference-catalogs/3215
+
+.. _release-v17-0-ingestDriver:
+
+Parallelized image ingest
+-------------------------
+
+The new ``ingestDriver.py`` command makes it possible to ingest images to a data repository in parallel, providing significant speed-ups.
+For more information, refer to `this community.lsst.org post`__.
+
+__ https://community.lsst.org/t/introducing-ingestdriver-py/2599
+
+.. _release-v17-0-runIsr:
+
+Stand-alone instrument signature removal
+----------------------------------------
+
+The new ``runIsr.py`` command makes it possible to run instrument signature removal (ISR) from the command line.
+For more information, refer to `this community.lsst.org post`__.
+
+__ https://community.lsst.org/t/runisr-py-can-now-run-stand-alone-isr-processing-from-the-command-line/3275
+
+.. _release-v17-0-ap:
+
+Alert production capabilities
+-----------------------------
+
+The prototype Alert Production Pipeline is now included in the Science Pipelines software distribution.
+This comprises three new software packages:
+
+- dax_ppdb implements the Prompt Products Database;
+- ap_association implements multiple DIASource detections to compose DIAObjects;
+- ap_pipe provides command-line tasks to orchestrate the pipeline, running CCD processing, image differencing, and source association.
+
+For more information, refer to `this community.lsst.org post`__ and :jira:`RFC-521`.
+
+__ https://community.lsst.org/t/ap-pipeline-now-in-the-stack/3298
+
+.. _release-v17-0-obs-lsst:
+
+obs_lsst camera package
+-----------------------
+
+This release provides ``obs_lsst``, a new camera description and configuration package which will provide support for data from the LSST Camera, ComCam, the Auxiliary Telescope camera, camera test stand 8, ImSim, and PhoSim.
+This package is expected to be updated and maintained for the indefinite future.
+Previous packages which provide some of the same functionality (e.g. obs_lsstSim) are provided with this release, but will ultimately be deprecated.
+For more information, refer to the documentation for :ref:`lsst.obs.lsst`.
+
+.. _release-v17-0-dcr:
+
+DCR-corrected template construction
+-----------------------------------
+
+This release contains code for generating image differencing templates corrected for the effects of differential chromatic refraction (DCR).
+For information about the technique adopted, refer to :dmtn:`037`; for documentation on the code, see `lsst.ip.diffim.DcrModel`.
+
+.. _release-v17-0-ppmb:
+
+The “Pessimistic Pattern Matcher b” is now the default astrometric matcher
+--------------------------------------------------------------------------
+
+This new matcher works consistently over the large range of stellar densities which LSST will observe.
+The algorithm and associated validation testing are described in :dmtn:`031`; for more information, refer to `this community.lsst.org post`__.
+
+__ https://community.lsst.org/t/new-astrometric-matcher-is-now-the-default/3559
+
+.. _release-v17-0-gen3:
+
+“Generation 3” middleware
+-------------------------
+
+This release contains early versions of the “Generation 3” Data Butler and ```PipelineTask``` middleware, which are being developed to satisify the requirements described in :ldm:`556`.
+This software is still under heavy development and is not currently deployed for regular data processing by the Data Management team; it should be regarded here as an unsupported preview.
+For more information, refer to the documentation for :ref:`lsst.pipe.base` and :ref:`lsst.daf.butler`.
+
+.. _release-v17-0-interface:
+
+Significant Interface Changes
+=============================
+
+- :ref:`release-v17-0-runDataRef`
+- :ref:`release-v17-0-table-fields`
+- :ref:`release-v17-0-inverted`
+- :ref:`release-v17-0-calibration-flags`
+- :ref:`release-v17-0-blendedness-flags`
+- :ref:`release-v17-0-task-metadata`
+- :ref:`release-v17-0-pybind11`
+- :ref:`release-v17-0-astro-metadata-translator`
+- :ref:`release-v17-0-logging`
+
+.. _release-v17-0-runDataRef:
+
+Reworked Task entrypoints
+-------------------------
+
+All ``Task``\s now provide a consistent interface to their primary functionality.
+The ``Task`` provides a ``run()`` method, which takes as explicit arguments everything the task needs to get its job done.
+``Task``\s may also provide a ``runDataRef()`` method, which takes a Butler “dataRef” as its argument, unpacks it, and calls ``run()``.
+Command line task runners call ``runDataRef()``.
+For further details, refer to `this community.lsst.org post`__ and :jira:`RFC-352`.
+
+__ https://community.lsst.org/t/api-change-for-tasks-rename-run-primarymethod-to-rundataref-run/3054
+
+.. _release-v17-0-table-fields:
+
+Updates to output table field names
+-----------------------------------
+
+All table fields which previously had the suffix ``Sigma`` now have the suffix ``Err``.
+This reflects usage in the Data Products Definition Document (DPDD; :lse:`163`).
+For more information, refer to `this community.lsst.org post`__ and :jira:`RFC-333`.
+
+__ https://community.lsst.org/t/sigma-renamed-to-err-for-centroids-fluxes-and-aperture-corrections/3108
+
+Further, source catalogs have been updated to refer to fluxes with the suffix ``instFlux`` (or “instrumental flux”), rather than simply ``flux`` (which is taken to refer to a calibrated flux).
+The table formerly known as ``InstFlux`` is now called ``GaussianFlux``, which more correctly represents it contents.
+For more information, refer to `this community.lsst.org post`__, :jira:`RFC-322` and :jira:`RFC-510`.
+
+__ https://community.lsst.org/t/sourcecatalog-flux-fields-are-now-instflux/3265
+
+.. _release-v17-0-inverted:
+
+Use ``inverted`` to  get an inverse transform
+---------------------------------------------
+
+Previously, the objects in the codebase representing coordinate transforms (e.g. `lsst.geom.LinearTransform`, `astshim.Mapping`) supported a heterogeneous mix of APIs for retrieving the inverse transform.
+These have now all been standardized to use the method ``inverted()``.
+For more information, refer to `this community.lsst.org post`__ and :jira:`RFC-500`.
+
+__ https://community.lsst.org/t/inverted-is-now-the-standard-method-name-to-get-an-inverse-transform/3122
+
+.. _release-v17-0-calibration-flags:
+
+Changes to calibration flags
+----------------------------
+
+The following changes were made to table field names describing sources used for calibration:
+
+- ``calib_psfCandidate`` was renamed ``calib_psf_candidate``;
+- ``calib_psfUsed`` was renamed ``calib_psf_used``;
+- ``calib_astrometryUsed`` was renamed ``calib_astrometry_used``.
+
+For more information, refer to `this community.lsst.org post`__ and :jira:`RFC-498`.
+
+__ https://community.lsst.org/t/change-in-calibration-flag-names-as-per-rfc-498/3170
+
+.. _release-v17-0-blendedness-flags:
+
+Changes to blendedness flags
+----------------------------
+
+The following changes were made to table field names describing source blendedness:
+
+- ``base_Blendedness_raw_instFlux`` was renamed to ``base_Blendedness_raw``;
+- ``base_Blendedness_abs_instFlux`` was renamed to ``base_Blendedness_abs``;
+- ``base_Blendedness_raw_instFlux_child`` was renamed to ``base_Blendedness_raw_child_instFlux``;
+- ``base_Blendedness_raw_instFlux_parent`` was renamed to ``base_Blendedness_raw_parent_instFlux``;
+- ``base_Blendedness_abs_instFlux_child`` was renamed to ``base_Blendedness_abs_child_instFlux``;
+- ``base_Blendedness_abs_instFlux_parent`` was renamed to ``base_Blendedness_abs_parent_instFlux``;
+- ``deblend_psfFlux`` was renamed to ``deblend_psf_instFlux``.
+
+For more information, refer top `this community.lsst.org post`__ and :jira:`RFC-534`.
+
+__ https://community.lsst.org/t/change-in-naming-of-base-blendedness-and-meas-deblender-fields/3351
+
+.. _release-v17-0-task-metadata:
+
+Task metadata is now written as YAML
+------------------------------------
+
+Previously, metadata was stored as a mix of YAML__ and Boost.serialization__; now, only the former is used.
+For more information, refer to `this community.lsst.org post`__.
+
+__ https://yaml.org
+__ https://www.boost.org/doc/libs/1_69_0/libs/serialization/doc/index.html
+__ https://community.lsst.org/t/task-metadata-now-written-as-yaml/3192
+
+.. _release-v17-0-pybind11:
+
+Changes to wrapping C++ code into Python
+----------------------------------------
+
+DM uses pybind11__ to expose functionality written in C++ to the Python level.
+This release rethinks the way pybind11 is used, to increase robustness and reduce the size of compiled binaries.
+Although it is possible to mix the old and the new techniques within the same software stack, packages must be updated to the new system atomically.
+For more information, refer to `this community.lsst.org post`__ and the `pybind11 section in the Developer Guide`__.
+
+__ https://pybind11.readthedocs.io/en/stable/
+__ https://community.lsst.org/t/new-approach-and-tools-for-pybind11-wrappers/3291
+__ https://developer.lsst.io/pybind11/how-to.html
+
+.. _release-v17-0-astro-metadata-translator:
+
+Changes to metadata extraction from file headers
+------------------------------------------------
+
+The new `astro_metadata_translator`__ package provides a unified interface for extraction of standardized information from image file headers.
+All camera support (“obs”) packages are being updated to use this new system, which will be required for the next generation of DM middleware.
+For more information, refer to `this community.lsst.org post`__.
+
+__ https://astro-metadata-translator.lsst.io
+__ https://community.lsst.org/t/changes-to-metadata-extraction-and-visitinfo-creation/3360
+
+.. _release-v17-0-logging:
+
+Revised logging system
+----------------------
+
+Log messages generated by the standard Python ``logging`` module during the execution of command-line tasks are now forwarded to the :ref:`lsst.log` system.
+Furthermore, utility functions have been added to make it easy to check that the expected log messages have been generated during testing.
+For more information, refer to `this community.lsst.org post`__.
+
+__ https://community.lsst.org/t/logging-changes/3580
+
+.. _release-v17-0-deprecations:
+
+Pending Deprecations
+====================
+
+- :ref:`release-v17-0-deprecate-calib`
+- :ref:`release-v17-0-deprecate-gen2`
+- :ref:`release-v17-0-deprecate-lsstsim`
+
+.. _release-v17-0-deprecate-calib:
+
+Upcoming removal of `lsst.afw.image.Calib`
+------------------------------------------
+
+This is the final major release which provides the `lsst.afw.image.Calib` photometric calibration object.
+Begining with 18.0, `~lsst.afw.image.Calib`, which provides only a photometric zeropoint per CCD, will be replaced with `~lsst.afw.image.PhotoCalib`, which provides a spatially-varying photometric model.
+Some `~lsst.afw.image.Calib` interfaces are supported by `~lsst.afw.image.PhotoCalib`, but full API compatibility is not possible.
+By the time this transition is made, `~lsst.afw.image.PhotoCalib` will be able to read files persisted with `~lsst.afw.image.Calib` objects, so backwards compatibility of on-disk data will be maintained.
+For more information, refer to :jira:`RFC-289` and :jira:`RFC-573`.
+
+.. _release-v17-0-deprecate-gen2:
+
+Upcoming removal of “Generation 2” Middleware
+---------------------------------------------
+
+The “Generation 3” middleware :ref:`included in this release <release-v17-0-gen3>` is ultimately intended to supplant the current (“Generation 2”) Data Butler and command-line task functionality.
+We expect to deliver a final major release supporting the Generation 2 functionality in late calendar year 2019.
+Following that release, the “Generation 2” middleware will be removed from the codebase.
+This will include:
+
+- The daf_persistence package, to be replaced by daf_butler;
+- `lsst.pipe.base.CmdLineTask`, to be replaced by `lsst.pipe.base.PipelineTask`;
+- The pipe_drivers and ctrl_pool packages, for which replacements are still in development.
+
+.. _release-v17-0-deprecate-lsstSim:
+
+Upcoming removal of the `obs_lsstSim` package
+---------------------------------------------
+
+With the introduction of the new `obs_lsst` package, there is no longer a need for the `obs_lsstSim` package.
+Current work should move to using `obs_lsst` as soon as possible.
+Repositories using `obs_lsstSim` will need to be reprocessed using `obs_lsst`.
+For the most part this transition will be transparent to end users.
+The only code updates needed are in the simulations related packages.
+The porting work for simulations is planned for the Summer of 2019.
+We believe that `obs_lsstSim` can be archived after the release in late calendar year 2019.
+
+.. _release-v17-0-1-patch:
+
+17.0.1 patch release
+--------------------
+
+This patch fixes an issue that affects users of the :ref:`lsst.display.firefly` display backend on the Notebook Aspect of the LSST Science Platform.
+The viewer ID was not being set.
+See :jira:`DM-18167` for additional information.

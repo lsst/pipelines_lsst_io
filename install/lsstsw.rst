@@ -1,3 +1,5 @@
+.. _install-lsstsw:
+
 #######################################
 Installation with lsstsw and lsst-build
 #######################################
@@ -18,14 +20,10 @@ If you have issues using lsstsw, here are two ways to get help:
 1. Prerequisites
 ================
 
-The LSST Science Pipelines can generally be compiled on CentOS, Debian, and macOS platforms.
-See :ref:`prereq-platforms` for information about LSST's official reference platform and build reports with other platforms.
+The LSST Science Pipelines are developed and tested primarily on CentOS, but can be compiled and run on macOS, Debian, Ubuntu, and other Linux distributions.
+See :ref:`prereq-platforms` for information about LSST's official reference platform and build reports with other platforms, and follow the instructions under :ref:`system-prereqs` to ensure you have installed the prerequisite software for your platform.
 
-Before you begin:
-
-- Install prerequisites for your platform: :doc:`CentOS / RedHat <prereqs/centos>`, :doc:`Debian / Ubuntu <prereqs/debian>`, or :doc:`macOS <prereqs/macos>`.
-- If you intend to use a Git LFS repository, like `testdata_ci_hsc`_ or `afwdata`_, :doc:`install and configure Git LFS <git-lfs>`.
-- If you opt not to use the default Python environment provided by ``lsstsw`` you will need to :ref:`install these Python dependencies <python-deps>`.
+If you intend to use a Git LFS repository, like `testdata_ci_hsc`_ or `afwdata`_, you should `configure Git LFS <git-lfs>` before you begin.
 
 .. _lsstsw-deploy:
 
@@ -39,7 +37,7 @@ Begin by choosing a working directory, then deploy ``lsstsw`` into it:
    git clone https://github.com/lsst/lsstsw.git
    cd lsstsw
    ./bin/deploy
-   source bin/setup.sh
+   source bin/envconfig.sh
 
 For more information about the :command:`deploy` command, see :ref:`lsstsw-about-deploy`.
 
@@ -96,22 +94,22 @@ In every new shell session you will need to set up the Science Pipelines environ
 
 Run these two steps:
 
-1. Activate the lsstsw software environment by sourcing the :file:`setup.sh` script in lsstsw's :file:`bin` directory:
+1. Activate the lsstsw software environment by sourcing the :file:`envconfig.sh` script in lsstsw's :file:`bin` directory:
 
    .. code-block:: bash
-   
-      source bin/setup.sh
+
+      source bin/envconfig.sh
 
    If you are running in a :command:`csh` or :command:`tcsh`, run this set up script instead:
 
    .. code-block:: bash
-   
-      source bin/setup.csh
+
+      source bin/envconfig.csh
 
 2. Set up a :doc:`top-level package <top-level-packages>`:
 
    .. code-block:: bash
-   
+
       setup lsst_distrib
 
    Instead of ``lsst_distrib``, you can set up a different top-level package like ``lsst_apps`` or any individual EUPS package you previously installed.
@@ -143,7 +141,7 @@ The ``deploy`` script automates several things to prepare an LSST development en
 6. Clones versiondb_, a robot-managed Git repository of package dependency information.
 7. Creates an empty stack *installation* directory, :file:`stack/`.
 
-This environment, including the EUPS, Miniconda, Git, and Git LFS software, is only activated when you source the :file:`bin/setup.sh` or :file:`bin/setup.csh` scripts in a shell.
+This environment, including the EUPS, Miniconda, Git, and Git LFS software, is only activated when you source the :file:`bin/envconfig.sh` or :file:`bin/envconfig.csh` scripts in a shell.
 Otherwise, lsstsw does not affect the software installed on your computer.
 
 See also: :ref:`lsstsw-deploy-ref`.
