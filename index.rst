@@ -2,8 +2,8 @@
 The LSST Science Pipelines
 ##########################
 
-The LSST Science Pipelines enable optical and near-infrared astronomy in the big data era.
-We are building the Science Pipelines for the `Rubin Observatory Legacy Survey of Space and Time (Rubin’s LSST) <https://lsst.org/>`_, but our command-line task and Python API can be extended for any optical or near-infrared dataset.
+The LSST Science Pipelines are designed to enable optical and near-infrared astronomy in the “big data” era.
+While they are being developed to process the data for the `Rubin Observatory Legacy Survey of Space and Time (Rubin’s LSST) <https://lsst.org/>`_, our command line and programming interfaces can be extended to address any optical or near-infrared dataset.
 
 This documentation covers version |eups-tag-bold|.
 :ref:`Learn what's new <release-latest>`.
