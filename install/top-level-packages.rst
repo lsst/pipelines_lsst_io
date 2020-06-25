@@ -37,7 +37,7 @@ In addition to the contents of ``lsst_apps``, it provides the following packages
 - `ctrl\_pool <https://github.com/lsst/ctrl_pool>`_
 - `display\_firefly <https://github.com/lsst/display_firefly>`_
 - `display\_matplotlib <https://github.com/lsst/display_matplotlib>`_
-- `eigen <https://github.com/lsst/eigen>`_
+- `eigen <https://github.com/lsst/eigen>`_ (Eigen is also installed through our :ref:`Conda environment <system-prereqs>`; this version is only necessary to support Jointcal)
 - `fgcm <https://github.com/lsst/fgcm>`_
 - `fgcmcal <https://github.com/lsst/fgcmcal>`_
 - `firefly\_client <https://github.com/lsst/firefly_client>`_
