@@ -1,9 +1,8 @@
-:orphan: True
-
 .. _release-v12-0-qserv-dax:
 
+#######################################################
 Winter 2016 & X2016 QServ and Data Access Release Notes
-=======================================================
+#######################################################
 
 The 12.0 release of the LSST Science Pipelines includes Qserv release 2016_05.
 
@@ -18,7 +17,7 @@ The 12.0 release of the LSST Science Pipelines includes Qserv release 2016_05.
 .. _release-v12-0-qserv-major-changes:
 
 Major Functionality and Interface Changes
------------------------------------------
+=========================================
 
 - :ref:`release-v12-0-qserv-shared-scans`
 - :ref:`release-v12-0-qserv-large-results`
@@ -36,7 +35,7 @@ Major Functionality and Interface Changes
 .. _release-v12-0-qserv-shared-scans:
 
 Shared scan performance improvements
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------------
 
 Qserv's shared scan capability was extensively reworked, including a new scheduler and page-locking memory
 support on the workers. Performance was greatly improved.
@@ -45,7 +44,7 @@ support on the workers. Performance was greatly improved.
 .. _release-v12-0-qserv-large-results:
 
 Robustness with large (multi-gigbyte) result sets
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------------------------
 
 Qserv previously had an issue where dense and highly distributed queries could cause workers to "fire-hose"
 the czar, causing it to lock up or fail due to memory and/or CPU exhaustion.  Threading and flow control
@@ -56,16 +55,16 @@ LUA code was also addressed.
 .. _release-v12-0-qserv-query-cancellation:
 
 Query cancellation
-^^^^^^^^^^^^^^^^^^
+------------------
 
 Query cancellation improvements and rework begun in the W16 cycle were completed.  Queries in flight are
-now canceled robustly on both czar and workers when a user types ^C to the mysql client.
+now canceled robustly on both czar and workers when a user types -C to the mysql client.
 :jirab:`DM-2699,DM-3562,DM-3564,DM-3946,DM-3945`
 
 .. _release-v12-0-qserv-query:
 
 Query coverage
-^^^^^^^^^^^^^^
+--------------
 
 Qserv now correctly handles queries with "where objectId between", and "where objectId in".
 :jirab:`DM-2873,DM-2887`
@@ -73,7 +72,7 @@ Qserv now correctly handles queries with "where objectId between", and "where ob
 .. _release-v12-0-qserv-logging:
 
 Logging improvements
-^^^^^^^^^^^^^^^^^^^^
+--------------------
 
 Qserv log messages now include user-friendly thread IDs and unique query IDs.  This improves consumability
 of logs for both real users and automated tools.
@@ -82,7 +81,7 @@ of logs for both real users and automated tools.
 .. _release-v12-0-qserv-sqlalchemy:
 
 SQLAlchemy client support
-^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------
 The SQlAlchemy client library makes a few probe queries on connect to assess Unicode support by the engine.
 Some of these queries were problematic for the czar.  This was addressed and SQLAlchemy can now be used as
 an alternative client for Qserv.
@@ -91,7 +90,7 @@ an alternative client for Qserv.
 .. _release-v12-0-qserv-sql-css:
 
 SQL-based CSS implementation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------
 
 Qserv's central shared-state (CSS) meta-data service implementation, formerly based on Zookeeper, was
 replaced with a more robust and transactional SQL-based implementation. Dependencies on Zookeeper were
@@ -101,7 +100,7 @@ removed from the build.
 .. _release-v12-0-qserv-multinode-docker:
 
 Multi-node integration tests via Docker
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------------------
 
 A multi-node integration test suite was added, which may be run on a single host via Docker.  The multi-node
 integration test is integrated with Travis CI, and now runs automatically on commits to all branches
@@ -111,7 +110,7 @@ of the LSST Qserv git repo on github.
 .. _release-v12-0-qserv-database-delete:
 
 Distributed table and database deletion
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------------------
 
 Distributed table and database deletion were implemented.  Watcher process (wmgr) does deletion on workers,
 and state is synchronized via CSS.
@@ -120,7 +119,7 @@ and state is synchronized via CSS.
 .. _release-v12-0-qserv-mariadb:
 
 Qserv stack now based on MariaDB
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------
 
 Qserv and all associated services and libraries were ported from MySQL to MariaDB.  Dependencies on mysql and
 mysqlclient were removed from the build.
@@ -129,7 +128,7 @@ mysqlclient were removed from the build.
 .. _release-v12-0-qserv-czar-in-proxy:
 
 Czar now in-process with mysqlproxy
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------------
 The Qserv czar was previously wrapped with SWIG then hosted within a Python process which communicated with
 mysqlproxy over an XMLRPC interface implemented in Twisted and LUA.  The czar has been reworked so it is
 now directly wrapped to LUA and brought into the mysqlproxy process.  This allowed elimination of the XMLRPC
@@ -140,7 +139,7 @@ Python involvement from the proxy/czar process.
 .. _release-v12-0-qserv-docs:
 
 Documentation updates
-^^^^^^^^^^^^^^^^^^^^^
+---------------------
 
 Qserv user and installation documentation
 (`Qserv 2016_05 documentation <https://www.slac.stanford.edu/exp/lsst/qserv/2016_05/>`_)
@@ -150,7 +149,7 @@ was updated/corrected.
 .. _release-v12-0-qserv-bug-fixes:
 
 Bug Fixes
----------
+=========
 
 - :ref:`release-v12-0-qserv-service-timeout`
 - :ref:`release-v12-0-qserv-testqdisp`
@@ -159,7 +158,7 @@ Bug Fixes
 .. _release-v12-0-qserv-service-timeout:
 
 Service timeout failure fix
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------
 Qserv services would crash in some instances if left running for several days.  The cause was tracked down
 to a missing null handle check in a mysql wrapper library, which was provoked when server connections would
 timeout.
@@ -168,7 +167,7 @@ timeout.
 .. _release-v12-0-qserv-testqdisp:
 
 Intermittent testQdisp unit test failure
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------------
 
 This was tracked down to a problem with the Executive class mocks used by the unit test.  These mocks did
 not handle threading during cancellation correctly.
@@ -177,7 +176,7 @@ not handle threading during cancellation correctly.
 .. _release-v12-0-qserv-match-tables:
 
 Data loader didn't work for match tables
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------------
 
 The qserv-data-loader.py script was not invoking the correct partitioner for match tables, and was not
 passing all required CSS parameters down to the CSS update code.
@@ -186,7 +185,7 @@ passing all required CSS parameters down to the CSS update code.
 .. _release-v12-0-qserv-internal-improvements:
 
 Build and Code Improvements
----------------------------
+===========================
 
 - :ref:`release-v12-0-qserv-stream-logs`
 - :ref:`release-v12-0-qserv-scons`
@@ -204,7 +203,7 @@ Build and Code Improvements
 .. _release-v12-0-qserv-stream-logs:
 
 Stream based logging macros
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------
 
 Qserv was cut over to using stream based logging macros exclusively, and the boost format style logging
 macros (considered harmful) were removed from the LSST log package.  A redundant logging wrapping layer
@@ -214,7 +213,7 @@ in qserv was also removed.
 .. _release-v12-0-qserv-scons:
 
 Build improvements
-^^^^^^^^^^^^^^^^^^
+------------------
 
 Overly verbose build output from scons was greatly reduced.  Scons files were reworked to treat shared
 libraries consistently, and some latent incorrect shared lib linkages were corrected.  Scons files were also
@@ -224,7 +223,7 @@ adjusted to avoid unnecessary copying of the source tree into the build tree.
 .. _release-v12-0-qserv-compilers:
 
 Compiler support
-^^^^^^^^^^^^^^^^
+----------------
 
 Issues were addressed to ensure that qserv builds and passes all unit tests on Linux with gcc 4.8.5 - 5.3.1,
 and on MacOSX with XCode 7.3.0.  Warnings were addressed wherever possible, and the builds are now largely
@@ -235,7 +234,7 @@ the Eclipse Neon C++ code analyzer were also addressed wherever possible.
 .. _release-v12-0-qserv-style:
 
 C++ style and conformance
-^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------
 
 Various small systematic changes were made across the Qserv code base for style consistency.  Anonymous
 namespaces were moved to top level of translation units. A single space was added after "if" before
@@ -246,7 +245,7 @@ uint type was replaced with unsigned int.
 .. _release-v12-0-qserv-lib-updates:
 
 Library updates
-^^^^^^^^^^^^^^^
+---------------
 
 Qserv was rolled forward to scisql 0.3.5, mysqlproxy 0.8.5, boost 1.60, and the latest changes from
 XRootD were incorporated.  We also moved from using a forked version of the sphgeom library to following the
@@ -256,7 +255,7 @@ tip of the official LSST version.
 .. _release-v12-0-qserv-dead-code:
 
 Dead code removal
-^^^^^^^^^^^^^^^^^
+-----------------
 
 Unused worker configuration templates and deprecated czar merging codes were removed.  Unused objectId
 hinting code was removed from the proxy LUA miniParser.
@@ -265,7 +264,7 @@ hinting code was removed from the proxy LUA miniParser.
 .. _release-v12-0-qserv-docker:
 
 Docker improvements
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 Docker container build and deploy scripts continued to be extended, enhanced, and debugged.  Scripts are
 currently based on shmux, and have been used for administration of multiple qserv clusters
@@ -275,7 +274,7 @@ at both NCSA and IN2P3.
 .. _release-v12-0-qserv-integration-tests:
 
 Integration test improvements
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 Integration tests were added involving blobs and non-box spatial constraints.  Additionally, a facility to
 reset the empty chunk list in the czar was added, which greatly streamlines the integration tests.
@@ -284,7 +283,7 @@ reset the empty chunk list in the czar was added, which greatly streamlines the 
 .. _release-v12-0-qserv-futurize:
 
 Modernize python code in Qserv admin tools
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------------------
 
 Python admin scripts were run through "futurize -1".  One print change was made to runQueries.py.
 :jirab:`DM-6324`
@@ -292,7 +291,7 @@ Python admin scripts were run through "futurize -1".  One print change was made 
 .. _release-v12-0-qserv-worker-config:
 
 Worker configuration files
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------
 
 INI file style configuration support was added for the worker, in support of being able to configure
 shared scans without resorting to environment variables.
@@ -301,7 +300,7 @@ shared scans without resorting to environment variables.
 .. _release-v12-0-qserv-taskmsgfactory2:
 
 Rename TaskMsgFactory2
-^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
 to TaskMsgFactory.  I can't believe we track this kind of nonsense.
 :jirab:`DM-2060`
@@ -309,7 +308,7 @@ to TaskMsgFactory.  I can't believe we track this kind of nonsense.
 .. _release-v12-0-qserv-installation-files:
 
 Clean up installation files
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------
 
 Directories cfg/ and proxy/ in the qserv install tree were moved under share/ and lib/ for consistency.
 :jirab:`DM-1355`

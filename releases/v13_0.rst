@@ -1,28 +1,800 @@
-###################################
-LSST Stack 13.0 / Fall 2016 Release
-###################################
+.. _release-v13-0:
 
-Version 13.0 of the LSST Science Pipelines (aka F16) is now available.
+#########################
+Release 13.0 (2017-02-28)
+#########################
 
-LSST Pipelines
-==============
++-------------------------------------------+------------+
+| Source                                    | Identifier |
++===========================================+============+
+| Git tag                                   | 13.0       |
++-------------------------------------------+------------+
+| :doc:`EUPS distrib </install/newinstall>` | v13\_0     |
++-------------------------------------------+------------+
 
-Full details of the LSST Science Pipelines 13.0 release can be found
-in the :ref:`extensive release notes <release-v13-0>`.  We have also
-published a `Characterization Metric Report <https://ls.st/DMTR-15>`_.
+This release is based on the ``w_2017_33`` weekly build.
 
-Qserv and Data Access
-=====================
+.. toctree::
+   :hidden:
 
-The database team is on a separate release cadence. Their highlights for the Fall 2016 period can be found in the :doc:`Qserv DAX Fall 2016 highlights  <v13_0_qserv_dax>`
+   v13_0_qserv_dax
+   v13_0_sui
 
-Science User Interface
-======================
+- :ref:`release-v13-0-major-changes`
+- :ref:`release-v13-0-bug-fixes`
+- :ref:`release-v13-0-internal-improvements`
+- :doc:`Qserv and Data Access <v13_0_qserv_dax>`
+- :doc:`Science User Interface <v13_0_sui>`
 
-The Science User Interface (SUI) team releases their codebase independently. Their highlights for the Fall 2016 period can be found in the :doc:`SUI Fall 2016 highlights <v13_0_sui>`
+*See also:*
 
-Join Us on the Community Forum
-==============================
+- :doc:`Installation instructions <../install/index>`
+- :doc:`Known issues </known-issues>`
+- `Characterization Metric Report (DMTR-15) <https://ls.st/DMTR-15>`_
 
-If you have questions or comments or comments about the LSST Science Pipelines,
-visit our community forum for advice: https://community.lsst.org/.
+.. _release-v13-0-major-changes:
+
+Major Functionality and Interface Changes
+=========================================
+
+- :ref:`release-v13-0-kron-photometry`
+- :ref:`release-v13-0-stack-provenance`
+- :ref:`release-v13-0-multiband-metadata`
+- :ref:`release-v13-0-oversampling-psfex`
+- :ref:`release-v13-0-hsc-filters`
+- :ref:`release-v13-0-multi-band-reference`
+- :ref:`release-v13-0-afterburner-rename`
+- :ref:`release-v13-0-centroid-checker`
+- :ref:`release-v13-0-ctrl-pool-no-batch`
+- :ref:`release-v13-0-directmatch`
+- :ref:`release-v13-0-show-history`
+- :ref:`release-v13-0-default-frame`
+- :ref:`release-v13-0-display-attributes`
+- :ref:`release-v13-0-new-fitter`
+- :ref:`release-v13-0-unified-exposure-metadata`
+- :ref:`release-v13-0-catalog-metadata`
+- :ref:`release-v13-0-propertylist-headers`
+- :ref:`release-v13-0-no-deblending`
+- :ref:`release-v13-0-correct-psf-matching`
+- :ref:`release-v13-0-galaxy-shredding`
+- :ref:`release-v13-0-cmodel-units`
+- :ref:`release-v13-0-spherepoint`
+- :ref:`release-v13-0-psf-bbox`
+- :ref:`release-v13-0-sdssshape-psf`
+- :ref:`release-v13-0-sfm-psf`
+- :ref:`release-v13-0-hsc-isr`
+
+.. _release-v13-0-kron-photometry:
+
+Added a measurement extension which performs Kron photometry
+------------------------------------------------------------
+
+The :lclass:`KronFluxAlgorithm` measures the flux in an elliptical aperture as defined by `Kron (1980) <http://adsabs.harvard.edu/abs/1980ApJS...43..305K>`_.
+The plugin is not enabled by default, but may be switched on by requesting ``ext_photometryKron_KronFlux`` in measurement configuration.
+
+:jirab:`DM-3440, DM-6561`
+
+.. _release-v13-0-stack-provenance:
+
+Added a package version tracking system (“stack provenance”)
+------------------------------------------------------------
+
+A package version tracking and checking capability has been included in the stack and integrated with the :lclass:`CmdLineTask` system.
+This keeps track of what versions of packages are being used in order to prevent the user from unwittingly processing data with multiple, subtly different, versions of the code.
+This provides a provisional implementation of a provenance tracking system: it is essential for short-term use, but will be rendered obsolete before we move to operations.
+A more detailed description of this system is available on the `LSST Community Forum <https://community.lsst.org/t/package-version-tracking-and-checking-stack-provenance/840>`_.
+
+:jirab:`DM-3372`
+
+.. _release-v13-0-multiband-metadata:
+
+Multi-band coadd processing now saves metadata
+----------------------------------------------
+
+Metadata describing the operation of algorithms within the `multi-band coadd processing framework <https://lsst-web.ncsa.illinois.edu/doxygen/x_masterDoxyDoc/pipe_tasks_multi_band.html>`_ is now correctly persisted along with their outputs.
+
+:jirab:`DM-4991`
+
+.. _release-v13-0-oversampling-psfex:
+
+Disabled oversampling in PSFEx
+------------------------------
+
+Experiments with Hyper Suprime-Cam have established that oversampling does not work well in `PSFEx <http://www.astromatic.net/software/psfex>`_, one of the PSF estimation algorithms available in the stack.
+It has therefore been disabled in the default configuration used for LSST.
+
+:jirab:`DM-6982`
+
+.. _release-v13-0-hsc-filters:
+
+Added support for new Hyper Suprime-Cam filters
+-----------------------------------------------
+
+The HSC I2, R2, NB0468 and NB0926 filters are now defined in the ``obs_subaru`` camera package.
+
+:jirab:`DM-7045, DM-7510, DM-8913`
+
+.. _release-v13-0-multi-band-reference:
+
+Multi-band coadd processing no longer selects flagged bands as reference
+------------------------------------------------------------------------
+
+The algorithm used to select the reference band in multi-band coadd processing has been updated to avoid bands with certain user-specified flags set.
+By default, these flags include the source having an interpolated centre, or errors detected with PSF, Kron or CModel fluxes.
+
+:jirab:`DM-7044`
+
+.. _release-v13-0-afterburner-rename:
+
+Renamed the "afterburner" system to :lclass:`CatalogCalculation`
+----------------------------------------------------------------
+
+The “afterburner” system was added to the stack in the previous (v12) release.
+It provides a capability to run algorithms akin to our regular measurements, but which only take inputs from catalogs (i.e. not using pixel data).
+To avoid ambiguity, this system has been renamed :lclass:`CatalogCalculation`.
+
+:jirab:`DM-6919, DM-7421`
+
+.. _release-v13-0-centroid-checker:
+
+Added sanity checking for source centroids
+------------------------------------------
+
+Centroid finding measurement algorithms were updated to ensure that the centroids they find fall within the footprint of the source being centroided.
+If not, the returned value is forced to correspond to the position of the most significant peak within the Footprint, and a flag is set to indicate the error.
+
+:jirab:`DM-4926`
+
+.. _release-v13-0-ctrl-pool-no-batch:
+
+Added ability to run ``ctrl_pool`` processes without a batch system
+-------------------------------------------------------------------
+
+The option ``--batch-type none`` (or ``None``) runs the command in your process as normal.
+This means that tools relying on ``ctrl_pool``, such as the ``pipe_drivers`` scripts, need not rely on MPI.
+
+:jirab:`DM-7900, DM-7943`
+
+.. _release-v13-0-directmatch:
+
+Added ability to match against reference catalog without rotation, offset or WCS fitting
+----------------------------------------------------------------------------------------
+
+The new :lclass:`DirectMatchTask` matches sources against a reference catalog without performing any rotation, offset or WCS fitting.
+This provides a simpler and less error-prone option for matching sources for quality assessment.
+The :lclass:`MeasureMergedCoaddSourcesTask` has been modified to make use of this new :lclass:`DirectMatchTask`.
+
+:jirab:`DM-7117`
+
+.. _release-v13-0-show-history:
+
+Added functionality to show where configuration is being set and overridden
+---------------------------------------------------------------------------
+
+You can now specify a command line argument of the form ``--show history=config.foo.bar`` to see where configuration parameter ``foo.bar`` is set and (if applicable) overridden (the leading ``config.`` is optional).
+N.B. pipe to ``cat`` to turn of colourization (or investigate :lclass:`lsst.pex.config.history.Color`).
+
+:jirab:`DM-5421, DM-7490`
+
+.. _release-v13-0-default-frame:
+
+``frame`` now defaults to ``None`` when creating a new :lclass:`Display`
+------------------------------------------------------------------------
+
+When using the :lmod:`afw.display` system to create a new :lclass:`Display` object, the ``frame`` argument is now optional: it will default to ``None`` if not specified.
+
+:jirab:`RFC-241, DM-7848`
+
+.. _release-v13-0-display-attributes:
+
+Attribute access to :lclass:`Display` objects is now passed through to the underlying implementation
+----------------------------------------------------------------------------------------------------
+
+Some :lmod:`afw.display` device types may provide implementation-specific functionality.
+This may now be accessed directly through the :lclass:`Display` object, which will delegate to implementation-specific methods, if they exist, when a non-standard method is called on the :lclass:`Display`.
+
+:jirab:`RFC-241, DM-7848`
+
+.. _release-v13-0-new-fitter:
+
+Added a new fitter for astrometric distortions
+----------------------------------------------
+
+A new fitter task, :lclass:`meas.astrom.FitSipDistortionTask` has been added that will eventually replace the current fitter, :lclass:`meas.astrom.FitTanSipWcsTask`.
+The new fitter should be more robust and certainly uses a better-motivated algorithm, but it has not yet received enough testing to be used as the default and hence must be enabled explicitly.
+When running :file:`processCcd.py`, this can be done with the following config file::
+
+   from lsst.meas.astrom import FitSipDistortionTask
+   config.charImage.astrometry.wcsFitter.retarget(FitSipDistortionTask)
+   config.calibrate.astrometry.wcsFitter.retarget(FitSipDistortionTask)
+
+The new fitter is not compatible with :lclass:`meas.astrom.ANetAstrometryTask`.
+
+:jirab:`DM-3549`
+
+.. _release-v13-0-unified-exposure-metadata:
+
+Unified exposure metadata
+-------------------------
+
+Exposures now contain a new :lclass:`VisitInfo` object that contains useful information about the overall visit (none of it specific to the individual CCD), including the exposure time, date and ID, boresight position and airmass.
+See the `community.lsst.org post on unified exposure metadata <https://community.lsst.org/t/unified-exposure-metadata/1214>`_ for more information.
+
+:jirab:`RFC-199, DM-5503`
+
+.. _release-v13-0-catalog-metadata:
+
+Added convenient access to catalog metadata
+-------------------------------------------
+
+It is now possible to read the metadata, length and schema of a catalog through a Butler interface without loading the whole catalog.
+For example, given a particular data ID (``dataID``) and catalog dataset type (``someCatalog``), one can run::
+
+   butler.get("someCatalog_schema", dataId)
+   butler.get("someCatalog_len", dataId)
+   butler.get("someCatalog_md", dataId)
+
+:jirab:`DM-8211, DM-8212`
+
+.. _release-v13-0-propertylist-headers:
+
+FITS headers are now read & returned in order
+---------------------------------------------
+
+:lfunc:`lsst.afw.image.readMetadata` now returns a :lclass:`PropertyList`, which maintains the intrinsic ordering of the header keywords in the FITS file it is reading.
+Previous versions used a :lclass:`PropertySet`, which is unordered and hence lost this information.
+
+:jirab:`DM-8213`
+
+.. _release-v13-0-no-deblending:
+
+Added functionality for performing measurement without deblending
+-----------------------------------------------------------------
+
+The deblender sometimes runs into trouble with galaxies in clusters, leading to inaccurate fluxes.
+To mitigate, we can now provide measurements performed without any deblending having taken place.
+To activate this functionality, specify the measurement plugins to be run without deblending in the undeblended registry attached to the measurement class (this is analogous to the plugins registry used when performing measurement on deblended sources).
+By default, no undeblended measurement is performed.
+This functionality is available in both forced and single-frame measurement.
+
+:jirab:`DM-6785, DM-7889`
+
+.. _release-v13-0-correct-psf-matching:
+
+Corrected order of operation when construction PSF-matched coadds
+-----------------------------------------------------------------
+
+:lclass:`WarpAndPsfMatchTask` has been updated so that, by default, it will first warp inputs to the coadd projection and then perform PSF matching; this is the reverse of its previous behaviour.
+The new behaviour is preferable, but a configuration option makes it possible to revert to the old method on request.
+
+:jirab:`DM-8088`
+
+.. _release-v13-0-galaxy-shredding:
+
+Reduced galaxy “shredding” when deblending
+------------------------------------------
+
+If galaxies have substructure, such as face-on spirals, the process of identifying peaks can “shred” the galaxy into many pieces.
+The templates of shredded galaxies are typically quite similar because they represent the same galaxy.
+We try to identify these “degenerate” peaks by looking at the inner product (in pixel space) of pairs of templates.
+If they are nearly parallel, we only keep one of the peaks an reject the other.
+This behaviour is enabled by the ``removeDegenerateTemplates`` option in :lclass:`SourceDeblendConfig`; by default, it is disabled.
+Note that it is *not* safe to enable ``removeDegenerateTemplates`` when using the multi-band coadd processing framework: it should only be used when calling :lclass:`SourceDeblendTask` directly.
+
+:jirab:`DM-4550`
+
+.. _release-v13-0-cmodel-units:
+
+Corrected CModel table schema units
+-----------------------------------
+
+Units for the time field changed from seconds to second to comply with the `Astropy <http://www.astropy.org/>`_ convention.
+
+:jirab:`DM-6282`
+
+.. _release-v13-0-spherepoint:
+
+Added the :lclass:`SpherePoint` class to represent positions on the sphere
+--------------------------------------------------------------------------
+
+The :lclass:`SpherePoint` class allows locations on the celestial (or any other) sphere to be represented and manipulated without the coordinate-system complications associated with :lclass:`Coord`.
+
+:jirab:`DM-5529`
+
+.. _release-v13-0-psf-bbox:
+
+Added :lfunc:`computeBBox` method to all PSF classes
+----------------------------------------------------
+
+Calling :lfunc:`computeBBox` on a PSF returns its bounding box. It is available for all PSF classes distributed with the stack.
+
+:jirab:`DM-8175`
+
+.. _release-v13-0-sdssshape-psf:
+
+PSF moments are now included in the :lclass:`SdssShape` results
+---------------------------------------------------------------
+
+The ``base_SdssShape`` measurement algorithm has been updated to record the adaptive moments of the PSF in its outputs.
+This functionality may be disabled by setting the configuration parameter ``doMeasurePsf`` to ``False``.
+
+:jirab:`DM-6928, DM-8714`
+
+.. _release-v13-0-sfm-psf:
+
+Single frame processing no longer requires a PSF
+------------------------------------------------
+
+When :lclass:`ProcessCcdTask` is used to process an exposure which does not have an associated :lclass:`Psf` and PSF measurement is disabled (i.e. the ``doMeasurePsf`` configuration option is ``False``) we now assume a default PSF rather than raising an error.
+
+:jirab:`DM-6045`
+
+.. _release-v13-0-hsc-isr:
+
+Added basic ISR capability for Hyper Suprime-Cam
+------------------------------------------------
+
+Normally, instrument signature removal (ISR) is carried out during pipeline processing as part of :lclass:`ProcessCcdTask`.
+Occasionally, it is convenient to perform ISR without full pipeline processing.
+To make this more convenient, :file:`hscIsr.py` provides a simple front-end which simply performs ISR on HSC data without any further processing.
+
+:jirab:`DM-9186`
+
+.. _release-v13-0-bug-fixes:
+
+Bug Fixes
+=========
+
+- :ref:`release-v13-0-config-dict`
+- :ref:`release-v13-0-temp-local-bg`
+- :ref:`release-v13-0-convolution-mem`
+- :ref:`release-v13-0-galsim-error`
+- :ref:`release-v13-0-repr-star-selector`
+- :ref:`release-v13-0-sfm-cpu-cores`
+- :ref:`release-v13-0-coadd-src-transform`
+- :ref:`release-v13-0-duplicate-headers`
+- :ref:`release-v13-0-angle-rigor`
+- :ref:`release-v13-0-infinite-recursion`
+- :ref:`release-v13-0-div-zero`
+- :ref:`release-v13-0-dataset-lookup`
+- :ref:`release-v13-0-fringe-masks`
+- :ref:`release-v13-0-mpi-pickle`
+- :ref:`release-v13-0-double-shapelet-optimizer`
+- :ref:`release-v13-0-failed-config-persistence`
+- :ref:`release-v13-0-forced-phot-schema`
+- :ref:`release-v13-0-check-darktime`
+- :ref:`release-v13-0-sconsutils-sort`
+
+.. _release-v13-0-config-dict:
+
+Corrected configuration dictionary comparisons
+----------------------------------------------
+
+Resolved a bug whereby comparison of (intrinsically unordered) configuration dictionaries incorrectly compared their ordering rather than just their contents.
+This lead to unexpected failure of re-runs due to incorrectly identified “mismatched configurations”.
+
+:jirab:`DM-6661`
+
+.. _release-v13-0-temp-local-bg:
+
+Restored capability to calculate temporary local backgrounds in source detection
+--------------------------------------------------------------------------------
+
+Our :lclass:`SourceDetectionTask` provides the optional capability of fitting and temporarily removing a local background before detecting sources.
+This capability was accidentally disabled in the X/W16 release (v12); it has now been restored.
+It is disabled by default.
+
+:jirab:`DM-5323`
+
+.. _release-v13-0-convolution-mem:
+
+Resolved a memory error in convolution
+--------------------------------------
+
+A memory handling error could cause our convolution code to generate incorrect results on some platforms (problems observed on macOS when the code is built without optimization; no errors seen on Linux, or when building with -O2 or -O3 on macOS).
+This appears to originate in the `Boost Generic Image Library <http://www.boost.org/doc/libs/release/libs/gil/>`_, an external dependency of the LSST stack.
+We have been unable to isolate the problem in Boost, but have worked around it for our particular use case.
+
+:jirab:`DM-5822`
+
+.. _release-v13-0-galsim-error:
+
+Patched GalSim to raise an exception in some error conditions
+-------------------------------------------------------------
+
+On certain error conditions, `GalSim <https://github.com/GalSim-developers/GalSim/>`_, a third party package used by the LSST stack, generates an assertion failure which is hard for our code to handle appropriately.
+LSST's version of GalSim has been patched to raise a more appropriate exception instead.
+This change has now been included in GalSim itself.
+
+:jirab:`DM-7114`
+
+.. _release-v13-0-repr-star-selector:
+
+Ensured star selector results are reproducible
+----------------------------------------------
+
+Resolved an issue whereby the star selection could change depending on the number of CPU cores in use.
+
+:jirab:`DM-7040`
+
+.. _release-v13-0-sfm-cpu-cores:
+
+Fixed single frame measurement so it can exploit multiple CPU cores
+-------------------------------------------------------------------
+
+Resolved an issue whereby the :lclass:`SingleFrameDriverTask` failed to use more than one CPU core regardless of configuration.
+
+:jirab:`DM-7134`
+
+.. _release-v13-0-coadd-src-transform:
+
+Fixed typo in :lclass:`CoaddSrcTransformTask`
+---------------------------------------------
+
+A typo which rendered CoaddSrcTransformTask inoperable was resolved.
+In the process, the tests for this task were significantly upgraded to avoid a repeat of this, or other, problems.
+
+:jirab:`DM-6635`
+
+.. _release-v13-0-duplicate-headers:
+
+Stop writing duplicate ``AR_NAME`` headers when persisting data
+---------------------------------------------------------------
+
+When persisting objects to FITS, we were incorrectly writing duplicate ``AR_NAME`` headers.
+This has been resolved.
+
+:jirab:`DM-7221`
+
+.. _release-v13-0-angle-rigor:
+
+Added more rigor about units angle persistence
+----------------------------------------------
+
+We now correctly write ``TUNIT`` headers describing the units used when storing angles, and are more careful about checking units when reading them.
+
+:jirab:`DM-7221`
+
+.. _release-v13-0-infinite-recursion:
+
+Resolved infinite recursion in :lmod:`afw.table`
+------------------------------------------------
+
+A bug which could lead to infinite recursion has been fixed has been discovered in the :lmod:`afw.table` library.
+
+:jirab:`DM-7377, DM-7385`
+
+.. _release-v13-0-div-zero:
+
+Fixed a division by zero error in measurement of aperture corrections
+---------------------------------------------------------------------
+
+Attempting to calculate an aperture correction for a measurement of zero flux would previously result in an unhandled division by zero.
+This has been resolved.
+
+:jirab:`DM-7180`
+
+.. _release-v13-0-dataset-lookup:
+
+Fixed dataset lookup in :file:`multibandDriver.py`
+--------------------------------------------------
+
+The multiband driver script was previously checking for the existence of the pre-calexp version of the coadd being processed.
+This is not guaranteed to exist if the coadds were built using the driver scripts (where there is no need to persist both the pre-calexp and calexp versions), and it is only the calexp coadds that are used in the multiband tasks, so it is the calexp version whose existence should be checked for in :file:`multibandDriver.py`.
+
+:jirab:`DM-7716`
+
+.. _release-v13-0-fringe-masks:
+
+Fixed incorrect definition of mask when building fringe frames
+--------------------------------------------------------------
+
+The code in pipe_drivers to construct fringe frames, :lclass:`FringeTask`, was incorrectly using a mask plane when in fact a mask bit was required.
+This has now been corrected.
+
+:jirab:`DM-8033`
+
+.. _release-v13-0-mpi-pickle:
+
+Fixed failures in MPI-based processing due to large “pickles”
+-------------------------------------------------------------
+
+Resolved an issue whereby the ``ctrl_pool`` distributed processing middleware was unable to transmit large volumes of data over MPI due to a limitation of the Python 2.x “pickle” system.
+
+:jirab:`DM-8021`
+
+.. _release-v13-0-double-shapelet-optimizer:
+
+Fixed failure to retrieve optimizer state when fitting :lclass:`DoubleShapeletPsf`
+----------------------------------------------------------------------------------
+
+Resolved an issue whereby the optimizer state was being read incorrectly, which could lead to fitting failures.
+
+:jirab:`DM-6562`
+
+.. _release-v13-0-failed-config-persistence:
+
+Resolved an issue with failed persistence of :lclass:`ConfigurableField`
+------------------------------------------------------------------------
+
+An error was resolved which could cause :lclass:`ConfigurableField`\s to be improperly persisted and hence render the configuration impossible to load.
+
+:jirab:`DM-8273`
+
+.. _release-v13-0-forced-phot-schema:
+
+Resolved an error with schema persistence in forced photometry
+--------------------------------------------------------------
+
+When performing forced photometry an incorrect catalog schema, which did not match the data, was being persisted to the Butler.
+This has been fixed.
+
+:jirab:`DM-8221`
+
+.. _release-v13-0-check-darktime:
+
+Resolved issues due to scaling by non-finite dark time
+------------------------------------------------------
+
+If not explicitly set in the camera package, the dark time defaults to ``NaN``.
+When the dark time is used to scale an image, this would render the image unusable.
+We now check for scaling by non-finite dark time and raise an appropriate error.
+
+:jirab:`DM-9004`
+
+.. _release-v13-0-sconsutils-sort:
+
+Resolved an issue which could cause unnecessary re-linking during builds
+------------------------------------------------------------------------
+
+The build environment in the ``sconsUtils`` package now consistently sorts source files, eliminating unnecessary rebuilds.
+
+:jirab:`DM-8728`
+
+.. _release-v13-0-internal-improvements:
+
+Build and Code Improvements
+===========================
+
+- :ref:`release-v13-0-boost-migration`
+- :ref:`release-v13-0-star-selector-warning`
+- :ref:`release-v13-0-colorterm-tests`
+- :ref:`release-v13-0-flaghandler-python`
+- :ref:`release-v13-0-image-comparison`
+- :ref:`release-v13-0-catalog-apcorr`
+- :ref:`release-v13-0-sconsutils-opt`
+- :ref:`release-v13-0-mpi4py-mac`
+- :ref:`release-v13-0-obs-base`
+- :ref:`release-v13-0-centralize-butler`
+- :ref:`release-v13-0-scons-order`
+- :ref:`release-v13-0-ndarray-external`
+- :ref:`release-v13-0-coaddpsf-compat`
+- :ref:`release_v13-0-spatialcellcandidate-api`
+- :ref:`release_v13-0-python3`
+- :ref:`release_v13-0-spanset`
+- :ref:`release_v13-0-logging`
+- :ref:`release_v13-0-deblender-api`
+- :ref:`release_v13-0-remove-example`
+- :ref:`release_v13-0-simpleshape-quiet`
+- :ref:`release-v13-0-drivers-quiet`
+- :ref:`release-v13-0-ctrl_pool-reduce`
+
+.. _release-v13-0-boost-migration:
+
+Ongoing migration from Boost to standard library equivalents
+------------------------------------------------------------
+
+Continuing work started in the previous release, we have audited the stack for use of the `Boost <http://www.boost.org/>`_ libraries.
+Where possible, Boost has been replaced with C++11 standard library equivalents.
+
+:jirab:`DM-5880, DM-6089, DM-6090, DM-6091, DM-6092, DM-6093, DM-6094, DM-6095, DM-6096, DM-6097, DM-6325`
+
+.. _release-v13-0-star-selector-warning:
+
+Warnings in :lclass:`ObjectSizeStarSelector` are now properly logged
+--------------------------------------------------------------------
+
+Previously, non-fatal `NumPy <http://www.numpy.org/>`_ warnings of the form ``RuntimeWarning: invalid value encountered in less`` could appear on the console, but not be caught and logged anywhere.
+It was therefore easy to miss problems arising when running the algorithm.
+These warnings are now ingested into the LSST logging system, and are hence recorded properly.
+
+:jirab:`DM-5428`
+
+.. _release-v13-0-colorterm-tests:
+
+Added unit tests for colorterm framework
+----------------------------------------
+
+A set of unit tests have been written which properly exercise the colorterm framework.
+
+:jirab:`DM-2837`
+
+.. _release-v13-0-flaghandler-python:
+
+Made :lclass:`FlagHandler` accessible from Python
+-------------------------------------------------
+
+The :lclass:`FlagHandler` system for efficiently and safely setting flags corresponding to measurement algorithm failures on source records is now accessible from Python.
+Previously, it was only available for use in C++ code.
+
+:jirab:`DM-4009`
+
+.. _release-v13-0-image-comparison:
+
+Added exact image comparison utility code
+-----------------------------------------
+
+The :lfunc:`assertImagesEqual` and :lfunc:`assertMaskedImagesEqual` methods have been added to added to LSST's testing framework.
+These provide explicit mechanisms for checking for exact equality of image data.
+
+:jirab:`DM-6641`
+
+.. _release-v13-0-catalog-apcorr:
+
+:lclass:`CatalogCalculation` is now used to handle aperture corrections
+-----------------------------------------------------------------------
+
+The :lclass:`CatalogCalculation` facility was added to the stack in the previous (v12) release (where it was referred to as “afterburners”).
+It provides a capability to run algorithms akin to our regular measurements, but which only take inputs from catalogs (i.e. not pixel data).
+This has now been used to clean up the logic used to apply aperture corrections within our regular data processing flow.
+This old method for handling aperture corrections was a persistent source of bugs and confusion: these should be avoided by the new approach.
+
+:jirab:`DM-5877`
+
+.. _release-v13-0-sconsutils-opt:
+
+End-user builds are now optimized by default
+--------------------------------------------
+
+Following an RFC, ``sconsUtils`` was updated to enable optimization by default when compiling individual stack packages.
+(Full-stack installations using a supported mechanism have always been optimized.)
+
+:jirab:`RFC-202, DM-7010`
+
+.. _release-v13-0-mpi4py-mac:
+
+Fixed a build failure of mpi4py on some versions of macOS
+---------------------------------------------------------
+
+Added extra logic to ensure we target a version of the macOS SDK which is compatible both with the version of macOS installed and the Python interpreter in use.
+
+:jirab:`DM-6133`
+
+.. _release-v13-0-obs-base:
+
+New ``obs_base`` package supersedes ``daf_butlerUtils``
+-------------------------------------------------------
+
+A new ``obs_base`` package has been added to the distribution.
+This contains base classes used by the various ``obs_`` camera packages.
+The contents of the old ``daf_butlerUtils`` package has been migrated to ``obs_base``, and the old package has been retired.
+
+.. _release-v13-0-centralize-butler:
+
+Centralized Butler dataset definitions
+--------------------------------------
+
+Butler dataset definitions which are common to multiple cameras have been consolidated in ``obs_base`` rather than being repeated in each camera package.
+
+:jirab:`RFC-204, DM-6858, DM-7049, DM-7677`
+
+.. _release-v13-0-scons-order:
+
+Order in which SConscript files are read is configurable
+--------------------------------------------------------
+
+The ``sconsUtils`` build system now reads :file:`SConscript` files, which describe the build, in user-defined order.
+This makes it possible to specify that some components of a package must be built before others.
+
+:jirab:`DM-7179`
+
+.. _release-v13-0-ndarray-external:
+
+Made ``ndarray`` an external package
+--------------------------------------
+
+The ``ndarray`` package in the LSST stack now installs the `upstream <https://github.com/ndarray/ndarray>`_ version 1.3.0.
+
+:jirab:`DM-2005`
+
+.. _release-v13-0-coaddpsf-compat:
+
+Added backwards compatibility to :lclass:`CoaddPsf`
+---------------------------------------------------
+
+Due to changes in the way :lclass:`CoaddPsf` and :lclass:`ExposureCatalog` were being persisted, it was no longer possible to load old data into a current version of the stack.
+A compatibility layer has now been added.
+
+:jirab:`DM-8147`
+
+.. _release_v13-0-spatialcellcandidate-api:
+
+Changed API in :lclass:`SpatialCellCandidate` hierarchy
+-------------------------------------------------------
+
+Backwards incompatible API changes were made to the :lclass:`SpatialCellCandidate` class hierarchy to resolve build problems in some environments.
+Details of the changes are available on :jira:`RFC-250`.
+
+:jirab:`RFC-250, DM-8029`
+
+.. _release_v13-0-python3:
+
+Python 3 support
+----------------
+
+Almost all of the Science Pipelines packages included in this release are compatible with both Python 2 and Python 3.
+The notable exception is ``pipe_drivers``, which currently only works with Python 2.
+
+:jirab:`DM-6322, DM-7021, DM-6320, DM-7036, DM-7028, DM-7066, DM-7047, DM-7188, DM-7138, DM-7069, DM-7152, DM-7246, DM-7243, DM-7247, DM-7244, DM-7256, DM-7249, DM-7245, DM-7250, DM-7258, DM-7264, DM-7132, DM-7262, DM-7289, DM-7300, DM-7301, DM-7302, DM-7303, DM-7304, DM-7288, DM-7293, DM-7292, DM-7261, DM-7294, DM-7295, DM-7296, DM-7297, DM-7298, DM-7305, DM-7306, DM-7307, DM-7308, DM-7309, DM-7328, DM-7299, DM-7311, DM-7391, DM-8030`
+
+.. _release_v13-0-spanset:
+
+:lclass:`SpanSet` added
+-----------------------
+
+The :lclass:`SpanSet` class provides a compact representation of a collection of pixels using run-length encoding.
+It is designed to serve as the back-end of an upgrade :lclass:`Footprint` system which will be provided in a future release.
+
+:jirab:`DM-7170, DM-8102, DM-8608`
+
+.. _release_v13-0-logging:
+
+Logging migration
+-----------------
+
+All code has been migrated from the old ``pex_logging`` system to the new :lmod:`lsst.log` framework.
+
+:jirab:`DM-6984, DM-6985, DM-6986, DM-6999, DM-7000, DM-7502, DM-7670, DM-7741, DM-8357, DM-8359`
+
+.. _release_v13-0-deblender-api:
+
+Deblender API refactored
+------------------------
+
+The ``meas_deblender`` API has been refactored to make it easier to swap in alternative deblending algorithms for experimentation.
+There should be no end-user visible effects of this change.
+
+:jirab:`DM-8694`
+
+.. _release_v13-0-remove-example:
+
+Removed old example & experimental code
+---------------------------------------
+
+Some example code and experiments with GPU-based processing that was being distributed with the stack had not been kept up to date with API changes.
+It has been removed.
+
+:jirab:`DM-7669, DM-8390`
+
+.. _release_v13-0-simpleshape-quiet:
+
+Made the ``simpleShape`` algorithm less verbose
+-----------------------------------------------
+
+Changed the type of exception thrown by measurement errors in the ``meas_extensions_simpleShape`` package.
+The new exception type results in the error being appropriately recorded, but does not flood the log with errors.
+This is consistent with the behaviour of other measurement algorithms.
+
+:jirab:`DM-9011`
+
+.. _release-v13-0-drivers-quiet:
+
+Made the ``pipe_drivers`` package less verbose
+----------------------------------------------
+
+The various scripts in the ``pipe_drivers`` package were configured to print information about the current environment to standard output on startup.
+This has now been made optional, and defaults to off.
+Use the ``--batch-verbose`` command line option to re-enable it.
+
+:jirab:`DM-9016`
+
+.. _release-v13-0-ctrl_pool-reduce:
+
+Added “reduce” functions to ``ctrl_pool``
+-----------------------------------------
+
+The ``ctrl_pool`` multiprocessing framework now supports “reduce” functionality: the master node will scatter work to slaves and then combine their results.
+The master is able to reduce data which has been returned from the slaves without waiting for all of the slaves to complete their tasks.
+This is more efficient than the “map” functionality which was previously being used for many of the same tasks.
+
+:jirab:`DM-5989`

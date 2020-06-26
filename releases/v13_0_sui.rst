@@ -1,9 +1,8 @@
-:orphan: True
-
 .. _release-v13-0-sui:
 
+###########################################
 Fall 2016 Science User Interface Highlights
-===========================================
+###########################################
 
 - PDAC v1 was deployed at NCSA.
   It provides data query and display of SDSS Stripe 82 data processed with the LSST pipeline stack in 2013.

@@ -11,7 +11,8 @@ This page describes the common top-level packages that make up the LSST Science 
 lsst\_apps
 ==========
 
-``lsst_apps`` provides the core packages that LSST will use in operations.
+This package provides the only core frameworks and algorithmic code that we expect to be of interest to most users.
+It may be convenient when space is at a premium.
 
 Example installation (:ref:`more info <newinstall-install>`):
 
@@ -23,20 +24,40 @@ Example installation (:ref:`more info <newinstall-install>`):
 lsst\_distrib
 =============
 
-``lsst_distrib`` provides all the packages from ``lsst_apps`` along with these additional ones:
+This package provides all of the core Science Pipelines functionality, together with additional measurement algorithms, support for a wider variety of instrumentation, and process execution middleware designed for running pipelines on a cluster.
+In addition to the contents of ``lsst_apps``, it provides the following packages:
 
-.. https://github.com/lsst/lsst_distrib/blob/master/ups/lsst_distrib.table
-
+- `ap_verify <https://github.com/lsst/ap_verify>`_
+- `cbp <https://github.com/lsst/cbp>`_
+- `cp\_pipe <https://github.com/lsst/cp_pipe>`_
 - `ctrl\_execute <https://github.com/lsst/ctrl_execute>`_
+- `ctrl\_mpexec <https://github.com/lsst/ctrl_mpexec>`_
+- `ctrl\_orca <https://github.com/lsst/ctrl_orca>`_
 - `ctrl\_platform_lsstvc <https://github.com/lsst/ctrl_platform_lsstvc>`_
-- `datarel <https://github.com/lsst/datarel>`_
-- `meas\_extensions_convolved <https://github.com/lsst/meas_extensions_convolved>`_
-- `meas\_extensions_shapeHSM <https://github.com/lsst/meas_extensions_shapeHSM>`_
-- `meas\_extensions_photometryKron <https://github.com/lsst/meas_extensions_photometryKron>`_
-- `pipe\_drivers <https://github.com/lsst/pipe_drivers>`_
-- `lsst\_obs <https://github.com/lsst/lsst_obs>`_
+- `ctrl\_pool <https://github.com/lsst/ctrl_pool>`_
+- `display\_firefly <https://github.com/lsst/display_firefly>`_
+- `display\_matplotlib <https://github.com/lsst/display_matplotlib>`_
+- `eigen <https://github.com/lsst/eigen>`_ (Eigen is also installed through our :ref:`Conda environment <system-prereqs>`; this version is only necessary to support Jointcal)
+- `fgcm <https://github.com/lsst/fgcm>`_
+- `fgcmcal <https://github.com/lsst/fgcmcal>`_
+- `firefly\_client <https://github.com/lsst/firefly_client>`_
 - `jointcal <https://github.com/lsst/jointcal>`_
-- `verify <https://github.com/lsst/verify>`_
+- `jointcal\_cholmod <https://github.com/lsst/jointcal_cholmod>`_
+- `lsst_obs <https://github.com/lsst/lsst_obs>`_
+- `meas\_extensions_convolved <https://github.com/lsst/meas_extensions_convolved>`_
+- `meas\_extensions_photometryKron <https://github.com/lsst/meas_extensions_photometryKron>`_
+- `meas\_extensions_shapeHSM <https://github.com/lsst/meas_extensions_shapeHSM>`_
+- `obs\_cfht <https://github.com/lsst/obs_cfht>`_
+- `obs\_ctio0m9 <https://github.com/lsst/obs_ctio0m9>`_
+- `obs\_decam <https://github.com/lsst/obs_decam>`_
+- `obs\_decam_data <https://github.com/lsst/obs_decam_data>`_
+- `obs\_lsst <https://github.com/lsst/obs_lsst>`_
+- `obs\_lsst_data <https://github.com/lsst/obs_lsst_data>`_
+- `obs\_subaru <https://github.com/lsst/obs_subaru>`_
+- `obs\_subaru\_data <https://github.com/lsst/obs_subaru_data>`_
+- `pipe\_drivers <https://github.com/lsst/pipe_drivers>`_
+- `synpipe <https://github.com/lsst/synpipe>`_
+- `validate\_drp <https://github.com/lsst/validate_drp>`_
 
 Example installation (:ref:`more info <newinstall-install>`):
 

@@ -1,7 +1,6 @@
-.. _release-v16-0-tickets:
-
+################################################
 Tickets Addressed in 2018 Summer Release (v16_0)
-================================================
+################################################
 
 - `DM-2948 <https://jira.lsstcorp.org/browse/DM-2948>`_: Remove explicit buildbot dependency on datarel [lsst_distrib]
 - `DM-6576 <https://jira.lsstcorp.org/browse/DM-6576>`_: Change RADECSYS to RADESYS in our code base [afw, ip_diffim, meas_base, meas_extensions_astrometryNet]

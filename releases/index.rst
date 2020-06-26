@@ -3,7 +3,9 @@ Release History
 ###############
 
 .. toctree::
+   :maxdepth: 1
 
+   v20_0_0
    v19_0_0
    v18_1_0
    v18_0_0
@@ -13,9 +15,4 @@ Release History
    v14_0
    v13_0
    v12_0
-
-.. toctree::
-   :hidden:
-
-   notes
-   tickets
+   v11_0

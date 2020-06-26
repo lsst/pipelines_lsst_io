@@ -2,11 +2,11 @@
 The LSST Science Pipelines
 ##########################
 
-The LSST Science Pipelines enable optical and near-infrared astronomy in the big data era.
-We are building the Science Pipelines for the `Rubin Observatory Legacy Survey of Space and Time (Rubin’s LSST) <https://lsst.org/>`_, but our command-line task and Python API can be extended for any optical or near-infrared dataset.
+The LSST Science Pipelines are designed to enable optical and near-infrared astronomy in the “big data” era.
+While they are being developed to process the data for the `Rubin Observatory Legacy Survey of Space and Time (Rubin’s LSST) <https://lsst.org/>`_, our command line and programming interfaces can be extended to address any optical or near-infrared dataset.
 
 This documentation covers version |eups-tag-bold|.
-:doc:`Learn what's new <releases/index>`.
+:ref:`Learn what's new <release-latest>`.
 You can also find documentation for `other versions <https://pipelines.lsst.io/v>`__.
 
 .. _part-getting-started:
@@ -25,7 +25,7 @@ Join us on the `LSST Community forum <https://community.lsst.org>`_ to get help 
    :caption: Getting Started
 
    getting-started/index
-  
+
 .. _part-installation:
 
 Installation
@@ -79,12 +79,8 @@ Packages
 Release details
 ===============
 
--  :doc:`releases/notes`
--  :doc:`known-issues`
--  :doc:`metrics`
-
 .. toctree::
-   :hidden:
+   :maxdepth: 2
 
    releases/index
    known-issues
@@ -110,8 +106,8 @@ More info
 
 - Join us on the `LSST Community forum, community.lsst.org <http://community.lsst.org>`_.
 - Fork our code on GitHub at https://github.com/lsst.
-- Report issues in `JIRA <https://jira.lsstcorp.org/projects/DM/issues/>`_.
+- Report issues in `Jira <https://jira.lsstcorp.org/projects/DM/issues/>`_.
 - Some API documentation, particularly for C++, is currently published separately on a `Doxygen site <http://doxygen.lsst.codes/stack/doxygen/x_masterDoxyDoc/>`_.
-- DM Developer guidance is at https://developer.lsst.io.
-- Learn more about LSST Data Management by visiting http://lsst.org/about/dm.
+- Our `Developer Guide <https://developer.lsst.io>`_ describes the procedures and standards followed by the DM team.
+- Learn more about Rubin Observatory Data Management by visiting http://lsst.org/about/dm.
 - Contribute to our documentation. This guide is on GitHub at `lsst/pipelines_lsst_io <https://github.com/lsst/pipelines_lsst_io>`_.
