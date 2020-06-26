@@ -18,7 +18,7 @@ Release 20.0.0 (2020-06-24)
 | :doc:`EUPS distrib </install/newinstall>` | v20\_0\_0  |
 +-------------------------------------------+------------+
 
-This release is based on the ``w_2020_XX`` weekly build.
+This release is based on the ``w_2020_22`` weekly build.
 
 These release notes highlight significant changes to the Science Pipelines codebase which are likely to be of wide interest.
 For a complete list of changes made, see :doc:`tickets/v20_0_0`.
