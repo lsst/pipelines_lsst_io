@@ -1,0 +1,90 @@
+.. _release-v20-0-0-data-products:
+
+##########################################
+Changes to Data Products in Release 20.0.0
+##########################################
+
+The notes below highlight significant changes to data products processed using release 20.0.0 of the Science Pipelines.
+For a more detailed technical discussion of this release, refer to the :ref:`release notes <release-v20-0-0>`.
+
+Alert Production Data Products
+==============================
+
+.. note::
+
+    Except where otherwise noted, the data products described here are those produced by DM's regular (approximately monthly) reprocessing of a small DECam dataset (HiTS; `Förster et al., 2016 <https://ui.adsabs.harvard.edu/abs/2016ApJ...832..155F/>`_ ) through the prototype AP pipelines.
+    Items included in the software release notes may be missing here because they have not yet attained the level of vetting or integration necessary to include them in our standard processing, or simply because they have little or no effect on data products from the perspective of science users consuming them.
+
+Serialized Alert Packets
+------------------------
+
+``ap_assocation`` now serializes alert packets in `Apache Avro`_ format to disk.
+As of this release, these alerts do not yet provide all contents specified by :lse:`163` (the Data Products Definition Document) — in particular, they do not include cut-out images.
+The :ref:`alert_packet <lsst.alert.packet>` package contains the alert schemas as well as a number of utility routines for manipulating alert packets.
+:jirab:`DM-24324`
+
+.. _Apache Avro: https://avro.apache.org.
+
+Fixes to Alard and Lupton decorrelation
+---------------------------------------
+
+Some bugs in the Discrete Fourier Transform implementation of the Alard and Lupton decorrelation (:dmtn:`021`) were fixed.
+The corresponding improvements to detection thresholding will be most noticeable when processing datasets where the noise in the co-added template is not negligible.
+:jirab:`DM-24371`
+
+Rescale Template Variances during Difference Imaging
+----------------------------------------------------
+
+Detection thresholds for difference imaging will be incorrect if the variances of the input images are incorrect.
+Pixel covariances introduced to template images during the coaddition and warping process are one source of frequent variance inaccuracy.
+A ``doScaleTemplateVariance`` configuration option has been added to :lsst-task:`lsst.pipe.tasks.imageDifference.ImageDifferenceTask`.
+If enabled, :lsst-task:`lsst.pipe.tasks.scaleVariance.ScaleVarianceTask` is invoked by :lsst-task:`lsst.ip.diffim.imageDifference.ImageDifferenceTask` to empirically rescale the template variance before PSF matching and subtraction.
+:jirab:`DM-20558`
+
+Data Release Data Products
+==========================
+
+.. note::
+
+    Except where otherwise noted, the data products described here are those produced by DM's regular (approximately monthly) reprocessing of a small Hyper Suprime-Cam dataset through the prototype DRP pipelines.
+    Items included in the software release notes may be missing here because they have not yet attained the level of vetting or integration necessary to include them in our standard processing, or simply because they have little or no effect on data products from the perspective of science users consuming them.
+
+Standardized Source tables
+--------------------------
+
+The ``src`` catalogs produced by single-frame processing are now rewritten with standardized columns and calibrations applied, producing the new ``sourceTable`` (one per visit+detector) and ``sourceTable_visit`` (one per visit) butler datasets.
+These should have a more stable and well-documented schema than the ``src`` catalogs they are derived from, and will evolve towards the complete Source table described in :lse:`163`.
+By using a columnar data format (`Apache Parquet <https://parquet.apache.org>`_), access to just a few columns is also considerably faster.
+
+Similar Parquet tables for objects (``objectTable`` and ``objectTable_tract``) have existed since the last major release, based on the lower-level ``deepCoadd_meas``, ``deepCoadd_ref``, and ``deepCoadd_forced_src`` datasets.
+
+:jirab:`DM-24062`
+
+Fixes to defect masking
+-----------------------
+
+Large-area sensor defects were not being masked or interpolated properly in the previous release, because the convolution-like correction for the brighter-fatter effect could expand the affected region beyond our original masks.
+This has been addressed by growing the mask region.
+:jirab:`DM-23083`
+
+Sky sources in single-frame measurement
+---------------------------------------
+
+Single-frame processing catalogs (including ``src`` and the new ``sourceTable`` and ``sourceTable_visit``) now include "sky sources" -- catalog entries that represent random patches of approximately blank sky (defined as not overlapping any detection footprint) that are measured with exactly the same algorithms as real detections.
+These can be used for diagnostics on background subtraction, detection thresholds, noise propagation, and probably many aspects of processing we haven't considered, but it's also easy to accidentally include them in analyses where only real detections should be used.
+This can be avoided by filtering rows where the ``sky_source`` flag field is ``True``.
+
+See `community.lsst.org <https://community.lsst.org/t/sky-sources-added-to-single-frame-processing/4137>`_ for more information.
+
+:jirab:`DM-23078`
+
+Background-subtraction problems in aperture fluxes
+--------------------------------------------------
+
+The quality of background subtractions has long been recognized as a problem in our Hyper Suprime-Cam processing, due to a combination of depth, competing science goals, and poorly understood instrumental features.
+One impact of this that we had not appreciated until recently was the degree to which this affected our aperture photometry, especially on single-epoch processing (which happens before some of our more sophisticated background subtraction steps).
+
+This release includes two changes to mitigate this problem:
+
+- Aperture corrections are now derived from a brighter sample of stars, for which the errors due to bad backgrounds are relatively smaller. :jirab:`DM-23071`
+- When using ``fgcmcal`` to perform relative photometric calibration, an analytic correction for the background bias is applied to all input photometry, including the quality of the overall calibration. :jirab:`DM-23036`
