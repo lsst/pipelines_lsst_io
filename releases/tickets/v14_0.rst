@@ -1,6 +1,6 @@
-################################################
-Tickets Addressed in Spring 2017 Release (v14_0)
-################################################
+#########################
+Tickets Addressed in 14.0
+#########################
 
 - `DM-430 <https://jira.lsstcorp.org/browse/DM-430>`_: Control log levels on a per-plugin basis [meas_base]
 - `DM-903 <https://jira.lsstcorp.org/browse/DM-903>`_: SourceDetectionTask should only add flags.negative if config.thresholdParity == "both" [meas_algorithms]

@@ -1,6 +1,6 @@
-################################################
-Tickets Addressed in Spring 2018 Release (v15_0)
-################################################
+#################################
+Tickets Addressed in Release 15.0
+#################################
 
 - `DM-4891 <https://jira.lsstcorp.org/browse/DM-4891>`_: Upgrade doxygen to latest version [base]
 - `DM-5922 <https://jira.lsstcorp.org/browse/DM-5922>`_: Rework camera geometry to use the replacement for XYTransform [afw, astshim, meas_algorithms, meas_astrom, obs_base, obs_cfht, obs_decam, obs_lsstSim, obs_monocam, obs_sdss, obs_subaru, obs_test, pipe_tasks]
