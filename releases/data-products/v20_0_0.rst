@@ -23,7 +23,7 @@ The :ref:`alert_packet <lsst.alert.packet>` package contains the alert schemas a
 
 .. _Apache Avro: https://avro.apache.org.
 
-Fixes to Alard and Lupton decorrelation
+Fixes to Alard and Lupton Decorrelation
 ---------------------------------------
 
 Some bugs in the Discrete Fourier Transform implementation of the Alard and Lupton decorrelation (:dmtn:`021`) were fixed.
@@ -42,7 +42,7 @@ If enabled, :lsst-task:`lsst.pipe.tasks.scaleVariance.ScaleVarianceTask` is invo
 Data Release Data Products
 ==========================
 
-Standardized Source tables
+Standardized Source Tables
 --------------------------
 
 The ``src`` catalogs produced by single-frame processing are now rewritten with standardized columns and calibrations applied, producing the new ``sourceTable`` (one per visit+detector) and ``sourceTable_visit`` (one per visit) butler datasets.
@@ -53,14 +53,14 @@ Similar Parquet tables for objects (``objectTable`` and ``objectTable_tract``) h
 
 :jirab:`DM-24062`
 
-Fixes to defect masking
+Fixes to Defect Masking
 -----------------------
 
 Large-area sensor defects were not being masked or interpolated properly in the previous release, because the convolution-like correction for the brighter-fatter effect could expand the affected region beyond our original masks.
 This has been addressed by growing the mask region.
 :jirab:`DM-23083`
 
-Sky sources in single-frame measurement
+Sky Sources in Single-Frame Measurement
 ---------------------------------------
 
 Single-frame processing catalogs (including ``src`` and the new ``sourceTable`` and ``sourceTable_visit``) now include "sky sources" -- catalog entries that represent random patches of approximately blank sky (defined as not overlapping any detection footprint) that are measured with exactly the same algorithms as real detections.
@@ -71,8 +71,8 @@ See `community.lsst.org <https://community.lsst.org/t/sky-sources-added-to-singl
 
 :jirab:`DM-23078`
 
-Background-subtraction problems in aperture fluxes
---------------------------------------------------
+Mitigations for Background-Subtraction Problems in Aperture Fluxes
+------------------------------------------------------------------
 
 The quality of background subtractions has long been recognized as a problem in our Hyper Suprime-Cam processing, due to a combination of depth, competing science goals, and poorly understood instrumental features.
 One impact of this that we had not appreciated until recently was the degree to which this affected our aperture photometry, especially on single-epoch processing (which happens before some of our more sophisticated background subtraction steps).
