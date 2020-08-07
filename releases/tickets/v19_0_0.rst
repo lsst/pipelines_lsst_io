@@ -1,6 +1,6 @@
-######################################################
-Tickets Addressed in the Winter 2019 release (v19_0_0)
-######################################################
+###################################
+Tickets Addressed in Release 19.0.0
+###################################
 
 - `DM-3349 <https://jira.lsstcorp.org/browse/DM-3349>`_: Add test case for ExposureRecord::contains [afw]
 - `DM-5081 <https://jira.lsstcorp.org/browse/DM-5081>`_: Add mask plane to indicate no brighter fatter correction around edges  [ip_isr]

@@ -1,6 +1,6 @@
-##################################################
-Tickets Addressed in Summer 2019 Release (v18_0_0)
-##################################################
+###################################
+Tickets Addressed in Release 18.0.0
+###################################
 
 - `DM-1448 <https://jira.lsstcorp.org/browse/DM-1448>`_: Move code for mock images into afw so it reusable. [ip_isr]
 - `DM-2579 <https://jira.lsstcorp.org/browse/DM-2579>`_: Calling AliasMap::get("") can return incorrect results [afw]

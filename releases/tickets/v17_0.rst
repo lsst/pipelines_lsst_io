@@ -1,6 +1,6 @@
-################################################
-Tickets Addressed in Spring 2019 Release (v17_0)
-################################################
+#################################
+Tickets Addressed in Release 17.0
+#################################
 
 - `DM-2639 <https://jira.lsstcorp.org/browse/DM-2639>`_: Standardize primary method names, run/runDataRef, across PipeTasks [ci_ctio0m9, ctrl_pool, ip_isr, jointcal, meas_algorithms, meas_base, meas_mosaic, obs_lsstSim, pipe_base, pipe_drivers, pipe_tasks, synpipe]
 - `DM-6640 <https://jira.lsstcorp.org/browse/DM-6640>`_: IsrTask is not a valid CmdLineTask [ip_isr, obs_base, obs_cfht, obs_ctio0m9, obs_decam, obs_lsstSim, obs_monocam, obs_sdss, obs_subaru, obs_test]
