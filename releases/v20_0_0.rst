@@ -8,6 +8,7 @@ Release 20.0.0 (2020-06-24)
 .. toctree::
    :hidden:
 
+   data-products/v20_0_0
    tickets/v20_0_0
 
 +-------------------------------------------+------------+
@@ -20,8 +21,10 @@ Release 20.0.0 (2020-06-24)
 
 This release is based on the ``w_2020_22`` weekly build.
 
-These release notes highlight significant changes to the Science Pipelines codebase which are likely to be of wide interest.
+The notes below highlight significant technical changes to the Science Pipelines codebase in this release.
 For a complete list of changes made, see :doc:`tickets/v20_0_0`.
+
+The `Characterization Metric Report (DMTR-251) <https://ls.st/DMTR-251>`_ describes the scientific performance of this release in terms of scientific performance metrics, while :doc:`data-products/v20_0_0` covers key issues likely to impact scientists consuming Rubin data products.
 
 If you have questions or comments about this release, visit our `community forum <https://community.lsst.org>`_ for advice.
 
@@ -34,7 +37,6 @@ If you have questions or comments about this release, visit our `community forum
 
 - :doc:`Installation instructions <../install/index>`
 - :doc:`Known issues </known-issues>`
-- `Characterization Metric Report (DMTR-251) <https://ls.st/DMTR-251>`_
 - `Doxygen Documentation`__
 
 __ http://doxygen.lsst.codes/stack/doxygen/xlink_master_2020_06_24_18.09.15/
