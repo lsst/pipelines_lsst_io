@@ -7,7 +7,7 @@ Installation with lsstsw and lsst-build
 This page guides you through installing the LSST Science Pipelines from source with lsstsw and lsst-build.
 These are the same tools LSST Data Management uses to build and test the Science Pipelines.
 
-Since lsstsw presents the Science Pipelines as a directory of Git repositories cloned from `github.com/lsst <https://github.com/lsst>`__, this installation method can be very convenient for developing Science Pipelines code.
+Since lsstsw presents the Science Pipelines as a directory of Git repositories cloned from `github.com/lsst <https://github.com/lsst>`__, this installation method can be very convenient for developing Science Pipelines code, particularly when modifying multiple packages at the same time.
 Other methods of installing LSST Science Pipelines software are :doc:`newinstall.sh <newinstall>` and :doc:`Docker <docker>`.
 
 If you have issues using lsstsw, here are two ways to get help:
@@ -23,8 +23,6 @@ If you have issues using lsstsw, here are two ways to get help:
 The LSST Science Pipelines are developed and tested primarily on CentOS, but can be compiled and run on macOS, Debian, Ubuntu, and other Linux distributions.
 See :ref:`prereq-platforms` for information about LSST's official reference platform and build reports with other platforms, and follow the instructions under :ref:`system-prereqs` to ensure you have installed the prerequisite software for your platform.
 
-If you intend to use a Git LFS repository, like `testdata_ci_hsc`_ or `afwdata`_, you should `configure Git LFS <git-lfs>` before you begin.
-
 .. _lsstsw-deploy:
 
 2. Deploy lsstsw
@@ -37,11 +35,18 @@ Begin by choosing a working directory, then deploy ``lsstsw`` into it:
    git clone https://github.com/lsst/lsstsw.git
    cd lsstsw
    ./bin/deploy
-   source bin/envconfig.sh
+   source bin/envconfig
+
+If you are running in a :command:`csh` or :command:`tcsh`, change the last line to:
+
+.. code-block:: bash
+   source bin/envconfig.csh
 
 For more information about the :command:`deploy` command, see :ref:`lsstsw-about-deploy`.
 
 .. _lsstsw-rebuild:
+
+If you intend to use a Git LFS repository, like `testdata_ci_hsc`_ or `afwdata`_, you should :doc:`configure Git LFS <git-lfs>` before you continue.
 
 3. Build the Science Pipelines packages
 =======================================
@@ -94,11 +99,11 @@ In every new shell session you will need to set up the Science Pipelines environ
 
 Run these two steps:
 
-1. Activate the lsstsw software environment by sourcing the :file:`envconfig.sh` script in lsstsw's :file:`bin` directory:
+1. Activate the lsstsw software environment by sourcing the :file:`envconfig` script in lsstsw's :file:`bin` directory:
 
    .. code-block:: bash
 
-      source bin/envconfig.sh
+      source bin/envconfig
 
    If you are running in a :command:`csh` or :command:`tcsh`, run this set up script instead:
 
@@ -133,15 +138,13 @@ About the lsstsw deploy script
 
 The ``deploy`` script automates several things to prepare an LSST development environment:
 
-1. Installs Git.
-2. Installs Git LFS (*you* are still responsible for :doc:`configuring it <git-lfs>`).
-3. Installs a Miniconda_ Python 3 environment specific to this lsstsw workspace.
-4. Installs EUPS_ into :file:`eups/current/`.
-5. Clones `lsst-build`_, which runs the build process.
-6. Clones versiondb_, a robot-managed Git repository of package dependency information.
-7. Creates an empty stack *installation* directory, :file:`stack/`.
+1. Installs Miniconda_ and a Python 3 environment specific to this lsstsw workspace, including (another) Git and Git LFS.
+2. Installs EUPS_ into :file:`eups/current/`.
+3. Clones `lsst-build`_, the tool that runs the build process.
+4. Clones versiondb_, a robot-managed Git repository of package dependency information.
+5. Creates an empty stack *installation* directory, :file:`stack/`.
 
-This environment, including the EUPS, Miniconda, Git, and Git LFS software, is only activated when you source the :file:`bin/envconfig.sh` or :file:`bin/envconfig.csh` scripts in a shell.
+This environment, including the EUPS, Miniconda, Git, and Git LFS software, is only activated when you source the :file:`bin/envconfig` or :file:`bin/envconfig.csh` scripts in a shell.
 Otherwise, lsstsw does not affect the software installed on your computer.
 
 See also: :ref:`lsstsw-deploy-ref`.
@@ -198,14 +201,6 @@ lsstsw deploy command reference
 
    usage: deploy.sh [-2|-3] [-b] [-h]
 
-.. option:: -2
-
-   Install a Python 2-based Miniconda_ (not supported for ``v16_0`` of the LSST Science Pipelines and later)
-
-.. option:: -3
-
-   Use a Python 3-based Miniconda_ (default).
-
 .. option:: -b
 
    Use bleeding-edge conda packages.
@@ -213,6 +208,10 @@ lsstsw deploy command reference
 .. option:: -h
 
    Print the help message.
+
+.. option:: -r REF
+
+   Use a particular git ref of the conda packages in scipipe_conda_env.
 
 .. _lsstsw-rebuild-ref:
 
