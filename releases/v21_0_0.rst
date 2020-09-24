@@ -53,6 +53,19 @@ Major New Features
 Significant Interface Changes
 =============================
 
+- :ref:`release-v21-0-0-remove-synpipe`
+
+.. _release-v21-0-0-remove-synpipe:
+
+Removal of the Synpipe package
+------------------------------
+
+The Synpipe package is no longer included as part of the Science Pipelines.
+Tasks for inserting simulated sources are now available as part of :ref:`pipe_tasks <lsst.pipe.tasks>`; see `community.lsst.org`__ for details.
+:jirab:`RFC-661, DM-23344`
+
+__ https://community.lsst.org/t/new-tasks-for-fake-source-insertion/3722
+
 .. _release-v21-0-0-pending-deprecations:
 
 Pending Deprecations
