@@ -1,5 +1,6 @@
 .pyvenv
 _build
+_doxygen
 modules
 packages
 py-api
