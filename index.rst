@@ -65,7 +65,7 @@ Python modules
 
 .. module-toctree::
 
-Additional C++ API reference documentation is currently available at the `doxygen.lsst.codes <http://doxygen.lsst.codes/stack/doxygen/x_masterDoxyDoc/namespaces.html>`__ site.
+Additional C++ API reference documentation is available in the `Doxygen subsite <cpp-api/index.html>`__.
 
 .. _part-packages:
 
@@ -98,6 +98,7 @@ Indices
    Tasks <tasks>
 
 - :doc:`Tasks <tasks>`
+- `C++ API reference <cpp-api/index.html>`_
 - :ref:`genindex`
 - :ref:`Search <search>`
 
@@ -107,7 +108,6 @@ More info
 - Join us on the `LSST Community forum, community.lsst.org <http://community.lsst.org>`_.
 - Fork our code on GitHub at https://github.com/lsst.
 - Report issues in `Jira <https://jira.lsstcorp.org/projects/DM/issues/>`_.
-- Some API documentation, particularly for C++, is currently published separately on a `Doxygen site <http://doxygen.lsst.codes/stack/doxygen/x_masterDoxyDoc/>`_.
 - Our `Developer Guide <https://developer.lsst.io>`_ describes the procedures and standards followed by the DM team.
 - Learn more about Rubin Observatory Data Management by visiting http://lsst.org/about/dm.
 - Contribute to our documentation. This guide is on GitHub at `lsst/pipelines_lsst_io <https://github.com/lsst/pipelines_lsst_io>`_.
