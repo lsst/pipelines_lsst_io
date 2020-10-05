@@ -1,0 +1,81 @@
+.. _release-latest:
+.. _release-v21-0-0:
+
+###########################
+Release 21.0.0 (202?-??-??)
+###########################
+
+.. toctree::
+   :hidden:
+
+   data-products/v21_0_0
+   tickets/v21_0_0
+
++-------------------------------------------+------------+
+| Source                                    | Identifier |
++===========================================+============+
+| Git tag                                   | 21.0.0     |
++-------------------------------------------+------------+
+| :doc:`EUPS distrib </install/newinstall>` | v21\_0\_0  |
++-------------------------------------------+------------+
+
+This release is based on the ``w_202?_??`` weekly build.
+
+The notes below highlight significant technical changes to the Science Pipelines codebase in this release.
+For a complete list of changes made, see :doc:`tickets/v21_0_0`.
+
+The `Characterization Metric Report (DMTR-???) <https://ls.st/DMTR-???>`_ describes the scientific performance of this release in terms of scientific performance metrics, while :doc:`data-products/v21_0_0` covers key issues likely to impact scientists consuming Rubin data products.
+
+If you have questions or comments about this release, visit our `community forum <https://community.lsst.org>`_ for advice.
+
+- :ref:`release-v21-0-0-functionality`
+- :ref:`release-v21-0-0-interface`
+- :ref:`release-v21-0-0-pending-deprecations`
+- :ref:`release-v21-0-0-deprecations`
+
+*See also:*
+
+- :doc:`Installation instructions <../install/index>`
+- :doc:`Known issues </known-issues>`
+- `Doxygen Documentation`__
+
+.. todo:: Update link
+
+__ http://doxygen.lsst.codes/stack/doxygen/xlink_master_2020_06_24_18.09.15/
+
+.. _release-v21-0-0-functionality:
+
+Major New Features
+==================
+
+.. _release-v21-0-0-interface:
+
+Significant Interface Changes
+=============================
+
+- :ref:`release-v21-0-0-remove-synpipe`
+
+.. _release-v21-0-0-remove-synpipe:
+
+Removal of the Synpipe package
+------------------------------
+
+The Synpipe package is no longer included as part of the Science Pipelines.
+Tasks for inserting simulated sources are now available as part of :ref:`pipe_tasks <lsst.pipe.tasks>`; see `community.lsst.org`__ for details.
+:jirab:`RFC-661, DM-23344`
+
+__ https://community.lsst.org/t/new-tasks-for-fake-source-insertion/3722
+
+.. _release-v21-0-0-pending-deprecations:
+
+Pending Deprecations
+====================
+
+These packages/functions will be deprecated in the next major release.
+
+.. _release-v21-0-0-deprecations:
+
+Deprecations
+============
+
+These packages/functions are deprecated and will not be available in the next major release.

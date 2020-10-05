@@ -40,6 +40,7 @@ Begin by choosing a working directory, then deploy ``lsstsw`` into it:
 If you are running in a :command:`csh` or :command:`tcsh`, change the last line to:
 
 .. code-block:: bash
+
    source bin/envconfig.csh
 
 For more information about the :command:`deploy` command, see :ref:`lsstsw-about-deploy`.
