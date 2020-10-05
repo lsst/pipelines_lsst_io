@@ -79,3 +79,13 @@ Deprecations
 ============
 
 These packages/functions are deprecated and will not be available in the next major release.
+
+- :ref:`release-v21-0-0-deprecate-obs_ctio0m9`
+
+.. _release-v21-0-0-deprecate-obs_ctio0m9:
+
+Removal of the obs_ctio0m9 package
+----------------------------------
+
+The obs_ctio0m9 camera package will be removed from the Science Pipelines before the release of version 22.0.0.
+:jirab:`RFC-729, DM-26867, DM-26868`
