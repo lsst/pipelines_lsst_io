@@ -19,7 +19,7 @@ Release 21.0.0 (202?-??-??)
 | :doc:`EUPS distrib </install/newinstall>` | v21\_0\_0  |
 +-------------------------------------------+------------+
 
-This release is based on the ``w_202?_??`` weekly build.
+This release is based on the ``w_2020_46`` weekly build.
 
 The notes below highlight significant technical changes to the Science Pipelines codebase in this release.
 For a complete list of changes made, see :doc:`tickets/v21_0_0`.
@@ -39,9 +39,7 @@ If you have questions or comments about this release, visit our `community forum
 - :doc:`Known issues </known-issues>`
 - `Doxygen Documentation`__
 
-.. todo:: Update link
-
-__ http://doxygen.lsst.codes/stack/doxygen/xlink_master_2020_06_24_18.09.15/
+__ http://doxygen.lsst.codes/stack/doxygen/xlink_master_2020_11_12_08.37.40/
 
 .. _release-v21-0-0-functionality:
 
@@ -54,6 +52,9 @@ Significant Interface Changes
 =============================
 
 - :ref:`release-v21-0-0-remove-synpipe`
+- :ref:`release-v21-0-0-remove-obs_sdss`
+- :ref:`release-v21-0-0-remove-pex_policy`
+- :ref:`release-v21-0-0-modernization-afw`
 
 .. _release-v21-0-0-remove-synpipe:
 
@@ -66,12 +67,56 @@ Tasks for inserting simulated sources are now available as part of :ref:`pipe_ta
 
 __ https://community.lsst.org/t/new-tasks-for-fake-source-insertion/3722
 
+.. _release-v21-0-0-remove-obs_sdss:
+
+Removal of the obs_sdss package
+-------------------------------
+
+The obs_sdss camera package will be removed from the Science Pipelines before the release of version 21.0.0.
+Note that this package was previously slated for removal before the release of version 20.0.0, but this has been delayed.
+The lsst_dm_stack_demo package, which makes use of obs_sdss, will be replaced with a new package providing similar functionality.
+:jirab:`RFC-645, DM-22578`.
+
+.. _release-v21-0-0-remove-pex_policy:
+
+Removal of the pex_policy package
+---------------------------------
+
+The obsolete pex_policy package will be removed from the Science Pipelines before the release of version 21.0.0.
+Note that this package was previously slated for removal before the release of version 20.0.0, but this has been delayed.
+Calls to `lsst.pex.policy.makePolicy` should be modernized to become calls to `lsst.pex.config.makePropertySet`.
+:jirab:`RFC-626, DM-23374`
+
+.. _release-v21-0-0-modernization-afw:
+
+Modernization of the C++ API in `lsst.afw`
+------------------------------------------
+
+As announced in v20.0, a number of deprecated C++ APIs in `lsst.afw`
+have been removed. Third-party calls to most of these APIs will simply
+fail to compile. However, calls to
+:cpp:function:`~lsst::afw::math::convolve` that previously passed
+individual `bool` values for their final argument(s) instead of using
+`~lsst.afw.math.ConvolutionControl` may inadvertently call the version
+with `~lsst.afw.math.ConvolutionControl`, leading to subtle bugs or
+segmentation faults.
+:jirab:`RFC-687, DM-17566, DM-22814, DM-23076, DM-24565`
+
 .. _release-v21-0-0-pending-deprecations:
 
 Pending Deprecations
 ====================
 
 These packages/functions will be deprecated in the next major release.
+
+Removal of “Generation 2” Middleware
+------------------------------------
+
+The “Generation 3” middleware :ref:`included in the 17.0.0 release <release-v17-0-gen3>` is ultimately intended to supplant the current (“Generation 2”) Data Butler and command-line task functionality.
+When the new middleware is stable and has reached feature parity with the old code, deprecation of the Generation 2 system will be announced.
+At that time, guidance for transitioning to the new system will be made available.
+This will include moving migrating from `lsst.daf.persistence` to to `lsst.daf.butler`, and from `lsst.pipe.base.CmdLineTask`, to be replaced by `lsst.pipe.base.PipelineTask`.
+Progress towards the deprecation of Generation 2 may be tracked on :jira:`DM-20572`.
 
 .. _release-v21-0-0-deprecations:
 
