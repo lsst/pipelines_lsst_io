@@ -126,6 +126,14 @@ Deprecations
 These packages/functions are deprecated and will not be available in the next major release.
 
 - :ref:`release-v21-0-0-deprecate-obs_ctio0m9`
+- :ref:`release-v21-0-0-deprecate-gen2tasks_MetricTask`
+- :ref:`release-v21-0-0-deprecate-PosixDataStore`
+- :ref:`release-v21-0-0-deprecate-S3Datastore`
+- :ref:`release-v21-0-0-deprecate-configurations-in-isrTask.py`
+- :ref:`release-v21-0-0-deprecate-metric-in-commonMetrics.py`
+- :ref:`release-v21-0-0-deprecate-doApplyUberCal-in-forcedPhotCcd.py`
+- :ref:`release-v21-0-0-deprecate-configurations-in-fgcmFitCycle.py`
+- :ref:`release-v21-0-0-deprecate-configurations-in-psfexStarSelector.py`
 
 .. _release-v21-0-0-deprecate-obs_ctio0m9:
 
@@ -134,3 +142,100 @@ Removal of the obs_ctio0m9 package
 
 The obs_ctio0m9 camera package will be removed from the Science Pipelines before the release of version 22.0.0.
 :jirab:`RFC-729, DM-26867, DM-26868`
+
+.. _release-v21-0-0-deprecate-gen2tasks_MetricTask:
+
+Removal of MetricTask
+---------------------
+
+Replaced by `lsst.verify.tasks.MetricTask`.
+To be removed along with daf_persistence.
+Will be removed before release 22.0.0.
+:jirab:`DM-21910`
+
+.. _release-v21-0-0-deprecate-PosixDataStore:
+
+Removal of PosixDataStore
+-------------------------
+
+PosixDatastore no longer necessary. Please switch to
+lsst.daf.butler.datastores.fileDatastore.FileDatastore and rename configuration file.
+Will soon be removed.
+
+.. _release-v21-0-0-deprecate-S3Datastore:
+
+Removal of S3DataStore
+----------------------
+
+S3Datastore no longer necessary. Please switch to
+lsst.daf.butler.datastores.fileDatastore.FileDatastore and rename configuration file.
+Will soon be removed.
+
+.. _release-v21-0-0-deprecate-configurations-in-isrTask.py:
+
+Deprecated configurations in isrTask.py
+---------------------------------------
+
+Following configurations will be removed before the next 22.0.0 release:
+
+* overscanFitType
+* overscanOrder
+* overscanNumSigmaClip 
+* overscanIsInt
+
+Please configure overscan via the OverscanCorrectionConfig interface.
+configure overscan via the OverscanCorrectionConfig interface.
+
+.. _release-v21-0-0-deprecate-metric-incommonMetrics.py:
+
+Deprecated metric configurations in commonMetric.py
+---------------------------------------------------
+
+The metric field has been replaced by connections.package and
+connections.metric. It will be removed along with daf_persistence.
+
+.. _release-v21-0-0-deprecate-doApplyUberCal-in-forcedPhotCcd.py:
+
+Deprecated doApplyUberCal in forcedPhotCcd.py
+---------------------------------------------
+
+The field doApplyUberCal is deprecated. 
+Use doApplyExternalPhotoCalib and doApplyExternalSkyWcs instead.
+Will be removed before 22.0.0 release.
+:jirab:`DM-23352`
+
+.. _release-v21-0-0-deprecate-configurations-in-fgcmFitCycle.py:
+
+Deprecated configurations in fgcmFitCycle.py
+--------------------------------------------
+
+Following configurations are no longer used:
+
+* fitFlag
+* requiredFlag
+* superStarSubCcd
+* ccdGraySubCcd
+* expGrayPhotometricCut
+* expGrayHighCut
+* expVarGrayPhotometricCut
+* aperCorrInputSlopes
+* sedFudgeFactors, use sedSlopeMap instead
+* sigFgcmMaxEGray, use sigFgcmMaxEGrayDict instead
+* approxThroughput, use approxThroughputDict instead
+* colorSplitIndices, use colorSplitBands instead
+* useRepeatabilityForExpGrayCuts, use useRepeatabilityForExpGrayCutsDict instead
+
+They will be removed before the next 22.0.0 release.
+:jirab:`DM-23699`
+
+.. _release-v21-0-0-deprecate-configurations-in-psfexStarSelector.py:
+
+Deprecated configurations in psfexStarSelector.py
+-------------------------------------------------
+
+Following configurations are no longer used:
+
+* maxbad
+* maxbadflag
+
+They will be removed before the next 22.0.0 release.
