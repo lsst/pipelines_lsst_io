@@ -57,6 +57,6 @@ Now setup the processing package and run the demo:
 Check that no errors are printed out during the execution.
 
 The script creates a new Butler data repository in the `DATA_REPO` subdirectory containing the raw and calibration data found in the `input_data` directory.
-It then processes the data using the `pipetask` command to execut the `ProcessCcd` pipeline.
+It then processes the data using the `pipetask` command to execute the `ProcessCcd` pipeline.
 The outputs from processing are written to the `demo_collection` collection.
-
+The input data is a single raw image from Hyper Suprime-Cam, detector 10 of visit 903342.
