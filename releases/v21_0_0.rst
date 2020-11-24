@@ -72,7 +72,7 @@ __ https://community.lsst.org/t/new-tasks-for-fake-source-insertion/3722
 Removal of the obs_sdss package
 -------------------------------
 
-The obs_sdss camera package will be removed from the Science Pipelines before the release of version 21.0.0.
+The obs_sdss camera package has been removed from the Science Pipelines before the release of version 21.0.0.
 Note that this package was previously slated for removal before the release of version 20.0.0, but this has been delayed.
 The lsst_dm_stack_demo package, which makes use of obs_sdss, will be replaced with a new package providing similar functionality.
 :jirab:`RFC-645, DM-22578`.
@@ -82,7 +82,7 @@ The lsst_dm_stack_demo package, which makes use of obs_sdss, will be replaced wi
 Removal of the pex_policy package
 ---------------------------------
 
-The obsolete pex_policy package will be removed from the Science Pipelines before the release of version 21.0.0.
+The obsolete pex_policy package has been removed from the Science Pipelines before the release of version 21.0.0.
 Note that this package was previously slated for removal before the release of version 20.0.0, but this has been delayed.
 Calls to `lsst.pex.policy.makePolicy` should be modernized to become calls to `lsst.pex.config.makePropertySet`.
 :jirab:`RFC-626, DM-23374`
@@ -112,7 +112,7 @@ These packages/functions will be deprecated in the next major release.
 Removal of “Generation 2” Middleware
 ------------------------------------
 
-The “Generation 3” middleware :ref:`included in the 17.0.0 release <release-v17-0-gen3>` is ultimately intended to supplant the current (“Generation 2”) Data Butler and command-line task functionality.
+The “Generation 3” middleware :ref:`first included in the 17.0.0 release <release-v17-0-gen3>` is ultimately intended to supplant the current (“Generation 2”) Data Butler and command-line task functionality.
 When the new middleware is stable and has reached feature parity with the old code, deprecation of the Generation 2 system will be announced.
 At that time, guidance for transitioning to the new system will be made available.
 This will include moving migrating from `lsst.daf.persistence` to to `lsst.daf.butler`, and from `lsst.pipe.base.CmdLineTask`, to be replaced by `lsst.pipe.base.PipelineTask`.
@@ -127,8 +127,6 @@ These packages/functions are deprecated and will not be available in the next ma
 
 - :ref:`release-v21-0-0-deprecate-obs_ctio0m9`
 - :ref:`release-v21-0-0-deprecate-gen2tasks_MetricTask`
-- :ref:`release-v21-0-0-deprecate-PosixDataStore`
-- :ref:`release-v21-0-0-deprecate-S3Datastore`
 - :ref:`release-v21-0-0-deprecate-configurations-in-isrTask.py`
 - :ref:`release-v21-0-0-deprecate-metric-in-commonMetrics.py`
 - :ref:`release-v21-0-0-deprecate-doApplyUberCal-in-forcedPhotCcd.py`
@@ -152,24 +150,6 @@ Replaced by `lsst.verify.tasks.MetricTask`.
 To be removed along with daf_persistence.
 Will be removed before release 22.0.0.
 :jirab:`DM-21910`
-
-.. _release-v21-0-0-deprecate-PosixDataStore:
-
-Removal of PosixDataStore
--------------------------
-
-PosixDatastore no longer necessary. Please switch to
-lsst.daf.butler.datastores.fileDatastore.FileDatastore and rename configuration file.
-Will soon be removed.
-
-.. _release-v21-0-0-deprecate-S3Datastore:
-
-Removal of S3DataStore
-----------------------
-
-S3Datastore no longer necessary. Please switch to
-lsst.daf.butler.datastores.fileDatastore.FileDatastore and rename configuration file.
-Will soon be removed.
 
 .. _release-v21-0-0-deprecate-configurations-in-isrTask.py:
 
