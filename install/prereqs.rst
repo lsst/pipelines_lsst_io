@@ -75,6 +75,8 @@ On macOS systems, please install the Xcode Command Line Tools:
 .. code-block:: bash
 
    xcode-select --install
+   
+The ``scipipe_conda_env`` environment used for the Science Pipelines through Release 21.0.0 requires the software development kit (SDK) from Xcode 11.x (11.7 recommended); it is **not** compatible with the Xcode 12 SDK.
 
 .. _filesystem-prereqs:
 
