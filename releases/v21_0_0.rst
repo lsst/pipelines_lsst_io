@@ -46,15 +46,97 @@ __ http://doxygen.lsst.codes/stack/doxygen/xlink_master_2020_11_12_08.37.40/
 Major New Features
 ==================
 
+- :ref:`release-v21-0-0-gen3`
+- :ref:`release-v21-0-0-kht`
+- :ref:`release-v21-0-0-fakes`
+- :ref:`release-v21-0-0-jointcal`
+- :ref:`release-v21-0-0-ci_cpp`
+
+.. _release-v21-0-0-gen3:
+
+Beta release of Generation 3 Middleware
+---------------------------------------
+
+A general release is expected next release in v22. The Gen3 butler reached schema stability this release to support science pipelines development. See _release-v21-0-0-deprecate-gen2 for more information on the planned deprecation of generation 2 middleware. Interested parties may find more info at :ref:`daf_butler <lsst.daf_butler>` and :ref:`pipe_base <lsst.pipe_base>`.
+
+.. _release-v21-0-0-kht:
+
+Task to Mask Steak-like Artifacts
+---------------------------------
+
+This release adds the `MaskStreaksTask` to :ref:`pipe_tasks <lsst.pipe_tasks>` which finds and masks streaks and other straight lines in image data.
+It uses the Kernel Hough Transform (KHT) :ref:`(Fernandes and Oliveira 2007) <https://doi.org/10.1016/j.patcog.2007.04.003>` implemented in the :ref:`kht <lsst.kht>` package which was also added to the Science Pipelines.
+It can be turned on during coaddition with `CompareWarpAssembleCoaddTask` with the config parameter `doFilterMorphological`.
+
+.. _release-v21-0-0-fakes:
+
+Inject artibratry input images
+------------------------------
+
+The Task to inject simulated sources into data release processing can now accept arbitrary input images.
+:jirab:`DM-25747`
+
+.. _release-v21-0-0-jointcal:
+
+Proper motions and Parallaxes applied to Reference Sources
+----------------------------------------------------------
+
+:ref:`jointcal <lsst.jointcal>` now has the capability to apply proper motions and parallaxes to reference sources during astrometric fitting.
+
+.. _ release-v21-0-0-ci_cpp:
+
+Addition of ci_cpp
+------------------
+
+The :ref:`ci_cpp <lsst.ci_cpp>` metapackage for the ci_cpp_gen2 and ci_cpp_gen3 packages provides continuous integration tests for calibration production code. This supplements unit tests in :ref:`cp_pipe <lsst.cp_pipe>` as it can do more computationally expensive tests.
+
+For more information, refer to :jira:`RFC-718`.
+
+
+
 .. _release-v21-0-0-interface:
 
 Significant Interface Changes
 =============================
 
+- :ref:`release-v21-0-0-sdm_schemas`
+- :ref:`release-v21-0-0-ctrl_bps`
+- :ref:`release-v21-0-0-pipelines_check`
 - :ref:`release-v21-0-0-remove-synpipe`
 - :ref:`release-v21-0-0-remove-obs_sdss`
 - :ref:`release-v21-0-0-remove-pex_policy`
 - :ref:`release-v21-0-0-modernization-afw`
+
+.. _release-v21-0-0-sdm_schemas:
+
+Rename the cat package to sdm_schemas
+-------------------------------------
+
+The package `cat` was renamed to :ref:`sdm_schemas <lsst.sdm_schemas>`, which contains database schemas for output tables.
+
+.. _release-v21-0-0-ctrl_bps:
+
+Addition of the ctrl_bps package
+--------------------------------
+
+The :ref:`ctrl_bps <lsst.ctrl_bps>` package provides a PipelineTask execution framework for multi-node processing for the LSST Batch Production Service (BPS).
+
+.. _ release-v21-0-0-pipelines_check:
+
+Addition of pipelines_check package
+-----------------------------------
+
+:ref:`pipelines_check <lsst.pipelines_check>` replaces lsst_dm_stack_demo which relied on the removed obs_sdss: :ref:`release-v21-0-0-remove-obs_sdss`. This package demonstrates processing a single CCD with the Science Pipelines. It contains input files and astrometric reference catalogs needed to process the data from a single HSC detector. Its main purpose is to check that the pipeline infrastructure is working correctly.
+
+.. _release-v21-0-0-remove-obs_sdss:
+
+Removal of the obs_sdss package
+-------------------------------
+
+The obs_sdss camera package has been removed from the Science Pipelines before the release of version 21.0.0.
+Note that this package was previously slated for removal before the release of version 20.0.0, but this has been delayed.
+The lsst_dm_stack_demo package, which makes use of obs_sdss was replaced with a package providing similar functionality, :ref:`release-v21-0-0-pipelines_check`.
+:jirab:`RFC-645, DM-22578`.
 
 .. _release-v21-0-0-remove-synpipe:
 
@@ -66,16 +148,6 @@ Tasks for inserting simulated sources are now available as part of :ref:`pipe_ta
 :jirab:`RFC-661, DM-23344`
 
 __ https://community.lsst.org/t/new-tasks-for-fake-source-insertion/3722
-
-.. _release-v21-0-0-remove-obs_sdss:
-
-Removal of the obs_sdss package
--------------------------------
-
-The obs_sdss camera package has been removed from the Science Pipelines before the release of version 21.0.0.
-Note that this package was previously slated for removal before the release of version 20.0.0, but this has been delayed.
-The lsst_dm_stack_demo package, which makes use of obs_sdss, will be replaced with a new package providing similar functionality.
-:jirab:`RFC-645, DM-22578`.
 
 .. _release-v21-0-0-remove-pex_policy:
 
@@ -108,6 +180,8 @@ Pending Deprecations
 ====================
 
 These packages/functions will be deprecated in the next major release.
+
+.. _release-v21-0-0-deprecate-gen2:
 
 Removal of “Generation 2” Middleware
 ------------------------------------
@@ -160,7 +234,7 @@ Following configurations will be removed before the next 22.0.0 release:
 
 * overscanFitType
 * overscanOrder
-* overscanNumSigmaClip 
+* overscanNumSigmaClip
 * overscanIsInt
 
 Please configure overscan via the OverscanCorrectionConfig interface.
@@ -179,7 +253,7 @@ connections.metric. It will be removed along with daf_persistence.
 Deprecated doApplyUberCal in forcedPhotCcd.py
 ---------------------------------------------
 
-The field doApplyUberCal is deprecated. 
+The field doApplyUberCal is deprecated.
 Use doApplyExternalPhotoCalib and doApplyExternalSkyWcs instead.
 Will be removed before 22.0.0 release.
 :jirab:`DM-23352`
