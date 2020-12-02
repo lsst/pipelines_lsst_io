@@ -24,7 +24,7 @@ This release is based on the ``w_2020_46`` weekly build.
 The notes below highlight significant technical changes to the Science Pipelines codebase in this release.
 For a complete list of changes made, see :doc:`tickets/v21_0_0`.
 
-The `Characterization Metric Report (DMTR-???) <https://ls.st/DMTR-???>`_ describes the scientific performance of this release in terms of scientific performance metrics, while :doc:`data-products/v21_0_0` covers key issues likely to impact scientists consuming Rubin data products.
+The `Characterization Metric Report (DMTR-281) <https://ls.st/DMTR-281>`_ describes the scientific performance of this release in terms of scientific performance metrics, while :doc:`data-products/v21_0_0` covers key issues likely to impact scientists consuming Rubin data products.
 
 If you have questions or comments about this release, visit our `community forum <https://community.lsst.org>`_ for advice.
 
@@ -83,7 +83,7 @@ Proper motions and Parallaxes applied to Reference Sources
 
 :ref:`jointcal <lsst.jointcal>` now has the capability to apply proper motions and parallaxes to reference sources during astrometric fitting.
 
-.. _ release-v21-0-0-ci_cpp:
+.. _release-v21-0-0-ci_cpp:
 
 Addition of ci_cpp
 ------------------
@@ -121,7 +121,7 @@ Addition of the ctrl_bps package
 
 The :ref:`ctrl_bps <lsst.ctrl_bps>` package provides a PipelineTask execution framework for multi-node processing for the LSST Batch Production Service (BPS).
 
-.. _ release-v21-0-0-pipelines_check:
+.. _release-v21-0-0-pipelines_check:
 
 Addition of pipelines_check package
 -----------------------------------
@@ -240,7 +240,7 @@ Following configurations will be removed before the next 22.0.0 release:
 Please configure overscan via the OverscanCorrectionConfig interface.
 configure overscan via the OverscanCorrectionConfig interface.
 
-.. _release-v21-0-0-deprecate-metric-incommonMetrics.py:
+.. _release-v21-0-0-deprecate-metric-in-commonMetrics.py:
 
 Deprecated metric configurations in commonMetric.py
 ---------------------------------------------------
