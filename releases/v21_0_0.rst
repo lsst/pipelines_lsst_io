@@ -57,7 +57,8 @@ Major New Features
 Beta release of Generation 3 Middleware
 ---------------------------------------
 
-A general release is expected next release in v22. The Gen3 butler reached schema stability this release to support science pipelines development. See _release-v21-0-0-deprecate-gen2 for more information on the planned deprecation of generation 2 middleware. Interested parties may find more info at :ref:`daf_butler <lsst.daf_butler>` and :ref:`pipe_base <lsst.pipe_base>`.
+The Gen3 butler reached in this relase schema stability, it can now support the Science Pipelines development. See :ref:`release-v21-0-0-deprecate-gen2` for more information on the planned deprecation of generation 2 middleware. Interested parties may find more info at :ref:`daf_butler <lsst.daf_butler>` and :ref:`pipe_base <lsst.pipe_base>`.
+A general release of Generation 3 Middleware is expected with the next release v22.0.0.
 
 .. _release-v21-0-0-kht:
 
@@ -73,7 +74,7 @@ It can be turned on during coaddition with `CompareWarpAssembleCoaddTask` with t
 Inject artibratry input images
 ------------------------------
 
-The Task to inject simulated sources into data release processing can now accept arbitrary input images.
+The task to inject simulated sources into data release processing can now accept arbitrary input images.
 :jirab:`DM-25747`
 
 .. _release-v21-0-0-jointcal:
@@ -126,7 +127,7 @@ The :ref:`ctrl_bps <lsst.ctrl_bps>` package provides a PipelineTask execution fr
 Addition of pipelines_check package
 -----------------------------------
 
-:ref:`pipelines_check <lsst.pipelines_check>` replaces lsst_dm_stack_demo which relied on the removed obs_sdss: :ref:`release-v21-0-0-remove-obs_sdss`. This package demonstrates processing a single CCD with the Science Pipelines. It contains input files and astrometric reference catalogs needed to process the data from a single HSC detector. Its main purpose is to check that the pipeline infrastructure is working correctly.
+The new :ref:`pipelines_check <lsst.pipelines_check>` package replaces lsst_dm_stack_demo which relied on the removed obs_sdss, as documented in :ref:`release-v21-0-0-remove-obs_sdss`. This new package demonstrates the processing of a single CCD with the Science Pipelines. It contains input files and astrometric reference catalogs needed to process the data from a single HSC detector. Its main purpose is to check that the pipeline infrastructure is working correctly.
 
 .. _release-v21-0-0-remove-obs_sdss:
 
@@ -189,7 +190,7 @@ Removal of “Generation 2” Middleware
 The “Generation 3” middleware :ref:`first included in the 17.0.0 release <release-v17-0-gen3>` is ultimately intended to supplant the current (“Generation 2”) Data Butler and command-line task functionality.
 When the new middleware is stable and has reached feature parity with the old code, deprecation of the Generation 2 system will be announced.
 At that time, guidance for transitioning to the new system will be made available.
-This will include moving migrating from `lsst.daf.persistence` to to `lsst.daf.butler`, and from `lsst.pipe.base.CmdLineTask`, to be replaced by `lsst.pipe.base.PipelineTask`.
+This will include moving migrating from `lsst.daf.persistence` to `lsst.daf.butler`, and `lsst.pipe.base.CmdLineTask` will be replaced by `lsst.pipe.base.PipelineTask`.
 Progress towards the deprecation of Generation 2 may be tracked on :jira:`DM-20572`.
 
 .. _release-v21-0-0-deprecations:
@@ -220,9 +221,8 @@ The obs_ctio0m9 camera package will be removed from the Science Pipelines before
 Removal of MetricTask
 ---------------------
 
-Replaced by `lsst.verify.tasks.MetricTask`.
-To be removed along with daf_persistence.
-Will be removed before release 22.0.0.
+The :code:`MetricTask` is replaced by `lsst.verify.tasks.MetricTask`.
+It will be removed along with daf_persistence before the next release 22.0.0.
 :jirab:`DM-21910`
 
 .. _release-v21-0-0-deprecate-configurations-in-isrTask.py:
@@ -237,25 +237,24 @@ Following configurations will be removed before the next 22.0.0 release:
 * overscanNumSigmaClip
 * overscanIsInt
 
-Please configure overscan via the OverscanCorrectionConfig interface.
-configure overscan via the OverscanCorrectionConfig interface.
+Please configure overscan via the :code:`OverscanCorrectionConfig` interface.
 
 .. _release-v21-0-0-deprecate-metric-in-commonMetrics.py:
 
 Deprecated metric configurations in commonMetric.py
 ---------------------------------------------------
 
-The metric field has been replaced by connections.package and
-connections.metric. It will be removed along with daf_persistence.
+The :code:`metric` field has been replaced by :code:`connections.package` and
+:code:`connections.metric`. It will be removed along with daf_persistence.
 
 .. _release-v21-0-0-deprecate-doApplyUberCal-in-forcedPhotCcd.py:
 
 Deprecated doApplyUberCal in forcedPhotCcd.py
 ---------------------------------------------
 
-The field doApplyUberCal is deprecated.
-Use doApplyExternalPhotoCalib and doApplyExternalSkyWcs instead.
-Will be removed before 22.0.0 release.
+The field :code:`doApplyUberCal` is deprecated.
+Use :code:`doApplyExternalPhotoCalib` and code:`doApplyExternalSkyWcs` instead.
+It will be removed before 22.0.0 release.
 :jirab:`DM-23352`
 
 .. _release-v21-0-0-deprecate-configurations-in-fgcmFitCycle.py:
