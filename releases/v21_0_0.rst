@@ -57,39 +57,40 @@ Major New Features
 Beta release of Generation 3 Middleware
 ---------------------------------------
 
-The Gen3 butler reached in this relase schema stability, it can now support the Science Pipelines development. See :ref:`release-v21-0-0-deprecate-gen2` for more information on the planned deprecation of generation 2 middleware. Interested parties may find more info at :ref:`daf_butler <lsst.daf_butler>` and :ref:`pipe_base <lsst.pipe_base>`.
+Reaching schema stability in this release, the Gen3 butler can now support Science Pipelines development. See :ref:`release-v21-0-0-deprecate-gen2` for more information on the planned deprecation of generation 2 middleware. Interested parties may find more info at :ref:`daf_butler <lsst.daf_butler>` and :ref:`pipe_base <lsst.pipe_base>`.
 A general release of Generation 3 Middleware is expected with the next release v22.0.0.
 
 .. _release-v21-0-0-kht:
 
-Task to Mask Steak-like Artifacts
----------------------------------
+Task to mask streak-like artifacts
+----------------------------------
 
-This release adds the `MaskStreaksTask` to :ref:`pipe_tasks <lsst.pipe_tasks>` which finds and masks streaks and other straight lines in image data.
-It uses the Kernel Hough Transform (KHT) :ref:`(Fernandes and Oliveira 2007) <https://doi.org/10.1016/j.patcog.2007.04.003>` implemented in the :ref:`kht <lsst.kht>` package which was also added to the Science Pipelines.
+This release adds the `MaskStreaksTask` to :ref:`pipe_tasks <lsst.pipe_tasks>`, which finds and masks streaks and other straight lines in image data.
+It uses the Kernel Hough Transform (KHT) `(Fernandes and Oliveira 2007) <https://doi.org/10.1016/j.patcog.2007.04.003>`_ implemented in the `kht <https://github.com/lsst/kht>`_, package which was also added to the Science Pipelines.
 It can be turned on during coaddition with `CompareWarpAssembleCoaddTask` with the config parameter `doFilterMorphological`.
 
 .. _release-v21-0-0-fakes:
 
-Inject artibratry input images
+Inject arbitrary input images
 ------------------------------
 
-The task to inject simulated sources into data release processing can now accept arbitrary input images.
+The task to inject simulated sources into data release processing, `InsertFakesTask`, can now accept arbitrary input images.
 :jirab:`DM-25747`
 
 .. _release-v21-0-0-jointcal:
 
-Proper motions and Parallaxes applied to Reference Sources
+Proper motions and parallaxes applied to reference sources
 ----------------------------------------------------------
 
-:ref:`jointcal <lsst.jointcal>` now has the capability to apply proper motions and parallaxes to reference sources during astrometric fitting.
+:ref:`jointcal <lsst.jointcal>` now can apply proper motions and parallaxes to reference sources during astrometric fitting.
+:jirab:`DM-24277`
 
 .. _release-v21-0-0-ci_cpp:
 
 Addition of ci_cpp
 ------------------
 
-The :ref:`ci_cpp <lsst.ci_cpp>` metapackage for the ci_cpp_gen2 and ci_cpp_gen3 packages provides continuous integration tests for calibration production code. This supplements unit tests in :ref:`cp_pipe <lsst.cp_pipe>` as it can do more computationally expensive tests.
+The `ci_cpp` metapackage for the `ci_cpp_gen2 <https://github.com/lsst/ci_cpp_gen2>`_ and `ci_cpp_gen3 <https://github.com/lsst/ci_cpp_gen3>`_ packages provides continuous integration tests for calibration production code. This supplements unit tests in `cp_pipe <https://github.com/lsst/cp_pipe>`_ as it can do more computationally expensive tests.
 
 For more information, refer to :jira:`RFC-718`.
 
@@ -113,21 +114,25 @@ Significant Interface Changes
 Rename the cat package to sdm_schemas
 -------------------------------------
 
-The package `cat` was renamed to :ref:`sdm_schemas <lsst.sdm_schemas>`, which contains database schemas for output tables.
+The package `cat` was renamed to `sdm_schemas <https://github.com/lsst/sdm_schemas>`_, which contains database schemas for output tables.
+
+For more information, refer to :jira:`RFC-672`.
 
 .. _release-v21-0-0-ctrl_bps:
 
 Addition of the ctrl_bps package
 --------------------------------
 
-The :ref:`ctrl_bps <lsst.ctrl_bps>` package provides a PipelineTask execution framework for multi-node processing for the LSST Batch Production Service (BPS).
+The `ctrl_bps <lsst.ctrl_bps>`_ package provides a PipelineTask execution framework for multi-node processing for the LSST Batch Production Service (BPS).
+
+For more information, refer to :jira:`RFC-736`.
 
 .. _release-v21-0-0-pipelines_check:
 
 Addition of pipelines_check package
 -----------------------------------
 
-The new :ref:`pipelines_check <lsst.pipelines_check>` package replaces lsst_dm_stack_demo which relied on the removed obs_sdss, as documented in :ref:`release-v21-0-0-remove-obs_sdss`. This new package demonstrates the processing of a single CCD with the Science Pipelines. It contains input files and astrometric reference catalogs needed to process the data from a single HSC detector. Its main purpose is to check that the pipeline infrastructure is working correctly.
+The new :ref:`pipelines_check <lsst.pipelines_check>` package replaces `lsst_dm_stack_demo`, which relied on the now :ref:`release-v21-0-0-remove-obs_sdss<removed obs_sdss>`. This new package demonstrates the processing of a single CCD with the Science Pipelines. It contains input files and astrometric reference catalogs needed to process the data from a single HSC detector. Its main purpose is to check that the pipeline infrastructure is working correctly.
 
 .. _release-v21-0-0-remove-obs_sdss:
 
