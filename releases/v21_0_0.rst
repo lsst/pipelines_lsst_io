@@ -187,6 +187,9 @@ Pending Deprecations
 
 These packages/functions will be deprecated in the next major release.
 
+- :ref:`release-v21-0-0-deprecate-gen2`
+- :ref:`release-v21-0-0-deprecate-gen2tasks_MetricTask`
+
 .. _release-v21-0-0-deprecate-gen2:
 
 Removal of “Generation 2” Middleware
@@ -198,6 +201,15 @@ At that time, guidance for transitioning to the new system will be made availabl
 This will include moving migrating from `lsst.daf.persistence` to `lsst.daf.butler`, and `lsst.pipe.base.CmdLineTask` will be replaced by `lsst.pipe.base.PipelineTask`.
 Progress towards the deprecation of Generation 2 may be tracked on :jira:`DM-20572`.
 
+.. _release-v21-0-0-deprecate-gen2tasks_MetricTask:
+
+Removal of MetricTask
+---------------------
+
+The :code:`MetricTask` is replaced by `lsst.verify.tasks.MetricTask`.
+It will be removed along with daf_persistence.
+:jirab:`DM-21910`
+
 .. _release-v21-0-0-deprecations:
 
 Deprecations
@@ -206,7 +218,6 @@ Deprecations
 These packages/functions are deprecated and will not be available in the next major release.
 
 - :ref:`release-v21-0-0-deprecate-obs_ctio0m9`
-- :ref:`release-v21-0-0-deprecate-gen2tasks_MetricTask`
 - :ref:`release-v21-0-0-deprecate-configurations-in-isrTask.py`
 - :ref:`release-v21-0-0-deprecate-metric-in-commonMetrics.py`
 - :ref:`release-v21-0-0-deprecate-doApplyUberCal-in-forcedPhotCcd.py`
@@ -220,15 +231,6 @@ Removal of the obs_ctio0m9 package
 
 The obs_ctio0m9 camera package will be removed from the Science Pipelines before the release of version 22.0.0.
 :jirab:`RFC-729, DM-26867, DM-26868`
-
-.. _release-v21-0-0-deprecate-gen2tasks_MetricTask:
-
-Removal of MetricTask
----------------------
-
-The :code:`MetricTask` is replaced by `lsst.verify.tasks.MetricTask`.
-It will be removed along with daf_persistence before the next release 22.0.0.
-:jirab:`DM-21910`
 
 .. _release-v21-0-0-deprecate-configurations-in-isrTask.py:
 
