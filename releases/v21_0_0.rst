@@ -57,7 +57,7 @@ Major New Features
 Beta release of Generation 3 Middleware
 ---------------------------------------
 
-Reaching schema stability in this release, the Gen3 butler can now support Science Pipelines development. See :ref:`release-v21-0-0-deprecate-gen2` for more information on the planned deprecation of generation 2 middleware. Interested parties may find more info at :ref:`daf_butler <lsst.daf_butler>` and :ref:`pipe_base <lsst.pipe_base>`.
+Reaching schema stability in this release, the Gen3 butler can now support Science Pipelines development. See :ref:`release-v21-0-0-deprecate-gen2` for more information on the planned deprecation of Generation 2 middleware. Interested parties may find more info at :ref:`daf_butler <lsst.daf_butler>` and :ref:`pipe_base <lsst.pipe_base>`.
 A general release of Generation 3 Middleware is expected with the next release v22.0.0.
 
 .. _release-v21-0-0-kht:
@@ -235,7 +235,7 @@ It will be removed along with daf_persistence before the next release 22.0.0.
 Deprecated configurations in isrTask.py
 ---------------------------------------
 
-Following configurations will be removed before the next 22.0.0 release:
+The following configurations will be removed before the 22.0.0 release:
 
 * overscanFitType
 * overscanOrder
@@ -259,7 +259,7 @@ Deprecated doApplyUberCal in forcedPhotCcd.py
 
 The field :code:`doApplyUberCal` is deprecated.
 Use :code:`doApplyExternalPhotoCalib` and code:`doApplyExternalSkyWcs` instead.
-It will be removed before 22.0.0 release.
+It will be removed before the 22.0.0 release.
 :jirab:`DM-23352`
 
 .. _release-v21-0-0-deprecate-configurations-in-fgcmFitCycle.py:
@@ -267,7 +267,7 @@ It will be removed before 22.0.0 release.
 Deprecated configurations in fgcmFitCycle.py
 --------------------------------------------
 
-Following configurations are no longer used:
+The following configurations are no longer used and will be removed before the 22.0.0 release:
 
 * fitFlag
 * requiredFlag
@@ -283,7 +283,6 @@ Following configurations are no longer used:
 * colorSplitIndices, use colorSplitBands instead
 * useRepeatabilityForExpGrayCuts, use useRepeatabilityForExpGrayCutsDict instead
 
-They will be removed before the next 22.0.0 release.
 :jirab:`DM-23699`
 
 .. _release-v21-0-0-deprecate-configurations-in-psfexStarSelector.py:
@@ -291,9 +290,7 @@ They will be removed before the next 22.0.0 release.
 Deprecated configurations in psfexStarSelector.py
 -------------------------------------------------
 
-Following configurations are no longer used:
+The following configurations are no longer used and will be removed before the 22.0.0 release:
 
 * maxbad
 * maxbadflag
-
-They will be removed before the next 22.0.0 release.
