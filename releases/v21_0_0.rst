@@ -173,7 +173,7 @@ Modernization of the C++ API in `lsst.afw`
 As announced in v20.0, a number of deprecated C++ APIs in `lsst.afw`
 have been removed. Third-party calls to most of these APIs will simply
 fail to compile. However, calls to
-:cpp:function:`~lsst::afw::math::convolve` that previously passed
+:code:`afw::math::convolve` that previously passed
 individual `bool` values for their final argument(s) instead of using
 `~lsst.afw.math.ConvolutionControl` may inadvertently call the version
 with `~lsst.afw.math.ConvolutionControl`, leading to subtle bugs or
