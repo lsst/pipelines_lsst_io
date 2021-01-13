@@ -30,8 +30,8 @@ Then download the demo's data (if you aren't running the current stable release,
 
    .. code-block:: bash
 
-      curl -L https://github.com/lsst/lsst_dm_stack_demo/archive/{{ pipelines_demo_ref }}.tar.gz | tar xvzf -
-      cd lsst_dm_stack_demo-{{ pipelines_demo_ref }}
+      curl -L https://github.com/lsst/pipelines_check/archive/{{ pipelines_demo_ref }}.tar.gz | tar xvzf -
+      cd pipelines_check-{{ pipelines_demo_ref }}
 
 .. caution::
 
@@ -40,20 +40,8 @@ Then download the demo's data (if you aren't running the current stable release,
 
    .. code-block:: bash
 
-      curl -L https://github.com/lsst/lsst_dm_stack_demo/archive/master.tar.gz | tar xvzf -
-      cd lsst_dm_stack_demo-master
-
-The demo repository consumes roughly 41 MB, contains input images, reference data, and configuration files.
-The demo script will process SDSS images from two fields in Stripe 82, as shown in the following table:
-
-==== ====== ===== =========
-run  camcol field filters
-==== ====== ===== =========
-4192 4      300   *(ur)giz*
-6377 4      399   *(gz)uri*
-==== ====== ===== =========
-
-*Filters in parentheses are not processed if run with the* ``--small`` *option, see below*
+      curl -L https://github.com/lsst/pipelines_check/archive/master.tar.gz | tar xvzf -
+      cd pipelines_check-master
 
 3. Run the demo
 ===============
@@ -62,37 +50,13 @@ Now setup the processing package and run the demo:
 
 .. code-block:: bash
 
-   setup obs_sdss
-   ./bin/demo.sh # --small to process a subset of images
+   setup -r .
+   ./bin/run_demo.sh
 
-For each input image the script performs the following operations:
 
-- Generates a subset of basic image characterizations (such photometric zero-point estimation, source detection, and measurement).
-- Creates a :file:`./output` directory containing subdirectories of configuration files, processing metadata, calibrated images, and FITS tables of detected sources.
-  These ``raw`` outputs are readable by other parts of the LSST pipeline.
-- Generates a master comparison catalog in the working directory from the band-specific source catalogs in the ``output/sci-results/`` subdirectories.
+Check that no errors are printed out during the execution.
 
-4. Check the demo results
-=========================
-
-The demo will take a minute or two to execute (depending upon your machine), and will generate a large number of status messages.
-Upon successful completion, the top-level directory will contain an output ASCII table that can be compared to the expected results from a reference run.
-This table is for convenience only, and would not ordinarily be produced by the production LSST pipelines.
-
-========================== ==================================
-Demo Invocation            Demo Output
-========================== ==================================
-:command:`demo.sh`         :file:`detected-sources.txt`
-:command:`demo.sh --small` :file:`detected-sources_small.txt`
-========================== ==================================
-
-The demo output may not be identical to the reference output due to minor variation in numerical routines between operating systems (see :jira:`DM-1086` for details).
-The :command:`bin/compare` script will check whether the output matches the reference to within expected tolerances:
-
-.. code-block:: bash
-
-   ./bin/compare detected-sources.txt
-
-The script will print "``Ok``" if the demo ran correctly.
-
-For more information about the processing done by the demo, refer to `its README on GitHub <https://github.com/lsst/lsst_dm_stack_demo>`_.
+The script creates a new Butler data repository in the `DATA_REPO` subdirectory containing the raw and calibration data found in the `input_data` directory.
+It then processes the data using the `pipetask` command to execute the `ProcessCcd` pipeline.
+The outputs from processing are written to the `demo_collection` collection.
+The input data is a single raw image from Hyper Suprime-Cam, detector 10 of visit 903342.

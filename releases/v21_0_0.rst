@@ -2,7 +2,7 @@
 .. _release-v21-0-0:
 
 ###########################
-Release 21.0.0 (202?-??-??)
+Release 21.0.0 (2020-12-08)
 ###########################
 
 .. toctree::
@@ -19,12 +19,12 @@ Release 21.0.0 (202?-??-??)
 | :doc:`EUPS distrib </install/newinstall>` | v21\_0\_0  |
 +-------------------------------------------+------------+
 
-This release is based on the ``w_202?_??`` weekly build.
+This release is based on the ``w_2020_46`` weekly build.
 
 The notes below highlight significant technical changes to the Science Pipelines codebase in this release.
 For a complete list of changes made, see :doc:`tickets/v21_0_0`.
 
-The `Characterization Metric Report (DMTR-???) <https://ls.st/DMTR-???>`_ describes the scientific performance of this release in terms of scientific performance metrics, while :doc:`data-products/v21_0_0` covers key issues likely to impact scientists consuming Rubin data products.
+The `Characterization Metric Report (DMTR-281) <https://ls.st/DMTR-281>`_ describes the scientific performance of this release in terms of scientific performance metrics, while :doc:`data-products/v21_0_0` covers key issues likely to impact scientists consuming Rubin data products.
 
 If you have questions or comments about this release, visit our `community forum <https://community.lsst.org>`_ for advice.
 
@@ -39,21 +39,110 @@ If you have questions or comments about this release, visit our `community forum
 - :doc:`Known issues </known-issues>`
 - `Doxygen Documentation`__
 
-.. todo:: Update link
-
-__ http://doxygen.lsst.codes/stack/doxygen/xlink_master_2020_06_24_18.09.15/
+__ http://doxygen.lsst.codes/stack/doxygen/xlink_master_2020_11_12_08.37.40/
 
 .. _release-v21-0-0-functionality:
 
 Major New Features
 ==================
 
+- :ref:`release-v21-0-0-gen3`
+- :ref:`release-v21-0-0-kht`
+- :ref:`release-v21-0-0-fakes`
+- :ref:`release-v21-0-0-jointcal`
+- :ref:`release-v21-0-0-ci_cpp`
+
+.. _release-v21-0-0-gen3:
+
+Beta release of Generation 3 Middleware
+---------------------------------------
+
+Reaching schema stability in this release, the Gen3 butler can now support Science Pipelines development. See :ref:`release-v21-0-0-deprecate-gen2` for more information on the planned deprecation of Generation 2 middleware. Interested parties may find more info at :ref:`daf_butler <lsst.daf_butler>` and :ref:`pipe_base <lsst.pipe_base>`.
+A general release of Generation 3 Middleware is expected with the next release v22.0.0.
+
+.. _release-v21-0-0-kht:
+
+Task to mask streak-like artifacts
+----------------------------------
+
+This release adds the `MaskStreaksTask` to :ref:`pipe_tasks <lsst.pipe_tasks>`, which finds and masks streaks and other straight lines in image data.
+It uses the Kernel Hough Transform (KHT) `(Fernandes and Oliveira 2007) <https://doi.org/10.1016/j.patcog.2007.04.003>`_ implemented in the `kht <https://github.com/lsst/kht>`_, package which was also added to the Science Pipelines.
+It can be turned on during coaddition with `CompareWarpAssembleCoaddTask` with the config parameter `doFilterMorphological`.
+
+.. _release-v21-0-0-fakes:
+
+Inject arbitrary input images
+------------------------------
+
+The task to inject simulated sources into data release processing, `InsertFakesTask`, can now accept arbitrary input images.
+:jirab:`DM-25747`
+
+.. _release-v21-0-0-jointcal:
+
+Proper motions and parallaxes applied to reference sources
+----------------------------------------------------------
+
+:ref:`jointcal <lsst.jointcal>` now can apply proper motions and parallaxes to reference sources during astrometric fitting.
+:jirab:`DM-24277`
+
+.. _release-v21-0-0-ci_cpp:
+
+Addition of ci_cpp
+------------------
+
+The `ci_cpp` metapackage for the `ci_cpp_gen2 <https://github.com/lsst/ci_cpp_gen2>`_ and `ci_cpp_gen3 <https://github.com/lsst/ci_cpp_gen3>`_ packages provides continuous integration tests for calibration production code. This supplements unit tests in `cp_pipe <https://github.com/lsst/cp_pipe>`_ as it can do more computationally expensive tests.
+
+For more information, refer to :jira:`RFC-718`.
+
+
+
 .. _release-v21-0-0-interface:
 
 Significant Interface Changes
 =============================
 
+- :ref:`release-v21-0-0-sdm_schemas`
+- :ref:`release-v21-0-0-ctrl_bps`
+- :ref:`release-v21-0-0-pipelines_check`
 - :ref:`release-v21-0-0-remove-synpipe`
+- :ref:`release-v21-0-0-remove-obs_sdss`
+- :ref:`release-v21-0-0-remove-pex_policy`
+- :ref:`release-v21-0-0-modernization-afw`
+
+.. _release-v21-0-0-sdm_schemas:
+
+Rename the cat package to sdm_schemas
+-------------------------------------
+
+The package `cat` was renamed to `sdm_schemas <https://github.com/lsst/sdm_schemas>`_, which contains database schemas for output tables.
+
+For more information, refer to :jira:`RFC-672`.
+
+.. _release-v21-0-0-ctrl_bps:
+
+Addition of the ctrl_bps package
+--------------------------------
+
+The `ctrl_bps <lsst.ctrl_bps>`_ package provides a PipelineTask execution framework for multi-node processing for the LSST Batch Production Service (BPS).
+
+For more information, refer to :jira:`RFC-736`.
+
+.. _release-v21-0-0-pipelines_check:
+
+Addition of the pipelines_check package
+-----------------------------------
+
+The new :ref:`pipelines_check <lsst.pipelines_check>` package replaces `lsst_dm_stack_demo`, which relied on the now :ref:`release-v21-0-0-remove-obs_sdss<removed obs_sdss>`. This new package demonstrates the processing of a single CCD with the Science Pipelines. It contains input files and astrometric reference catalogs needed to process the data from a single HSC detector. Its main purpose is to check that the pipeline infrastructure is working correctly.
+
+.. _release-v21-0-0-remove-obs_sdss:
+
+Removal of the obs_sdss package
+-------------------------------
+
+The obs_sdss camera package has been removed from the Science Pipelines before the release of version 21.0.0.
+Note that this package was previously slated for removal before the release of version 20.0.0, but this has been delayed.
+The lsst_dm_stack_demo package, which makes use of obs_sdss was replaced with a package providing similar functionality, :ref:`release-v21-0-0-pipelines_check`.
+:jirab:`RFC-645, DM-22578`.
 
 .. _release-v21-0-0-remove-synpipe:
 
@@ -66,12 +155,60 @@ Tasks for inserting simulated sources are now available as part of :ref:`pipe_ta
 
 __ https://community.lsst.org/t/new-tasks-for-fake-source-insertion/3722
 
+.. _release-v21-0-0-remove-pex_policy:
+
+Removal of the pex_policy package
+---------------------------------
+
+The obsolete pex_policy package has been removed from the Science Pipelines before the release of version 21.0.0.
+Note that this package was previously slated for removal before the release of version 20.0.0, but this has been delayed.
+Calls to `lsst.pex.policy.makePolicy` should be modernized to become calls to `lsst.pex.config.makePropertySet`.
+:jirab:`RFC-626, DM-23374`
+
+.. _release-v21-0-0-modernization-afw:
+
+Modernization of the C++ API in `lsst.afw`
+------------------------------------------
+
+As announced in v20.0, a number of deprecated C++ APIs in `lsst.afw`
+have been removed. Third-party calls to most of these APIs will simply
+fail to compile. However, calls to
+:code:`afw::math::convolve` that previously passed
+individual `bool` values for their final argument(s) instead of using
+`~lsst.afw.math.ConvolutionControl` may inadvertently call the version
+with `~lsst.afw.math.ConvolutionControl`, leading to subtle bugs or
+segmentation faults.
+:jirab:`RFC-687, DM-17566, DM-22814, DM-23076, DM-24565`
+
 .. _release-v21-0-0-pending-deprecations:
 
 Pending Deprecations
 ====================
 
 These packages/functions will be deprecated in the next major release.
+
+- :ref:`release-v21-0-0-deprecate-gen2`
+- :ref:`release-v21-0-0-deprecate-gen2tasks_MetricTask`
+
+.. _release-v21-0-0-deprecate-gen2:
+
+Removal of “Generation 2” Middleware
+------------------------------------
+
+The “Generation 3” middleware :ref:`first included in the 17.0.0 release <release-v17-0-gen3>` is ultimately intended to supplant the current (“Generation 2”) Data Butler and command-line task functionality.
+When the new middleware is stable and has reached feature parity with the old code, deprecation of the Generation 2 system will be announced.
+At that time, guidance for transitioning to the new system will be made available.
+This will include moving migrating from `lsst.daf.persistence` to `lsst.daf.butler`, and `lsst.pipe.base.CmdLineTask` will be replaced by `lsst.pipe.base.PipelineTask`.
+Progress towards the deprecation of Generation 2 may be tracked on :jira:`DM-20572`.
+
+.. _release-v21-0-0-deprecate-gen2tasks_MetricTask:
+
+Removal of MetricTask
+---------------------
+
+The :code:`MetricTask` is replaced by `lsst.verify.tasks.MetricTask`.
+It will be removed along with daf_persistence.
+:jirab:`DM-21910`
 
 .. _release-v21-0-0-deprecations:
 
@@ -81,6 +218,11 @@ Deprecations
 These packages/functions are deprecated and will not be available in the next major release.
 
 - :ref:`release-v21-0-0-deprecate-obs_ctio0m9`
+- :ref:`release-v21-0-0-deprecate-configurations-in-isrTask.py`
+- :ref:`release-v21-0-0-deprecate-metric-in-commonMetrics.py`
+- :ref:`release-v21-0-0-deprecate-doApplyUberCal-in-forcedPhotCcd.py`
+- :ref:`release-v21-0-0-deprecate-configurations-in-fgcmFitCycle.py`
+- :ref:`release-v21-0-0-deprecate-configurations-in-psfexStarSelector.py`
 
 .. _release-v21-0-0-deprecate-obs_ctio0m9:
 
@@ -89,3 +231,68 @@ Removal of the obs_ctio0m9 package
 
 The obs_ctio0m9 camera package will be removed from the Science Pipelines before the release of version 22.0.0.
 :jirab:`RFC-729, DM-26867, DM-26868`
+
+.. _release-v21-0-0-deprecate-configurations-in-isrTask.py:
+
+Deprecated configurations in isrTask.py
+---------------------------------------
+
+The following configurations will be removed before the 22.0.0 release:
+
+* overscanFitType
+* overscanOrder
+* overscanNumSigmaClip
+* overscanIsInt
+
+Please configure overscan via the :code:`OverscanCorrectionConfig` interface.
+
+.. _release-v21-0-0-deprecate-metric-in-commonMetrics.py:
+
+Deprecated metric configurations in commonMetric.py
+---------------------------------------------------
+
+The :code:`metric` field has been replaced by :code:`connections.package` and
+:code:`connections.metric`. It will be removed along with daf_persistence.
+
+.. _release-v21-0-0-deprecate-doApplyUberCal-in-forcedPhotCcd.py:
+
+Deprecated doApplyUberCal in forcedPhotCcd.py
+---------------------------------------------
+
+The field :code:`doApplyUberCal` is deprecated.
+Use :code:`doApplyExternalPhotoCalib` and code:`doApplyExternalSkyWcs` instead.
+It will be removed before the 22.0.0 release.
+:jirab:`DM-23352`
+
+.. _release-v21-0-0-deprecate-configurations-in-fgcmFitCycle.py:
+
+Deprecated configurations in fgcmFitCycle.py
+--------------------------------------------
+
+The following configurations are no longer used and will be removed before the 22.0.0 release:
+
+* fitFlag
+* requiredFlag
+* superStarSubCcd
+* ccdGraySubCcd
+* expGrayPhotometricCut
+* expGrayHighCut
+* expVarGrayPhotometricCut
+* aperCorrInputSlopes
+* sedFudgeFactors, use sedSlopeMap instead
+* sigFgcmMaxEGray, use sigFgcmMaxEGrayDict instead
+* approxThroughput, use approxThroughputDict instead
+* colorSplitIndices, use colorSplitBands instead
+* useRepeatabilityForExpGrayCuts, use useRepeatabilityForExpGrayCutsDict instead
+
+:jirab:`DM-23699`
+
+.. _release-v21-0-0-deprecate-configurations-in-psfexStarSelector.py:
+
+Deprecated configurations in psfexStarSelector.py
+-------------------------------------------------
+
+The following configurations are no longer used and will be removed before the 22.0.0 release:
+
+* maxbad
+* maxbadflag
