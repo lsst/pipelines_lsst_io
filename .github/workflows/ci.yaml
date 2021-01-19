@@ -1,0 +1,12 @@
+name: Empty check for branch protection
+
+on:
+  - push
+  - pull_request
+
+jobs:
+
+  null_check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
