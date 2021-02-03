@@ -125,7 +125,6 @@ See :doc:`setup` for more information.
 ====================================
 
 Once the LSST Science Pipelines are installed, you can verify that it works by :doc:`running a demo pipeline <demo>`.
-This demo processes a small amount of SDSS data and verifies that measurements match expected values.
 
 See :doc:`demo` for instructions.
 
