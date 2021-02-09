@@ -46,7 +46,7 @@ Downloading the sample HSC data
 
 Sample data for this tutorial comes from the `testdata_ci_hsc`_ package.
 `testdata_ci_hsc`_ contains a small set of Hyper Suprime-Cam (HSC) exposures.
-The Science Pipelines provides native integrations for many observatories, including HSC, CFHT/MegaCam, SDSS, and of course LSST.
+The Science Pipelines provides native integrations for many observatories, including HSC, CFHT/MegaCam, and of course LSST.
 
 `testdata_ci_hsc`_ is a Git LFS-backed package, so make sure you've :doc:`installed and configured Git LFS for LSST <../install/git-lfs>`.
 
