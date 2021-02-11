@@ -166,3 +166,50 @@ Finally, if you need to query for calibration datasets *and* their validity rang
 That's a bit less user-friendly - it only accepts one dataset type at a time, and doesn't let you restrict the data IDs at all - but it *can* query `~CollectionType.CALIBRATION` collections and it returns the associated validity ranges as well.
 It actually only exists as a workaround for the fact that `~Registry.queryDatasets` can't do those things, and it will probably be removed sometime after those limitations are lifted.
 
+How do I fix an empty QuantumGraph?
+===================================
+
+.. py:currentmodule:: lsst.pipe.base
+
+The :program:`pipetask` tool attempts to predict all of the processing a pipeline will perform in advance, representing the results as a `QuantumGraph` object that can be saved or directly executed.
+When that graph is empty, it means it thinks there's no work to be done, and unfortunately this is both a common and hard-to-diagnose problem.
+
+The `QuantumGraph` generation algorithm begins with a large SQL query (a complicated invocation of `Registry.queryDataIds`, actually), where the result rows are essentially data IDs and the result columns are all of the dimensions referenced by any task or dataset type in the pipeline.
+Queries for all `"regular input"<connectionTypes.Input>` datasets (i.e. not `PrerequisiteInputs<connectionTypes.PrerequisiteInput>`") are included as subqueries, spatial and temporal joins are automatically included, and the user-provided query expression is translated into an equivalent SQL ``WHERE`` clause.
+That means there are many ways to get no result rows - and hence an empty graph - without much information about what was missing.
+Some common possibilities include:
+
+- There are no instances of an input dataset type in the input collections.
+- There are no dimension records of a needed type.
+- There is no spatial or temporal overlap between existing datasets and the data IDs accepted by the query expression (e.g. the ``visits`` don't overlap the ``patches``).
+
+Usually the first step in debugging an empty `QuantumGraph` is to use :program:`pipetask` to create a diagram of the pipeline graph - a simpler directed acyclic graph that relates tasks to dataset types, without any data IDs.
+The :option:`pipetask build --pipeline-dot` argument writes this graph in the `GraphViz dot language`_, and you can use the ubiquitous ``dot`` command-line tool to transform that into a PNG, SVG, or other graphical format file:
+
+.. code:: sh
+
+    $ pipetask build ... --pipeline-dot pipeline.dot
+    $ dot pipeline.dot -Tsvg > pipeline.svg
+
+This graph will often reveal some unexpected input dataset types (or even tasks)that make it obvious what's wrong.
+
+To check whether a particular dataset type is present, you can use :program:`butler query-datasets` with the same input collections that were passed to :program:`pipetask`, and both with and without the same query expression.
+
+You can similarly use :program:`butler query-dimension-records` to query for each of the dimensions involved in the pipeline (these are also shown in the ``dot`` diagram).
+Not having dimension records is a much less common problem overall, especially in a shared data repository, but there are two common cases:
+
+- Ingesting raw images adds ``exposure`` dimension records to a data repository, but not ``visit`` dimension records; adding visits is another step (:program:`butler define-visits` or `lsst.obs.base.DefineVisitsTask`) that must be run manually after ingest.
+
+- ``skymap``, ``tract``, and ``patch`` dimension records are added (together) by the :program:`butler register-skymap` tool (or `lsst.skymap.BaseSkyMap.register`), and if the skymap you're trying to use hasn't been registered, `QuantumGraph` generation runs that attempt to use it will yield empty graphs.
+
+Another useful approach is to try to simplify the pipeline, ideally removing all but the first task; if that works, you can generally rule it out as the cause of the problem, add the next task in, and repeat.
+
+Because the big initial query only involves regular inputs, it can also be helpful to change regular `~connectionTypes.Input` connections into `~connectionTypes.PrerequisiteInput` connections - when a prerequisite input is missing, :program:`pipetask` should provide much more useful diagnostics.
+This is only possible when the dataset type is already in your input collections, rather than something to be produced by another task within the same pipeline.
+But if you work through your pipeline task-by-task, and run each single-task pipeline as well as produce a `QuantumGraph` for it, this should be true each step of the way as well.
+
+The middleware team does have plans to make this process less painful.
+In the long term, we have a preliminary design for a more flexible `QuantumGraph` generation algorithm that uses per-Task queries instead of one big one, and that will automatically provide more information to the user about which task and/or dataset types were involved in queries with no results.
+In the short term, many of the debugging steps described above are things we could imagine having :program:`pipetask` try automatically.
+
+.. _GraphViz dot language: https://graphviz.org/
