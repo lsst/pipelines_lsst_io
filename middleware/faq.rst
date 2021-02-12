@@ -4,6 +4,16 @@ Frequently asked questions
 
 This page contains answer to common questions about the data access and pipeline middleware, such as the Butler and pipeline tasks.
 
+.. note::
+
+    A `sphinx bug<https://github.com/sphinx-doc/sphinx/issues/880>`__ prevents links to the :program:`butler` and :program:`pipetask` commands and subcommands from working.
+    That reference documentation can be found here:
+
+    - :ref:`lsst.daf.butler-scripts` (``butler``)
+    - :ref:`lsst.ctrl.mpexec-scripts` (``pipetask``)
+
+    Note that some :program:`butler` subcommands in other packages, and the above links only cover those in `lsst.daf.butler` (but those are also the only ones referenced here).
+
 Why do queries return duplicate results?
 ========================================
 
