@@ -98,7 +98,7 @@ Once the LSST Science Pipelines are installed, you can verify that it works by :
 You can upgrade an lsstsw installation in-place by running the following commands from within your :file:`lsstsw/` directory.
 
 1. `git pull` to download the latest environment definition.
-2. `./bin/deploy` to install that new conda environment.
+2. `bin/deploy` to install that new conda environment.
 3. Start a new shell for the final command, to ensure your shell environment is properly configured for the new lsstsw env, and source ``lsstsw/bin/envconfig`` if it is not automatically sourced during your shell startup.
 4. `rebuild -u lsst_distrib` to download the latest repos definition file and rebuild the entire Science Pipelines codebase.
 
