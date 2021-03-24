@@ -2,26 +2,17 @@
 Frequently asked questions
 ##########################
 
-This page contains answer to common questions about the data access and pipeline middleware, such as the Butler and pipeline tasks.
-
-.. note::
-
-    A `sphinx bug<https://github.com/sphinx-doc/sphinx/issues/880>`__ prevents links to the :program:`butler` and :program:`pipetask` commands and subcommands from working.
-    That reference documentation can be found here:
-
-    - :ref:`lsst.daf.butler-scripts` (``butler``)
-    - :ref:`lsst.ctrl.mpexec-scripts` (``pipetask``)
-
-    Note that some :program:`butler` subcommands in other packages, and the above links only cover those in `lsst.daf.butler` (but those are also the only ones referenced here).
-
 .. py:currentmodule:: lsst.daf.butler
+
+This page contains answers to common questions about the data access and pipeline middleware, such as the `Butler` and `~lsst.pipe.base.PipelineTask` classes.
+The :py:mod:`lsst.daf.butler` package documention includes a number of overview documentation pages (especially :ref:`daf_butler_organizing_datasets`) that provide an introduction to many of the concepts referenced here.
 
 .. _middleware_faq_query_methods:
 
 When should I use each of the query methods/commands?
 =====================================================
 
-The `Registry` class and ``butler`` command-line tool support five major query operations that can be used to inspect a data repository:
+The `Registry` class and :any:`butler <lsst.daf.butler-scripts>` command-line tool support five major query operations that can be used to inspect a data repository:
 
 - `~Registry.queryCollections`
 - `~Registry.queryDatasetTypes`
@@ -29,7 +20,7 @@ The `Registry` class and ``butler`` command-line tool support five major query o
 - `~Registry.queryDatasets`
 - `~Registry.queryDataIds`
 
-The ``butler`` command-line versions of these use the same names, but with dash-separated lowercase words (e.g. ``butler query-dimension-records``).
+The :any:`butler <lsst.daf.butler-scripts>` command-line versions of these use the same names, but with dash-separated lowercase words (e.g. :any:`butler query-dimension-records <lsst.daf.butler-scripts>`).
 
 These operations share :ref:`many optional arguments <daf_butler_queries>` that constrain what is returned, but their return types each reflect a different aspect of :ref:`how datasets are organized <daf_butler_organizing_datasets>`).
 
@@ -38,7 +29,7 @@ These operations share :ref:`many optional arguments <daf_butler_queries>` that 
 queryCollections
 ----------------
 
-`Registry.queryCollections` generally provides the best high-level view of the contents of a data repository, and from the command-line the best way to view those high-level results is with the ``--chains=tree`` format.
+`Registry.queryCollections` generally provides the best high-level view of the contents of a data repository, and from the command line the best way to view those high-level results is with the ``--chains=tree`` format.
 For all but the smallest repos, it's best to start with some kind of guess at what you're looking for, or the results will still be overwhelming large.
 
 .. code-block:: sh
@@ -89,7 +80,7 @@ That makes it less useful for exploring a data repository generically, but it's 
 queryDimensionRecords
 ---------------------
 
-`Registry.queryDimensionRecords` is the best way to inspect the metadata records associated with data ID keys (:ref:`"dimensions" <lsst.daf.butler-dimensions_overview>"`), and is usually the right tool for those looking for something similar to Gen2's ``queryMetadata``.
+`Registry.queryDimensionRecords` is the best way to inspect the metadata records associated with data ID keys (:ref:`"dimensions" <lsst.daf.butler-dimensions_overview>`), and is usually the right tool for those looking for something similar to Gen2's `~lsst.daf.persistence.Butler.queryMetadata`.
 Those metadata tables include observations (the ``exposure`` and ``visit`` dimensions), instruments (``instrument``, ``physical_filter``, ``detector``), and regions on the sky (``skymap``, ``tract``, ``patch``, ``htm7``).
 That isn't an exhaustive list of dimension tables (actually pseudo-tables in some cases), but you can get one in Python with::
 
@@ -126,7 +117,7 @@ For most dimensions and most data repositories, the number of records is quite l
 .. code-block:: sh
 
     $ butler query-dimension-records /repo/main detector \
-        --where "instrument='HSC'     AND detector.id IN (6..8)"
+        --where "instrument='HSC' AND detector.id IN (6..8)"
     instrument  id full_name name_in_raft raft purpose
     ---------- --- --------- ------------ ---- -------
            HSC   6      1_44           44    1 SCIENCE
@@ -153,13 +144,23 @@ queryDataIds
 The most important thing to know about `~Registry.queryDataIds` is when *not* to use it:
 
 - It's usually not what you want if you're looking for datasets that already exist (use `~Registry.queryDatasets` instead).
-  While `~Registry.queryDataIds` lets you constrain the returned data IDs via dataset existence (via the ``datasets`` keyword argument and ``--datasets`` and ``--collections`` options), that's a subtler, higher-order thing than what most users want.
+  While `~Registry.queryDataIds` lets you constrain the returned data IDs to those for which a dataset exists (via the ``datasets`` keyword argument and ``--datasets`` and ``--collections`` options), that's a subtler, higher-order thing than what most users want.
 
 - It's usually not what you want if you're looking for metadata associated with those data ID values (use `~Registry.queryDimensionRecords`).
   While `~Registry.queryDataIds` can do that, too (via the `~registry.queries.DataCoordinateQueryResults.expanded` method on its result iterator), it's overkill if you're looking for metadata that corresponds to a single dimension rather than all of them.
 
-`queryDataIds` is most useful when you want to query for future datasets that *could* exist, when :ref:`debugging empty QuantumGraphs <middleware_faq_empty_quantum_graphs>`.
+`~Registry.queryDataIds` is most useful when you want to query for future datasets that *could* exist, such as when :ref:`debugging empty QuantumGraphs <middleware_faq_empty_quantum_graphs>`.
 
+.. _middleware_faq_cli_docs:
+
+Where can I find documentation for command-line butler queries?
+===============================================================
+
+The ``butler`` command line tool uses a plugin system to allow packages downstream of ``daf_butler`` to define their own ``butler`` subcommands.
+Unfortunately, this means there's no single documentation page that lists all subcommands; each package has its own page documenting the subcommands it provides.
+The :ref:`daf_butler <lsst.daf.butler-scripts>` and :ref:`obs_base <lsst.obs.base-cli>` pages contain most subcommands, but the best way to find them all is to use ``--help`` on the command-line.
+
+The :any:`pipetask <lsst.ctrl.mpexec-script>` tool is implemented entirely within ``ctrl_mpexec``, and its documentation can be found on :ref:`the command-line interface page for that package <lsst.ctrl.pipetask-script>` (and of course via ``--help``).
 
 .. _middleware_faq_duplicate_results:
 
@@ -170,9 +171,9 @@ The `Registry.queryDataIds`, `~Registry.queryDatasets`, and `~Registry.queryDime
 You can always remove those duplicates by wrapping the calls in ``set()``; the `DataCoordinate`, `DatasetRef`, and `DimensionRecord` objects in the returned iterables are all hashable.
 This is a conscious design choice; these methods return lazy iterables in order to handle large results efficiently, and that rules out removing duplicates inside the methods themselves.
 We similarly don't want to *always* remove duplicates in SQL via ``SELECT DISTINCT``, because that can be much less efficient than deduplication in Python, but in the future we may have a way to turn this on explicitly (and may even make it the default).
-We do already remove these duplicates automatically in the :program:`butler` command-line interface.
+We do already remove these duplicates automatically in the :any:`butler <lsst.daf.butler-scripts>` command-line interface.
 
-It is also possible for `~Registry.queryDatasets` (and the :program:`butler query-datasets` command) to return datasets that have the same dataset type and data ID from different collections,
+It is also possible for `~Registry.queryDatasets` (and the :any:`butler query-datasets <lsst.daf.butler-scripts>` command) to return datasets that have the same dataset type and data ID from different collections,
 This can happen even if the users passes only collection to search, if that collection is a `~CollectionType.CHAINED` collection (because this evaluates to searching one or more child collections).
 These results are not true duplicates, and will not be removed by wrapping the results in ``set()``.
 They are best removed by passing ``findFirst=True`` (or ``--find-first``), which will return - for each data ID and dataset type - the dataset from the first collection with a match.
@@ -206,8 +207,8 @@ For example, from the command-line, this command returns one ``calexp`` from eac
     ------ ----------------------------------- ------- ---- ---------- -------- --------------- ------------ -----
     calexp HSC/runs/RC2/w_2021_06/DM-28654/sfm 5329565    i        HSC       40           HSC-I            0  1228
 
-Passing ``findFirst=True``/``--find-first`` requires the list of collections to be clearly ordered, however, ruling out wildcards like ``...`` ("all collections"), globs, and regular expressions.
-Single-dataset search methods like `Butler.get` and `Registry.findDataset` always use the find-first logic (and hence require ordered collections).
+Passing ``findFirst=True`` or ``--find-first`` requires the list of collections to be clearly ordered, however, ruling out wildcards like ``...`` ("all collections"), globs, and regular expressions.
+Single-dataset search methods like `Butler.get` and `Registry.findDataset` always use the find-first logic (and hence always require ordered collections).
 
 .. _middleware_faq_data_id_missing_keys:
 
@@ -254,9 +255,9 @@ The answer is that `DataCoordinate` is trying to satisfy a conflicting set of de
 - `collections.abc.Mapping` defines equality to be equivalent to equality over ``items()``, so if one mapping includes more keys than the other, they can't be equal.
 
 Our solution was to make it so `DataCoordinate` is always a `~collections.abc.Mapping` over just its required keys, with ``full`` available sometimes as a `~collections.abc.Mapping` over all of them.
-And because the `~Mapping` interface doesn't prohibit us from allowing ``__getitem__`` to succeed even when the given value isn't in ``keys``, we support that for implied dimensions as well.
+And because the `~collections.abc.Mapping` interface doesn't prohibit us from allowing ``__getitem__`` to succeed even when the given value isn't in ``keys``, we support that for implied dimensions as well.
 It's possible it would have been better to just not make it a `~collections.abc.Mapping` at all (i.e. remove ``keys``, ``values``, and ``items`` in favor of other ways to access those things).
-`DataCoordinate` :ref:`has already been through a number of revisions<lsst.daf.butler-dev_data_coordinate>`, though, and it's not clear it's worth yet another try.
+`DataCoordinate` :ref:`has already been through a number of revisions <lsst.daf.butler-dev_data_coordinate>`, though, and it's not clear it's worth yet another try.
 
 .. _middleware_faq_calibration_query_errors:
 
@@ -372,11 +373,11 @@ How do I fix an empty QuantumGraph?
 
 .. py:currentmodule:: lsst.pipe.base
 
-The :program:`pipetask` tool attempts to predict all of the processing a pipeline will perform in advance, representing the results as a `QuantumGraph` object that can be saved or directly executed.
+The :any:`pipetask <lsst.ctrl.mpexec-script>` tool attempts to predict all of the processing a pipeline will perform in advance, representing the results as a `QuantumGraph` object that can be saved or directly executed.
 When that graph is empty, it means it thinks there's no work to be done, and unfortunately this is both a common and hard-to-diagnose problem.
 
 The `QuantumGraph` generation algorithm begins with a large SQL query (a complicated invocation of `Registry.queryDataIds`, actually), where the result rows are essentially data IDs and the result columns are all of the dimensions referenced by any task or dataset type in the pipeline.
-Queries for all `"regular input"<connectionTypes.Input>` datasets (i.e. not `PrerequisiteInputs<connectionTypes.PrerequisiteInput>`") are included as subqueries, spatial and temporal joins are automatically included, and the user-provided query expression is translated into an equivalent SQL ``WHERE`` clause.
+Queries for all `"regular input" <connectionTypes.Input>` datasets (i.e. not `PrerequisiteInputs <connectionTypes.PrerequisiteInput>`") are included as subqueries, spatial and temporal joins are automatically included, and the user-provided query expression is translated into an equivalent SQL ``WHERE`` clause.
 That means there are many ways to get no result rows - and hence an empty graph - without much information about what was missing.
 Some common possibilities include:
 
@@ -384,36 +385,36 @@ Some common possibilities include:
 - There are no dimension records of a needed type.
 - There is no spatial or temporal overlap between existing datasets and the data IDs accepted by the query expression (e.g. the ``visits`` don't overlap the ``patches``).
 
-Usually the first step in debugging an empty `QuantumGraph` is to use :program:`pipetask` to create a diagram of the pipeline graph - a simpler directed acyclic graph that relates tasks to dataset types, without any data IDs.
-The :option:`pipetask build --pipeline-dot` argument writes this graph in the `GraphViz dot language`_, and you can use the ubiquitous ``dot`` command-line tool to transform that into a PNG, SVG, or other graphical format file:
+Usually the first step in debugging an empty `QuantumGraph` is to use :any:`pipetask <lsst.ctrl.mpexec-script>` to create a diagram of the pipeline graph - a simpler directed acyclic graph that relates tasks to dataset types, without any data IDs.
+The ``--pipeline-dot`` argument writes this graph in the `GraphViz dot language`_, and you can use the ubiquitous ``dot`` command-line tool to transform that into a PNG, SVG, or other graphical format file:
 
 .. code:: sh
 
     $ pipetask build ... --pipeline-dot pipeline.dot
     $ dot pipeline.dot -Tsvg > pipeline.svg
 
-That ``...`` should be replaced by most of the arguments you'd pass to ``pipetask`` that describe *what* to run (which tasks, pipelines, configuration, etc.), but not the ones that describe how, or what to use as inputs (no collection options).
+That ``...`` should be replaced by most of the arguments you'd pass to :any:`pipetask <lsst.ctrl.mpexec-script>` that describe *what* to run (which tasks, pipelines, configuration, etc.), but not the ones that describe how, or what to use as inputs (no collection options).
 See ``pipetask build --help`` for details.
 
 This graph will often reveal some unexpected input dataset types (or even tasks)that make it obvious what's wrong.
 
-To check whether a particular dataset type is present, you can use :program:`butler query-datasets` with the same input collections that were passed to :program:`pipetask`, and both with and without the same query expression.
+To check whether a particular dataset type is present, you can use :any:`butler query-datasets <lsst.daf.butler-scripts>` with the same input collections that were passed to :any:`pipetask <lsst.ctrl.mpexec-script>`, and both with and without the same query expression.
 
-You can similarly use :program:`butler query-dimension-records` to query for each of the dimensions involved in the pipeline (these are also shown in the ``dot`` diagram).
+You can similarly use :any:`butler query-dimension-records <lsst.daf.butler-scripts>` to query for each of the dimensions involved in the pipeline (these are also shown in the ``dot`` diagram).
 Not having dimension records is a much less common problem overall, especially in a shared data repository, but there are two common cases:
 
-- Ingesting raw images adds ``exposure`` dimension records to a data repository, but not ``visit`` dimension records; adding visits is another step (:program:`butler define-visits` or `lsst.obs.base.DefineVisitsTask`) that must be run manually after ingest.
+- Ingesting raw images adds ``exposure`` dimension records to a data repository, but not ``visit`` dimension records; adding visits is another step (:any:`butler define-visits <lsst.daf.butler-scripts>` or `lsst.obs.base.DefineVisitsTask`) that must be run manually after ingest.
 
-- ``skymap``, ``tract``, and ``patch`` dimension records are added (together) by the :program:`butler register-skymap` tool (or `lsst.skymap.BaseSkyMap.register`), and if the skymap you're trying to use hasn't been registered, `QuantumGraph` generation runs that attempt to use it will yield empty graphs.
+- ``skymap``, ``tract``, and ``patch`` dimension records are added (together) by the :any:`butler register-skymap <lsst.daf.butler-scripts>` tool (or `lsst.skymap.BaseSkyMap.register`), and if the skymap you're trying to use hasn't been registered, `QuantumGraph` generation runs that attempt to use it will yield empty graphs.
 
 Another useful approach is to try to simplify the pipeline, ideally removing all but the first task; if that works, you can generally rule it out as the cause of the problem, add the next task in, and repeat.
 
-Because the big initial query only involves regular inputs, it can also be helpful to change regular `~connectionTypes.Input` connections into `~connectionTypes.PrerequisiteInput` connections - when a prerequisite input is missing, :program:`pipetask` should provide much more useful diagnostics.
+Because the big initial query only involves regular inputs, it can also be helpful to change regular `~connectionTypes.Input` connections into `~connectionTypes.PrerequisiteInput` connections - when a prerequisite input is missing, :any:`pipetask <lsst.ctrl.mpexec-script>` should provide much more useful diagnostics.
 This is only possible when the dataset type is already in your input collections, rather than something to be produced by another task within the same pipeline.
 But if you work through your pipeline task-by-task, and run each single-task pipeline as well as produce a `QuantumGraph` for it, this should be true each step of the way as well.
 
 The middleware team does have plans to make this process less painful.
 In the long term, we have a preliminary design for a more flexible `QuantumGraph` generation algorithm that uses per-Task queries instead of one big one, and that will automatically provide more information to the user about which task and/or dataset types were involved in queries with no results.
-In the short term, many of the debugging steps described above are things we could imagine having :program:`pipetask` try automatically.
+In the short term, many of the debugging steps described above are things we could imagine having :any:`pipetask <lsst.ctrl.mpexec-script>` try automatically.
 
 .. _GraphViz dot language: https://graphviz.org/
