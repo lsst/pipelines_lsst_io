@@ -33,6 +33,8 @@ The ``butler`` command-line versions of these use the same names, but with dash-
 
 These operations share :ref:`many optional arguments <daf_butler_queries>` that constrain what is returned, but their return types each reflect a different aspect of :ref:`how datasets are organized <daf_butler_organizing_datasets>`).
 
+.. _middleware_faq_query_methods_collections:
+
 queryCollections
 ----------------
 
@@ -271,7 +273,6 @@ In the meantime, there are a few ways to work around this problem.
 First, if you don't actually want to search for calibrations at all, but this exception is still getting in your way, you can make your query more specific.
 If you use a dataset type list or pattern (a shell-style glob on the command line, or `re.compile` in the Python interface) that doesn't match any calibration datasets, this error should not occur.
 
-
 Similarly, if you can use a list of collections or a collection pattern that doesn't include any `~CollectionType.CALIBRATION` collections, that will avoid the problem as well - but this is harder, because `~CollectionType.CHAINED` collections that include `~CollectionType.CALIBRATION` collections are quite common.
 For example, both processing-output collections with names like "HSC/runs/w_2025_06/DM-50000" and per-instrument default collections like "HSC/defaults" include a `~CollectionType.CALIBRATION` child collection.
 You can recursively expand a collection list and filter out any child `~CollectionType.CALIBRATION` collections from it with this snippet::
@@ -286,15 +287,54 @@ You can recursively expand a collection list and filter out any child `~Collecti
 
 where ``original`` is the original, unexpanded list of collections to search.
 
-You can also make the query much more general - passing ``collections=...`` to search *all* collections in the repository will avoid this limitation even for calibration datasets, because it will take advantage of the fact that all datasets are in exactly one `~CollectionType.RUN` collection (even if they can also be in one or more other kinds of collection) by searching only all of the `~CollectionType.RUN` collections.
+The equivalent command-line invocation is:
+
+.. code-block:: sh
+
+    $ butler query-collections /repo/main --chains=flatten \
+            --collection-type RUN \
+            --collection-type CHAINED \
+            --collection-type TAGGED \
+            HSC/defaults
+        Name               Type
+    --------------------------------- ----
+    HSC/raw/all                       RUN
+    HSC/calib/gen2/20180117/unbounded RUN
+    HSC/calib/DM-28636/unbounded      RUN
+    HSC/masks/s18a                    RUN
+    refcats/DM-28636                  RUN
+    skymaps                           RUN
+
+Another possible workaround is to make the query much more general - passing ``collections=...`` to search *all* collections in the repository will avoid this limitation even for calibration datasets, because it will take advantage of the fact that all datasets are in exactly one `~CollectionType.RUN` collection (even if they can also be in one or more other kinds of collection) by searching only all of the `~CollectionType.RUN` collections.
 
 That same feature of `~CollectionType.RUN` collections can also be used with `Registry.queryCollections` (and our naming conventions) to find calibration datasets that *might* belong to particular `~CollectionType.CALIBRATION` collections.
 For example, if "HSC/calib" is a `~CollectionType.CALIBRATION` collection (or a pointer to one), the datasets in it will usually also be present in `~CollectionType.RUN` collections that start with "HSC/calib/", so logic like this might be useful::
 
     run_collections = list(
-        butler.registry.queryCollections(re.compile("HSC/calib/.+"),
-        collectionTypes={CollectionTypes.RUN},
+        butler.registry.queryCollections(
+            re.compile("HSC/calib/.+"),
+            collectionTypes={CollectionTypes.RUN},
+        )
     )
+
+Or, from the command-line,
+
+.. code-block: sh
+
+    $ butler query-collections /repo/main --collection-type RUN \
+            HSC/calib/gen2/20200115/*
+                    Name                   Type
+    ---------------------------------------- ----
+    HSC/calib/gen2/20200115/20170821T000000Z RUN
+    HSC/calib/gen2/20200115/20160518T000000Z RUN
+    HSC/calib/gen2/20200115/20170625T000000Z RUN
+    HSC/calib/gen2/20200115/20150417T000000Z RUN
+    HSC/calib/gen2/20200115/20181207T000000Z RUN
+    HSC/calib/gen2/20200115/20190407T000000Z RUN
+    HSC/calib/gen2/20200115/20150407T000000Z RUN
+    HSC/calib/gen2/20200115/20160114T000000Z RUN
+    HSC/calib/gen2/20200115/20170326T000000Z RUN
+    ...
 
 The problem with this approach is that it may return many datasets that aren't in "HSC/calib", including datasets that were not certified, and (like all of the previous workarounds) it doesn't tell you anything about the validity ranges of the datasets that it returns.
 
