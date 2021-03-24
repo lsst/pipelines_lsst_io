@@ -352,6 +352,9 @@ The :option:`pipetask build --pipeline-dot` argument writes this graph in the `G
     $ pipetask build ... --pipeline-dot pipeline.dot
     $ dot pipeline.dot -Tsvg > pipeline.svg
 
+That ``...`` should be replaced by most of the arguments you'd pass to ``pipetask`` that describe *what* to run (which tasks, pipelines, configuration, etc.), but not the ones that describe how, or what to use as inputs (no collection options).
+See ``pipetask build --help`` for details.
+
 This graph will often reveal some unexpected input dataset types (or even tasks)that make it obvious what's wrong.
 
 To check whether a particular dataset type is present, you can use :program:`butler query-datasets` with the same input collections that were passed to :program:`pipetask`, and both with and without the same query expression.
