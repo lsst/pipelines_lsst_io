@@ -62,6 +62,7 @@ Frameworks
 ==========
 
 .. toctree::
+   :maxdepth: 2
 
    middleware/index
 
