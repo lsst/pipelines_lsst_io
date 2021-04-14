@@ -32,3 +32,6 @@ jinja_contexts = {
         "newinstall_ref": "21.0.0",
     }
 }
+
+import matplotlib.sphinxext.plot_directive
+extensions.remove(matplotlib.sphinxext.plot_directive.__name__)
