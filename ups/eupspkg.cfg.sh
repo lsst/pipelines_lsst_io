@@ -1,0 +1,3 @@
+build() {
+    stack-docs build
+}
