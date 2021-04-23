@@ -132,7 +132,7 @@ For more information, refer to :jira:`RFC-736`.
 Addition of the pipelines_check package
 ---------------------------------------
 
-The new :ref:`pipelines_check <lsst.pipelines.check>` package replaces `lsst_dm_stack_demo`, which relied on the now :ref:`removed obs_sdss<release-v21-0-0-remove-obs_sdss>`. This new package demonstrates the processing of a single CCD with the Science Pipelines. It contains input files and astrometric reference catalogs needed to process the data from a single HSC detector. Its main purpose is to check that the pipeline infrastructure is working correctly.
+The new `pipelines_check` package replaces `lsst_dm_stack_demo`, which relied on the now :ref:`removed obs_sdss<release-v21-0-0-remove-obs_sdss>`. This new package demonstrates the processing of a single CCD with the Science Pipelines. It contains input files and astrometric reference catalogs needed to process the data from a single HSC detector. Its main purpose is to check that the pipeline infrastructure is working correctly.
 
 .. _release-v21-0-0-remove-obs_sdss:
 
