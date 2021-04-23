@@ -6,3 +6,20 @@ build() {
     fi
     stack-docs build
 }
+
+install() {
+    clean_old_install
+    mkdir -p "$PREFIX"
+    cp -a \
+        _build.log \
+        _build.sh \
+        _build.tags \
+        conf.py \
+        COPYRIGHT \
+        LICENSE \
+        README.md "$PREFIX"
+    cd "$reldir"
+    if [[ -d "ups" && ! -d "$PREFIX/ups" ]]; then
+        install_ups
+    fi
+}
