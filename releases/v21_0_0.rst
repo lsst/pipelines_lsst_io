@@ -57,7 +57,7 @@ Major New Features
 Beta release of Generation 3 Middleware
 ---------------------------------------
 
-Reaching schema stability in this release, the Gen3 butler can now support Science Pipelines development. See :ref:`release-v21-0-0-deprecate-gen2` for more information on the planned deprecation of Generation 2 middleware. Interested parties may find more info at :ref:`daf_butler <lsst.daf_butler>` and :ref:`pipe_base <lsst.pipe_base>`.
+Reaching schema stability in this release, the Gen3 butler can now support Science Pipelines development. See :ref:`release-v21-0-0-deprecate-gen2` for more information on the planned deprecation of Generation 2 middleware. Interested parties may find more info at :ref:`daf_butler <lsst.daf.butler>` and :ref:`pipe_base <lsst.pipe.base>`.
 A general release of Generation 3 Middleware is expected with the next release v22.0.0.
 
 .. _release-v21-0-0-kht:
@@ -65,7 +65,7 @@ A general release of Generation 3 Middleware is expected with the next release v
 Task to mask streak-like artifacts
 ----------------------------------
 
-This release adds the `MaskStreaksTask` to :ref:`pipe_tasks <lsst.pipe_tasks>`, which finds and masks streaks and other straight lines in image data.
+This release adds the `MaskStreaksTask` to :ref:`pipe_tasks <lsst.pipe.tasks>`, which finds and masks streaks and other straight lines in image data.
 It uses the Kernel Hough Transform (KHT) `(Fernandes and Oliveira 2007) <https://doi.org/10.1016/j.patcog.2007.04.003>`_ implemented in the `kht <https://github.com/lsst/kht>`_, package which was also added to the Science Pipelines.
 It can be turned on during coaddition with `CompareWarpAssembleCoaddTask` with the config parameter `doFilterMorphological`.
 
@@ -130,9 +130,9 @@ For more information, refer to :jira:`RFC-736`.
 .. _release-v21-0-0-pipelines_check:
 
 Addition of the pipelines_check package
------------------------------------
+---------------------------------------
 
-The new :ref:`pipelines_check <lsst.pipelines_check>` package replaces `lsst_dm_stack_demo`, which relied on the now :ref:`release-v21-0-0-remove-obs_sdss<removed obs_sdss>`. This new package demonstrates the processing of a single CCD with the Science Pipelines. It contains input files and astrometric reference catalogs needed to process the data from a single HSC detector. Its main purpose is to check that the pipeline infrastructure is working correctly.
+The new :ref:`pipelines_check <lsst.pipelines.check>` package replaces `lsst_dm_stack_demo`, which relied on the now :ref:`removed obs_sdss<release-v21-0-0-remove-obs_sdss>`. This new package demonstrates the processing of a single CCD with the Science Pipelines. It contains input files and astrometric reference catalogs needed to process the data from a single HSC detector. Its main purpose is to check that the pipeline infrastructure is working correctly.
 
 .. _release-v21-0-0-remove-obs_sdss:
 
