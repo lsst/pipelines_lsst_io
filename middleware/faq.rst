@@ -320,7 +320,7 @@ For example, if "HSC/calib" is a `~CollectionType.CALIBRATION` collection (or a 
 
 Or, from the command-line,
 
-.. code-block: sh
+.. code-block:: sh
 
     $ butler query-collections /repo/main --collection-type RUN \
             HSC/calib/gen2/20200115/*
