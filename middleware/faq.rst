@@ -418,3 +418,13 @@ In the long term, we have a preliminary design for a more flexible `QuantumGraph
 In the short term, many of the debugging steps described above are things we could imagine having :any:`pipetask <lsst.ctrl.mpexec-script>` try automatically.
 
 .. _GraphViz dot language: https://graphviz.org/
+
+
+.. _middleware_faq_long_query:
+
+What do I do if a query method/command or pipetask graph generation is slow?
+============================================================================
+
+Adding the ``--log-level sqlalchemy.engine=DEBUG`` option to the :any:`butler <lsst.daf.butler-scripts>` or :any:`pipetask <lsst.ctrl.mpexec-script>` command will allow the SQL queries issued by the command to be inspected.
+Similarly, for a slow query method, adding ``logging.getLogger("sqlalchemy.engine").setLevel(logging.DEBUG)`` can help.
+The resulting query logs can be useful for developers and database administrators to determine what, if anything, is going wrong.
