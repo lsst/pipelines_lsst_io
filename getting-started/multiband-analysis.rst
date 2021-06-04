@@ -94,6 +94,7 @@ Before going ahead and plotting a CMD from the full source table, you'll typical
 Exactly what filtering is done depends on the application, but source tables should *always* be filtered for unique sources.
 There are two ways that measured sources might not be unique: deblended sources and sources in patch overlaps.
 Additionally, some sources are "sky" objects added by ``detectCoaddSources.py`` for noise characterization that you need to filter out.
+This section gives a brief introduction to removing duplicate and unwanted sources, for details see :doc:`/modules/lsst.pipe.tasks/deblending-flags-overview`.
 
 Finding deblended sources
 -------------------------
@@ -104,13 +105,19 @@ In source tables like ``rSources`` and ``iSources``, both the original (blended)
 This is done so that you can choose whether to use blended or deblended measurements in your analysis.
 If you *don't* choose, though, the same flux will be included multiple times in your analysis.
 
-Usually you will want to use fully-deblended sources in your analysis.
-The best way to identify fully-deblended sources is those that have no children (*children* being sources deblended from that parent source) given the ``deblend_nChild`` column.
-Make a boolean index array of deblended sources:
+Usually you will want to use fully-deblended sources in your analysis, however there are two different types of deblended sources: isolated sources that were modeled by scarlet (used mostly for diagnostic purposes) and children of parents that contain multiple children.
+
+You will most likely want the catalog of un-modeled isolated sources and scarlet models for children of blends:
 
 .. code-block:: python
 
-   isDeblended = rSources['deblend_nChild'] == 0
+   isDeblended = rSources['detect_isDeblendedSource']
+
+But if you're worried about an inconsistency between the models for isolated sources and blended sources you can instead use the scarlet models for all deblended sources:
+
+.. code-block:: python
+
+   isDeblendedModel = rSources['detect_isDeblendedModelSource']
 
 Finding primary detections
 --------------------------
