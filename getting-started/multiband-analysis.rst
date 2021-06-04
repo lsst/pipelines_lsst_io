@@ -94,7 +94,7 @@ Before going ahead and plotting a CMD from the full source table, you'll typical
 Exactly what filtering is done depends on the application, but source tables should *always* be filtered for unique sources.
 There are two ways that measured sources might not be unique: deblended sources and sources in patch overlaps.
 Additionally, some sources are "sky" objects added by ``detectCoaddSources.py`` for noise characterization that you need to filter out.
-This section gives a brief introduction to removing duplicate and unwanted sources, but a more thorough description can be found in `pipe_tasks <https://pipelines.lsst.io/modules/lsst.pipe.tasks/index.html>`_.
+This section gives a brief introduction to removing duplicate and unwanted sources, for details see :doc:`/modules/lsst.pipe.tasks/deblending-flags-overview`.
 
 Finding deblended sources
 -------------------------
