@@ -12,6 +12,8 @@ Getting started tutorial part 6: analyzing measurement catalogs in multiple band
 In this part of the :ref:`tutorial series <getting-started-tutorial>` you'll analyze the forced photometry measurement catalogs you created in :doc:`step 5 <photometry>`.
 You'll learn how to work with measurement tables and plot color-magnitude diagrams (CMDs).
 
+.. include:: /gen2tutorialdeprecation.txt
+
 Set up
 ======
 

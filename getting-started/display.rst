@@ -9,6 +9,8 @@
 Getting started tutorial part 3: displaying exposures and source tables output by processCcd.py
 ###############################################################################################
 
+.. include:: /gen2tutorialdeprecation.txt
+
 In the :doc:`previous tutorial <processccd>` in the :ref:`series <getting-started-tutorial>` you used :command:`processCcd.py` to calibrate a set of raw Hyper Suprime-Cam images.
 Now you'll learn how to use the LSST Science Pipelines to inspect :command:`processCcd.py`\ ’s outputs by displaying images and source catalogs in the `DS9 image viewer`_.
 In doing so, you'll be introduced to some of the LSST Science Pipelines' Python APIs, including:

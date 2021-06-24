@@ -1,0 +1,4 @@
+.. warning::
+
+   These tutorials are based on the deprecated Generation 2 command-line task and Butler (`lsst.daf.persistence.Butler`).
+   New tutorials for Generation 3 pipeline tasks and `lsst.daf.butler.Butler` are coming soon.

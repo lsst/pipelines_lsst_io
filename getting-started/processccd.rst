@@ -15,6 +15,8 @@ In this part of the :ref:`tutorial series <getting-started-tutorial>` you'll pro
 We'll use the :command:`processCcd.py` command-line task to remove instrumental signatures with dark, bias and flat field calibration images.
 :command:`processCcd.py` will also use the reference catalog to establish a preliminary WCS and photometric zeropoint solution.
 
+.. include:: /gen2tutorialdeprecation.txt
+
 Set up
 ======
 
