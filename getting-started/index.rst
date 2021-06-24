@@ -11,6 +11,8 @@ Before you start working with the LSST Science Pipelines, these pages will help 
 Getting started tutorials
 =========================
 
+.. include:: /gen2tutorialdeprecation.txt
+
 In this tutorial series we'll process a set of Hyper Suprime-Cam images into deep coadditions and source catalogs.
 These tutorials will give you a feeling for data processing and analysis with the Science Pipelines.
 
