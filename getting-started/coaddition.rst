@@ -15,6 +15,8 @@ In this part of the :ref:`tutorial series <getting-started-tutorial>` you will c
 To do this you'll first define the pixel frame that you'll mosaic into, called a **sky map**, and then warp (reproject) images into that sky map.
 Finally, you will coadd the warped images together into deep images.
 
+.. include:: /gen2tutorialdeprecation.txt
+
 Set up
 ======
 

@@ -14,6 +14,8 @@ You can also find documentation for `other versions <https://pipelines.lsst.io/v
 Getting started
 ===============
 
+.. include:: /gen2tutorialdeprecation.txt
+
 If you're new to the LSST Science Pipelines, these step-by-step data processing tutorials will get you up and running:
 
 - Data processing tutorial series: Part 1 :doc:`Data repositories <getting-started/data-setup>` · Part 2 :doc:`Single frame processing <getting-started/processccd>` · Part 3 :doc:`Image and catalog display <getting-started/display>` · Part 4 :doc:`Image coaddition <getting-started/coaddition>` · Part 5 :doc:`Source measurement <getting-started/photometry>` · Part 6 :doc:`Multi-band catalog analysis <getting-started/multiband-analysis>`.
