@@ -1,0 +1,265 @@
+.. _release-latest:
+.. _release-v22-0-0:
+
+###########################
+Release 22.0.0 (2021-07-09)
+###########################
+
+.. toctree::
+   :hidden:
+
+   tickets/v22_0_0
+
++-------------------------------------------+------------+
+| Source                                    | Identifier |
++===========================================+============+
+| Git tag                                   | 22.0.0     |
++-------------------------------------------+------------+
+| :doc:`EUPS distrib </install/newinstall>` | v22\_0\_0  |
++-------------------------------------------+------------+
+
+This release is based on the ``w_2021_14`` weekly build.
+The bug fix on :jirab:`DM-29907` was backported.
+
+The notes below highlight significant technical changes to the Science Pipelines codebase in this release.
+For a complete list of changes made, see :doc:`tickets/v22_0_0`.
+
+The `Characterization Metric Report (DMTR-311) <https://dmtr-311.lsst.io/>`_ describes the scientific performance of this release in terms of scientific performance metrics.
+
+If you have questions or comments about this release, visit our `community forum <https://community.lsst.org>`_ for advice.
+
+- :ref:`release-v22-0-0-functionality`
+- :ref:`release-v22-0-0-interface`
+- :ref:`release-v22-0-0-pending-deprecations`
+- :ref:`release-v22-0-0-deprecations`
+
+*See also:*
+
+- :doc:`Installation instructions </install/index>`
+- :doc:`Known issues </known-issues>`
+- `Doxygen Documentation`__
+
+__ http://doxygen.lsst.codes/stack/doxygen/xlink_master_2021_04_01_08.31.19/
+
+
+.. _release-v22-0-0-functionality:
+
+Major New Features
+==================
+
+- :ref:`release-v22-0-0-gen3`
+- :ref:`release-v22-0-0-meas_extensions_piff`
+- :ref:`release-v22-0-0-scarlet`
+- :ref:`release-v22-0-0-dustmaps`
+- :ref:`release-v22-0-0-faro`
+
+.. _release-v22-0-0-gen3:
+
+Generation 3 Middleware
+-----------------------
+Major improvements have been made to the Generation 3 middleware. Some highlights include:
+
+* Usability improvements to `~lsst.pipe.base.PipelineTask` including URI support.
+* Additional :doc:`butler command-line commands </modules/lsst.daf.butler/scripts/butler>`, including
+
+  * ``butler prune-datasets``,
+  * ``butler query-dimension-records``,
+  * and ``butler associate``.
+
+* Allow `lsst.daf.butler.Butler.get` to support dimension record values such as exposure observing day or detector name in the dataID.
+* :doc:`pipetask run </modules/lsst.ctrl.mpexec/pipetask>` can now execute a subset of a graph. This allows a single graph file to be created with an entire workflow and then only part of it to be executed, necessary for large-scale workflow execution.
+
+At the time of this release, :ref:`Gen 2 middleware is now deprecated <release-v22-0-0-deprecate-gen2>`.
+
+
+.. _release-v22-0-0-meas_extensions_piff:
+
+Initial integration of Piff
+---------------------------
+`Piff <https://github.com/rmjarvis/Piff>`_ has been added to rubin-env as a third-party package.
+A new package, `meas_extension_piff`_,  (included in lsst_distrib) integrates Piff with the pipelines.
+Tasks can be configured to use Piff PSF models instead of the current default PSFex.
+:jirab:`RFC-755`
+
+.. _meas_extension_piff: https://github.com/lsst/meas_extensions_piff
+
+.. _release-v22-0-0-scarlet:
+
+Coadd measurement now uses the Scarlet deblender by default
+-----------------------------------------------------------
+`Scarlet <https://pmelchior.github.io/scarlet/>` is now the default deblender used for measurements on coadds.
+The configuration for single-frame measurement has not changed.
+Scarlet produces additional flags for filtering duplicates, as it handles isolated sources differently: ``deblend_parentNPeaks``, ``deblend_parentNChild``.
+The flag ``detect_isPrimary`` is still populated and is the recommended column.
+See the `community.lsst.org post <https://community.lsst.org/t/new-use-of-isprimary-that-began-in-w-2021-12/4957/2>`_ for more information.
+:jirab:`RFC-745`
+
+.. _release-v22-0-0-dustmaps:
+
+Dust Maps
+---------
+The `dustmaps_cachedata <https://github.com/lsst/dustmaps_cachedata>`_ package has been added to the pipelines, and the `dustmaps <https://dustmaps.readthedocs.io/>`_ module is a third-party dependency.
+:jirab:`RFC-752`
+
+.. _release-v22-0-0-faro:
+
+Faro package for scientific performance metrics
+-----------------------------------------------
+A package for measuring scientific performance metrics, :ref:`faro <lsst.faro.base>`, was added.
+It implements the Gen3 versions of the tasks in :ref:`validate_drp <lsst.validate.drp>`. See :ref:`release-v22-0-0-deprecate-validate-drp`.
+This package was used to generate the Characterization Report for this release.
+:jirab:`RFC-753, DM-28351`
+
+
+
+.. _release-v22-0-0-interface:
+
+Significant Interface Changes
+=============================
+
+- :ref:`release-v22-0-0-filterLabel`
+- :ref:`release-v22-0-0-remove-obs_ctio0m9`
+- :ref:`release-v22-0-0-remove-metric-in-commonMetrics.py`
+
+
+.. _release-v22-0-0-filterLabel:
+
+Replace afw.image.Filter with FilterLabel
+-----------------------------------------
+Filter information is now stored as a `FilterLabel <http://doxygen.lsst.codes/stack/doxygen/xlink_master_2021_04_01_08.31.19/classlsst_1_1afw_1_1image_1_1_filter_label.html>`_, replacing the existing ``lsst.afw.image.Filter``.
+This class replaces ``Filter``'s system of names, canonical names, and aliases with just two names: a band (e.g., “g” or “r”) and a physical filter (e.g., “g DECam SDSS c0001 4720.0 1520.0” or “HSC-R2”).
+Note that not all ``FilterLabel`` objects have both a band and a physical filter, especially during the transition period, so please program defensively.
+See `community.lsst.org <https://community.lsst.org/t/migrating-from-afw-image-filter-to-filterlabel/459>`__ for details.
+:jirab:`RFC-730`
+
+.. _release-v22-0-0-remove-obs_ctio0m9:
+
+Removal of the obs_ctio0m9 package
+----------------------------------
+
+The ``obs_ctio0m9`` camera package has been removed.
+:jirab:`RFC-729, DM-26867, DM-26868`
+
+
+.. _release-v22-0-0-remove-metric-in-commonMetrics.py:
+
+Removal of metric configurations in commonMetric.py
+---------------------------------------------------
+
+The :code:`metric` field has been replaced by :code:`connections.package` and
+:code:`connections.metric`.
+
+
+.. _release-v22-0-0-pending-deprecations:
+
+Pending Deprecations
+====================
+
+These Tasks will be deprecated in the next major release.
+
+- :ref:`release-v22-0-0-deprecate-decamRawIngestTask`
+
+.. _release-v22-0-0-deprecate-decamRawIngestTask:
+
+Deprecated DecamRawIngestTask and MegaPrimeRawIngestTask
+-----------------------------------------------------------------
+MegaPrime and DECam no longer require a specialist Gen3 ingest task.
+Please use the default `~lsst.obs.base.RawIngestTask`.
+Both `~lsst.obs.decam.DecamRawIngestTask` and `~lsst.obs.cfht.MegaPrimeRawIngestTask` will be removed after v23.
+
+.. _release-v22-0-0-deprecations:
+
+Deprecations
+============
+
+These packages/functions are deprecated and will not be available in the next major release.
+
+- :ref:`release-v22-0-0-deprecate-gen2`
+- :ref:`release-v22-0-0-deprecate-Filter`
+- :ref:`release-v22-0-0-deprecate-validate-drp`
+- :ref:`release-v22-0-0-deprecate-configurations-in-fgcmFitCycle.py`
+- :ref:`release-v22-0-0-deprecate-configurations-in-psfexStarSelector.py`
+
+.. _release-v22-0-0-deprecate-gen2:
+
+Deprecated Generation 2 Middleware
+----------------------------------
+Generation 2 middleware (Gen2) is no longer being developed and should not be used for new code.
+Gen2 infrastructure code (within e.g., :ref:`pipe_tasks <lsst.pipe.tasks>`, :ref:`pipe_base <lsst.pipe.base>`, :ref:`obs_base <lsst.obs.base>`, `daf_persistence <https://github.com:lsst/daf_persistence>`_, and obs packages) will no longer be maintained after January 1 2022, and may be removed at any point afterward.
+The CI package ``ci_hsc_gen2`` will continue to be run, and the tasks it checks will be maintained until we remove the Gen2 infrastructure code in 2022.
+Following this release, we will begin to drop gen2 pipelines from our verification packages (e.g., ap_verify), where a functional and validated gen3 pipeline exists.
+
+.. _release-v22-0-0-deprecate-Filter:
+
+Removal of ``lsst.afw.Filter``
+------------------------------
+The `lsst.afw.Filter` class has been replaced with :ref:`filterLabel <release-v22-0-0-filterLabel>`, marked as deprecated, and will be removed after this release. Method names that contain ``Filter``, such as ``getFilter``, have been replaced e.g., with ``.getFilterLabel``.
+:jirab:`RFC-730`
+
+.. _release-v22-0-0-deprecate-validate-drp:
+
+Removal of validate_drp
+-----------------------
+The algorithms implemented in :ref:`validate_drp <lsst.validate.drp>` were ported as-is to run in :ref:`faro <lsst.faro.base>`.
+All future development of scientific performance metrics will be carried out in faro.
+:ref:`validate_drp <lsst.validate.drp>` will be removed after this release.
+
+
+.. _release-v22-0-0-deprecate-doApplyUberCal-in-forcedPhotCcd.py:
+
+Deprecated doApplyUberCal in forcedPhotCcd.py
+---------------------------------------------
+
+The field :code:`doApplyUberCal` is deprecated.
+Use :code:`doApplyExternalPhotoCalib` and :code:`doApplyExternalSkyWcs` instead.
+It will be removed before the 23.0.0 release.
+:jirab:`DM-23352`
+
+
+.. _release-v22-0-0-deprecate-configurations-in-isrTask.py:
+
+Deprecated configurations in isrTask.py
+---------------------------------------
+
+The following configurations will be removed before the 23.0.0 release:
+
+* :code:`overscanFitType`
+* :code:`overscanOrder`
+* :code:`overscanNumSigmaClip`
+* :code:`overscanIsInt`
+
+Please configure overscan via the :code:`OverscanCorrectionConfig` interface.
+:jirab:`DM-23396`
+
+.. _release-v22-0-0-deprecate-configurations-in-fgcmFitCycle.py:
+
+Deprecated configurations in fgcmFitCycle.py
+--------------------------------------------
+
+The following configurations are no longer used and will be removed before the 23.0.0 release:
+
+* :code:`fitFlag`
+* :code:`requiredFlag`
+* :code:`superStarSubCcd`
+* :code:`ccdGraySubCcd`
+* :code:`expGrayPhotometricCut`
+* :code:`expGrayHighCut`
+* :code:`expVarGrayPhotometricCut`
+* :code:`aperCorrInputSlopes`
+* :code:`sedFudgeFactors`, use :code:`sedSlopeMap` instead
+* :code:`sigFgcmMaxEGray`, use :code:`sigFgcmMaxEGrayDict` instead
+* :code:`approxThroughput`, use :code:`approxThroughputDict` instead
+* :code:`colorSplitIndices`, use :code:`colorSplitBands` instead
+* :code:`useRepeatabilityForExpGrayCuts`, use :code:`useRepeatabilityForExpGrayCutsDict` instead
+
+:jirab:`DM-23699`
+
+.. _release-v22-0-0-deprecate-configurations-in-psfexStarSelector.py:
+
+Deprecated configurations in psfexStarSelector.py
+-------------------------------------------------
+
+The following configurations are no longer used and will be removed before the 23.0.0 release:
+
+* :code:`maxbad`
+* :code:`maxbadflag`

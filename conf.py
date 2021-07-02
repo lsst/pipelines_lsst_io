@@ -15,20 +15,20 @@ globals().update(build_pipelines_lsst_io_configs(
 # Patch EUPS tag subsitutions
 rst_epilog = """
 
-.. |eups-tag| replace:: v21_0_0
-.. |eups-tag-mono| replace:: ``v21_0_0``
-.. |eups-tag-bold| replace:: **v21_0_0**
+.. |eups-tag| replace:: v22_0_0
+.. |eups-tag-mono| replace:: ``v22_0_0``
+.. |eups-tag-bold| replace:: **v22_0_0**
 """
 
 # Patch EUPS and Git tag context for Jinja templating
 jinja_contexts = {
     "default": {
-        "release_eups_tag": "v21_0_0",
-        "release_git_ref": "21.0.0",
-        "version": "v21_0_0",
-        "release": "v21_0_0",
-        "scipipe_conda_ref": "21.0.0",
-        "pipelines_demo_ref": "21.0.0",
-        "newinstall_ref": "21.0.0",
+        "release_eups_tag": "v22_0_0",
+        "release_git_ref": "22.0.0",
+        "version": "v22_0_0",
+        "release": "v22_0_0",
+        "scipipe_conda_ref": "22.0.0",
+        "pipelines_demo_ref": "22.0.0",
+        "newinstall_ref": "22.0.0",
     }
 }
