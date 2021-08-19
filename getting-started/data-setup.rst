@@ -103,7 +103,8 @@ To construct a Butler that can manage data in that repository, from a python pro
 
 Now you can explore the repository using the registry atribute of the Butler you created.  E.g.:
 
-.. code-block:: python\
+.. code-block:: python
+
    registry = butler.registry
    for col in registry.queryCollections():
        print(col)
@@ -142,5 +143,5 @@ Here are some key takeaways:
 
 In :doc:`part 2 of this tutorial series <singleframe>` you will process the HSC data in this newly-created Butler repository into calibrated exposures.
 
-.. _getn3_rc2_subset: https://github.com/lsst-dm/gen3_rc2_subset
+.. _gen3_rc2_subset: https://github.com/lsst-dm/gen3_rc2_subset
 .. _Community Forum: https://community.lsst.org

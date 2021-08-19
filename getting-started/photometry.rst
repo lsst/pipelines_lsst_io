@@ -26,7 +26,7 @@ Set up
 Pick up your shell session where you left off in :doc:`part 5 <coaddition>`.
 For convenience, start in the top directory of the example git repository.
 
-.. code-block: bash
+.. code-block:: bash
 
    cd $GEN3_DC2_SUBSET_DIR
 

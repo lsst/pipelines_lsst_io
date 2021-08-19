@@ -7,9 +7,9 @@
 
 .. _getting-started-tutorial-singleframe:
 
-#############################################################################
+##############################################################################
 Getting started tutorial part 2: calibrating single frames with Pipeline Tasks
-#############################################################################
+##############################################################################
 
 In this part of the :ref:`tutorial series <getting-started-tutorial>` you'll process individual raw HSC images in the Butler repository (which you assembled in :doc:`part 1 <data-setup>`) into calibrated exposures.
 We'll use the :command:`singleFrame` pipeline to remove instrumental signatures with dark, bias and flat field calibration images.
@@ -23,9 +23,9 @@ Set up
 ======
 
 Pick up your shell session where you left off in :doc:`part 1 <data-setup>`.
-For convenience, start in the top directory of the example git repository.
+For convenience, start in the top directory of the example git repository:
 
-.. code-block: bash
+.. code-block:: bash
 
    cd $GEN3_DC2_SUBSET_DIR
 
@@ -62,12 +62,14 @@ The ``--collections`` argument allows you to select which data to search for dat
 You can see available collections by, again, using the :command:`butler` utility.
 
 .. code-block:: bash
+
    butler query-collections SMALL_HSC
 
 The ``--datasets`` argument allows you to specify what type of data to query for data IDs.
 To ask the repository which values are available to pass, you can say:
 
 .. code-block:: bash
+
    butler query-dataset-types SMALL_HSC
 
 You can also filter the datasets you get back using the ``--where`` argument.
@@ -84,10 +86,11 @@ The instruments registered with a particular repository can be retrieved using t
 E.g.:
 
 .. code-block:: bash
+
    butler query-dimension-records SMALL_HSC/ instrument
 
 Running single frame processing
-=====================
+===============================
 
 After learning about datasets, go ahead and run single frame processing  using the :command:`pipetask` command on all ``raw`` datasets in the repository:
 

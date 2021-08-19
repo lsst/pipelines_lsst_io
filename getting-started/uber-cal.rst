@@ -32,7 +32,7 @@ Set up
 Pick up your shell session where you left off in :doc:`part 2 <singleframe>`.
 For convenience, start in the top directory of the example git repository.
 
-.. code-block: bash
+.. code-block:: bash
 
    cd $GEN3_DC2_SUBSET_DIR
 
@@ -44,7 +44,7 @@ FGCM
 
 As in :doc:`part 2 <singleframe>` you will be running pipelines configured to produce the results we need for following steps.
 
-.. code-block: bash
+.. code-block:: bash
 
    pipetask run -b $GEN3_RC2_SUBSET_DIR/SMALL_HSC/butler.yaml -p $GEN3_RC2_SUBSET_DIR/pipelines/DRP.yaml#fgcm -i u/$USER/single_frame -o u/$USER/fgcm --register-dataset-types
 
@@ -61,7 +61,7 @@ You can do ``jointcal`` in much the same way as you did FGCM.
 Change the sub-pipeline name and collection name appropriately.
 E.g.:
 
-.. code-block: bash
+.. code-block:: bash
 
    pipetask run -b $GEN3_RC2_SUBSET_DIR/SMALL_HSC/butler.yaml -p $GEN3_RC2_SUBSET_DIR/pipelines/DRP.yaml#jointcal -i u/$USER/single_frame -o u/$USER/jointcal --register-dataset-types
 
@@ -73,7 +73,7 @@ Wrap up
 In this tutorial, you've computed the improved photometric and astrometric calibration from multiple visits.
 Here are some key takeaways:
 
-- ``FGCM`` privides improved photometric calibration.
+- ``FGCM`` provides improved photometric calibration.
 - Astromtic calibration improvements are provided by running ``jointcal``.
 - Given a pipeline description, e.g. ``DRP.yaml``, sub-pipelines can be specified, so running multiple steps can be done with very similar command line syntax.
 
