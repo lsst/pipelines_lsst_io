@@ -17,8 +17,6 @@ The example repository has a skymap that we can use for this purpose.
 We will warp (reproject) images into that sky map.
 Then, you will coadd the warped images together into deep images.
 
-.. include:: /gen2tutorialdeprecation.txt
-
 Set up
 ======
 

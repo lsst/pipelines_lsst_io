@@ -12,8 +12,6 @@ Getting started tutorial part 7: analyzing measurement catalogs in multiple band
 In this part of the :ref:`tutorial series <getting-started-tutorial>` you'll analyze the forced photometry measurement catalogs you created in :doc:`step 6 <photometry>`.
 You'll learn how to work with measurement tables and plot color-magnitude diagrams (CMDs).
 
-.. include:: /gen2tutorialdeprecation.txt
-
 Set up
 ======
 
@@ -261,7 +259,7 @@ Finally, combine all these boolean index arrays together:
 In the next step, you'll plot a color-magnitude diagram of the sources you've selected.
 
 Make a color-color diagram
-==========
+==========================
 
 The product of this effort will be an *g-r*/*r-i* color-color diagram showing both galaxies and stars.
 You can use matplotlib_ to create this visualization:

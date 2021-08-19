@@ -11,8 +11,6 @@
 Getting started tutorial part 6: measuring sources
 ##################################################
 
-.. include:: /gen2tutorialdeprecation.txt
-
 In this step of the :ref:`tutorial series <getting-started-tutorial>` you'll measure the coadditions you assembled in :doc:`part 5 <coaddition>` to build catalogs of stars and galaxies.
 This is the measurement strategy:
 

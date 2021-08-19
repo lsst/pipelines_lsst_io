@@ -21,8 +21,6 @@ In this :ref:`tutorial series <getting-started-tutorial>` you will calibrate and
 In this first part of the :ref:`tutorial series <getting-started-tutorial>` you'll set up the LSST Science Pipelines software, and obtain the data needed for the remainder of the tutorial.
 Along the way, you'll be introduced to the Butler, which is the Pipelines' interface for managing, reading, and writing datasets.
 
-.. include:: /gen2tutorialdeprecation.txt
-
 Install the LSST Science Pipelines
 ==================================
 
