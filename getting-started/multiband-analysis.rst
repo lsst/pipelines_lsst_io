@@ -6,10 +6,10 @@
   Don't assume the user has any prior experience with the Pipelines; do assume a working knowledge of astronomy and the command line.
 
 #################################################################################
-Getting started tutorial part 6: analyzing measurement catalogs in multiple bands
+Getting started tutorial part 7: analyzing measurement catalogs in multiple bands
 #################################################################################
 
-In this part of the :ref:`tutorial series <getting-started-tutorial>` you'll analyze the forced photometry measurement catalogs you created in :doc:`step 5 <photometry>`.
+In this part of the :ref:`tutorial series <getting-started-tutorial>` you'll analyze the forced photometry measurement catalogs you created in :doc:`step 6 <photometry>`.
 You'll learn how to work with measurement tables and plot color-magnitude diagrams (CMDs).
 
 .. include:: /gen2tutorialdeprecation.txt
@@ -18,7 +18,11 @@ Set up
 ======
 
 Pick up your shell session where you left off in :doc:`part 5 <photometry>`.
-That means your current working directory must *contain* the :file:`DATA` directory (the Butler repository).
+For convenience, start in the top directory of the example git repository.
+
+.. code-block: bash
+
+   cd $GEN3_DC2_SUBSET_DIR
 
 The ``lsst_distrib`` package also needs to be set up in your shell environment.
 See :doc:`/install/setup` for details on doing this.
@@ -30,27 +34,32 @@ Ensure that this Python session is running from the shell where you ran :command
 Loading forced photometry measurement catalogs with the Butler
 ==============================================================
 
-The :command:`forcedPhotCoadd.py` command-line task (:ref:`getting-started-tutorial-forced-coadds`) created ``deepCoadd_forced_src`` datasets for each coadd in the example data repository.
+The ``forced_objects`` pipeline (:ref:`getting-started-tutorial-forced-coadds`) created ``deepCoadd_forced_src`` datasets for each coadd in the example data repository.
 Being forced photometry catalogs, rows in each ``deepCoadd_forced_src`` table correspond row-for-row across all coadds in different filters for a sky map patch.
 Since you don't have to do additional cross-matching, these ``deepCoadd_forced_src`` datasets are convenient.
 
-To get these datasets, open a Python session (`IPython`_ or `Jupyter Notebook`_) and create a Butler:
+To get these datasets, open a Python session (`IPython`_ or `Jupyter Notebook`_) and create a Butler.
+When generating the datasets, you put them into specific collections.
+We need to specify the collections to the butler, so it knows where to look for the data you are going to be requesting:
 
 .. code-block:: python
 
-   import lsst.daf.persistence as dafPersist
-   butler = dafPersist.Butler(inputs='DATA/rerun/coaddForcedPhot')
+   import os
+   from lsst.daf.butler import Butler
+   collections = [f"u/{os.environ['USER']}/objects", f"u/{os.environ['USER']}/meas_coadd"]
+   butler = Butler('SMALL_HSC', collections=collections)
 
-This Butler is using the ``coaddForcedPhot`` rerun you created for the :command:`forcePhotCoadd.py` command-line task's outputs.
+This Butler is using the ``coaddForcedPhot`` collection you created for the ``forced_objects`` pipeline  outputs.
 
 Next, use the Butler to get the ``deepCoadd_forced_src`` datasets for both filters:
 
 .. code-block:: python
 
-   rSources = butler.get('deepCoadd_forced_src', {'filter': 'HSC-R', 'tract': 0, 'patch': '1,1'})
-   iSources = butler.get('deepCoadd_forced_src', {'filter': 'HSC-I', 'tract': 0, 'patch': '1,1'})
+   gSources = butler.get('deepCoadd_forced_src', band='g', tract=9813, patch=41)
+   rSources = butler.get('deepCoadd_forced_src', band='r', tract=9813, patch=41)
+   iSources = butler.get('deepCoadd_forced_src', band='i', tract=9813, patch=41)
 
-These datasets correspond to coadds for a single patch (``1,1`` in tract ``0``) for both the HSC-R and HSC-I filters.
+These datasets correspond to coadds for a single patch (``41`` in tract ``9813``) for both the HSC-R and HSC-I filters.
 
 Getting calibrated PSF photometry
 =================================
@@ -63,14 +72,15 @@ From the source table's schema you know this flux has units of counts:
    iSources.getSchema().find('base_PsfFlux_instFlux').field.getUnits()
 
 Transforming this instrumental flux into a magnitude requires knowing the coadd's photometric calibration, which you can get from the coadd dataset.
-The coadd you made in :doc:`part 4 <coaddition>` with :command:`assembleCoadd.py` doesn't have calibration info attached to it, though.
-Instead, you want the ``deepCoadd_calexp`` dataset, which was created by the :command:`detectCoaddSources.py` command-line task, because it does have calibrations.
-You can access these calibrations directly from ``deepCoadd_calexp_photoCalib`` datasets for each filter:
+The coadd you made in :doc:`part 5 <coaddition>` with the ``assembleCoadd`` pipeline doesn't have calibration info attached to it, though.
+Instead, you want the ``deepCoadd_calexp`` dataset, which was created by the ``coadd_measurement`` pipeline, because it does have calibrations.
+You can access these calibrations directly from ``deepCoadd_calexp.photoCalib`` datasets for each filter:
 
 .. code-block:: python
 
-   rCoaddPhotoCalib = butler.get('deepCoadd_calexp_photoCalib',  {'filter': 'HSC-R', 'tract': 0, 'patch': '1,1'})
-   iCoaddPhotoCalib = butler.get('deepCoadd_calexp_photoCalib',  {'filter': 'HSC-I', 'tract': 0, 'patch': '1,1'})
+   gCoaddPhotoCalib = butler.get('deepCoadd_calexp.photoCalib', band='g', tract=9813, patch=41)
+   rCoaddPhotoCalib = butler.get('deepCoadd_calexp.photoCalib', band='r', tract=9813, patch=41)
+   iCoaddPhotoCalib = butler.get('deepCoadd_calexp.photoCalib', band='i', tract=9813, patch=41)
 
 .. note::
 
@@ -78,16 +88,18 @@ You can access these calibrations directly from ``deepCoadd_calexp_photoCalib`` 
 
    .. code-block:: python
 
-      rCoaddCalexp = butler.get('deepCoadd_calexp',  {'filter': 'HSC-R', 'tract': 0, 'patch': '1,1'})
+      rCoaddCalexp = butler.get('deepCoadd_calexp', band='r', trct=9813, patch=41)
       rCoaddPhotoCalib = rCoaddCalexp.getPhotoCalib()
 
 These ``PhotoCalib`` objects not only have methods for directly accessing calibration information, but also for applying those calibrations.
-Use the ``PhotoCalib.instFluxToMagnitude()`` method to transform instrumental fluxes in counts to AB magnitudes, and ``PhotoCalib.instFluxToNanojanksy()`` to transform counts into nanojansky. When called with an ``lsst.afw.table.SourceCatalog`` and string specifying the flux field name, these methods each return an array with the magnitude and magnitude error as columns.
+Use the ``PhotoCalib.instFluxToMagnitude()`` method to transform instrumental fluxes in counts to AB magnitudes, and ``PhotoCalib.instFluxToNanojanksy()`` to transform counts into nanojansky.
+When called with an ``lsst.afw.table.SourceCatalog`` and string specifying the flux field name, these methods each return an array with the magnitude and magnitude error as a list of tuples.
 
 .. code-block:: python
 
+   gMags = gCoaddPhotoCalib.instFluxToMagnitude(gSources, 'base_PsfFlux')
    rMags = rCoaddPhotoCalib.instFluxToMagnitude(rSources, 'base_PsfFlux')
-   iMags = iCoaddPhotoCalib.instFluxToMagnitude(iSources, 'base_PsfFlux'])
+   iMags = iCoaddPhotoCalib.instFluxToMagnitude(iSources, 'base_PsfFlux')
 
 Filtering for unique, deblended sources with the detect_isPrimary flag
 ======================================================================
@@ -95,7 +107,7 @@ Filtering for unique, deblended sources with the detect_isPrimary flag
 Before going ahead and plotting a CMD from the full source table, you'll typically need to do some basic filtering.
 Exactly what filtering is done depends on the application, but source tables should *always* be filtered for unique sources.
 There are two ways that measured sources might not be unique: deblended sources and sources in patch overlaps.
-Additionally, some sources are "sky" objects added by ``detectCoaddSources.py`` for noise characterization that you need to filter out.
+Additionally, some sources are "sky" objects added by the coadd measurement step for noise characterization that you need to filter out.
 This section gives a brief introduction to removing duplicate and unwanted sources, for details see :doc:`/modules/lsst.pipe.tasks/deblending-flags-overview`.
 
 Finding deblended sources
@@ -107,19 +119,15 @@ In source tables like ``rSources`` and ``iSources``, both the original (blended)
 This is done so that you can choose whether to use blended or deblended measurements in your analysis.
 If you *don't* choose, though, the same flux will be included multiple times in your analysis.
 
-Usually you will want to use fully-deblended sources in your analysis, however there are two different types of deblended sources: isolated sources that were modeled by scarlet (used mostly for diagnostic purposes) and children of parents that contain multiple children.
-
-You will most likely want the catalog of un-modeled isolated sources and scarlet models for children of blends:
-
-.. code-block:: python
-
-   isDeblended = rSources['detect_isDeblendedSource']
-
-But if you're worried about an inconsistency between the models for isolated sources and blended sources you can instead use the scarlet models for all deblended sources:
+Usually you will want to use fully-deblended sources in your analysis.
+You can tell which sources are deblended by the fact that they have no children.
+This is held in the ``deblend_nChild`` column.
+Simply look for records where this value is zero.
+All source catalogs come from the same deblending run, so you can use any band to build the mask array.
 
 .. code-block:: python
 
-   isDeblendedModel = rSources['detect_isDeblendedModelSource']
+   isDeblended = rSources['deblend_nChild'] == 0
 
 Finding primary detections
 --------------------------
@@ -132,13 +140,14 @@ The Pipelines determine if a detection in a patch is primary, or not, by whether
 An inner region is a part of a sky map exclusively claimed by one patch.
 
 The flag that indicates whether a source lies in the patch's inner region isn't in the ``deepCoadd_forced_src`` table though.
-Instead, you need to look at the ``deepCoadd_ref`` table made by :command:`mergeCoaddMeasurements.py` in the :ref:`previous tutorial <getting-started-tutorial-merge-coadds>`.
+Instead, you need to look at the ``deepCoadd_ref`` table made as part of the ``coadd_measurement`` pipeline in the :ref:`previous tutorial <getting-started-tutorial-merge-coadds>`.
 
-Begin by using the Butler to get the ``deepCoadd_ref`` dataset for  patch you're analyzing:
+Begin by using the Butler to get the ``deepCoadd_ref`` dataset for  patch you're analyzing.
+You will need to use a where clause because, in this case, we are not asking for a single entity for each entry in the data ID:
 
 .. code-block:: python
 
-   refTable = butler.get('deepCoadd_ref', {'filter': 'HSC-R^HSC-I', 'tract': 0, 'patch': '1,1'})
+   refTable = butler.get('deepCoadd_ref', tract=9813, patch=41, where="band IN ('r', 'i')")
 
 Then make an index array from the combination of ``detect_isPatchInner`` and ``detect_isTractInner`` flags:
 
@@ -149,7 +158,7 @@ Then make an index array from the combination of ``detect_isPatchInner`` and ``d
 Rejecting sky objects
 ---------------------
 
-``detectCoaddSources.py`` is configured, by default, to add "sky" objects to the catalog.
+Coadd measurement is configured, by default, to add "sky" objects to the catalog.
 These "sky" objects do not correspond to detections but are used for characterizing the image's noise properties.
 
 The ``merge_peak_sky`` flag identifies these "sky" objects:
@@ -175,6 +184,7 @@ Now you can use this array to slice the photometry arrays and get only primary s
 
 .. code-block:: python
 
+   gMags[isPrimary]
    rMags[isPrimary]
    iMags[isPrimary]
 
@@ -212,11 +222,12 @@ To see this for yourself, run:
 
    iSources.schema.find('base_ClassificationExtendedness_value').field.getDoc()
 
-Go ahead and create a boolean index of sources classified as point sources:
+Go ahead and create a boolean indexes of sources classified as point sources and extended sources in the i-band:
 
 .. code-block:: python
 
    isStellar = iSources['base_ClassificationExtendedness_value'] < 1.
+   isExtended = iSources['base_ClassificationExtendedness_value'] == 1.
 
 Using measurement flags
 =======================
@@ -235,48 +246,66 @@ A useful flag is ``base_PsfFlux_flag``, which is the logical combination of spec
 
 .. code-block:: python
 
-   isGoodFlux = ~iSources['base_PsfFlux_flag']
+   isGoodFlux = ~iSources['base_PsfFlux_flag'] & ~rSources['base_PsfFlux_flag'] & ~gSources['base_PsfFlux_flag']
 
 Since the ``base_PsfFlux_flag`` is ``True`` for sources with measurement errors, you used the unary invert operator (``~``) so that well-measured sources are ``True`` in the ``isGoodFlux`` array.
+We need to ``and`` together the sources flagged as good between both the r-band and i-band so that we know each source has both magnitudes.
 
 Finally, combine all these boolean index arrays together:
 
 .. code-block:: python
 
-   selected = isPrimary & isStellar & isGoodFlux
+   selected_stellar = isPrimary & isStellar & isGoodFlux
+   selected_extended = isPrimary & isExtended & isGoodFlux
 
 In the next step, you'll plot a color-magnitude diagram of the sources you've selected.
 
-Plot a CMD
+Make a color-color diagram
 ==========
 
-The product of this effort will be an *r-i* CMD.
+The product of this effort will be an *g-r*/*r-i* color-color diagram showing both galaxies and stars.
 You can use matplotlib_ to create this visualization:
 
 .. code-block:: python
 
    import matplotlib.pyplot as plt
 
+   # Grab just the magnitudes and ignor the errors for now
+   plt_gMags_stellar = [el[0] for el in gMags[selected_stellar]]
+   plt_rMags_stellar = [el[0] for el in rMags[selected_stellar]]
+   plt_iMags_stellar = [el[0] for el in iMags[selected_stellar]]
+   gmr_stellar = [el1 - el2 for el1, el2 in zip(plt_gMags_stellar, plt_rMags_stellar)]
+   rmi_stellar = [el1 - el2 for el1, el2 in zip(plt_rMags_stellar, plt_iMags_stellar)]
+
+   plt_gMags_extended = [el[0] for el in gMags[selected_extended]]
+   plt_rMags_extended = [el[0] for el in rMags[selected_extended]]
+   plt_iMags_extended = [el[0] for el in iMags[selected_extended]]
+   gmr_extended = [el1 - el2 for el1, el2 in zip(plt_gMags_extended, plt_rMags_extended)]
+   rmi_extended = [el1 - el2 for el1, el2 in zip(plt_rMags_extended, plt_iMags_extended)]
+
    plt.style.use('seaborn-notebook')
    plt.figure(1, figsize=(4, 4), dpi=140)
-   plt.scatter(rMags[selected][0] - iMags[selected][0],
-               iMags[selected][0],
-               edgecolors='None', s=2, c='k')
-   plt.xlim(-0.5, 3)
-   plt.ylim(25, 14)
-   plt.xlabel('$r-i$')
-   plt.ylabel('$i$')
+   plt.scatter(gmr_stellar,
+               rmi_stellar,
+               edgecolors='None', s=4, c='k')
+   plt.scatter(gmr_extended,
+               rmi_extended, marker='v',
+               edgecolors='None', s=4, c='r')
+   plt.xlabel('$g-r$')
+   plt.ylabel('$r-i$')
    plt.subplots_adjust(left=0.125, bottom=0.1)
    plt.show()
 
 You should see a figure like this:
 
-.. figure:: multiband-analysis-stars.png
-   :alt: r-i color-magnitude diagram of stars.
+.. figure:: multiband-analysis.png
+   :alt: color-color plot for stars and galaxies.
    :height: 546
    :width: 546
 
-   r-i color-magnitude diagram of stars.
+   Color-color plot for  stars and galaxies.
+   Stars are plotted as black circles.
+   Galaxies are plotted as red inverted triangles.
 
 Wrap up
 =======
@@ -291,7 +320,7 @@ Here are some takeaways:
 - Use the ``base_ClassificationExtendedness_value`` column to quickly distinguish stars from galaxies.
 - The ``base_PsfFlux_flag`` column is useful for identifying sources that don't have photometric measurement errors.
 
-In the end, you created a simple *r-i* CMD.
+In the end, you created a simple color-color diagram.
 This tutorial is just the beginning, though.
 With the dataset you've created in this tutorial, you can look at galaxies with measurements from the ``CModel`` plugin.
 Or compare PSF-fitted photometric measurements with aperture photometry of stars.
