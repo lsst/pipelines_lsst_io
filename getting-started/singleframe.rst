@@ -15,7 +15,7 @@ In this part of the :ref:`tutorial series <getting-started-tutorial>` you'll pro
 We'll use the :command:`singleFrame` pipeline to remove instrumental signatures with dark, bias and flat field calibration images.
 This will also use the reference catalog to establish a preliminary WCS and photometric zeropoint solution.
 
-Pipelines are defined in ``YAML`` files.
+:ref:`Pipelines <pipe_base_creating_pipeline>` are defined in ``YAML`` files.
 The example git repository contains a pipeline definition for data release processing that is only slightly modified from the one used in production processing of HSC data.
 If you are interested in examining the pipeline defintions provided for this tutorial, look in ``$GEN3_RC2_SUBSET_DIR/pipelines/DRP.yaml``.
 
@@ -53,8 +53,10 @@ The first few lines look something like:
       y        HSC       47           HSC-Y      322
       y        HSC       49           HSC-Y      322
 
-Notice the keys that describe each data ID, such as the ``exposure`` (exposure identifier for the HSC camera), ``detector`` (identifies a specific chip in the HSC camera), ``band`` (a generic specifier for about what part of the EM spectrum the filter samples) and ``physical_filter`` (the identifyer of the specific implementation of this band for the HSC camera).
+Notice the keys that describe each data ID, such as the ``exposure`` (exposure identifier for the HSC camera), ``detector`` (identifies a specific chip in the HSC camera), ``band`` (a generic specifier for about what part of the EM spectrum the filter samples) and ``physical_filter`` (the identifier of the specific implementation of this band for the HSC camera).
 With these keys you can select exactly what data you want to process.
+It's worth noting that the keys shown here are not the minimal ones needed to specify, for example, a ``raw``.
+Only instrument+detector+exposure are necessary to uniquely identify a specific ``raw`` dataset, because the system knows that an exposure implies a physical_filter and a physical_filter implys a band.
 
 The important arguments are ``--collections`` and ``--datasets``.
 
@@ -89,6 +91,8 @@ E.g.:
 
    butler query-dimension-records SMALL_HSC/ instrument
 
+For mor information about the ``butler`` command line tool, try ``butler --help``.
+
 Running single frame processing
 ===============================
 
@@ -111,7 +115,7 @@ You will learn more about collections later in this document.
 
 The ``-o`` option defines the output collection to send the results of the processing to.
 These tutorials suggest that you put the outputs in collections under a namespace defined by your username since that is unique for a given system.
-In this case, there is little reason to be so careful because you are likely to have cloned into a space shared with others.
+In this case, there is little reason to be so careful because you are likely to have cloned into a space not shared with others.
 However, it is good practice for times when you may be using a repository with a registry used by other users on the same system.
 
 The ``--register-dataset-types`` switch tells the butler to register a dataset type if it doesn't already have a definition for it.
@@ -122,28 +126,27 @@ If you expect that all of the dataset types should already be registiered, as is
    It is not included in the above command, but the ``-j`` option is useful if you have more than one core available to you.
    Specifying ``-j #`` will run in parallel where ``#`` is the number of processes to execute in parallel.
 
-   `Dataset queries`_ can be specified using the ``-d`` argument to specify which specific datasets should be considered when building the execution graph.
+   :ref:`Dataset queries <daf_butler_queries>` can be specified using the ``-d`` argument to specify which specific datasets should be considered when building the execution graph.
    If this argument is omitted, all data in the repository that can be processed based on other inputs, e.g. calibrations, will be.
 
 Aside: collections and quantum graphs
 ============================================
 
-`Collections`_ are the primary way data in butler repositories are organized.
+:ref:`Collections <daf_butler_organizing_datasets>` are the primary way data in butler repositories are organized.
 Of the types of collections available, the two of interest here are the ``RUN`` and ``CHAINED`` types.
 
 ``RUN`` collections are the least flexible.
-Once a dataset is added to a ``RUN`` collection, it can never be removed.
+Once a dataset is added to a ``RUN`` collection, it can never be moved to a different ``RUN`` collection.
 The constraints on datasets in ``RUN`` collections makes these collections that most efficient to store and query.
 The collection containing the raw data is a ``RUN`` collection.
 
 ``CHAINED`` collections are groupings of other collections associated with an alias for that grouping.
 The grouping of collections defines the order of collections to search when looking for a dataset associated with a specific data ID.
 The collection produced from the ``-o`` option above is a ``CHAINED`` collection.
-The ouput collection will generall include all the collections in the input plus any ``RUN`` collections produced by the processing.
+The ouput collection will general include all the collections in the input plus any ``RUN`` collections produced by the processing.
 
 The first step of process data is to produce the quantum graph for the processing.
 This is a directed acyclic graph that completely defines inputs and outputs for every node (quantum) in the graph.
-As seen above, the quantum graph can be visualized to see how the processing is intended to progress.
 
 Wrap up
 =======
@@ -154,11 +157,8 @@ Here are some key takeaways:
 - The :command:`pipetask run` command, with appropriate arguments and switches, processes ``raw`` datasets, applying both photometric and astrometric calibrations.
 - Datasets are described by both a *type* and *data ID*.
   Data IDs are key-value pairs that describe a dataset (for example ``filter``, ``visit``, ``ccd``, ``field``).
-- `Dataset queries`_ can be used to specify which datasets to process..
+- :ref:`Dataset queries <daf_butler_queries>` can be used to specify which datasets to process..
 - Pipelines write their outputs to a Butler data repository.
   Collections are used to organize and associate outputs of processing with the inputs to the processing.
 
 Continue this tutorial in :doc:`part 3, where you'll learn how to display these calibrated exposures <display>`.
-
-.. _Collections: https://pipelines.lsst.io/v/daily/modules/lsst.daf.butler/organizing.html#collections
-.. _Dataset queries: https://pipelines.lsst.io/v/daily/modules/lsst.daf.butler/queries.html?highlight=query%20dataset

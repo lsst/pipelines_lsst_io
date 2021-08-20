@@ -71,6 +71,7 @@ This collection or a CHAINED collection that contains it will need to be specifi
 
    By default the Butler constructor returns a read only interface to the repository.
    If you plan on adding to the repository, specify ``writeable=True`` in the constructor.
+   Alternatively, if you specify a ``run`` to the constructor, it will automatically be writeable and will put outputs into that collection.
 
 Listing available data IDs in the Butler
 ========================================
@@ -83,7 +84,8 @@ The ``singleFrame`` pipeline reads in ``raw`` datasets and outputs ``calexp``, o
 It's ``calexp`` datasets that you'll display in this tutorial.
 
 Data IDs let you reference specific instances of a dataset.
-You can filter by keys like ``visit``, ``detector``, and ``physical_filter``.
+You can filter by keys like ``visit``, ``detector``, and ``physical_filter`` for ``raw``.
+Or keys like ``exposure``, ``detector``, and ``physical_filter`` for ``calexp``.
 
 
 Now, use the Butler client to find what data IDs are available for the ``calexp`` dataset type:
@@ -92,13 +94,13 @@ Now, use the Butler client to find what data IDs are available for the ``calexp`
 
    import os
    collection = f"u/{os.environ['USER']}/single_frame"
-   for res in butler.registry.queryDatasets('calexp', dataId={'physical_filter': 'HSC-R'}, collections=collection, instrument='HSC'):
-       print(res.dataId.full)
+   for ref in butler.registry.queryDatasets('calexp', physical_filter='HSC-R', collections=collection, instrument='HSC'):
+       print(ref.dataId.full)
 
-The printed output are data IDs for the ``calexp`` datasets withthe ``HSC-R`` physical filter.
+The printed output are data IDs for the ``calexp`` datasets with the ``HSC-R`` physical filter.
 The ``collections`` and ``instrument`` arguments are both required in this case.
 The first is required because we have not set up default collections to query.
-The second is required because we are filtering on an instrument specific key so we need to say which instrument to use.
+The second is required because we are filtering on an instrument specific key so we need to say which instrument to use since a butler repository can contain data from multiple instruments.
 Following are few lines for example:
 
 .. code-block:: text
@@ -131,7 +133,7 @@ Knowing a specific data ID, let's get the dataset with the Butler client's ``get
 
    import os
    collection = f"u/{os.environ['USER']}/single_frame"
-   calexp = butler.get('calexp', dataId={'physical_filter': 'HSC-R', 'visit': 23718, 'detector': 41}, collections=collection, instrument='HSC')
+   calexp = butler.get('calexp', visit=23718, detector=41, collections=collection, instrument='HSC')
 
 This ``calexp`` is an ``ExposureF`` Python object.
 Exposures are powerful representations of image data because they contain not only the image data, but also a variance image for uncertainty propagation, a bit mask image plane, and key-value metadata.
@@ -170,8 +172,6 @@ Then use the display's ``mtv`` method to view the ``calexp`` in DS9:
 .. code-block:: python
 
    display.mtv(calexp)
-
-As soon as you execute the command a single Hyper Suprime-Cam calibrated exposure, the ``{'physical_filter': 'HSC-R', 'visit': 23718, 'detector': 41}`` data ID, should appear in the DS9 application.
 
 Notice that the DS9 display is filled with colorful regions.
 These are mask regions.
@@ -259,7 +259,7 @@ The dataset type of this table is ``src``, which you can get from the Butler:
 
    import os
    collection = "u/{os.environ['USER']}/single_frame"
-   src = butler.get('src', dataId={'physical_filter': 'HSC-R', 'visit': 23718, 'detector': 41}, collections=collection, instrument='HSC')
+   src = butler.get('src', visit=23718, detector=41}, collections=collection, instrument='HSC')
 
 This ``src`` dataset is a ``SourceCatalog``, which is a catalog object from the ``lsst.afw.table`` module.
 

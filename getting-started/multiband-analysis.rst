@@ -57,7 +57,7 @@ Next, use the Butler to get the ``deepCoadd_forced_src`` datasets for both filte
    rSources = butler.get('deepCoadd_forced_src', band='r', tract=9813, patch=41)
    iSources = butler.get('deepCoadd_forced_src', band='i', tract=9813, patch=41)
 
-These datasets correspond to coadds for a single patch (``41`` in tract ``9813``) for both the HSC-R and HSC-I filters.
+These datasets correspond to coadds for a single patch (``41`` in tract ``9813``) for both the HSC-G, HSC-R and HSC-I filters.
 
 Getting calibrated PSF photometry
 =================================
@@ -88,6 +88,8 @@ You can access these calibrations directly from ``deepCoadd_calexp.photoCalib`` 
 
       rCoaddCalexp = butler.get('deepCoadd_calexp', band='r', trct=9813, patch=41)
       rCoaddPhotoCalib = rCoaddCalexp.getPhotoCalib()
+
+   Note that this method is slowewr than getting just the ``photoCalib`` component and should only be used if you intend to use the ``calexp`` later on.
 
 These ``PhotoCalib`` objects not only have methods for directly accessing calibration information, but also for applying those calibrations.
 Use the ``PhotoCalib.instFluxToMagnitude()`` method to transform instrumental fluxes in counts to AB magnitudes, and ``PhotoCalib.instFluxToNanojanksy()`` to transform counts into nanojansky.
@@ -140,12 +142,11 @@ An inner region is a part of a sky map exclusively claimed by one patch.
 The flag that indicates whether a source lies in the patch's inner region isn't in the ``deepCoadd_forced_src`` table though.
 Instead, you need to look at the ``deepCoadd_ref`` table made as part of the ``coadd_measurement`` pipeline in the :ref:`previous tutorial <getting-started-tutorial-merge-coadds>`.
 
-Begin by using the Butler to get the ``deepCoadd_ref`` dataset for  patch you're analyzing.
-You will need to use a where clause because, in this case, we are not asking for a single entity for each entry in the data ID:
+Begin by using the Butler to get the ``deepCoadd_ref`` dataset for  patch you're analyzingL
 
 .. code-block:: python
 
-   refTable = butler.get('deepCoadd_ref', tract=9813, patch=41, where="band IN ('r', 'i')")
+   refTable = butler.get('deepCoadd_ref', tract=9813, patch=41)
 
 Then make an index array from the combination of ``detect_isPatchInner`` and ``detect_isTractInner`` flags:
 

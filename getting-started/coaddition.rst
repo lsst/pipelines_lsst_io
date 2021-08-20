@@ -11,7 +11,7 @@
 Getting started tutorial part 5: coadding images
 ################################################
 
-In this part of the :ref:`tutorial series <getting-started-tutorial>` you will combine the individual exposures produced by the ``singleFrame`` pipieline (from :doc:`part 2 <singleframe>`) into deeper coadds (mosaic images).
+In this part of the :ref:`tutorial series <getting-started-tutorial>` you will combine the individual exposures produced by the ``singleFrame`` pipeline (from :doc:`part 2 <singleframe>`) into deeper coadds (mosaic images).
 The dataset that defines how images are reprojected for coaddition is called a **sky map**.
 The example repository has a skymap that we can use for this purpose.
 We will warp (reproject) images into that sky map.
@@ -45,10 +45,10 @@ Each tract has a different world coordinate system (WCS), but the WCSs of the pa
 There are two general categories of sky maps:
 
 1. Whole sky.
-2. A selected region containing a set of exposures.
+2. A sky map based on the bounding box of a set of input exposures.
 
 Though the HSC dataset you are working with is small, the full dataset is large so we include the sky map computed from the full set and is of the first type.
-A full sky sky map is no larger than a discrete one, and it has the added benefit that you can compare directly with data products from larger data processing runs.
+Using a sky map that describes the full sky has the benefit that you can compare directly with data products from larger data processing runs since the tracts and patches will align exactly.
 
 Warping images onto the sky map
 ===============================
@@ -56,30 +56,33 @@ Warping images onto the sky map
 Before assembling the coadded image, you need to *warp* the exposures created by the ``singleFrame`` pipeline onto the pixel grids of patches described in the sky map.
 You can use the ``makeWarp`` pipeline for this.
 
-The data to process can be specified with a dataset query passed to the ``-d`` argument.
-This example only creates coadds for a subset of the data.
+The data to process can be specified with a dataset query passed to the ``-d`` argument, short for ``--data-query``.
+The example command below only creates coadds for a subset of the data.
 The remaining sections only use a few patches that have coverage from all the input visits, so downsampling in the coadd generation phase can save time.
 All the data can be coadded by simply leaving off the ``-d`` switch and the arguments to it.
 Remember that when specifying the output ``tract`` and ``patch`` information, you must also specify a valid sky map.
+In this case, the sky map, called ``hsc_ring_v1`` from a larger HSC run is used.
 The filtering we will do here is:
 
 .. code-block:: bash 
 
    -d "tract = 9813 AND skymap = 'hsc_rings_v1' AND patch in (38, 39, 40, 41)"
 
-The above dataset query has been tailored to work with the example dataset described in the first tutorial.
+The above dataset query has been tailored to work with the `example dataset`_ described in the first tutorial.
 
-The ``patch in (38, 39, 40, 41)`` clause selects the patches indexed 40 and 41 in the skymap.
+The ``patch in (38, 39, 40, 41)`` clause selects patches 38, 39, 40 and 41 in the skymap.
+All five bands for each of the patches will be processed.
 You can retrieve the skymap and interrogate it using the various member functions.
 
 .. code-block:: python
 
    from lsst.daf.butler import Butler
-   butler = Butler('/Users/krughoff/projects/tutorials/gen3_rc2_subset/SMALL_HSC')
+   butler = Butler('SMALL_HSC')
    skymap = butler.get('skyMap', skymap='hsc_rings_v1', collections='HSC/RC2/defaults')
    tractInfo = skymap.generateTract(9813)
    patch = tractInfo[41]
    patch.getIndex()
+   --> (5, 4)
 
 The data queries will typically use the integer id for the patches, but you can use code like that above to find out the x and y indices into the tract's rectilinear grid of patches.
 In this case, the patch with id 41 is located at the position (5, 4) in tract 9813.
@@ -98,7 +101,7 @@ If you wish to pare down the data to be processed, you can specify a data query 
 
 .. tip::
 
-   As with the ``singleFrame`` pipeline, the warping is an atomic process relative to the rest of the data in the repository.
+   As with the ``singleFrame`` pipeline, warping only needs the data from an input visit and the skymap each warp can be done independently of every other warp.
    That means it is a good candidate for running in parallel.
    If you have access to more than one core for processing, specifying the `-j=<num cores>` argument will speed up this step.
 
@@ -108,6 +111,7 @@ Coadding warped images
 
 Now you'll assemble the warped images into coadditions for each patch with the ``assembleCoadd`` pipeline.
 As before, we will run with out a data query to process a subset of the data, but a selection can be made with the ``-d`` argument just as with warping.
+In this case the the ``-d`` arguement could be omitted since the coaddition process will only find the warps from the previous command and will thus only produce coadds for those patches.
 
 Run:
 
@@ -117,7 +121,7 @@ Run:
 
 .. tip::
 
-   While coaddition can be done in parallel, each process is more memmory intensive than warping because multiple visits from multiple detectors may be put in memory at once.
+   While coaddition can be done in parallel, each process is more memory intensive than warping because multiple visits from multiple detectors may be put in memory at once.
    Still, if you have access to a machine with a fair amount of memory, the ``-j`` option may still speed up this step.
 
 Wrap up
@@ -132,3 +136,5 @@ Here are some key takeaways:
 - The ``assembleCoadd`` pipeline coadds warped exposures into deep mosaics.
 
 Continue this tutorial in :doc:`part 6, where you'll measure sources <photometry>` in the coadds.
+
+.. _example dataset: https://github.com/lsst-dm/gen3_rc2_subset

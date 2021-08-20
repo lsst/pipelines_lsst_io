@@ -99,17 +99,35 @@ To construct a Butler that can manage data in that repository, from a python pro
 
    from lsst.daf.butler import Butler
    import os
-   butler = Butler(os.environ['GEN3_DC2_SUBSET_DIR'] + '/SMALL_HSC')
+   butler = Butler(os.path.join(os.environ['GEN3_DC2_SUBSET_DIR'], 'SMALL_HSC'))
 
-Now you can explore the repository using the registry atribute of the Butler you created.  E.g.:
+Now you can explore the repository using the registry attribute of the Butler you created.  E.g.:
 
 .. code-block:: python
 
    registry = butler.registry
    for col in registry.queryCollections():
        print(col)
-   for ref in registry.queryDatasets('raw', collections='', instrument='HSC'):
-       print(ref.full)
+   for ref in registry.queryDatasets('raw', collections='HSC/raw/all', instrument='HSC'):
+       print(ref.dataId.full)
+
+Notes on terminology
+====================
+
+First, a coherent set of pixels can have lots of names.
+In this set of tutorials, you will run into three.
+The term exposure, refers to a single image.
+The camera produces exposures that can be ingested into a data butler.
+Once ingested, exposures can be grouped together into visits via the ``define-visits`` subcommand to the ``butler`` command line tool.
+Visits can be made up of more than one exposure as in the baseline plan for each visit to be made up of two "snaps" for the LSST.
+You will also see mention of ``Exposure``.
+This is the name of the python object, or instance thereof, that is used to manipulate pixel data within the Science Pipelines.
+The python object will always be presented capitalized and in monospace.
+
+Second, different projects call the instances of astrophysical bodies different names.
+In this project, sources are specific measurements of an astrophysical object.
+The term object refers to the astrophysical entity itself.
+In other words, there is a unique record for each distinct object seen by the LSST, but multiple source measurements for each time the LSST revisits a particular part of the sky.
 
 Notes on processing
 ===================
@@ -129,6 +147,8 @@ The most time consuming steps are:
 
 These timings are all for a single serial thread.
 Some steps can be sped up significantly if you have access to more than one core.
+For example, to speed up the single frame processing, you can try adding the ``-j4`` argument.
+This will attempt to run the processing on 4 cores simultaneously.
 
 Wrap up
 =======
