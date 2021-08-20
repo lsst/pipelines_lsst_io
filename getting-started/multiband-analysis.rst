@@ -89,7 +89,7 @@ You can access these calibrations directly from ``deepCoadd_calexp.photoCalib`` 
       rCoaddCalexp = butler.get('deepCoadd_calexp', band='r', trct=9813, patch=41)
       rCoaddPhotoCalib = rCoaddCalexp.getPhotoCalib()
 
-   Note that this method is slowewr than getting just the ``photoCalib`` component and should only be used if you intend to use the ``calexp`` later on.
+   Note that this method is slower than getting just the ``photoCalib`` component and should only be used if you intend to use the ``calexp`` later on.
 
 These ``PhotoCalib`` objects not only have methods for directly accessing calibration information, but also for applying those calibrations.
 Use the ``PhotoCalib.instFluxToMagnitude()`` method to transform instrumental fluxes in counts to AB magnitudes, and ``PhotoCalib.instFluxToNanojanksy()`` to transform counts into nanojansky.

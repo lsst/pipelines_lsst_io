@@ -56,7 +56,7 @@ The first few lines look something like:
 Notice the keys that describe each data ID, such as the ``exposure`` (exposure identifier for the HSC camera), ``detector`` (identifies a specific chip in the HSC camera), ``band`` (a generic specifier for about what part of the EM spectrum the filter samples) and ``physical_filter`` (the identifier of the specific implementation of this band for the HSC camera).
 With these keys you can select exactly what data you want to process.
 It's worth noting that the keys shown here are not the minimal ones needed to specify, for example, a ``raw``.
-Only instrument+detector+exposure are necessary to uniquely identify a specific ``raw`` dataset, because the system knows that an exposure implies a physical_filter and a physical_filter implys a band.
+Only instrument+detector+exposure are necessary to uniquely identify a specific ``raw`` dataset, because the system knows that an exposure implies a physical_filter and a physical_filter implies a band.
 
 The important arguments are ``--collections`` and ``--datasets``.
 
