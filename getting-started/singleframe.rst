@@ -100,7 +100,7 @@ Running single frame processing
 
    As mentioned in :doc:`part 1 <data-setup>`, this part of the processing is by far the most time consuming.
    If you do not wish to process all the data in the repository at this time, you can specify a data query that will reduce the number of exposures to be processed.
-   Simply add the argument ``-d "instrument='HSC' AND detector=41 AND exposure=322" to the command line below.
+   Simply add the argument ``-d "instrument='HSC' AND detector=41 AND exposure=322"`` to the command line below.
    Data queries will be discussed in more detail later.
 
 After learning about datasets, go ahead and run single frame processing  using the :command:`pipetask` command on all ``raw`` datasets in the repository:
@@ -166,16 +166,18 @@ Try building the quantum graph for the processing of a single detector:
 .. code-block:: bash
 
    pipetask qgraph -b $GEN3_RC2_SUBSET_DIR/SMALL_HSC/butler.yaml -p $GEN3_RC2_SUBSET_DIR/pipelines/DRP.yaml#simpleSingleFrame -i HSC/RC2/defaults -o u/$USER/single_frame -d "instrument='HSC' AND detector=41 AND exposure=322" --qgraph-dot single_frame.dot --save-qgraph single_frame.qgraph
+
 The quantum graph is saved in ``pickle`` format in the file called ``single_frame.qgraph``.
 The ``graphviz`` file is in ``single_frame.dot``.
 If you have ``graphviz`` installed, you can turn the ``dot`` file into something you look at via a command like this:
 
 .. code-block:: bash
+
    dot -Tpdf -osingle_frame.pdf single_frame.dot
 
 This should produce something similar to the following figure.
 
-.. figure:: single_frame.pdf
+.. figure:: single_frame.png
    :alt: Visualization of the quantum graph generated in the above step
 
    A visualization of the quantum graph generated in this section.
