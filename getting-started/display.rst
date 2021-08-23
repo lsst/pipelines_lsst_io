@@ -370,7 +370,23 @@ The display framework, as you've seen, is a useful facility for inspecting image
 This tutorial only covered the framework's basic functionality.
 Explore the display framework documentation to learn how to display multiple images at once, and to work with different display backends.
 
-.. TODO: link to lsst.display docs when available
+A quick look movie
+==================
+
+You can use the iterator returned by ``queryDatasets`` to make a simple movie, by displaying each calibrated exposure as it is loaded.
+
+.. code-block:: python
+
+   import os
+   from time import sleep
+   import lsst.afw.display as afwDisplay
+
+   display = afwDisplay.getDisplay()
+   collection = f"u/{os.environ['USER']}/single_frame"
+   for ref in butler.registry.queryDatasets('calexp', physical_filter='HSC-R', collections=collection, instrument='HSC'):
+       calexp = butler.getDirect(ref)
+       display.mtv(calexp)
+       sleep(1)
 
 Wrap up
 =======
