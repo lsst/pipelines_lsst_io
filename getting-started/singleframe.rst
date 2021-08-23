@@ -158,17 +158,27 @@ This is a directed acyclic graph that completely defines inputs and outputs for 
 
 Quantum graphs can be saved for reuse later, and diagnostic ``graphviz`` files can be used to visualize the quantum graph.
 The ``qgraph`` subcommand to ``pipetask`` can be used to generate the quantum graph without doing any further processing.
+The full processing produces a quantum graph that has many nodes and is hard to look at on one page.
+There is a simplified version of the pipeline that is not sufficient for other pipelines, but that does produce a simple enough quantum graph to easily be viewed on one page.
+It is called ``simpleSingleFrame``.
 Try building the quantum graph for the processing of a single detector:
 
 .. code-block:: bash
 
-   pipetask qgraph -b $GEN3_RC2_SUBSET_DIR/SMALL_HSC/butler.yaml -p $GEN3_RC2_SUBSET_DIR/pipelines/DRP.yaml#singleFrame -i HSC/RC2/defaults -o u/$USER/single_frame -d "instrument='HSC' AND detector=41 AND exposure=322" --qgraph-dot single_frame.dot --save-qgraph single_frame.qgraph
+   pipetask qgraph -b $GEN3_RC2_SUBSET_DIR/SMALL_HSC/butler.yaml -p $GEN3_RC2_SUBSET_DIR/pipelines/DRP.yaml#simpleSingleFrame -i HSC/RC2/defaults -o u/$USER/single_frame -d "instrument='HSC' AND detector=41 AND exposure=322" --qgraph-dot single_frame.dot --save-qgraph single_frame.qgraph
 The quantum graph is saved in ``pickle`` format in the file called ``single_frame.qgraph``.
 The ``graphviz`` file is in ``single_frame.dot``.
 If you have ``graphviz`` installed, you can turn the ``dot`` file into something you look at via a command like this:
 
 .. code-block:: bash
    dot -Tpdf -osingle_frame.pdf single_frame.dot
+
+This should produce something similar to the following figure.
+
+.. figure:: single_frame.pdf
+   :alt: Visualization of the quantum graph generated in the above step
+
+   A visualization of the quantum graph generated in this section.
 
 Wrap up
 =======
