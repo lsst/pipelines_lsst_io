@@ -5,14 +5,12 @@
   We want this tutorial to be kinetic; instead of getting bogged down in explanations and side-notes, we'll link to other documentation.
   Don't assume the user has any prior experience with the Pipelines; do assume a working knowledge of astronomy and the command line.
 
-###############################################################################################
-Getting started tutorial part 3: displaying exposures and source tables output by processCcd.py
-###############################################################################################
+#########################################################################################################
+Getting started tutorial part 3: displaying exposures and source tables output by single frame processing
+#########################################################################################################
 
-.. include:: /gen2tutorialdeprecation.txt
-
-In the :doc:`previous tutorial <processccd>` in the :ref:`series <getting-started-tutorial>` you used :command:`processCcd.py` to calibrate a set of raw Hyper Suprime-Cam images.
-Now you'll learn how to use the LSST Science Pipelines to inspect :command:`processCcd.py`\ ’s outputs by displaying images and source catalogs in the `DS9 image viewer`_.
+In the :doc:`previous tutorial <singleframe>` in the :ref:`series <getting-started-tutorial>` you used :command:`pipetask run` configured appropriately to execute the ``singleFrame`` pipeline to calibrate a set of raw Hyper Suprime-Cam images.
+Now you'll learn how to use the LSST Science Pipelines to inspect those outputs by displaying images and source catalogs in the `DS9 image viewer`_.
 In doing so, you'll be introduced to some of the LSST Science Pipelines' Python APIs, including:
 
 - Accessing datasets with the Butler.
@@ -27,8 +25,12 @@ In doing so, you'll be introduced to some of the LSST Science Pipelines' Python 
 Set up
 ======
 
-Pick up your shell session where you left off in :doc:`part 2 <processccd>`.
-That means your current working directory must *contain* the :file:`DATA` directory (the Butler repository).
+Pick up your shell session where you left off in :doc:`part 2 <singleframe>`.
+For simplicity, the following examples assume your current working directory  *contains* the :file:`SMALL_HSC` directory (the Butler repository).
+
+.. code:: bash
+
+   cd $RC2_SUBSET_DIR
 
 The ``lsst_distrib`` package also needs to be set up in your shell environment.
 See :doc:`/install/setup` for details on doing this.
@@ -51,23 +53,25 @@ Creating a Butler client
 ========================
 
 All data in the Pipelines flows through the Butler.
-As you saw in the :doc:`previous tutorial <processccd>`, :command:`processCcd.py` read exposures from the Butler repository and persisted outputs back to the repository.
-Although this Butler data repository is a directory on the filesystem (:file:`DATA`), we don't recommend directly accessing its files.
-Instead, you use the Butler client from the ``lsst.daf.persistence`` module.
+As you saw in the :doc:`previous tutorial <singleframe>`, the `singleFrame` pipeline reads exposures from the Butler repository and persisted outputs back to the repository.
+Although this Butler data repository is a directory on the filesystem (:file:`SMALL_HSC`), we don't recommend directly accessing its files.
+Instead, you use the Butler client from the ``lsst.daf.butler`` module.
 In the Python interpreter, run:
 
 .. code-block:: python
 
-   import lsst.daf.persistence as dafPersist
-   butler = dafPersist.Butler(inputs='DATA/rerun/processCcdOutputs')
+   from lsst.daf.butler import Butler
+   butler = Butler('SMALL_HSC')
 
-The Butler client reads from the data repository specified with the ``inputs`` argument.
-In the previous tutorial, you created the ``processCcdOutputs`` rerun to isolate the outputs of the :command:`processCcd.py` command-line task.
-Reruns act like repositories, so to work with the :command:`processCcd.py` outputs you specifically set ``inputs`` as the path to that rerun.
+The Butler client reads from the data repository specified constructor.
+In the previous tutorial, you created the ``single_frame`` collection to isolate the outputs of ``singleFrame`` pipeline.
+This collection or a CHAINED collection that contains it will need to be specified whenever accessing datasets it contains.
 
 .. tip::
 
-   Reruns are sub-directories of the :file:`rerun` directory of a root Butler data repository.
+   By default the Butler constructor returns a read only interface to the repository.
+   If you plan on adding to the repository, specify ``writeable=True`` in the constructor.
+   Alternatively, if you specify a ``run`` to the constructor, it will automatically be writeable and will put outputs into that collection.
 
 Listing available data IDs in the Butler
 ========================================
@@ -75,48 +79,50 @@ Listing available data IDs in the Butler
 To get data from the Butler you need to know two things: the **dataset type** and the **data ID**.
 
 Every dataset stored by the Butler has a well-defined type.
-Tasks read specific dataset types and output other specific dataset types.
-The :command:`processCcd.py` command reads in ``raw`` datasets and outputs ``calexp``, or *calibrated exposure*, datasets (among others).
+Pipelines read specific dataset types and output other specific dataset types.
+The ``singleFrame`` pipeline reads in ``raw`` datasets and outputs ``calexp``, or *calibrated exposure*, datasets (among others).
 It's ``calexp`` datasets that you'll display in this tutorial.
 
 Data IDs let you reference specific instances of a dataset.
-On the command line you select data IDs with ``--id`` arguments, filtering by keys like ``visit``, ``ccd``, and ``filter``.
+You can filter by keys like ``visit``, ``detector``, and ``physical_filter`` for ``raw``.
+Or keys like ``exposure``, ``detector``, and ``physical_filter`` for ``calexp``.
+
 
 Now, use the Butler client to find what data IDs are available for the ``calexp`` dataset type:
 
 .. code-block:: python
 
-   butler.queryMetadata('calexp', ['visit', 'ccd'], dataId={'filter': 'HSC-R'})   
+   import os
+   collection = f"u/{os.environ['USER']}/single_frame"
+   for ref in butler.registry.queryDatasets('calexp', physical_filter='HSC-R', collections=collection, instrument='HSC'):
+       print(ref.dataId.full)
 
-The printed output is a list of ``(visit, ccd)`` key tuples for all data IDs where the ``filter`` key is the ``HSC-R`` band:
+The printed output are data IDs for the ``calexp`` datasets with the ``HSC-R`` physical filter.
+The ``collections`` and ``instrument`` arguments are both required in this case.
+The first is required because we have not set up default collections to query.
+The second is required because we are filtering on an instrument specific key so we need to say which instrument to use since a butler repository can contain data from multiple instruments.
+Following are few example lines:
 
 .. code-block:: text
 
-   [(903334, 16),
-    (903334, 22),
-    (903334, 23),
-    (903334, 100),
-    (903336, 17),
-    (903336, 24),
-    (903338, 18),
-    (903338, 25),
-    (903342, 4),
-    (903342, 10),
-    (903342, 100),
-    (903344, 0),
-    (903344, 5),
-    (903344, 11),
-    (903346, 1),
-    (903346, 6),
-    (903346, 12)]
+   {band: 'r', instrument: 'HSC', detector: 41, physical_filter: 'HSC-R', visit_system: 0, visit: 23718}
+   {band: 'r', instrument: 'HSC', detector: 42, physical_filter: 'HSC-R', visit_system: 0, visit: 23718}
+   {band: 'r', instrument: 'HSC', detector: 47, physical_filter: 'HSC-R', visit_system: 0, visit: 23718}
+   {band: 'r', instrument: 'HSC', detector: 49, physical_filter: 'HSC-R', visit_system: 0, visit: 23718}
+   {band: 'r', instrument: 'HSC', detector: 50, physical_filter: 'HSC-R', visit_system: 0, visit: 23718}
+   {band: 'r', instrument: 'HSC', detector: 58, physical_filter: 'HSC-R', visit_system: 0, visit: 23718}
+   {band: 'r', instrument: 'HSC', detector: 41, physical_filter: 'HSC-R', visit_system: 0, visit: 1214}
+   {band: 'r', instrument: 'HSC', detector: 42, physical_filter: 'HSC-R', visit_system: 0, visit: 1214}
 
 .. note::
 
-   That example ``butler.queryMetadata`` call is equivalent to this shell command that you used in the :doc:`previous tutorial <processccd>`:
+   That example ``butler.registry.queryDatasets`` call is similar to this shell command that you used in the :doc:`previous tutorial <singleframe>`.
+   You can get identical results by specifying a ``--where`` argument.
+   Remember that if you are requesting instrument specific keys, you need to specify which instrument you are interested in.:
 
    .. code-block:: bash
 
-      processCcd.py DATA --rerun processCcdOutputs --id filter=HSC-R --show data
+      butler query-data-ids $RC2_SUBSET_DIR/SMALL_HSC --collections HSC/RC2/defaults --datasets 'raw' --where "physical_filter = 'HSC-R' AND instrument = 'HSC'"
 
 Get an exposure through the Butler
 ==================================
@@ -125,7 +131,9 @@ Knowing a specific data ID, let's get the dataset with the Butler client's ``get
 
 .. code-block:: python
 
-   calexp = butler.get('calexp', dataId={'filter': 'HSC-R', 'visit': 903334, 'ccd': 23})
+   import os
+   collection = f"u/{os.environ['USER']}/single_frame"
+   calexp = butler.get('calexp', visit=23718, detector=41, collections=collection, instrument='HSC')
 
 This ``calexp`` is an ``ExposureF`` Python object.
 Exposures are powerful representations of image data because they contain not only the image data, but also a variance image for uncertainty propagation, a bit mask image plane, and key-value metadata.
@@ -165,8 +173,6 @@ Then use the display's ``mtv`` method to view the ``calexp`` in DS9:
 
    display.mtv(calexp)
 
-As soon as you execute the command a single Hyper Suprime-Cam calibrated exposure, the ``{'filter': 'HSC-R', 'visit': 903334, 'ccd': 23}`` data ID, should appear in the DS9 application.
-
 Notice that the DS9 display is filled with colorful regions.
 These are mask regions.
 Each color reflects a different mask bit that correspond to detections and different types of detector artifacts.
@@ -177,7 +183,7 @@ Improving the image display
 
 The display framework gives you control over the image display to help bring out image details.
 
-To make masked regions semi-transparent, so that underlying image features are visible, try:
+To make masked regions semi-transparent again, so that underlying image features are visible, try:
 
 .. code-block:: python
 
@@ -217,18 +223,18 @@ As an example, this result is:
 
 .. code-block:: text
 
-   DETECTED_NEGATIVE: cyan
-   CROSSTALK: None
-   INTRP: green
-   DETECTED: blue
-   UNMASKEDNAN: None
-   NO_DATA: orange
    BAD: red
-   EDGE: yellow
-   SUSPECT: yellow
-   NOT_DEBLENDED: None
    CR: magenta
+   CROSSTALK: None
+   DETECTED: blue
+   DETECTED_NEGATIVE: cyan
+   EDGE: yellow
+   INTRP: green
+   NOT_DEBLENDED: None
+   NO_DATA: orange
    SAT: green
+   SUSPECT: yellow
+   UNMASKEDNAN: None
 
 Footprints of detected sources are rendered in blue and the saturated cores of bright stars are drawn in green.
 
@@ -240,22 +246,24 @@ Footprints of detected sources are rendered in blue and the saturated cores of b
 
    .. code-block:: python
 
-      display.setMaskPlaneColor('DETECTED', 'dodgerblue')
+      display.setMaskPlaneColor('DETECTED', 'fuchsia')
       display.mtv(calexp)
 
-Getting the source catalog generated by processCcd.py
-=====================================================
+Getting the source catalog generated by single frame processing
+===============================================================
 
-Besides the calibrated exposure (``calexp``), :command:`processCcd.py` also creates a table of the sources it used for PSF estimation as well as astrometric and photometric calibration.
+Besides the calibrated exposure (``calexp``), the ``singleFrame`` pipeline also creates a table of the sources it used for PSF estimation as well as astrometric and photometric calibration.
 The dataset type of this table is ``src``, which you can get from the Butler:
 
 .. code-block:: python
 
-   src = butler.get('src', dataId={'filter': 'HSC-R', 'visit': 903334, 'ccd': 23})
+   import os
+   collection = "u/{os.environ['USER']}/single_frame"
+   src = butler.get('src', visit=23718, detector=41}, collections=collection, instrument='HSC')
 
-This ``src`` dataset is a ``SourceTable``, which is a table object from the ``lsst.afw.table`` module.
+This ``src`` dataset is a ``SourceCatalog``, which is a catalog object from the ``lsst.afw.table`` module.
 
-You'll explore ``SourceTable``\ s more in a later tutorial, but you can check its length with Python's `len` function:
+You'll explore ``SourceCatalog`` objects more in a later tutorial, but you can check its length with Python's `len` function:
 
 .. code-block:: python
 
@@ -307,7 +315,7 @@ It's more efficient to send a batch of updates to the display, though, so enclos
 
    with display.Buffering():
        for s in src:
-           display.dot("o", s.getX(), s.getY(), size=10, ctype='orange')
+           display.dot("o", s.getX(), s.getY(), size=10, ctype="orange")
 
 Now orange circles should appear in the DS9 window over every detected source.
 
@@ -333,13 +341,15 @@ Selecting PSF-fitting sources to plot on the display
 Next, use the display to understand what sources were used for PSF measurement.
 
 The ``src`` table's ``calib_psf_used`` column describes whether the source was used for PSF measurement.
+First, set the mask to transparent so it's easier to see the markers.
 Since columns are Numpy arrays we can iterate over rows where ``src['calib_psf_used']`` is ``True`` with Numpy's boolean array indexing:
 
 .. code-block:: python
 
+   display.setMaskTransparency(100)
    with display.Buffering():
        for s in src[src['calib_psf_used']]:
-           display.dot("x", s.getX(), s.getY(), size=10, ctype='red')
+           display.dot("x", s.getX(), s.getY(), size=10, ctype="red")
 
 Red **x** symbols on the display mark all stars used by PSF measurement.
 
@@ -360,7 +370,23 @@ The display framework, as you've seen, is a useful facility for inspecting image
 This tutorial only covered the framework's basic functionality.
 Explore the display framework documentation to learn how to display multiple images at once, and to work with different display backends.
 
-.. TODO: link to lsst.display docs when available
+A quick look movie
+==================
+
+You can use the iterator returned by ``queryDatasets`` to make a simple movie, by displaying each calibrated exposure as it is loaded.
+
+.. code-block:: python
+
+   import os
+   from time import sleep
+   import lsst.afw.display as afwDisplay
+
+   display = afwDisplay.getDisplay()
+   collection = f"u/{os.environ['USER']}/single_frame"
+   for ref in butler.registry.queryDatasets('calexp', physical_filter='HSC-R', collections=collection, instrument='HSC'):
+       calexp = butler.getDirect(ref)
+       display.mtv(calexp)
+       sleep(1)
 
 Wrap up
 =======
@@ -368,7 +394,7 @@ Wrap up
 In this tutorial you've worked with the LSST Science Pipelines Python API to display images and tables.
 Here are some key takeaways:
 
-- Use the ``lsst.daf.persistence.Butler`` class to read and write data from repositories.
+- Use the ``lsst.daf.butler.Butler`` class to read and write data from repositories.
 - The ``lsst.afw.display`` module provides a flexible framework for sending data from LSST Science Pipelines code to image displays.
   You used the DS9 backend in this tutorial, but other backends are available.
 - Exposure objects have image data, mask data, and metadata.
@@ -376,7 +402,7 @@ Here are some key takeaways:
 - Tables have well-defined schemas. Use methods like ``getSchema`` to understand the contents of a table.
   You can also use the ``asAstropy`` table method to view the table as an `astropy.table.Table`.
 
-Continue this tutorial series in :doc:`part 4, where you'll coadd these processed images <coaddition>` into deeper mosaics.
+Continue this tutorial series in :doc:`part 4, where you'll produce external calibration products <uber-cal>` which will be used in coaddition.
 
 .. _`DS9 image viewer`:
 .. _`DS9`: http://ds9.si.edu/site/Home.html

@@ -8,12 +8,10 @@
 .. _getting-started-tutorial-measuring-sources:
 
 ##################################################
-Getting started tutorial part 5: measuring sources
+Getting started tutorial part 6: measuring sources
 ##################################################
 
-.. include:: /gen2tutorialdeprecation.txt
-
-In this step of the :ref:`tutorial series <getting-started-tutorial>` you'll measure the coadditions you assembled in :doc:`part 4 <coaddition>` to build catalogs of stars and galaxies.
+In this step of the :ref:`tutorial series <getting-started-tutorial>` you'll measure the coadditions you assembled in :doc:`part 5 <coaddition>` to build catalogs of stars and galaxies.
 This is the measurement strategy:
 
 1. :ref:`Detect sources in individual coadd patches <getting-started-tutorial-detect-coadds>`.
@@ -22,107 +20,94 @@ This is the measurement strategy:
 4. :ref:`Merge the multi-band catalogs of source measurements to identify the best positional measurements for each source <getting-started-tutorial-merge-coadds>`.
 5. :ref:`Re-measure the coadds in each band using fixed positions (forced photometry) <getting-started-tutorial-forced-coadds>`.
 
-.. tip::
-
-   Instead of running multiple command-line tasks, like you'll do here, you could instead run the :command:`multiBandDriver.py` command as an integrated multi-band source measurement pipeline.
-
 Set up
 ======
 
-Pick up your shell session where you left off in :doc:`part 4 <coaddition>`.
-That means your current working directory must *contain* the :file:`DATA` directory (the Butler repository).
+Pick up your shell session where you left off in :doc:`part 5 <coaddition>`.
+For convenience, start in the top directory of the example git repository.
+
+.. code-block:: bash
+
+   cd $GEN3_DC2_SUBSET_DIR
 
 The ``lsst_distrib`` package also needs to be set up in your shell environment.
 See :doc:`/install/setup` for details on doing this.
 
+
+Run detection pipeline task
+===========================
+
+Processing will be done in two blocks with two different pipelines.
+The first will do steps 1 through 4 in the introduction.
+The end result will be calibrated coadd object measurements and calibrated coadd exposures.
+
+The following code executes steps 1 through 4 of the steps outlined in the introduction to this tutorial.
+The code is executed here, but more information on each of the steps is included in sections following this code block.
+The fifth and final step is executed in :ref:`this section <getting-started-tutorial-forced-coadds>`.
+
+.. code-block:: bash
+
+   pipetask run -b SMALL_HSC/butler.yaml -d "tract = 9813 AND skymap = 'hsc_rings_v1' AND patch in (38, 39, 40, 41)" -p 'pipelines/DRP.yaml#coadd_measurement' -i u/$USER/coadds --register-dataset-types -o u/$USER/coadd_meas
+
+Notice that since this task operates on coadds, we can select the coadds using the ``tract``, and ``patch`` data ID keys.
+In past sections, the examples left off the ``-d`` argument in order to process all available data.
+This example, however, is selecting just four of the patches for this step.
+Some algorithms are sensitive to how images are arranged on the sky.
+For example, some algorithms expect multiple images to overlap, or multi-band coverage.
+Those four patches have coverage from all 40 visits in the tutorial repository which means there doesn't need to be as much fine tuning to configurations, and we can process these patches just as the large scale HSC processing is done.
+As with previous examples, the outputs will go in a collection placed under a namespace defined by your username.
+
+.. note:
+
+  The processing in this part can be quite expensive and take a long time.
+  You can use the `-j<num cores>` argument to allow the processing to take more cores, if you have access to more than one.
+
 .. _getting-started-tutorial-detect-coadds:
 
 Detecting sources in coadded images
-===================================
+-----------------------------------
 
-To start, you can detect sources in the coadded images to take advantage of their depth and high signal-to-noise ratio.
-Use the :command:`detectCoaddSources.py` command-line task to accomplish this:
+To start, detect sources in the coadded images to take advantage of their depth and high signal-to-noise ratio.
+The ``detection`` subset is responsible for producing calibrated measurements from the input coadds.
+Detection is done on each band and patch separately.
 
-.. code-block:: bash
-
-   detectCoaddSources.py DATA --rerun coadd:coaddPhot \
-       --id filter=HSC-R tract=0 patch=0,0^0,1^0,2^1,0^1,1^1,2^2,0^2,1^2,2
-
-Notice that since this task operates on coadds, we need to select the coadds using the ``filter``, ``tract``, and ``patch`` data ID keys.
-
-Also notice that you've created a new rerun for the photometry outputs, ``coaddPhot``, that is chained to the ``coadd`` rerun.
-
-Now repeat source detection in ``HSC-I``-band patches:
-
-.. code-block:: bash
-
-   detectCoaddSources.py DATA --rerun coaddPhot \
-       --id filter=HSC-I tract=0 patch=0,0^0,1^0,2^1,0^1,1^1,2^2,0^2,1^2,2
-
-The :command:`detectCoaddSources.py` commands produce ``deepCoadd_det`` datasets in the Butler repository.
-Typically these datasets are only used as inputs for the :command:`mergeCoaddDetections.py` command, which you'll run next.
+The resulting datasets are the ``deepCoadd_det`` detections and the ``deepCoadd_calexp`` calibrated coadd exposures.
 
 .. _getting-started-tutorial-merge-coadd-detections:
 
 Merging multi-band detection catalogs
-=====================================
+-------------------------------------
 
-Next, use the :command:`mergeCoaddDetections.py` command to combine the individual ``HSC-R`` and ``HSC-I``-band detection catalogs:
-
-.. code-block:: bash
-
-   mergeCoaddDetections.py DATA --rerun coaddPhot --id filter=HSC-R^HSC-I
-
-This command created a ``deepCoadd_mergeDet`` dataset, which is a consistent table of sources across all filters.
+Merging the detections from the multiple bands used to produce the coadds allows later steps to use multi-band information in their processing: e.g. deblending.
+The ``mergeDetections`` subset created a ``deepCoadd_mergeDet`` dataset, which is a consistent table of sources across all filters.
 
 .. _getting-started-tutorial-measure-coadds:
 
 Deblending and measuring source catalogs on coadds
-==================================================
+--------------------------------------------------
 
-Using the merged table of sources, the deblender retains all peaks and deblends any missing peaks (dropouts in that band) as PSFs. Repeating this procedure with the same master catalog across multiple coadds will generate a consistent set of child sources. Run the HSC-SDSS deblender separately in each band:
+Seeded by the ``deepCoadd_mergeDet``, the deblender works on each detection to find the flux in each component.
+Because it has information from multiple bands, the deblender can use color information to help it work out how to separate the flux into different components.
+See the `SCARLET paper <https://arxiv.org/abs/1802.10157>`_ for further reading.
+The ``deblend`` subset produces the ``deepCoadd_deblendedFlux`` data product.
 
-.. code-block:: bash
-
-   deblendCoaddSources.py DATA --rerun coaddPhot --id filter=HSC-R
-   deblendCoaddSources.py DATA --rerun coaddPhot --id filter=HSC-I
-
-The :command:`deblendCoaddSources` command-line task produces ``deepCoadd_deblendedFlux`` datasets in the Butler data repository.
-
-Now, use the merged detection catalog to measure sources in both the ``HSC-R`` and ``HSC-I`` coadd patches.
-You can accomplish this with :command:`measureCoaddSources.py`:
-
-.. code-block:: bash
-
-   measureCoaddSources.py DATA --rerun coaddPhot --id filter=HSC-R
-
-And repeat with the ``HSC-I``-band coadd:
-
-.. code-block:: bash
-
-   measureCoaddSources.py DATA --rerun coaddPhot --id filter=HSC-I
-
-The :command:`measureCoaddSources` command-line task produces ``deepCoadd_meas`` datasets in the Butler data repository.
-Because the same merged detection catalog is used for every filter, the ``HSC-R`` and ``HSC-I``-band ``deepCoadd_meas`` tables have consistent rows.
+The ``measure`` subset is responsible for measuring object properties on all of the deblended children produced by the deblender.
+This produces the ``deepCoadd_meas`` catalog data product with flux and shape measurement information for each object.
 You'll see how to access these tables later.
 
 .. _getting-started-tutorial-merge-coadds:
 
 Merging multi-band source catalogs from coadds
-==============================================
+----------------------------------------------
 
-The previous step you created measurement catalogs for each patch in both the ``HSC-R`` and ``HSC-I`` bands.
-You'll get even more complete and consistent multi-band photometry by measuring the same source in multiple bands at a fixed position (the forced photometry method) rather than fitting the source's location individually for each band.
+After measurement the single band deblended and measured objects in single bands can again be merged into a single catalog.
+
+Merging the single band detection catalogs into a single multi-band catalog allows for more complete and consistent multi-band photometry by measuring the same source in multiple bands at a fixed position (the forced photometry method) rather than fitting the source's location individually for each band.
 
 For forced photometry you want to use the best position measurements for each source, which could be from different filters depending on the source.
 We call the filter that best measures a source the **reference filter**.
-Go ahead and run the :command:`mergeCoaddMeasurements.py` command to create a table that identifies the reference filter for each source in the tables you created with the previous step:
-
-.. code-block:: bash
-
-   mergeCoaddMeasurements.py DATA --rerun coaddPhot --id filter=HSC-R^HSC-I
-
-This command created a ``deepCoadd_ref`` dataset.
+The ``mergeMeasurements`` created a ``deepCoadd_ref`` dataset.
+This is the seed catalog for computing forced photometry.
 
 .. _getting-started-tutorial-forced-coadds:
 
@@ -134,24 +119,15 @@ Re-measure the coadds using these fixed source positions (the forced photometry 
 
 .. code-block:: bash
 
-   forcedPhotCoadd.py DATA --rerun coaddPhot:coaddForcedPhot --id filter=HSC-R
+   pipetask run -b SMALL_HSC/butler.yaml -d "tract = 9813 AND skymap = 'hsc_rings_v1' AND patch in (38, 39, 40, 41)" -p 'pipelines/DRP.yaml#forced_objects' -i u/$USER/coadd_meas --register-dataset-types -o u/$USER/objects
 
-Also run forced photometry on the ``HSC-I``-band coadds:
+As above, this selects just the patches that have full coverage.
 
-.. code-block:: bash
+The ``forced_objects`` subset of pipelines does several things:
 
-   forcedPhotCoadd.py DATA --rerun coaddForcedPhot --id filter=HSC-I
-
-The :command:`forcedPhotCoadd.py` command creates table datasets called ``deepCoadd_forced_src`` in the Butler repository.
-In a future tutorial you'll see how to work with these tables.
-
-.. TODO update with link
-
-.. note::
-
-   You can also try the :command:`forcedPhotCcd.py` command to apply forced photometry to individual exposures, which may in principle yield better measurements.
-   :command:`forcedPhotCcd.py` doesn't currently deblend sources, though.
-   Thus forced coadd photometry, as you've performed here, provides the best source photometry.
+1. Forced photometry on the coadds resulting in the ``deepCoadd_forced_src`` dataset
+2. Forced photometry on the input single frame calibrated exposures, the ``forced_src`` dataset
+3. Finally, it combines all object level forced measurements into a single tract scale catalog resulting in the ``objectTable_tract`` dataset
 
 Wrap up
 =======
@@ -160,6 +136,5 @@ In this tutorial, you've created forced photometry catalogs of sources in coadde
 Here are some key takeaways:
 
 - *Forced photometry* is a method of measuring sources in several bandpasses using a common source list.
-- The pipeline for forced photometry consists of the :command:`detectCoaddSources.py`, :command:`mergeCoaddDetections.py`, :command:`measureCoaddDetections.py`, :command:`mergeCoaddMeasurements.py`, and :command:`forcedPhotCoadd.py` command-line tasks.
 
-:doc:`Continue this tutorial series in part 6 <multiband-analysis>` where you will analyze and plot the source catalogs that you've just measured.
+:doc:`Continue this tutorial series in part 7 <multiband-analysis>` where you will analyze and plot the source catalogs that you've just measured.
