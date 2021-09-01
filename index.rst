@@ -14,9 +14,9 @@ You can also find documentation for `other versions <https://pipelines.lsst.io/v
 Getting started
 ===============
 
-If you're new to the LSST Science Pipelines, these step-by-step data processing tutorials will get you up and running:
+If you're new to the LSST Science Pipelines, these step-by-step data processing tutorials will get you up and running.
 
-Data processing tutorial series:
+Data processing tutorial series (these were developed using the ``w_2021_33`` version of the science pipelines):
 
 - Part 1 :doc:`Data repositories <getting-started/data-setup>`
 - Part 2 :doc:`Single frame processing <getting-started/singleframe>`
