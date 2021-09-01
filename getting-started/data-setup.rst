@@ -44,62 +44,63 @@ It may simply be that you're working in a brand new shell.
 Downloading the sample HSC data
 ===============================
 
-Sample data for this tutorial comes from the `gen3_rc2_subset`_ package.
-`gen3_rc2_subset`_ contains a small set of Hyper Suprime-Cam (HSC) exposures.
+Sample data for this tutorial comes from the `rc2_subset`_ package.
+`rc2_subset`_ contains a small set of Hyper Suprime-Cam (HSC) exposures.
 The Science Pipelines provides native integrations for many observatories, including HSC, CFHT/MegaCam, and of course LSST.
 
-`gen3_rc2_subset`_ is a Git LFS-backed package, so make sure you've :doc:`installed and configured Git LFS for LSST <../install/git-lfs>`.
+`rc2_subset`_ is a Git LFS-backed package, so make sure you've :doc:`installed and configured Git LFS for LSST <../install/git-lfs>`.
 
 .. important::
 
    Even if you've used Git LFS before, you do need to :doc:`configure it to work with LSST's servers <../install/git-lfs>`.
 
-First, clone `gen3_rc2_subset`_ using Git:
+First, clone `rc2_subset`_ using Git:
 
 .. code-block:: bash
 
-   git clone https://github.com/lsst-dm/gen3_rc2_subset
+   git clone https://github.com/lsst-dm/rc2_subset
 
 Then :command:`setup` the package to add it to the EUPS stack:
 
 .. code-block:: bash
 
-   setup -j -r gen3_rc2_subset
+   setup -j -r rc2_subset
 
 .. tip::
 
-   The ``-r gen3_rc2_subset`` argument is the the package's directory path (either absolute or relative).
+   The ``-r rc2_subset`` argument is the package's directory path (either absolute or relative).
    In this case
 
-   The ``-j`` argument means that we're **just** setting up ``gen3_rc2_subset`` without affecting other packages.
+   The ``-j`` argument means that we're **just** setting up ``rc2_subset`` without affecting other packages.
 
 Now run:
 
 .. code-block:: bash
 
-   echo $GEN3_RC2_SUBSET_DIR
+   echo $RC2_SUBSET_DIR
 
-The ``$GEN3_RC2_SUBSET_DIR`` environment variable should be the `gen3_rc2_subset`_ directory's path.
+The ``$RC2_SUBSET_DIR`` environment variable should be the `rc2_subset`_ directory's path.
 
 Creating a Butler object for HSC data
 =========================================
 
 In the LSST Science Pipelines you don't directly manage data files.
-Instead, you access data through and instance of the **Butler** class.
+Instead, you access data through an instance of the **Butler** class.
 This gives you flexibility to work with data from different observatories without significantly changing your workflow.
 
 The Butler manages data in **repositories.**
 Butler repositories can be remote (the data is on a server, across a network) or local (the data in on a local filesystem).
 In this tutorial you'll create and use a local Butler repository, which is a simple directory.
 
-The `gen3_rc2_subset`_ git repository has a Butler repository contained within it.
+The `rc2_subset`_ git repository has a Butler repository contained within it.
 To construct a Butler that can manage data in that repository, from a python prompt say:
 
 .. code-block:: python
 
    from lsst.daf.butler import Butler
    import os
-   butler = Butler(os.path.join(os.environ['GEN3_DC2_SUBSET_DIR'], 'SMALL_HSC'))
+   repo_path = os.path.join(os.environ['DC2_SUBSET_DIR'], 'SMALL_HSC')
+   butler = Butler(repo_path)
 
 Now you can explore the repository using the registry attribute of the Butler you created.  E.g.:
 
@@ -110,6 +111,8 @@ Now you can explore the repository using the registry attribute of the Butler yo
        print(col)
    for ref in registry.queryDatasets('raw', collections='HSC/raw/all', instrument='HSC'):
        print(ref.dataId.full)
+
+Read more about querying datasets :ref:`here <daf_butler_queries>`.
 
 Notes on terminology
 ====================
@@ -128,6 +131,12 @@ Second, different projects call the instances of astrophysical bodies different 
 In this project, sources are specific measurements of an astrophysical object.
 The term object refers to the astrophysical entity itself.
 In other words, there is a unique record for each distinct object seen by the LSST, but multiple source measurements for each time the LSST revisits a particular part of the sky.
+
+Third, you will see mention of pipelines.
+Formally a ``Pipeline`` is made up of one or more ``PipelineTask`` objects.
+These can be further grouped into other pipelines.
+You will see reference to "subsets" of a pipeline.
+This just means a named set of ``PipelineTask`` that make up a part of a larger pipeline, but that can be run independently.
 
 Notes on processing
 ===================
@@ -163,5 +172,5 @@ Here are some key takeaways:
 
 In :doc:`part 2 of this tutorial series <singleframe>` you will process the HSC data in this newly-created Butler repository into calibrated exposures.
 
-.. _gen3_rc2_subset: https://github.com/lsst-dm/gen3_rc2_subset
+.. _rc2_subset: https://github.com/lsst-dm/rc2_subset
 .. _Community Forum: https://community.lsst.org

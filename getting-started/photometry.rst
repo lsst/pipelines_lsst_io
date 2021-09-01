@@ -56,13 +56,13 @@ As with previous examples, the outputs will go in a collection placed under a na
 .. note:
 
   The processing in this part can be quite expensive and take a long time.
-  You can use the `-j <NUM>` argument to allow the processing to take more cores, if you have access to more than one.
+  You can use the `-j<num cores>` argument to allow the processing to take more cores, if you have access to more than one.
 
 Detecting sources in coadded images
 ===================================
 
 To start, detect sources in the coadded images to take advantage of their depth and high signal-to-noise ratio.
-The ``detection`` sub-pipeline is responsible for producing calibrated measurements from the input coadds.
+The ``detection`` subset is responsible for producing calibrated measurements from the input coadds.
 Detection is done on each band and patch separately.
 
 The resulting datasets are the ``deepCoadd_det`` detections and the ``deepCoadd_calexp`` calibrated coadd exposures.
@@ -73,7 +73,7 @@ Merging multi-band detection catalogs
 =====================================
 
 Merging the detections from the multiple bands used to produce the coadds allows later steps to use multi-band information in their processing: e.g. deblending.
-The ``mergeDetections`` sub-pipeline created a ``deepCoadd_mergeDet`` dataset, which is a consistent table of sources across all filters.
+The ``mergeDetections`` subset created a ``deepCoadd_mergeDet`` dataset, which is a consistent table of sources across all filters.
 
 .. _getting-started-tutorial-measure-coadds:
 
@@ -83,9 +83,9 @@ Deblending and measuring source catalogs on coadds
 Seeded by the ``deepCoadd_mergeDet``, the deblender works on each detection to find the flux in each component.
 Because it has information from multiple bands, the deblender can use color information to help it work out how to separate the flux into different components.
 See the `SCARLET paper <https://arxiv.org/abs/1802.10157>`_ for further reading.
-The ``deblend`` sub-pipeline produces the ``deepCoadd_deblendedFlux`` data product.
+The ``deblend`` subset produces the ``deepCoadd_deblendedFlux`` data product.
 
-The ``measure`` sub-pipeline is responsible for measuring object properties on all of the deblended children produced by the deblender.
+The ``measure`` subset is responsible for measuring object properties on all of the deblended children produced by the deblender.
 This produces the ``deepCoadd_meas`` catalog data product with flux and shape measurement information for each object.
 You'll see how to access these tables later.
 

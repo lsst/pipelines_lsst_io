@@ -42,14 +42,14 @@ See :doc:`/install/setup` for details on doing this.
 FGCM
 ====
 
-As in :doc:`part 2 <singleframe>` you will be running pipelines configured to produce the results we need for following steps.
+As in :doc:`part 2 <singleframe>` you will be running pipelines configured to produce the results we need for later steps.
 
 .. code-block:: bash
 
    pipetask run -b $GEN3_RC2_SUBSET_DIR/SMALL_HSC/butler.yaml -p $GEN3_RC2_SUBSET_DIR/pipelines/DRP.yaml#fgcm -i u/$USER/single_frame -o u/$USER/fgcm --register-dataset-types
 
 This should look very similar to the command executed in :doc:`part 2 <singleframe>`.
-There are three differences: 1) the sub-pipeline to execute changed from ``singleFrame`` to ``fgcm``, 2) the input is now ``single_frame``, which contains pointers to the inputs to and outputs from ``singleFrame``, and 3) the output collection is now ``fgcm``.
+There are three differences: 1) the subset to execute changed from ``singleFrame`` to ``fgcm``, 2) the input is now ``single_frame``, which contains pointers to the inputs to and outputs from ``singleFrame``, and 3) the output collection is now ``fgcm``.
 
 Note that unlike the ``singleFrame`` pipeline, FGCM must be run on only a single core.
 Setting the ``-j`` switch to anything other than ``1`` will result in an error.
@@ -58,7 +58,7 @@ jointcal
 ========
 
 You can do ``jointcal`` in much the same way as you did FGCM.
-Change the sub-pipeline name and collection name appropriately.
+Change the subset name and collection name appropriately.
 E.g.:
 
 .. code-block:: bash
@@ -75,7 +75,7 @@ Here are some key takeaways:
 
 - ``FGCM`` provides improved photometric calibration.
 - Astrometric calibration improvements are provided by running ``jointcal``.
-- Given a pipeline description, e.g. ``DRP.yaml``, sub-pipelines can be specified, so running multiple steps can be done with very similar command line syntax.
+- Given a pipeline description, e.g. ``DRP.yaml``, subset can be specified, so running multiple steps can be done with very similar command line syntax.
 
 Continue this tutorial in :doc:`part 5, where you'll warp single frame images and stack them to make coadds <coaddition>`.
 

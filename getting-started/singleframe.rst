@@ -57,6 +57,8 @@ Notice the keys that describe each data ID, such as the ``exposure`` (exposure i
 With these keys you can select exactly what data you want to process.
 It's worth noting that the keys shown here are not the minimal ones needed to specify, for example, a ``raw``.
 Only instrument+detector+exposure are necessary to uniquely identify a specific ``raw`` dataset, because the system knows that an exposure implies a physical_filter and a physical_filter implies a band.
+The ``raw`` dataset is special in the sense that it is the starting point for all processing.
+Images in the ``raw`` dataset have not had any processing applied to them and are as they arrive from the data aquisition system.
 
 The important arguments are ``--collections`` and ``--datasets``.
 
@@ -91,7 +93,15 @@ E.g.:
 
    butler query-dimension-records SMALL_HSC/ instrument
 
-For mor information about the ``butler`` command line tool, try ``butler --help``.
+There is only one instrument in this repository, so you only see metadata about that one instrument.
+The result of the above command should look like this:
+
+.. code-block:: bash
+   name visit_max exposure_max detector_max            class_name
+   ---- --------- ------------ ------------ -------------------------------
+    HSC  21474800     21474800          200 lsst.obs.subaru.HyperSuprimeCam
+
+For more information about the ``butler`` command line tool, try ``butler --help``.
 
 Running single frame processing
 ===============================
@@ -132,7 +142,7 @@ If you expect that all of the dataset types should already be registiered, as is
 .. tip::
 
    It is not included in the above command, but the ``-j`` option is useful if you have more than one core available to you.
-   Specifying ``-j #`` will run in parallel where ``#`` is the number of processes to execute in parallel.
+   Specifying ``-j<num cores>`` will run in parallel where ``<num cores>`` is the number of processes to execute in parallel.
 
    :ref:`Dataset queries <daf_butler_queries>` can be specified using the ``-d`` argument to specify which specific datasets should be considered when building the execution graph.
    If this argument is omitted, all data in the repository that can be processed based on other inputs, e.g. calibrations, will be.
@@ -151,7 +161,7 @@ The collection containing the raw data is a ``RUN`` collection.
 ``CHAINED`` collections are groupings of other collections associated with an alias for that grouping.
 The grouping of collections defines the order of collections to search when looking for a dataset associated with a specific data ID.
 The collection produced from the ``-o`` option above is a ``CHAINED`` collection.
-The ouput collection will general include all the collections in the input plus any ``RUN`` collections produced by the processing.
+The output collection will, in general, include all the collections in the input plus any ``RUN`` collections produced by the processing.
 
 The first step of process data is to produce the quantum graph for the processing.
 This is a directed acyclic graph that completely defines inputs and outputs for every node (quantum) in the graph.

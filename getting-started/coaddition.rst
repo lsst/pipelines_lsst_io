@@ -12,56 +12,56 @@ Getting started tutorial part 5: coadding images
 ################################################
 
 In this part of the :ref:`tutorial series <getting-started-tutorial>` you will combine the individual exposures produced by the ``singleFrame`` pipeline (from :doc:`part 2 <singleframe>`) into deeper coadds (mosaic images).
-The dataset that defines how images are reprojected for coaddition is called a **sky map**.
+The dataset that defines how images are reprojected for coaddition is called a **skymap**.
 The example repository has a skymap that we can use for this purpose.
-We will warp (reproject) images into that sky map.
+We will warp (reproject) images into that skymap.
 Then, you will coadd the warped images together into deep images.
 
 Set up
 ======
 
-Pick up your shell session where you left off in :doc:`part 2 <singleframe>`.
+Pick up your shell session where you left off in :doc:`part 4 <uber-cal>`.
 For convenience, start in the top directory of the example git repository.
 
 .. code-block:: bash
 
-   cd $GEN3_DC2_SUBSET_DIR
+   cd $DC2_SUBSET_DIR
 
 The ``lsst_distrib`` package also needs to be set up in your shell environment.
 See :doc:`/install/setup` for details on doing this.
 
-About sky maps
+About skymaps
 ==============
 
-Before you get started, let's talk about **sky maps.**
+Before you get started, let's talk about **skymaps.**
 
-A sky map is a tiling of the celestial sphere, and is used as coordinate system for the final coadded image.
-A sky map is composed of one or more **tracts**.
+A skymap is a tiling of the celestial sphere, and is used as coordinate system for the final coadded image.
+A skymap is composed of one or more **tracts**.
 Those tracts contain smaller regions called **patches**.
 Both tracts and patches overlap their neighbors.
 
 Each tract has a different world coordinate system (WCS), but the WCSs of the patches within a given tract are just linearly-offset versions of the same WCS.
 
-There are two general categories of sky maps:
+There are two general categories of skymaps:
 
 1. Whole sky.
-2. A sky map based on the bounding box of a set of input exposures.
+2. A skymap based on the bounding box of a set of input exposures.
 
-Though the HSC dataset you are working with is small, the full dataset is large so we include the sky map computed from the full set and is of the first type.
-Using a sky map that describes the full sky has the benefit that you can compare directly with data products from larger data processing runs since the tracts and patches will align exactly.
+Though the HSC dataset you are working with is small, the full dataset is large so we include the skymap computed from the full set and it is of the first type.
+Using a skymap that describes the full sky has the benefit that you can compare directly with data products from larger data processing runs since the tracts and patches will align exactly.
 
-Warping images onto the sky map
+Warping images onto the skymap
 ===============================
 
-Before assembling the coadded image, you need to *warp* the exposures created by the ``singleFrame`` pipeline onto the pixel grids of patches described in the sky map.
+Before assembling the coadded image, you need to *warp* the exposures created by the ``singleFrame`` pipeline onto the pixel grids of patches described in the skymap.
 You can use the ``makeWarp`` pipeline for this.
 
 The data to process can be specified with a dataset query passed to the ``-d`` argument, short for ``--data-query``.
 The example command below only creates coadds for a subset of the data.
 The remaining sections only use a few patches that have coverage from all the input visits, so downsampling in the coadd generation phase can save time.
 All the data can be coadded by simply leaving off the ``-d`` switch and the arguments to it.
-Remember that when specifying the output ``tract`` and ``patch`` information, you must also specify a valid sky map.
-In this case, the sky map, called ``hsc_ring_v1`` from a larger HSC run is used.
+Remember that when specifying the output ``tract`` and ``patch`` information, you must also specify a valid skymap.
+In this case, the skymap, called ``hsc_ring_v1`` from a larger HSC run is used.
 The filtering we will do here is:
 
 .. code-block:: bash 
@@ -88,12 +88,12 @@ The data queries will typically use the integer id for the patches, but you can 
 In this case, the patch with id 41 is located at the position (5, 4) in tract 9813.
 
 To warp the images, you will use the ``pipetask run`` command again.
-This time you will specify the ``makeWarp`` sub-pipeline and an appropriate output collection.
+This time you will specify the ``makeWarp`` subset and an appropriate output collection.
 This example uses ``coadds`` as the output collection.
 
 .. code-block:: bash
 
-   pipetask run -b $GEN3_RC2_SUBSET_DIR/SMALL_HSC/butler.yaml -d "tract = 9813 AND skymap = 'hsc_rings_v1' AND patch in (38, 39, 40, 41)" -p $GEN3_RC2_SUBSET_DIR/pipelines/DRP.yaml#makeWarp -i u/$USER/jointcal,u/$USER/fgcm -o u/$USER/warps --register-dataset-types
+   pipetask run -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml -d "tract = 9813 AND skymap = 'hsc_rings_v1' AND patch in (38, 39, 40, 41)" -p $RC2_SUBSET_DIR/pipelines/DRP.yaml#makeWarp -i u/$USER/jointcal,u/$USER/fgcm -o u/$USER/warps --register-dataset-types
 
 Note that warping requires the ouptuts of both ``jointcal`` and ``FGCM``, so both of those collections need to be specified as inputs.
 Again, this will warp all calibrated exposures.
@@ -101,23 +101,24 @@ If you wish to pare down the data to be processed, you can specify a data query 
 
 .. tip::
 
-   As with the ``singleFrame`` pipeline, warping only needs the data from an input visit and the skymap each warp can be done independently of every other warp.
+   As with the ``singleFrame`` pipeline, warping only needs the data from an input visit and the skymap.
+   Each warp can be done independently of every other warp.
    That means it is a good candidate for running in parallel.
-   If you have access to more than one core for processing, specifying the `-j=<num cores>` argument will speed up this step.
+   If you have access to more than one core for processing, specifying the `-j<num cores>` argument will speed up this step.
 
 
 Coadding warped images
 ======================
 
 Now you'll assemble the warped images into coadditions for each patch with the ``assembleCoadd`` pipeline.
-As before, we will run with out a data query to process a subset of the data, but a selection can be made with the ``-d`` argument just as with warping.
+As before, we will run without a data query to process a subset of the data, but a selection can be made with the ``-d`` argument just as with warping.
 In this case the the ``-d`` arguement could be omitted since the coaddition process will only find the warps from the previous command and will thus only produce coadds for those patches.
 
 Run:
 
 .. code-block:: bash
 
-   pipetask run -b $GEN3_RC2_SUBSET_DIR/SMALL_HSC/butler.yaml -d "tract = 9813 AND skymap = 'hsc_rings_v1' AND patch in (38, 39, 40, 41)" -p $GEN3_RC2_SUBSET_DIR/pipelines/DRP.yaml#assembleCoadd -i u/$USER/warps -o u/$USER/coadds --register-dataset-types
+   pipetask run -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml -d "tract = 9813 AND skymap = 'hsc_rings_v1' AND patch in (38, 39, 40, 41)" -p $RC2_SUBSET_DIR/pipelines/DRP.yaml#assembleCoadd -i u/$USER/warps -o u/$USER/coadds --register-dataset-types
 
 .. tip::
 
@@ -127,14 +128,14 @@ Run:
 Wrap up
 =======
 
-In this tutorial, you've warped exposures into a pre-existing sky map, and then coadded the exposures into deep mosaics.
+In this tutorial, you've warped exposures into a pre-existing skymap, and then coadded the exposures to make deep mosaics.
 Here are some key takeaways:
 
-- Sky maps define the WCS of coadditions.
-- Sky maps are composed of tracts, each of which is composed of smaller patches.
-- The ``makeWarp`` pipeline warps exposures into the WCSs of the sky map.
+- Skymaps define the WCS of coadditions.
+- Skymaps are composed of tracts, each of which is composed of smaller patches.
+- The ``makeWarp`` pipeline warps exposures into the WCSs of the skymap.
 - The ``assembleCoadd`` pipeline coadds warped exposures into deep mosaics.
 
 Continue this tutorial in :doc:`part 6, where you'll measure sources <photometry>` in the coadds.
 
-.. _example dataset: https://github.com/lsst-dm/gen3_rc2_subset
+.. _example dataset: https://github.com/lsst-dm/rc2_subset

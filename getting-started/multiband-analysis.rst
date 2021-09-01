@@ -15,7 +15,7 @@ You'll learn how to work with measurement tables and plot color-magnitude diagra
 Set up
 ======
 
-Pick up your shell session where you left off in :doc:`part 5 <photometry>`.
+Pick up your shell session where you left off in :doc:`part 6 <photometry>`.
 For convenience, start in the top directory of the example git repository.
 
 .. code-block:: bash
@@ -33,7 +33,7 @@ Loading forced photometry measurement catalogs with the Butler
 ==============================================================
 
 The ``forced_objects`` pipeline (:ref:`getting-started-tutorial-forced-coadds`) created ``deepCoadd_forced_src`` datasets for each coadd in the example data repository.
-Being forced photometry catalogs, rows in each ``deepCoadd_forced_src`` table correspond row-for-row across all coadds in different filters for a sky map patch.
+Being forced photometry catalogs, rows in each ``deepCoadd_forced_src`` table correspond row-for-row across all coadds in different filters for a skymap patch.
 Since you don't have to do additional cross-matching, these ``deepCoadd_forced_src`` datasets are convenient.
 
 To get these datasets, open a Python session (`IPython`_ or `Jupyter Notebook`_) and create a Butler.
@@ -137,7 +137,7 @@ Sources in overlaps appear in multiple measurement tables.
 
 If you are analyzing multiple patches, or multiple tracts, you want to use the *primary* detection for each source.
 The Pipelines determine if a detection in a patch is primary, or not, by whether it falls in the *inner region* of that patch (and tract).
-An inner region is a part of a sky map exclusively claimed by one patch.
+An inner region is a part of a skymap exclusively claimed by one patch.
 
 The flag that indicates whether a source lies in the patch's inner region isn't in the ``deepCoadd_forced_src`` table though.
 Instead, you need to look at the ``deepCoadd_ref`` table made as part of the ``coadd_measurement`` pipeline in the :ref:`previous tutorial <getting-started-tutorial-merge-coadds>`.
@@ -313,7 +313,7 @@ In this tutorial, you gained experience working with source measurement catalogs
 Here are some takeaways:
 
 - Forced photometry source tables are ``deepCoadd_forced_src`` datasets.
-  They're convenient to use because ``deepCoadd_forced_src`` tables from different filters (for a given sky map patch) correspond row-for-row.
+  They're convenient to use because ``deepCoadd_forced_src`` tables from different filters (for a given skymap patch) correspond row-for-row.
 - You need to filter sources for uniqueness due to deblending and patch overlaps.
   The ``detect_isPrimary`` column from the ``deepCoadd_ref`` dataset is the go-to flag for doing this.
 - Use the ``base_ClassificationExtendedness_value`` column to quickly distinguish stars from galaxies.

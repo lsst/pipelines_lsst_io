@@ -15,7 +15,7 @@ In doing so, you'll be introduced to some of the LSST Science Pipelines' Python 
 
 - Accessing datasets with the Butler.
 - Displaying images in DS9 with ``lsst.afw.display``.
-- Working with source catalogs using ``lsst.afw.table``, TODO if we are using the parquet files, what comes back from the butler is a DataFrame I think
+- Working with source catalogs using ``lsst.afw.table``.
 
 .. figure:: ds9-screenshot.jpg
    :alt: Screenshot of DS9 showing an HSC image, mask planes, and source markers.
@@ -30,7 +30,7 @@ For simplicity, the following examples assume your current working directory  *c
 
 .. code:: bash
 
-   cd $GEN3_RC2_SUBSET_DIR
+   cd $RC2_SUBSET_DIR
 
 The ``lsst_distrib`` package also needs to be set up in your shell environment.
 See :doc:`/install/setup` for details on doing this.
@@ -101,7 +101,7 @@ The printed output are data IDs for the ``calexp`` datasets with the ``HSC-R`` p
 The ``collections`` and ``instrument`` arguments are both required in this case.
 The first is required because we have not set up default collections to query.
 The second is required because we are filtering on an instrument specific key so we need to say which instrument to use since a butler repository can contain data from multiple instruments.
-Following are few lines for example:
+Following are few example lines:
 
 .. code-block:: text
 
@@ -122,7 +122,7 @@ Following are few lines for example:
 
    .. code-block:: bash
 
-      butler query-data-ids /Users/krughoff/projects/tutorials/gen3_rc2_subset/SMALL_HSC --collections HSC/RC2/defaults --datasets 'raw' --where "physical_filter = 'HSC-R' AND instrument = 'HSC'"
+      butler query-data-ids $RC2_SUBSET_DIR/SMALL_HSC --collections HSC/RC2/defaults --datasets 'raw' --where "physical_filter = 'HSC-R' AND instrument = 'HSC'"
 
 Get an exposure through the Butler
 ==================================
