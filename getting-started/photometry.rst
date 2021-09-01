@@ -33,7 +33,6 @@ For convenience, start in the top directory of the example git repository.
 The ``lsst_distrib`` package also needs to be set up in your shell environment.
 See :doc:`/install/setup` for details on doing this.
 
-.. _getting-started-tutorial-detect-coadds:
 
 Run detection pipeline task
 ===========================
@@ -41,7 +40,10 @@ Run detection pipeline task
 Processing will be done in two blocks with two different pipelines.
 The first will do steps 1 through 4 in the introduction.
 The end result will be calibrated coadd object measurements and calibrated coadd exposures.
-More high level details are available in the sections that follow.
+
+The following code executes steps 1 through 4 of the steps outlined in the introduction to this tutorial.
+The code is executed here, but more information on each of the steps is included in sections following this code block.
+The fifth and final step is executed in :ref:`this section <getting-started-tutorial-forced-coadds>`.
 
 .. code-block:: bash
 
@@ -50,6 +52,8 @@ More high level details are available in the sections that follow.
 Notice that since this task operates on coadds, we can select the coadds using the ``tract``, and ``patch`` data ID keys.
 In past sections, the examples left off the ``-d`` argument in order to process all available data.
 This example, however, is selecting just four of the patches for this step.
+Some algorithms are sensitive to how images are arranged on the sky.
+For example, some algorithms expect multiple images to overlap, or multi-band coverage.
 Those four patches have coverage from all 40 visits in the tutorial repository which means there doesn't need to be as much fine tuning to configurations, and we can process these patches just as the large scale HSC processing is done.
 As with previous examples, the outputs will go in a collection placed under a namespace defined by your username.
 
@@ -58,8 +62,10 @@ As with previous examples, the outputs will go in a collection placed under a na
   The processing in this part can be quite expensive and take a long time.
   You can use the `-j<num cores>` argument to allow the processing to take more cores, if you have access to more than one.
 
+.. _getting-started-tutorial-detect-coadds:
+
 Detecting sources in coadded images
-===================================
+-----------------------------------
 
 To start, detect sources in the coadded images to take advantage of their depth and high signal-to-noise ratio.
 The ``detection`` subset is responsible for producing calibrated measurements from the input coadds.
@@ -70,7 +76,7 @@ The resulting datasets are the ``deepCoadd_det`` detections and the ``deepCoadd_
 .. _getting-started-tutorial-merge-coadd-detections:
 
 Merging multi-band detection catalogs
-=====================================
+-------------------------------------
 
 Merging the detections from the multiple bands used to produce the coadds allows later steps to use multi-band information in their processing: e.g. deblending.
 The ``mergeDetections`` subset created a ``deepCoadd_mergeDet`` dataset, which is a consistent table of sources across all filters.
@@ -78,7 +84,7 @@ The ``mergeDetections`` subset created a ``deepCoadd_mergeDet`` dataset, which i
 .. _getting-started-tutorial-measure-coadds:
 
 Deblending and measuring source catalogs on coadds
-==================================================
+--------------------------------------------------
 
 Seeded by the ``deepCoadd_mergeDet``, the deblender works on each detection to find the flux in each component.
 Because it has information from multiple bands, the deblender can use color information to help it work out how to separate the flux into different components.
@@ -92,10 +98,11 @@ You'll see how to access these tables later.
 .. _getting-started-tutorial-merge-coadds:
 
 Merging multi-band source catalogs from coadds
-==============================================
+----------------------------------------------
 
-The previous step you created measurement catalogs for each patch, but measurements were done per band.
-You'll get even more complete and consistent multi-band photometry by measuring the same source in multiple bands at a fixed position (the forced photometry method) rather than fitting the source's location individually for each band.
+After measurement the single band deblended and measured objects in single bands can again be merged into a single catalog.
+
+Merging the single band detection catalogs into a single multi-band catalog allows for more complete and consistent multi-band photometry by measuring the same source in multiple bands at a fixed position (the forced photometry method) rather than fitting the source's location individually for each band.
 
 For forced photometry you want to use the best position measurements for each source, which could be from different filters depending on the source.
 We call the filter that best measures a source the **reference filter**.
