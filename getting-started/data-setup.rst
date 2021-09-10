@@ -26,7 +26,8 @@ Install the LSST Science Pipelines
 
 If you haven't already, you'll need to install the LSST Science Pipelines.
 We recommend that you install the pre-built binary packages by following the instructions at :doc:`/install/newinstall`.
-This tutorial is intended to work with the |eups-tag-mono| tag of the ``lsst_distrib`` EUPS package.
+This tutorial was developed using the ``w_2021_33`` tag of the ``lsst_distrib`` EUPS package.
+We expect the tutorials to also work with newer versions of the science pipelines, however continuing development will eventually outpace the directions contained here.
 
 When working with the LSST Science Pipelines, you need to remember to activate the installation and *set up* the package stack in each new shell session.
 Follow the instructions :doc:`/install/setup` to do this.
@@ -99,7 +100,7 @@ To construct a Butler that can manage data in that repository, from a python pro
 
    from lsst.daf.butler import Butler
    import os
-   repo_path = os.path.join(os.environ['DC2_SUBSET_DIR'], 'SMALL_HSC')
+   repo_path = os.path.join(os.environ['RC2_SUBSET_DIR'], 'SMALL_HSC')
    butler = Butler(repo_path)
 
 Now you can explore the repository using the registry attribute of the Butler you created.  E.g.:
