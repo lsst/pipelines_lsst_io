@@ -93,7 +93,12 @@ This example uses ``coadds`` as the output collection.
 
 .. code-block:: bash
 
-   pipetask run -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml -d "tract = 9813 AND skymap = 'hsc_rings_v1' AND patch in (38, 39, 40, 41)" -p $RC2_SUBSET_DIR/pipelines/DRP.yaml#makeWarp -i u/$USER/jointcal,u/$USER/fgcm -o u/$USER/warps --register-dataset-types
+   pipetask run -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml \
+                -d "tract = 9813 AND skymap = 'hsc_rings_v1' AND patch in (38, 39, 40, 41)" \
+                -p $RC2_SUBSET_DIR/pipelines/DRP.yaml#makeWarp \
+                -i u/$USER/jointcal,u/$USER/fgcm \
+                -o u/$USER/warps \
+                --register-dataset-types
 
 Note that warping requires the ouptuts of both ``jointcal`` and ``FGCM``, so both of those collections need to be specified as inputs.
 Again, this will warp all calibrated exposures.
@@ -118,7 +123,12 @@ Run:
 
 .. code-block:: bash
 
-   pipetask run -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml -d "tract = 9813 AND skymap = 'hsc_rings_v1' AND patch in (38, 39, 40, 41)" -p $RC2_SUBSET_DIR/pipelines/DRP.yaml#assembleCoadd -i u/$USER/warps -o u/$USER/coadds --register-dataset-types
+   pipetask run -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml \
+                -d "tract = 9813 AND skymap = 'hsc_rings_v1' AND patch in (38, 39, 40, 41)" \
+                -p $RC2_SUBSET_DIR/pipelines/DRP.yaml#assembleCoadd \
+                -i u/$USER/warps \
+                -o u/$USER/coadds \
+                --register-dataset-types
 
 .. tip::
 

@@ -34,7 +34,7 @@ For convenience, start in the top directory of the example git repository.
 
 .. code-block:: bash
 
-   cd $GEN3_DC2_SUBSET_DIR
+   cd $RC2_SUBSET_DIR
 
 The ``lsst_distrib`` package also needs to be set up in your shell environment.
 See :doc:`/install/setup` for details on doing this.
@@ -46,7 +46,11 @@ As in :doc:`part 2 <singleframe>` you will be running pipelines configured to pr
 
 .. code-block:: bash
 
-   pipetask run -b $GEN3_RC2_SUBSET_DIR/SMALL_HSC/butler.yaml -p $GEN3_RC2_SUBSET_DIR/pipelines/DRP.yaml#fgcm -i u/$USER/single_frame -o u/$USER/fgcm --register-dataset-types
+   pipetask run -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml \
+                -p $RC2_SUBSET_DIR/pipelines/DRP.yaml#fgcm \
+                -i u/$USER/single_frame \
+                -o u/$USER/fgcm \
+                --register-dataset-types
 
 This should look very similar to the command executed in :doc:`part 2 <singleframe>`.
 There are three differences: 1) the subset to execute changed from ``singleFrame`` to ``fgcm``, 2) the input is now ``single_frame``, which contains pointers to the inputs to and outputs from ``singleFrame``, and 3) the output collection is now ``fgcm``.
@@ -63,7 +67,11 @@ E.g.:
 
 .. code-block:: bash
 
-   pipetask run -b $GEN3_RC2_SUBSET_DIR/SMALL_HSC/butler.yaml -p $GEN3_RC2_SUBSET_DIR/pipelines/DRP.yaml#jointcal -i u/$USER/single_frame -o u/$USER/jointcal --register-dataset-types
+   pipetask run -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml \
+                -p $RC2_SUBSET_DIR/pipelines/DRP.yaml#jointcal \
+                -i u/$USER/single_frame \
+                -o u/$USER/jointcal \
+                --register-dataset-types
 
 Note the input collection is the same as you passed to ``FGCM`` since ``jointcal`` doesn't depend on any of the outputs of ``FGCM``.
 

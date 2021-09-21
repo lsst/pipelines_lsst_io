@@ -17,7 +17,7 @@ This will also use the reference catalog to establish a preliminary WCS and phot
 
 :ref:`Pipelines <pipe_base_creating_pipeline>` are defined in ``YAML`` files.
 The example git repository contains a pipeline definition for data release processing that is only slightly modified from the one used in production processing of HSC data.
-If you are interested in examining the pipeline defintions provided for this tutorial, look in ``$GEN3_RC2_SUBSET_DIR/pipelines/DRP.yaml``.
+If you are interested in examining the pipeline defintions provided for this tutorial, look in ``$RC2_SUBSET_DIR/pipelines/DRP.yaml``.
 
 Set up
 ======
@@ -27,7 +27,7 @@ For convenience, start in the top directory of the example git repository:
 
 .. code-block:: bash
 
-   cd $GEN3_DC2_SUBSET_DIR
+   cd $RC2_SUBSET_DIR
 
 The ``lsst_distrib`` package also needs to be set up in your shell environment.
 See :doc:`/install/setup` for details on doing this.
@@ -117,7 +117,11 @@ After learning about datasets, go ahead and run single frame processing  using t
 
 .. code-block:: bash
 
-   pipetask run -b $GEN3_RC2_SUBSET_DIR/SMALL_HSC/butler.yaml -p $GEN3_RC2_SUBSET_DIR/pipelines/DRP.yaml#singleFrame -i HSC/RC2/defaults -o u/$USER/single_frame --register-dataset-types
+   pipetask run -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml \
+                -p $RC2_SUBSET_DIR/pipelines/DRP.yaml#singleFrame \
+                -i HSC/RC2/defaults \
+                -o u/$USER/single_frame \
+                --register-dataset-types
 
 There are many arguments to command:``pipetask run``.
 You can get useful information by saying command:``pipetask run --help``, but let's go over the ones listed here.
@@ -175,7 +179,13 @@ Try building the quantum graph for the processing of a single detector:
 
 .. code-block:: bash
 
-   pipetask qgraph -b $GEN3_RC2_SUBSET_DIR/SMALL_HSC/butler.yaml -p $GEN3_RC2_SUBSET_DIR/pipelines/DRP.yaml#simpleSingleFrame -i HSC/RC2/defaults -o u/$USER/single_frame -d "instrument='HSC' AND detector=41 AND exposure=322" --qgraph-dot single_frame.dot --save-qgraph single_frame.qgraph
+   pipetask qgraph -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml \
+                   -p $RC2_SUBSET_DIR/pipelines/DRP.yaml#simpleSingleFrame \
+                   -i HSC/RC2/defaults \
+                   -o u/$USER/single_frame \
+                   -d "instrument='HSC' AND detector=41 AND exposure=322" \
+                   --qgraph-dot single_frame.dot \
+                   --save-qgraph single_frame.qgraph
 
 The quantum graph is saved in ``pickle`` format in the file called ``single_frame.qgraph``.
 The ``graphviz`` file is in ``single_frame.dot``.

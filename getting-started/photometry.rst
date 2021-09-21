@@ -28,7 +28,7 @@ For convenience, start in the top directory of the example git repository.
 
 .. code-block:: bash
 
-   cd $GEN3_DC2_SUBSET_DIR
+   cd $RC2_SUBSET_DIR
 
 The ``lsst_distrib`` package also needs to be set up in your shell environment.
 See :doc:`/install/setup` for details on doing this.
@@ -47,7 +47,12 @@ The fifth and final step is executed in :ref:`this section <getting-started-tuto
 
 .. code-block:: bash
 
-   pipetask run -b SMALL_HSC/butler.yaml -d "tract = 9813 AND skymap = 'hsc_rings_v1' AND patch in (38, 39, 40, 41)" -p 'pipelines/DRP.yaml#coadd_measurement' -i u/$USER/coadds --register-dataset-types -o u/$USER/coadd_meas
+   pipetask run -b SMALL_HSC/butler.yaml \
+                -d "tract = 9813 AND skymap = 'hsc_rings_v1' AND patch in (38, 39, 40, 41)" \
+                -p 'pipelines/DRP.yaml#coadd_measurement' \
+                -i u/$USER/coadds \
+                --register-dataset-types \
+                -o u/$USER/coadd_meas
 
 Notice that since this task operates on coadds, we can select the coadds using the ``tract``, and ``patch`` data ID keys.
 In past sections, the examples left off the ``-d`` argument in order to process all available data.
@@ -119,7 +124,12 @@ Re-measure the coadds using these fixed source positions (the forced photometry 
 
 .. code-block:: bash
 
-   pipetask run -b SMALL_HSC/butler.yaml -d "tract = 9813 AND skymap = 'hsc_rings_v1' AND patch in (38, 39, 40, 41)" -p 'pipelines/DRP.yaml#forced_objects' -i u/$USER/coadd_meas --register-dataset-types -o u/$USER/objects
+   pipetask run -b SMALL_HSC/butler.yaml \
+                -d "tract = 9813 AND skymap = 'hsc_rings_v1' AND patch in (38, 39, 40, 41)" \
+                -p 'pipelines/DRP.yaml#forced_objects' \
+                -i u/$USER/coadd_meas \
+                --register-dataset-types \
+                -o u/$USER/objects
 
 As above, this selects just the patches that have full coverage.
 
