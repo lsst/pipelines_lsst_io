@@ -25,7 +25,7 @@ For convenience, start in the top directory of the example git repository.
 
 .. code-block:: bash
 
-   cd $DC2_SUBSET_DIR
+   cd $RC2_SUBSET_DIR
 
 The ``lsst_distrib`` package also needs to be set up in your shell environment.
 See :doc:`/install/setup` for details on doing this.
