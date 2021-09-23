@@ -25,6 +25,10 @@ Data processing tutorial series (these were developed using the ``w_2021_33`` ve
 - Part 5 :doc:`Source measurement <getting-started/photometry>`
 - Part 6 :doc:`Multi-band catalog analysis <getting-started/multiband-analysis>`.
 
+Guide for processing DESC DC2 data in a shared repository using the Alert Production pipeline (this was developed using the ``w_2021_30`` version of the science pipelines):
+
+- :doc:`Processing DESC DC2 data with the Alert Production pipeline <getting-started/dc2-guide>`.
+
 Join us on the `LSST Community forum <https://community.lsst.org>`_ to get help and share ideas.
 
 .. toctree::

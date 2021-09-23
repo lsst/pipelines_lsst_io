@@ -24,3 +24,11 @@ These tutorials will give you a feeling for data processing and analysis with th
    Part 5: coadding images. <coaddition>
    Part 6: measuring sources. <photometry>
    Part 7: analyzing measurement catalogs in multiple bands. <multiband-analysis>
+
+Data processing guides
+======================
+
+.. toctree::
+   :maxdepth: 1
+
+   Processing DESC DC2 data with the Alert Production pipeline <dc2-guide>
