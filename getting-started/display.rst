@@ -258,7 +258,7 @@ The dataset type of this table is ``src``, which you can get from the Butler:
 .. code-block:: python
 
    import os
-   collection = "u/{os.environ['USER']}/single_frame"
+   collection = f"u/{os.environ['USER']}/single_frame"
    src = butler.get('src', visit=23718, detector=41, collections=collection, instrument='HSC')
 
 This ``src`` dataset is a ``SourceCatalog``, which is a catalog object from the ``lsst.afw.table`` module.
