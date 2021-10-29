@@ -124,6 +124,10 @@ For most dimensions and most data repositories, the number of records is quite l
            HSC   7      1_45           45    1 SCIENCE
            HSC   8      1_46           46    1 SCIENCE
 
+When working with repositories of transient, cached datasets, note that dimension values may be retained in the registry for datasets that no longer exist (e.g. for provenance purposes) and may sometimes be present for datasets that do not yet exist.
+As a result, you should typically constrain the results using the ``datasets`` argument and possibly the ``collections`` argument to return only values for datasets that currently exist.
+Note that duplicate values may be returned (`see below <middleware_faq_duplicate_results>`_).
+
 queryDatasets
 -------------
 
