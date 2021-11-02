@@ -39,7 +39,7 @@ To see some available datasets for processing, try, e.g.,
 
 .. prompt:: bash
 
-   butler query-data-ids /repo/dc2 tract patch visit --collections='2.2i/defaults/test-med-1' --where "skymap='DC2' AND band='g' AND tract=3828 AND patch=47 AND instrument='LSSTCam-imSim'"
+   butler query-data-ids /repo/dc2 tract patch visit --collections='2.2i/defaults/test-med-1' --where "skymap='DC2' AND band='g' AND tract=3828 AND patch=47 AND instrument='LSSTCam-imSim'" --datasets "raw"
 
 This command should print a list of data IDs that meet the search criteria, along with their tract, patch, and visit number.
 Certain arguments are required after the ``--where``, including ``skymap`` and ``instrument``, while most others are optional.
