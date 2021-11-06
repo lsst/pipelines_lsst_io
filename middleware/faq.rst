@@ -382,14 +382,17 @@ When that graph is empty, it means it thinks there's no work to be done, and unf
 
 The `QuantumGraph` generation algorithm begins with a large SQL query (a complicated invocation of `Registry.queryDataIds`, actually), where the result rows are essentially data IDs and the result columns are all of the dimensions referenced by any task or dataset type in the pipeline.
 Queries for all `"regular input" <connectionTypes.Input>` datasets (i.e. not `PrerequisiteInputs <connectionTypes.PrerequisiteInput>`") are included as subqueries, spatial and temporal joins are automatically included, and the user-provided query expression is translated into an equivalent SQL ``WHERE`` clause.
-That means there are many ways to get no result rows - and hence an empty graph - without much information about what was missing.
-Some common possibilities include:
+That means there are many ways to get no result rows - and hence an empty graph.
 
-- There are no instances of an input dataset type in the input collections.
-- There are no dimension records of a needed type.
-- There is no spatial or temporal overlap between existing datasets and the data IDs accepted by the query expression (e.g. the ``visits`` don't overlap the ``patches``).
+Sometimes we can tell what will go wrong even before the query is executed - the butler maintains a summary of which dataset types are present each each collection, so if the input collections don't have any datasets of a needed type at all, a warning log message will be generated stating the problem.
+This will also catch most cases where a pipeline is misconfigured such that what should be an intermediate dataset isn't actually being produced in the pipeline, because it will appear instead as an overall input that (usually) won't be present in those input collections.
 
-Usually the first step in debugging an empty `QuantumGraph` is to use :any:`pipetask <lsst.ctrl.mpexec-script>` to create a diagram of the pipeline graph - a simpler directed acyclic graph that relates tasks to dataset types, without any data IDs.
+We also perform some follow-up queries after generating an empty `QuantumGraph`, to see if any needed dimensions are lacking records entirely (the most common example of this case is forgetting to define visits after ingesting raws in a new data repository).
+
+If you get an empty `QuantumGraph` without any clear explanations in the  warning logs, it means something more complicated went wrong in that initial query, such as the input datasets, available dimensions, and boolean expression being mutually inconsistent (e.g. not having any bands in common, or tracts and visits not overlapping spatially).
+In this case, the arguments to `~Registry.queryDataIds` will be logged again as warnings), and the next step in debugging is to try that call manually with slight adjustments.
+
+To guide this process, it can be very helpful to first use :any:`pipetask <lsst.ctrl.mpexec-script>` to create a diagram of the pipeline graph - a simpler directed acyclic graph that relates tasks to dataset types, without any data IDs.
 The ``--pipeline-dot`` argument writes this graph in the `GraphViz dot language`_, and you can use the ubiquitous ``dot`` command-line tool to transform that into a PNG, SVG, or other graphical format file:
 
 .. code:: sh
@@ -400,26 +403,13 @@ The ``--pipeline-dot`` argument writes this graph in the `GraphViz dot language`
 That ``...`` should be replaced by most of the arguments you'd pass to :any:`pipetask <lsst.ctrl.mpexec-script>` that describe *what* to run (which tasks, pipelines, configuration, etc.), but not the ones that describe how, or what to use as inputs (no collection options).
 See ``pipetask build --help`` for details.
 
-This graph will often reveal some unexpected input dataset types (or even tasks)that make it obvious what's wrong.
-
-To check whether a particular dataset type is present, you can use :any:`butler query-datasets <lsst.daf.butler-scripts>` with the same input collections that were passed to :any:`pipetask <lsst.ctrl.mpexec-script>`, and both with and without the same query expression.
-
-You can similarly use :any:`butler query-dimension-records <lsst.daf.butler-scripts>` to query for each of the dimensions involved in the pipeline (these are also shown in the ``dot`` diagram).
-Not having dimension records is a much less common problem overall, especially in a shared data repository, but there are two common cases:
-
-- Ingesting raw images adds ``exposure`` dimension records to a data repository, but not ``visit`` dimension records; adding visits is another step (:any:`butler define-visits <lsst.daf.butler-scripts>` or `lsst.obs.base.DefineVisitsTask`) that must be run manually after ingest.
-
-- ``skymap``, ``tract``, and ``patch`` dimension records are added (together) by the :any:`butler register-skymap <lsst.daf.butler-scripts>` tool (or `lsst.skymap.BaseSkyMap.register`), and if the skymap you're trying to use hasn't been registered, `QuantumGraph` generation runs that attempt to use it will yield empty graphs.
+This graph will often reveal some unexpected input dataset types, tasks, or relationships between the two that make it obvious what's wrong.
 
 Another useful approach is to try to simplify the pipeline, ideally removing all but the first task; if that works, you can generally rule it out as the cause of the problem, add the next task in, and repeat.
 
-Because the big initial query only involves regular inputs, it can also be helpful to change regular `~connectionTypes.Input` connections into `~connectionTypes.PrerequisiteInput` connections - when a prerequisite input is missing, :any:`pipetask <lsst.ctrl.mpexec-script>` should provide much more useful diagnostics.
+Because the big initial query only involves regular inputs, it can also be helpful to change regular `~connectionTypes.Input` connections into `~connectionTypes.PrerequisiteInput` connections - when a prerequisite input is missing, :any:`pipetask <lsst.ctrl.mpexec-script>` should provide more useful diagnostics.
 This is only possible when the dataset type is already in your input collections, rather than something to be produced by another task within the same pipeline.
 But if you work through your pipeline task-by-task, and run each single-task pipeline as well as produce a `QuantumGraph` for it, this should be true each step of the way as well.
-
-The middleware team does have plans to make this process less painful.
-In the long term, we have a preliminary design for a more flexible `QuantumGraph` generation algorithm that uses per-Task queries instead of one big one, and that will automatically provide more information to the user about which task and/or dataset types were involved in queries with no results.
-In the short term, many of the debugging steps described above are things we could imagine having :any:`pipetask <lsst.ctrl.mpexec-script>` try automatically.
 
 .. _GraphViz dot language: https://graphviz.org/
 
