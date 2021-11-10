@@ -24,6 +24,20 @@ The :any:`butler <lsst.daf.butler-scripts>` command-line versions of these use t
 
 These operations share :ref:`many optional arguments <daf_butler_queries>` that constrain what is returned, but their return types each reflect a different aspect of :ref:`how datasets are organized <daf_butler_organizing_datasets>`).
 
+.. note::
+
+    As a rule, these query methods return lazy iterator objects (sometimes custom classes, sometimes generators), and hence users calling them in interactive Python will often want to wrap the results in `list` or `set` in order to actually fetch results so they can be printed or iterated over multiple times::
+
+        >>> print(butler.registry.queryDataIds("detector", instrument="HSC"))
+        <DataCoordinate iterable with dimensions={instrument, detector}>
+
+        >>> print(list(butler.registry.queryDataIds("detector", instrument="HSC")))
+        {instrument: 'HSC', detector: 0},
+        {instrument: 'HSC', detector: 1},
+        ...
+
+
+
 .. _middleware_faq_query_methods_collections:
 
 queryCollections
