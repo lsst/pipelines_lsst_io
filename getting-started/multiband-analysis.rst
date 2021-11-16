@@ -44,7 +44,7 @@ We need to specify the collections to the butler, so it knows where to look for 
 
    import os
    from lsst.daf.butler import Butler
-   collections = [f"u/{os.environ['USER']}/objects", f"u/{os.environ['USER']}/meas_coadd"]
+   collections = [f"u/{os.environ['USER']}/objects", f"u/{os.environ['USER']}/coadd_meas"]
    butler = Butler('SMALL_HSC', collections=collections)
 
 This Butler is using the ``coaddForcedPhot`` collection you created for the ``forced_objects`` pipeline  outputs.
@@ -86,7 +86,7 @@ You can access these calibrations directly from ``deepCoadd_calexp.photoCalib`` 
 
    .. code-block:: python
 
-      rCoaddCalexp = butler.get('deepCoadd_calexp', band='r', trct=9813, patch=41)
+      rCoaddCalexp = butler.get('deepCoadd_calexp', band='r', tract=9813, patch=41)
       rCoaddPhotoCalib = rCoaddCalexp.getPhotoCalib()
 
    Note that this method is slower than getting just the ``photoCalib`` component and should only be used if you intend to use the ``calexp`` later on.

@@ -20,7 +20,7 @@ These tutorials will give you a feeling for data processing and analysis with th
    Part 1: setting up the Butler data repository. <data-setup>
    Part 2: calibrating single frames. <singleframe>
    Part 3: displaying exposures and source catalogs. <display>
-   Part 4: full focal plane calibratoin. <uber-cal>
+   Part 4: full focal plane calibration. <uber-cal>
    Part 5: coadding images. <coaddition>
    Part 6: measuring sources. <photometry>
    Part 7: analyzing measurement catalogs in multiple bands. <multiband-analysis>
