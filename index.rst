@@ -21,9 +21,10 @@ Data processing tutorial series (these were developed using the ``w_2021_33`` ve
 - Part 1 :doc:`Data repositories <getting-started/data-setup>`
 - Part 2 :doc:`Single frame processing <getting-started/singleframe>`
 - Part 3 :doc:`Image and catalog display <getting-started/display>`
-- Part 4 :doc:`Image coaddition <getting-started/coaddition>`
-- Part 5 :doc:`Source measurement <getting-started/photometry>`
-- Part 6 :doc:`Multi-band catalog analysis <getting-started/multiband-analysis>`.
+- Part 4 :doc:`Global calibration <uber-cal>`
+- Part 5 :doc:`Image coaddition <getting-started/coaddition>`
+- Part 6 :doc:`Source measurement <getting-started/photometry>`
+- Part 7 :doc:`Multi-band catalog analysis <getting-started/multiband-analysis>`.
 
 Guide for processing DESC DC2 data in a shared repository using the Alert Production pipeline (this was developed using the ``w_2021_30`` version of the science pipelines):
 
