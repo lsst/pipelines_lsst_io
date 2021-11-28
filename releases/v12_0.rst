@@ -588,8 +588,8 @@ Related sets of tasks should now be kept in a registry as per :jira:`RFC-183`, w
 
 Tasks can now use an :lclass:`lsst.pex.config.RegistryField` config field to specify a subtask if that subtask is in a registry :jirap:`DM-6074`.
 The task is built and used the same way as if it was specified in an :lclass:`lsst.pex.config.ConfigurableField`, but retargeting and overriding config parameters is different.
-See `task documentation <http://lsst-web.ncsa.illinois.edu/doxygen/x_masterDoxyDoc/pipe_base.html>`__ for more information.
-See also `How to Write a Task <http://lsst-web.ncsa.illinois.edu/doxygen/x_masterDoxyDoc/pipe_tasks_write_task.html>`__ for guidelines for choosing between using :lclass:`lsst.pex.config.RegistryField` and :lclass:`lsst.pex.config.ConfigurableField` to hold a subtask.
+See `task documentation <http://doxygen.lsst.codes/stack/doxygen/x_mainDoxyDoc/pipe_base.html>`__ for more information.
+See also `How to Write a Task <http://doxygen.lsst.codes/stack/doxygen/x_mainDoxyDoc/pipe_tasks_write_task.html>`__ for guidelines for choosing between using :lclass:`lsst.pex.config.RegistryField` and :lclass:`lsst.pex.config.ConfigurableField` to hold a subtask.
 
 PSF determiners are now tasks that inherit from an abstract base class :lclass:`lsst.meas.algorithms.PsfDeterminerTask` :jirap:`DM-6077`.
 However, the effect on existing code was negligible because they were already configurables used from a registry.

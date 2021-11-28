@@ -177,7 +177,7 @@ The :command:`rebuild` command accomplishes the following:
 2. Runs the Scons-based build process to compile C++, make Pybind11 bindings, and ultimately create the :lmod:`lsst` Python package.
    The stack is built and installed into the :file:`stack/` directory inside your :file:`lsstsw/` work directory.
 
-lsstsw clones repositories using HTTPS (`see repos.yaml <https://github.com/lsst/repos/blob/master/etc/repos.yaml>`_).
+lsstsw clones repositories using HTTPS (`see repos.yaml <https://github.com/lsst/repos/blob/main/etc/repos.yaml>`_).
 Our guide to `Setting up a Git credential helper <http://developer.lsst.io/en/latest/tools/git_lfs.html>`_ will allow you to push new commits up to GitHub without repeatedly entering your GitHub credentials.
 
 See also: :ref:`lsstsw-rebuild-ref`.
@@ -203,7 +203,7 @@ Multiple ticket branches across multiple products can be built in order of prior
 
 In this example, a ``feature-1`` branch will be used in any package's Git repository.
 A ``feature-2`` branch will be used secondarily in repositories where ``feature-1`` doesn't exist.
-Finally, ``lsstsw`` falls back to using the ``master`` branch for repositories that lack both ``feature-1`` and ``feature-2``.
+Finally, ``lsstsw`` falls back to using the ``main`` branch for repositories that lack both ``feature-1`` and ``feature-2``.
 
 .. _lsstsw-deploy-ref:
 
@@ -249,7 +249,7 @@ lsstsw rebuild command reference
 
 .. option:: -u
 
-   Update the :file:`repos.yaml` package index to the ``master`` branch on GitHub of https://github.com/lsst/repos.
+   Update the :file:`repos.yaml` package index to the ``main`` branch on GitHub of https://github.com/lsst/repos.
 
 .. option:: -r <git ref>
 
@@ -265,6 +265,6 @@ lsstsw rebuild command reference
 .. _versiondb: https://github.com/lsst/versiondb
 .. _EUPS: https://github.com/RobertLuptonTheGood/eups
 .. _Miniconda: http://conda.pydata.org/miniconda.html
-.. _`repos.yaml`: https://github.com/lsst/repos/blob/master/etc/repos.yaml
+.. _`repos.yaml`: https://github.com/lsst/repos/blob/main/etc/repos.yaml
 .. _`testdata_ci_hsc`: https://github.com/lsst/testdata_ci_hsc
 .. _`afwdata`: https://github.com/lsst/afwdata

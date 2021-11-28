@@ -32,7 +32,7 @@ See :doc:`setup` for more information.
 
 Use Git to clone the package you want to work on.
 Most LSST packages are available in the LSST's GitHub organization (https://github.com/lsst).
-The `repos.yaml file in the 'repos' repository <https://github.com/lsst/repos/blob/master/etc/repos.yaml>`_ also maps package names to repository URLs.
+The `repos.yaml file in the 'repos' repository <https://github.com/lsst/repos/blob/main/etc/repos.yaml>`_ also maps package names to repository URLs.
 
 For example: 
 

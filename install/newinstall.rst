@@ -98,7 +98,7 @@ Then load the LSST software environment into your shell:
    .. code-block:: bash
 
       eups distrib install -t {{ release_eups_tag }} lsst_distrib
-      curl -sSL https://raw.githubusercontent.com/lsst/shebangtron/master/shebangtron | python
+      curl -sSL https://raw.githubusercontent.com/lsst/shebangtron/main/shebangtron | python
       setup lsst_distrib
 
 If prebuilt binaries are available for your platform (and you ran :command:`newinstall.sh` with the :option:`-t <newinstall.sh -t>` argument) the installation should take roughly 10 minutes.
@@ -380,11 +380,11 @@ You can see all available tags at https://eups.lsst.codes/stack/src/tags (each t
 
    You need to ensure that the Python environment created by :command:`newinstall.sh` (see step :ref:`newinstall-run`) is compatible with the tagged software.
 
-   For example, if you are installing a recent weekly you may need to download and run :command:`newinstall.sh` from master:
+   For example, if you are installing a recent weekly you may need to download and run :command:`newinstall.sh` from main:
 
    .. code-block:: bash
 
-      curl -OL https://raw.githubusercontent.com/lsst/lsst/master/scripts/newinstall.sh
+      curl -OL https://raw.githubusercontent.com/lsst/lsst/main/scripts/newinstall.sh
       bash newinstall.sh -ct
 
    See https://github.com/lsst/lsst/tags for available tagged versions of :command:`newinstall.sh`.

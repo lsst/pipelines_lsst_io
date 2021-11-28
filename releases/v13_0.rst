@@ -91,7 +91,7 @@ A more detailed description of this system is available on the `LSST Community F
 Multi-band coadd processing now saves metadata
 ----------------------------------------------
 
-Metadata describing the operation of algorithms within the `multi-band coadd processing framework <https://lsst-web.ncsa.illinois.edu/doxygen/x_masterDoxyDoc/pipe_tasks_multi_band.html>`_ is now correctly persisted along with their outputs.
+Metadata describing the operation of algorithms within the `multi-band coadd processing framework <http://doxygen.lsst.codes/stack/doxygen/x_mainDoxyDoc/pipe_tasks_multi_band.html>`_ is now correctly persisted along with their outputs.
 
 :jirab:`DM-4991`
 
@@ -793,8 +793,8 @@ Use the ``--batch-verbose`` command line option to re-enable it.
 Added “reduce” functions to ``ctrl_pool``
 -----------------------------------------
 
-The ``ctrl_pool`` multiprocessing framework now supports “reduce” functionality: the master node will scatter work to slaves and then combine their results.
-The master is able to reduce data which has been returned from the slaves without waiting for all of the slaves to complete their tasks.
+The ``ctrl_pool`` multiprocessing framework now supports “reduce” functionality: the manager node will scatter work to workers and then combine their results.
+The manager node is able to reduce data which has been returned from the workers without waiting for all of the workers to complete their tasks.
 This is more efficient than the “map” functionality which was previously being used for many of the same tasks.
 
 :jirab:`DM-5989`
