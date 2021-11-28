@@ -36,12 +36,12 @@ Then download the demo's data (if you aren't running the current stable release,
 .. caution::
 
    The demo's version should match your LSST Science Pipelines installed software.
-   If you installed from source (with :doc:`lsstsw <lsstsw>`) or with a :ref:`newer tag <newinstall-other-tags>`, you'll likely need to run the latest version of the demo (``master`` branch):
+   If you installed from source (with :doc:`lsstsw <lsstsw>`) or with a :ref:`newer tag <newinstall-other-tags>`, you'll likely need to run the latest version of the demo (``main`` branch):
 
    .. code-block:: bash
 
-      curl -L https://github.com/lsst/pipelines_check/archive/master.tar.gz | tar xvzf -
-      cd pipelines_check-master
+      curl -L https://github.com/lsst/pipelines_check/archive/main.tar.gz | tar xvzf -
+      cd pipelines_check-main
 
 3. Run the demo
 ===============

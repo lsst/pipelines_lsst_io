@@ -91,7 +91,7 @@ Note that multiple python configuration options can be used by typing a placehol
        description: >
          Tasks to run for single frame processing that are necessary to use the good seeing selector to build coadds for use as difference imaging templates.
 
-This example pipeline imports a pipeline from :py:mod:`lsst.ap.pipe` you may `view on GitHub <https://github.com/lsst/ap_pipe/blob/master/pipelines/ApTemplate.yaml>`__.
+This example pipeline imports a pipeline from :py:mod:`lsst.ap.pipe` you may `view on GitHub <https://github.com/lsst/ap_pipe/blob/main/pipelines/ApTemplate.yaml>`__.
 There are some special configurations concerning reference catalogs that must be set for this camera and/or dataset, so the example pipeline above lists the ``calibrate`` task explicitly to add custom configurations.
 
 To run this example pipeline, save it as ``ApTemplate-DC2.yaml``, choose an appropriate output collection name (``u/USERNAME/OUTPUT-COLLECTION-1`` in the example below), and run

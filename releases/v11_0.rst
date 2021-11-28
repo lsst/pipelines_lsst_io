@@ -88,7 +88,7 @@ produced by the old measurement framework in ``meas_algorithms``'
 
 In the new ("version 1") approach, compound objects are simply stored in
 catalogs as their constituent scalars, with helper classes called `FunctorKeys
-<http://lsst-web.ncsa.illinois.edu/doxygen/x_masterDoxyDoc/classlsst_1_1afw_1_1table_1_1_functor_key.html>`__
+<http://doxygen.lsst.codes/stack/doxygen/x_mainDoxyDoc/classlsst_1_1afw_1_1table_1_1_functor_key.html>`__
 provided to pack and unpack them from ``Records`` (the ``FunctorKey``\ s that
 replace the old compound fields are all in ``afw/table/aggregates.h``). Unlike
 the original compound fields, there's no limit to how many types of
@@ -242,10 +242,10 @@ is performed by a command line task. Different catalog types (such as
 In this release, we provide a variety of tasks to handle different
 source types.
 
-- `Documentation for generic transforms <https://lsst-web.ncsa.illinois.edu/doxygen/x_masterDoxyDoc/classlsst_1_1pipe_1_1tasks_1_1transform_measurement_1_1_transform_task.html#TransformTask_>`_.
-- `Documentation for SrcTransformTask <https://lsst-web.ncsa.illinois.edu/doxygen/x_masterDoxyDoc/classlsst_1_1pipe_1_1tasks_1_1transform_measurement_1_1_src_transform_task.html#details>`_.
-- `Documentation for ForcedSrcTransformTask <https://lsst-web.ncsa.illinois.edu/doxygen/x_masterDoxyDoc/classlsst_1_1pipe_1_1tasks_1_1transform_measurement_1_1_forced_src_transform_task.html#ForcedSrcTransformTask_>`_.
-- `Documentation for CoaddSrcTransformTask <https://lsst-web.ncsa.illinois.edu/doxygen/x_masterDoxyDoc/classlsst_1_1pipe_1_1tasks_1_1transform_measurement_1_1_coadd_src_transform_task.html#CoaddSrcTransformTask_>`_.
+- `Documentation for generic transforms <http://doxygen.lsst.codes/stack/doxygen/x_mainDoxyDoc/classlsst_1_1pipe_1_1tasks_1_1transform_measurement_1_1_transform_task.html#TransformTask_>`_.
+- `Documentation for SrcTransformTask <http://doxygen.lsst.codes/stack/doxygen/x_mainDoxyDoc/classlsst_1_1pipe_1_1tasks_1_1transform_measurement_1_1_src_transform_task.html#details>`_.
+- `Documentation for ForcedSrcTransformTask <http://doxygen.lsst.codes/stack/doxygen/x_mainDoxyDoc/classlsst_1_1pipe_1_1tasks_1_1transform_measurement_1_1_forced_src_transform_task.html#ForcedSrcTransformTask_>`_.
+- `Documentation for CoaddSrcTransformTask <http://doxygen.lsst.codes/stack/doxygen/x_mainDoxyDoc/classlsst_1_1pipe_1_1tasks_1_1transform_measurement_1_1_coadd_src_transform_task.html#CoaddSrcTransformTask_>`_.
 
 (`DM-2191 <https://jira.lsstcorp.org/browse/DM-2191>`_,
 `DM-3473 <https://jira.lsstcorp.org/browse/DM-3473>`_,
@@ -382,7 +382,7 @@ Display CCD data as laid out in the focal plane
 
 It is now possible to use ``lsst.afw.cameraGeom.utils`` to display CCD
 data laid out in the focal plane. `An
-example <https://github.com/lsst/afw/blob/master/examples/Show%20Camera.ipynb>`_
+example <https://github.com/lsst/afw/blob/main/examples/Show%20Camera.ipynb>`_
 of how this functionality works in practice is available as an IPython
 notebook.
 :jirab:`DM-2347`
