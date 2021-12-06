@@ -96,7 +96,8 @@ E.g.:
 There is only one instrument in this repository, so you only see metadata about that one instrument.
 The result of the above command should look like this:
 
-.. code-block:: bash
+.. code-block:: text
+
    name visit_max exposure_max detector_max            class_name
    ---- --------- ------------ ------------ -------------------------------
     HSC  21474800     21474800          200 lsst.obs.subaru.HyperSuprimeCam
