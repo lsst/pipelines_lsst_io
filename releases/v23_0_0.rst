@@ -1,0 +1,288 @@
+.. _release-latest:
+.. _release-v23-0-0:
+
+###########################
+Release 23.0.0 (2021-12-21)
+###########################
+
+.. toctree::
+   :hidden:
+
+   tickets/v23_0_0
+
++-------------------------------------------+------------+
+| Source                                    | Identifier |
++===========================================+============+
+| Git tag                                   | 23.0.0     |
++-------------------------------------------+------------+
+| :doc:`EUPS distrib </install/newinstall>` | v23\_0\_0  |
++-------------------------------------------+------------+
+
+
+This release is based on the ``w_2021_40`` weekly build, with 29 tickets backported to support the Data Preview 0.2 data release.
+
+The notes below highlight significant technical changes to the Science Pipelines codebase in this release.
+For a complete list of changes made, see :doc:`tickets/v23_0_0`.
+
+The `Characterization Metric Report (DMTR-351) <https://dmtr-351.lsst.io/>`_ describes the scientific performance of this release in terms of scientific performance metrics.
+
+If you have questions or comments about this release, visit our `community forum <https://community.lsst.org>`_ for advice.
+
+- :ref:`release-v23-0-0-functionality`
+- :ref:`release-v23-0-0-interface`
+- :ref:`release-v23-0-0-pending-deprecations`
+- :ref:`release-v23-0-0-deprecations`
+
+*See also:*
+
+- :doc:`Installation instructions </install/index>`
+- :doc:`Known issues </known-issues>`
+- `Doxygen Documentation`__
+
+__ http://doxygen.lsst.codes/stack/doxygen/xlink_master_2021_09_30_20.02.36/
+
+
+.. _release-v23-0-0-functionality:
+
+Major New Features
+==================
+
+- :ref:`release-v23-0-0-gen3`
+- :ref:`release-v23-0-0-meas_extensions_gaap`
+- :ref:`release-v23-0-0-trailed`
+- :ref:`release-v23-0-0-cp_verify`
+- :ref:`release-v23-0-0-ci_imsim`
+
+.. _release-v23-0-0-gen3:
+
+Generation 3 Middleware
+-----------------------
+
+Generation 3 Middleware is being used for the DP0.2 data release production. This is the last release with functional generation 2 middleware. See :ref:`release-v23-0-0-deprecate-gen2`. Some highlights include:
+
+* Added a new facility for creating lightweight butlers that pre-fills a local SQLite registry. This "execution butler" can allow a pipeline to be executed without talking to the main registry, reducing contention for connections to shared registries. :jirab:`DM-28646`
+* Log diagnostic information when QuantumGraphs are empty because the initial query yielded no results. At present, these diagnostics only cover missing input datasets, which is a common way to get an empty QuantumGraph, but not the only way. :jirab:`DM-31583`
+* Add ability to cache datasets locally when using a remote file store. This can significantly improve performance when retrieving components from a dataset. :jirab:`DM-13365`
+
+For more information, see detailed notes on changes to the following middleware packages on this release:
+
+.. TODO DM-33028 use internal links after v23 build with middleware changelogs
+
+- `daf\_butler <https://github.com/lsst/daf_butler/blob/main/doc/lsst.daf.butler/CHANGES.rst>`_,
+- `pipe\_base <https://github.com/lsst/pipe_base/blob/main/doc/lsst.pipe.base/CHANGES.rst>`_,
+- `ctrl\_mpexec <https://github.com/lsst/ctrl_mpexec/blob/main/doc/lsst.ctrl.mpexec/CHANGES.rst>`_,
+- `ctrl\_bps <https://github.com/lsst/ctrl_bps/blob/main/doc/lsst.ctrl.bps/CHANGES.rst>`_.
+
+
+.. _release-v23-0-0-meas_extensions_gaap:
+
+Measurement Plugin for Gaussian Aperture and PSF Photometry
+-----------------------------------------------------------
+
+A Measurement plugin implementing Gaussian Aperture and PSF Photometry (GAaP) for measuring galaxy colors is now available via the new package `meas_extensions_gaap`_ included in lsst\_distrib.
+GAaP columns are included in the Object Tables produced in default HSC and DC2 data releases.
+See `Kuijken+15 <https://arxiv.org/abs/1507.00738>`_ and `DMTN-190 <https://dmtn-190.lsst.io>`_ for more information on the algorithm and the implementation.
+Preliminary results show colors recovered on simulated (DC2 ImSim) red cluster galaxies are improved compared with CModel colors.
+
+.. _meas_extensions_gaap: https://github.com/lsst/meas_extensions_gaap
+
+.. _release-v23-0-0-trailed:
+
+Measurement Plugin for Characterizing Trailed Sources
+-----------------------------------------------------
+
+A measurement plugin that estimates endpoints, length, and angle parameters for fast-moving trailed sources (e.g., NEOs) is now available in the Science Pipelines via the new package `meas\_extensions\_trailedSources <https://github.com/lsst/meas_extensions_trailedSources>`_.
+:jirab:`RFC-768`
+
+.. _release-v23-0-0-cp_verify:
+
+Addition of cp\_verify
+----------------------
+The `cp\_verify <https://github.com/lsst/cp_verify>`_ package provides tasks to test the quality of calibration products.
+
+For more information, refer to :jira:`RFC-791`.
+
+.. _release-v23-0-0-ci_imsim:
+
+Addition of ci\_imsim
+---------------------
+
+The `ci\_imsim <https://github.com/lsst/ci_imsim>`_ package provides continuous integration tests for the DC2 data release pipelines.
+It relies on `testdata\_ci\_imsim <https://github.com/lsst-dm/testdata_ci_imsim>`_  and `ci\_builder <https://github.com/lsst-dm/ci_builder>`_.
+
+
+Use the C++17 Standard
+----------------------
+
+As approved in :jirab:`RFC-759`, the Science Pipelines `C++ code now uses C++17  <https://developer.lsst.io/cpp/style.html#we-are-writing-c-17>`_.
+
+.. _release-v23-0-0-interface:
+
+
+Significant Interface Changes
+=============================
+
+- :ref:`release-v23-0-0-objectTables`
+
+.. _release-v23-0-0-objectTables:
+
+Object Table column names and sentinel values
+---------------------------------------------
+
+Column names in the parquet Object Table have been renamed for consistency with other tables. The main differences are that the band is prefixed with an underscore: ``g_psfFlux`` instead of ``gPsFlux``. See :jira:`RFC-807` for more information. Per :jira:`RFC-808`, when data for a band is unavailable, non-floating point fields are now filled with sentinel values.
+
+.. _release-v23-0-0-pending-deprecations:
+
+Pending Deprecations
+====================
+
+These Tasks or methods will be deprecated in the next major release.
+
+- :ref:`release-v23-0-0-deprecate-default-position`
+- :ref:`release-v23-0-0-deprecate-logging`
+- :ref:`release-v23-0-0-deprecate-supported-datasets`
+- :ref:`release-v23-0-0-deprecate-configurations`
+
+.. _release-v23-0-0-deprecate-default-position:
+
+Deprecate PSF evaluation without position argument
+--------------------------------------------------
+
+PSF models are spatially-varying. Evaluation of these models with methods such as ``psf.computeImage()`` without a position argument will return the realization of the PSF at the average position. A position argument will be required after v24. The current behavior can be replicated by explicitly providing the average position like ``psf.computeImage(psf.getAveragePosition())``.
+
+For more information, refer to :jira:`RFC-796`.
+
+.. _release-v23-0-0-deprecate-logging:
+
+Deprecate f-string log messages
+-------------------------------
+
+f-string log messages are now deprecated to match Python logging convention.
+
+For more information, refer to :jira:`RFC-789`.
+
+.. _release-v23-0-0-deprecate-supported-datasets:
+
+Deprecate ap.verify.Dataset.getSupportedDatasets
+------------------------------------------------
+
+The concept of 'supported' datasets is deprecated.
+The ``getSupportedDatasets`` method will be removed after v24.
+
+.. _release-v23-0-0-deprecate-configurations:
+
+Deprecated Task Configurations:
+-------------------------------
+
+The following configurations are no longer used and will be removed after the 24.0.0 release:
+
+In :lsst-task:`~lsst.pipe.tasks.selectImages.PsfWcsSelectImagesTask`, the following configuration parameters and functionality have been moved to :lsst-task:`~lsst.pipe.tasks.computeExposureSummaryStats.ComputeExposureSummaryStatsTask`:
+
+* ``starSelection``
+* ``starShape``
+* ``psfShape``
+
+The configuration parameter ``doLegacyStarSelectionComputation`` has been added to provide backwards compatibility for the duration of two releases.
+
+In ``lsst.pipe.tasks.InsertFakesTask``:
+
+* ``raColName``: Use ``ra_col`` instead.
+* ``decColName``: Use ``dec_col`` instead.
+* ``diskHLR``, ``aDisk``, ``bDisk``, ``paDisk``: Use ``disk_semimajor_col``, ``disk_axis_ratio_col``, and ``disk_pa_col`` to specify disk half-light ellipse.
+* ``nDisk``: Use ``disk_n`` instead.
+* ``bulgeHLR``, ``bulge_pa_col``, ``aBulge``, ``bBulge``, ``paBulge``: Use ``bulge_semimajor_col``, ``bulge_axis_ratio_col``, and  to specify disk half-light ellipse.
+* ``nBulge``: Use ``bulge_n`` instead.
+* ``magVar``: Use ``mag_col`` instead.
+* ``sourceSelectionColName``: Use ``select_col`` instead.
+
+
+.. _release-v23-0-0-deprecations:
+
+Deprecations
+============
+
+These packages/functions are deprecated and will not be available in the next major release.
+
+- :ref:`release-v23-0-0-deprecate-gen2`
+- :ref:`release-v23-0-0-deprecate-decamRawIngestTask`
+- :ref:`release-v23-0-0-deprecate-Filter`
+- :ref:`release-v23-0-0-deprecate-validate-drp`
+- :ref:`release-v23-0-0-deprecate-doApplyUberCal-in-forcedPhotCcd.py`
+- :ref:`release-v23-0-0-deprecate-configurations-in-isrTask.py`
+- :ref:`release-v23-0-0-deprecate-configurations-in-psfexStarSelector.py`
+
+.. _release-v23-0-0-deprecate-gen2:
+
+Deprecated Generation 2 Middleware
+----------------------------------
+
+Generation 2 middleware (Gen2) is no longer being developed and should not be used for new code.
+Gen2 infrastructure code (within e.g., :ref:`lsst.pipe.tasks`, :ref:`lsst.pipe.base`, :ref:`lsst.obs.base`, `lsst.daf.persistence <https://github.com:lsst/daf_persistence>`_, and obs packages) will no longer be maintained after January 1, 2022, and may be removed at any point afterward.
+The CI package ``ci_hsc_gen2`` will continue to be run, and the tasks it checks will be maintained until we remove the Gen2 infrastructure code in 2022.
+Following this release, we will remove Gen2 infrastructure code and the command-line task entry points, ``runDataRef``, to the Tasks.
+
+.. _release-v23-0-0-deprecate-decamRawIngestTask:
+
+Deprecated DecamRawIngestTask and MegaPrimeRawIngestTask
+--------------------------------------------------------
+
+MegaPrime and DECam no longer require a specialist Gen3 ingest task.
+Please use the default `~lsst.obs.base.RawIngestTask`.
+Both `~lsst.obs.decam.DecamRawIngestTask` and `~lsst.obs.cfht.MegaPrimeRawIngestTask` will be removed after v23.
+
+.. _release-v23-0-0-deprecate-Filter:
+
+Removal of ``lsst.afw.Filter``
+------------------------------
+
+The ``lsst.afw.Filter`` class has been replaced with :ref:`filterLabel <release-v22-0-0-filterLabel>`, is deprecated, and will be removed after this release.
+Method names that contain ``Filter``, such as ``getFilter``, have been replaced e.g., with ``.getFilterLabel``.
+:jirab:`RFC-730`
+
+.. _release-v23-0-0-deprecate-validate-drp:
+
+Removal of validate\_drp
+------------------------
+
+The algorithms implemented in :ref:`lsst.validate.drp` were ported as-is to run in :ref:`lsst.faro`.
+All future development of scientific performance metrics will be carried out in faro.
+The ``validate_drp`` EUPS package will be removed after this release.
+
+.. _release-v23-0-0-deprecate-doApplyUberCal-in-forcedPhotCcd.py:
+
+Deprecated doApplyUberCal in ForcedPhotCcdTask
+----------------------------------------------
+
+The field ``doApplyUberCal`` is deprecated.
+Use ``doApplyExternalPhotoCalib`` and ``doApplyExternalSkyWcs`` instead.
+It will be removed after this release.
+:jirab:`DM-23352`
+
+
+.. _release-v23-0-0-deprecate-configurations-in-isrTask.py:
+
+Deprecated configurations in IsrTask
+------------------------------------
+
+The following configurations are no longer used and will be removed after this release:
+
+* ``overscanFitType``
+* ``overscanOrder``
+* ``overscanNumSigmaClip``
+* ``overscanIsInt``
+* ``useFilterAliases``
+
+Please configure overscan via the ``OverscanCorrectionConfig`` interface.
+:jirab:`DM-23396`
+
+.. _release-v23-0-0-deprecate-configurations-in-psfexStarSelector.py:
+
+Deprecated configurations in PsfexStarSelectorTask
+--------------------------------------------------
+
+The following configurations are no longer used and will be removed after this release:
+
+* ``maxbad``
+* ``maxbadflag``
+
+:jirab:`DM-5684`
