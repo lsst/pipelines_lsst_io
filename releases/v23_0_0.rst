@@ -66,12 +66,10 @@ Generation 3 Middleware is being used for the DP0.2 data release production. Thi
 
 For more information, see detailed notes on changes to the following middleware packages on this release:
 
-.. TODO DM-33028 use internal links after v23 build with middleware changelogs
-
-- `daf\_butler <https://github.com/lsst/daf_butler/blob/main/doc/lsst.daf.butler/CHANGES.rst>`_,
-- `pipe\_base <https://github.com/lsst/pipe_base/blob/main/doc/lsst.pipe.base/CHANGES.rst>`_,
-- `ctrl\_mpexec <https://github.com/lsst/ctrl_mpexec/blob/main/doc/lsst.ctrl.mpexec/CHANGES.rst>`_,
-- `ctrl\_bps <https://github.com/lsst/ctrl_bps/blob/main/doc/lsst.ctrl.bps/CHANGES.rst>`_.
+- :doc:`lsst.daf.butler </modules/lsst.daf.butler/CHANGES>`,
+- :doc:`lsst.pipe.base </modules/lsst.pipe.base/CHANGES>`,
+- :doc:`lsst.ctrl.mpexec </modules/lsst.ctrl.mpexec/CHANGES>`,
+- :doc:`lsst.ctrl.bps </modules/lsst.ctrl.bps/CHANGES>`.
 
 
 .. _release-v23-0-0-meas_extensions_gaap:
