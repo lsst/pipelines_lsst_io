@@ -2,7 +2,7 @@
 .. _release-v23-0-0:
 
 ###########################
-Release 23.0.0 (2021-12-21)
+Release 23.0.1 (2022-04-06)
 ###########################
 
 .. toctree::
@@ -13,16 +13,19 @@ Release 23.0.0 (2021-12-21)
 +-------------------------------------------+------------+
 | Source                                    | Identifier |
 +===========================================+============+
-| Git tag                                   | 23.0.0     |
+| Git tag                                   | 23.0.1     |
 +-------------------------------------------+------------+
-| :doc:`EUPS distrib </install/newinstall>` | v23\_0\_0  |
+| :doc:`EUPS distrib </install/newinstall>` | v23\_0\_1  |
 +-------------------------------------------+------------+
 
 
-This release is based on the ``w_2021_40`` weekly build, with 29 tickets backported to support the Data Preview 0.2 data release.
+This release is based on the ``w_2021_40`` weekly build (September 30, 2021), with 42 tickets backported to 23.0.1 to support the Data Preview 0.2 Data Release (DP0.2).
+For the production of DP0.2, 23.0.0 was used for single-frame processing (the Tasks within the Pipeline subsets ``step1`` and ``step2``), and 23.0.1 was used for coadd-processing (Tasks within the Pipeline subset ``step3``).
+None of the updates to 23.0.1 affect single-frame processing, such that rerunning a data release with the final minor release will produce the same results as the DP0.2.
 
 The notes below highlight significant technical changes to the Science Pipelines codebase in this release.
 For a complete list of changes made, see :doc:`tickets/v23_0_0`.
+The 13 tickets that were backported after 23.0.0 (released December 21, 2021) are listed first.
 
 The `Characterization Metric Report (DMTR-351) <https://dmtr-351.lsst.io/>`_ describes the scientific performance of this release in terms of scientific performance metrics.
 
