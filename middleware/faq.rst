@@ -436,3 +436,107 @@ What do I do if a query method/command or pipetask graph generation is slow?
 Adding the ``--log-level sqlalchemy.engine=DEBUG`` option to the :any:`butler <lsst.daf.butler-scripts>` or :any:`pipetask <lsst.ctrl.mpexec-script>` command will allow the SQL queries issued by the command to be inspected.
 Similarly, for a slow query method, adding ``logging.getLogger("sqlalchemy.engine").setLevel(logging.DEBUG)`` can help.
 The resulting query logs can be useful for developers and database administrators to determine what, if anything, is going wrong.
+
+.. _middleware_faq_clean_up_runs:
+
+How do I clean up processing runs I don't need anymore?
+=======================================================
+
+.. py:currentmodule:: lsst.daf.butler
+
+Because a data repository stores information on both a filesystem or object store and a SQL database, deleting datasets completely requires using butler commands, even if you know where the associated files are stored on disk.
+
+For processing runs that follow our usual conventions (following them is automatic if you use ``--output`` and don't override ``--output-run`` when running :any:`pipetask <lsst.ctrl.mpexec-script>`), two different collections are created:
+
+- a `~CollectionType.RUN` collection that directly holds your outputs
+- a `~CollectionType.CHAINED` collection that points to that RUN collection as well as all of your input collections.
+
+If you perform multiple processing runs with the same ``--output``, you'll get multiple `~CollectionType.RUN` collections in the same `~CollectionType.CHAINED` collection.
+The `~CollectionType.CHAINED` collection will have the name you passed to ``--output``, and the RUN collections will start with that and end with a timestamp.
+You can see this structure for your own collections with a command like this one:
+
+.. code:: sh
+
+    $ butler query-collections /repo/main --chains=tree u/jbosch/*
+    u/jbosch/DM-30649                                    CHAINED
+      u/jbosch/DM-30649/20210614T191615Z                 RUN
+      HSC/raw/RC2/9813                                   TAGGED
+      HSC/calib/gen2/20180117                            CALIBRATION
+      HSC/calib/DM-28636                                 CALIBRATION
+      HSC/calib/gen2/20180117/unbounded                  RUN
+      HSC/calib/DM-28636/unbounded                       RUN
+      HSC/masks/s18a                                     RUN
+      HSC/fgcmcal/lut/RC2/DM-28636                       RUN
+      refcats/DM-28636                                   RUN
+      skymaps                                            RUN
+    u/jbosch/DM-30649/20210614T191615Z                   RUN
+
+The RUN collections that directly hold the datasets are what we want to remove in order to free up space, but we have to start by deleting the `~CollectionType.CHAINED` collections that hold them first:
+
+.. code:: sh
+
+    $ butler remove-collections /repo/main u/jbosch/DM-30649
+
+You can add the ``--no-confirm`` option to skip the confirmation prompt if you like.
+
+If you're only deleting one collection at a time, it doesn't tell you anything new.
+
+Not deleting the CHAINED collection
+-----------------------------------
+
+If you don't want to remove the `~CollectionType.CHAINED` collection - you just want to remove the `~CollectionType.RUN` collection from it - you can instead do
+
+    $ butler collection-chain /repo/main --remove u/jbosch/DM-30649 u/jbosch/DM-20210614T191615Z
+
+Or, if you know the `~CollectionType.RUN` is the first one in the chain,
+
+    $ butler collection-chain /repo/main --pop u/jbosch/DM-30649
+
+In any case, once the `~CollectionType.CHAINED` collection is out of the way, we can delete the `~CollectionType.RUN` collections that start with the same prefix using a glob pattern:
+
+.. code:: sh
+
+    $ butler remove-runs /repo/main u/jbosch/DM-30649/*
+    The following RUN collections will be removed:
+    u/jbosch/DM-30649/20210614T191615Z
+    The following datasets will be removed:
+    calexp(18222), calexpBackground(18222), calexp_camera(168), calibrate_config(1), calibrate_metadata(18222), characterizeImage_config(1), characterizeImage_metadata(18231), consolidateSourceTable_config(1), consolidateVisitSummary_config(1), consolidateVisitSummary_metadata(168), fgcmBuildStarsTable_config(1), fgcmFitCycle_config(1), fgcmOutputProducts_config(1), icExp(18231), icExpBackground(18231), icSrc(18231), icSrc_schema(1), isr_config(1), isr_metadata(18232), postISRCCD(18232), skyCorr(17304), skyCorr_config(1), skyCorr_metadata(168), source(18222), src(18222), srcMatch(18222), srcMatchFull(18222), src_schema(1), transformSourceTable_config(1), visitSummary(168), writeSourceTable_config(1), writeSourceTable_metadata(18222)
+    Continue? [y/N]: y
+    Removed collections
+
+Here we've left the default confirmation behavior on because we used a glob, just to be safe.
+You can write one or more full RUN collection names explicitly (separated by commas), too, and that's what you'll need to do if you didn't follow the naming convention well enough for a glob to work.
+
+Removing `~CollectionType.RUN` collections always removes the files within them, but it does not remove the directory structure, because in the presence of arbitrary path templates (including any that may have been used in the past) and possible concurrent writes, it's difficult for the butler to recognize efficiently when a directory will end up empty.
+You're welcome to delete empty directories on your own after using ``remove-runs``; they're typically in subdirectories of the main repository directory named after the collection (it's possible to configure the butler such that this isn't the case, but rare).
+It's also completely fine to just leave them.
+
+.. note::
+
+    If you delete files from the filesystem before using butler commands to remove entries from the database, the commands for cleaning up the database are actually exactly the same.
+    The butler won't know that the files are gone until you try to use or delete them, but when you try to delete them, it will just log this at debug level.
+
+Deleting only some datasets
+---------------------------
+
+If you don't want to delete the full RUN collection, just some datasets within it, you can generally use the ``prune-datasets`` subcommand:
+
+.. code:: sh
+
+    $ butler prune-datasets /repo/main --purge u/jbosch/DM-29776/singleFrame/20210426T161854Z --datasets postISRCCD u/jbosch/DM-29776/singleFrame/20210426T161854Z
+    The following datasets will be removed:
+
+    type                         run                                        id                  band instrument detector physical_filter exposure
+    ---------- ---------------------------------------------- ------------------------------------ ---- ---------- -------- --------------- --------
+    postISRCCD u/jbosch/DM-29776/singleFrame/20210426T161854Z c45a177f-24e8-4dc9-9268-5895decb7989    y        HSC        0           HSC-Y      318
+    postISRCCD u/jbosch/DM-29776/singleFrame/20210426T161854Z 461d0293-3c80-45ea-9f06-21a90525c185    y        HSC        1           HSC-Y      318
+    postISRCCD u/jbosch/DM-29776/singleFrame/20210426T161854Z 1572dd02-c959-4d23-ba03-91cf235e1291    y        HSC        2           HSC-Y      318
+    postISRCCD u/jbosch/DM-29776/singleFrame/20210426T161854Z b38afec9-1970-478d-80d8-4f61c5a992d0    y        HSC        3           HSC-Y      318
+    postISRCCD u/jbosch/DM-29776/singleFrame/20210426T161854Z 769bb9ce-9267-4e57-812f-82fee3fd0afa    y        HSC        4           HSC-Y      318
+    (...)
+    Continue? [y/N]: y
+    The datasets were removed.
+
+Note that here you have to know the exact `~CollectionType.RUN` collection that holds the datasets, and specify it twice (the argument to ``--purge`` is the collection to delete from, while the positional argument is the collection to query within - the latter could be some other kind of collection, but it's rare for that to be useful).
+
+The Python `Butler.pruneDatasets` method can be used for even greater control of what you want to delete, as it accepts an arbitrary `DatasetRef` iterable indicating what to delete.
