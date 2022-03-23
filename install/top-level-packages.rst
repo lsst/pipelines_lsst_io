@@ -57,7 +57,6 @@ In addition to the contents of ``lsst_apps``, it provides the following packages
 - `obs\_subaru\_data <https://github.com/lsst/obs_subaru_data>`_
 - `pipe\_drivers <https://github.com/lsst/pipe_drivers>`_
 - `synpipe <https://github.com/lsst/synpipe>`_
-- `validate\_drp <https://github.com/lsst/validate_drp>`_
 
 Example installation (:ref:`more info <newinstall-install>`):
 
