@@ -1,6 +1,24 @@
 .. _release-v23-0-0-tickets:
 
 ###################################
+Tickets Addressed in Release 23.0.1
+###################################
+
+- `DM-31611 <https://jira.lsstcorp.org/browse/DM-31611>`_: Improve reproducibility in faro ellipKPM test_te1 [faro]
+- `DM-32034 <https://jira.lsstcorp.org/browse/DM-32034>`_: Create MatchProbabilistic (Pipeline)Task [meas_astrom, pipe_tasks]
+- `DM-32199 <https://jira.lsstcorp.org/browse/DM-32199>`_: If submit or prepare, have bps check early that WMS is in environment. [ctrl_bps]
+- `DM-32625 <https://jira.lsstcorp.org/browse/DM-32625>`_: Activate guards on SFM PSF quality for inclusion in coaddition for LSSTCam-imSim [obs_lsst, obs_subaru, pipe_tasks]
+- `DM-32675 <https://jira.lsstcorp.org/browse/DM-32675>`_: Improvement PanDA plugin on using iDDS [ctrl_bps]
+- `DM-32827 <https://jira.lsstcorp.org/browse/DM-32827>`_: skyCorr backgrounds are not get applied during gen3 makeWarp [pipe_tasks]
+- `DM-32830 <https://jira.lsstcorp.org/browse/DM-32830>`_: panda_auth_reset [ctrl_bps]
+- `DM-32895 <https://jira.lsstcorp.org/browse/DM-32895>`_: Add matchObjectToTruth to obs_lsst's imsim DRP.yaml [obs_lsst]
+- `DM-33195 <https://jira.lsstcorp.org/browse/DM-33195>`_: Update forcedPhotCoadd to use the correct input image in Gen3 [meas_base]
+- `DM-33200 <https://jira.lsstcorp.org/browse/DM-33200>`_: Fix lsst.afw.geom usage in two afw rst documents [afw]
+- `DM-33339 <https://jira.lsstcorp.org/browse/DM-33339>`_: pipetask is always doing fail-fast in single-process mode [ctrl_mpexec]
+- `DM-33345 <https://jira.lsstcorp.org/browse/DM-33345>`_: Investigate extremely slow execution butler creation [pipe_base]
+- `DM-33786 <https://jira.lsstcorp.org/browse/DM-33786>`_: assembleCoadd reports success even when some stripes are unsuccessful. [pipe_task]
+
+###################################
 Tickets Addressed in Release 23.0.0
 ###################################
 
