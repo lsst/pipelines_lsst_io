@@ -207,7 +207,7 @@ About the Miniconda Python installed by newinstall.sh
 This Python installation isn't required, but we recommend it.
 See :ref:`newinstall-user-python` if required.
 
-The Python environment installed by :command:`newinstall.sh` is Miniconda_, a minimal version of Anaconda_.
+The Python environment installed by :command:`newinstall.sh` uses Miniconda_, a minimal version of Anaconda_.
 It provides the version of Python that we are currently using to test and develop the Science Pipelines.
 
 In this Miniconda environment, :command:`newinstall.sh` installs the libraries and tools needed to build and run the Science Pipelines.
@@ -215,8 +215,9 @@ In this Miniconda environment, :command:`newinstall.sh` installs the libraries a
 This Miniconda installation won't affect your other Python installations (like the system's Python, your own Anaconda or Miniconda, or virtual environments).
 The LSST Miniconda environment is only active when you source the ``loadLSST`` script installed by :command:`newinstall.sh` (see :doc:`setup`).
 
-If you install other Python packages in a shell where the LSST Miniconda is activated (with :command:`pip install` or :command:`conda install`) those packages are installed into the LSST Miniconda's :file:`site-packages`, not your system's.
-The Python installed by :command:`newinstall.sh` works like an isolated Python environment dedicated to LSST Science Pipelines code and your own related modules---effectively like a `Conda environment <https://conda.io/docs/user-guide/concepts.html#conda-environments>`_ or Python `venv <https://docs.python.org/3/library/venv.html>`_.
+If you install other Python packages in a shell where the LSST Miniconda is activated (with :command:`mamba install` or :command:`conda install` or :command:`pip install`) those packages are installed into the LSST Miniconda's :file:`site-packages`, not your system's.
+We recommend that you use :command:`mamba install` if possible (if the package is available from conda-forge), as it is much faster and generally more reliable than :command:`conda install`, and it avoids some potential problems with :command:`pip install`.
+The Python installed by :command:`newinstall.sh` is in an isolated Python environment dedicated to LSST Science Pipelines code and your own related modules.
 This pattern is useful because it reduces the risk of having Python package version incompatibilities.
 
 .. _newinstall-user-python:
