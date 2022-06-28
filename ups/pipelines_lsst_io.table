@@ -1,6 +1,7 @@
 # Specify direct dependencies to all packages included in the documentation.
 # Sort alphabetically for maintainability.
 setupRequired(afw)
+setupRequired(alert_packet)
 setupRequired(ap_association)
 setupRequired(ap_pipe)
 setupRequired(ap_verify)
