@@ -2,17 +2,15 @@
 Processing DC2 data with the Gen3 Butler
 ########################################
 
-The data explored in this guide is simulated data, the same kind used for Rubin's Data Preview 0 (DP0).
+A walkthrough for running the Alert Production (AP) pipeline on an example set of image data. The data used in this guide is simulated data, the same kind used for Rubin's Data Preview 0 (DP0).
 
 .. note::
 
-   This guide assumes the user has access to a shared "Gen3" Butler repository containing data from the Dark Energy Science Collaboration (DESC)'s Data Challenge 2 (DC2), most likely on the ``lsstdevl`` machines at NCSA.
+   This guide assumes the user has access to a shared "Gen3" Butler repository containing data from the Dark Energy Science Collaboration (DESC)'s Data Challenge 2 (DC2) via the ``lsst-devl`` machines at NCSA.
    This guide further assumes the user has a recently-built version of :py:mod:`lsst.distrib` from the LSST Science Pipelines.
-   The instructions in this guide were verified to work in July 2021 using ``rubin-env 0.6.0`` with the weekly tagged ``w_2021_30``.
-   Finally, this guide assumes the user is interested in running the Alert Production (AP) pipeline on this data using good seeing templates.
 
-What's in the Shared DC2 Butler Repository?
-===========================================
+What does existing DC2 data look like?
+======================================
 
 * The instrument is called ``LSSTCam-imSim``
 * The obs-package is ``obs_lsst``, i.e., :py:mod:`lsst.obs.lsst` (note ``imsim`` subdirectories within)
@@ -20,16 +18,28 @@ What's in the Shared DC2 Butler Repository?
 * Patches go from 0 to 48
 * Detectors go from 0 to 188
 * Available bands are ``ugrizy``
-* Data exist for some tracts in the ~2553–5074 range, and as examples below show, commonly used tracts include 3828 and 3829
+* Data exist for some tracts in the ~2553–5074 range, and commonly reprocessed tracts include 3828, 3829, and 4431
 * One set of reference catalogs are called ``cal_ref_cat_2_2``, and have some filtermap definitions that must be specified
-* On NCSA's ``lsstdevl`` in ``/repo/dc2``, tracts 3828 and 3829 are in the collection ``2.2i/defaults/test-med-1``
-* A smaller CI dataset, just patch 24 in tract 3828, is in ``2.2i/defaults/ci_imsim`` and corresponds to the GitHub repo ``testdata_ci_imsim``
 
-To see some collections, try, e.g.,
+Some specifics about the Shared DC2 Butler Repository at NCSA
+-------------------------------------------------------------
+
+* The repository is called ``/repo/dc2``
+* All raw data are available in the collection ``2.2i/raw/all``
+* All raw data with ancillary processing inputs (e.g., calibs, skymaps, refcats) are available in the collection ``2.2i/defaults``
+* Tracts 3828 and 3829 only are in the collection ``2.2i/defaults/test-med-1``
+* A smaller CI dataset, just patch 24 in tract 3828, is in ``2.2i/defaults/ci_imsim`` and corresponds to the GitHub repo ``testdata_ci_imsim``
+* Tract 4431 has a 10-year simulated depth, and was processed in the collection ``u/kherner/2.2i/runs/tract4431-w40``
+* Visits that fully overlap four adjacent patches (9, 10, 16, and 17) in tract 4431 are in the collection ``u/mrawls/DM-34827/defaults/4patch_4431`` (this guide will use this collection!)
+
+Using the Butler to explore collections and datasets
+----------------------------------------------------
+
+To explore these and other collections, try, e.g.,
 
 .. prompt:: bash
 
-   butler query-collections /repo/dc2 --chains=tree "2.2i/*"
+   butler query-collections /repo/dc2 --chains=tree "2.2i/defaults"
    butler query-collections /repo/dc2 --chains=tree "u/mrawls/*"
 
 These commands should print a list of collections that meet the search criteria.
@@ -39,123 +49,180 @@ To see some available datasets for processing, try, e.g.,
 
 .. prompt:: bash
 
-   butler query-data-ids /repo/dc2 tract patch visit --collections='2.2i/defaults/test-med-1' --where "skymap='DC2' AND band='g' AND tract=3828 AND patch=47 AND instrument='LSSTCam-imSim'" --datasets "raw"
+   butler query-data-ids /repo/dc2 tract patch visit --collections='u/mrawls/DM-34827/defaults/4patch_4431' --where "skymap='DC2' AND band='g' AND instrument='LSSTCam-imSim'" --datasets "raw"
 
 This command should print a list of data IDs that meet the search criteria, along with their tract, patch, and visit number.
-Certain arguments are required after the ``--where``, including ``skymap`` and ``instrument``, while most others are optional.
+Certain arguments are required after the ``--where``, including ``skymap`` and ``instrument``, while most others are optional, and may include ``band``, ``tract``, ``patch``, etc.
 
-Processing Data
-===============
+Processing Data with the AP Pipelines
+=====================================
 
 Now it's time to process some data.
-In this guide, we will start with raws, run "processCcd" (which includes :py:mod:`lsst.ip.isr.IsrTask`, :py:mod:`lsst.pipe.tasks.characterizeImage.CharacterizeImageTask`, and :py:mod:`lsst.pipe.tasks.calibrate.CalibrateTask`), and make good seeing coadd templates.
+In this guide, we will start with raws, run standard single frame processing (which includes :py:mod:`lsst.ip.isr.IsrTask`, :py:mod:`lsst.pipe.tasks.characterizeImage.CharacterizeImageTask`, and :py:mod:`lsst.pipe.tasks.calibrate.CalibrateTask`), and make good seeing coadd templates.
 
 In a second pipeline, we will run difference imaging using the templates we just built and save the results in an Alert Production Database (APDB).
 
 Building good seeing templates
 ------------------------------
 
-Here is the pipeline we will use.
-Note that multiple python configuration options can be used by typing a placeholder continuation character (e.g., ``|``) followed by one python config declaration per line.
-
-.. prompt:: yaml
-
-   description: An AP pipeline for building templates with LsstCam-imSim data
-
-   instrument: lsst.obs.lsst.LsstCamImSim
-   imports:
-   - location: $AP_PIPE_DIR/pipelines/ApTemplate.yaml
-   tasks:
-     isr:
-       class: lsst.ip.isr.IsrTask
-       config:
-         connections.newBFKernel: bfk
-         doBrighterFatter: True
-     calibrate:
-       class: lsst.pipe.tasks.calibrate.CalibrateTask
-       config:
-         connections.astromRefCat: 'cal_ref_cat_2_2'
-         connections.photoRefCat: 'cal_ref_cat_2_2'
-         astromRefObjLoader.ref_dataset_name: 'cal_ref_cat_2_2'
-         photoRefObjLoader.ref_dataset_name: 'cal_ref_cat_2_2'
-         python: |
-           config.astromRefObjLoader.filterMap = {band: 'lsst_%s_smeared' % (band) for band in 'ugrizy'};
-           config.photoRefObjLoader.filterMap = {band: 'lsst_%s_smeared' % (band) for band in 'ugrizy'};
-   subsets:
-     singleFrameAp:
-       subset:
-         - isr
-         - characterizeImage
-         - calibrate
-         - consolidateVisitSummary
-       description: >
-         Tasks to run for single frame processing that are necessary to use the good seeing selector to build coadds for use as difference imaging templates.
-
-This example pipeline imports a pipeline from :py:mod:`lsst.ap.pipe` you may `view on GitHub <https://github.com/lsst/ap_pipe/blob/main/pipelines/ApTemplate.yaml>`__.
-There are some special configurations concerning reference catalogs that must be set for this camera and/or dataset, so the example pipeline above lists the ``calibrate`` task explicitly to add custom configurations.
-
-To run this example pipeline, save it as ``ApTemplate-DC2.yaml``, choose an appropriate output collection name (``u/USERNAME/OUTPUT-COLLECTION-1`` in the example below), and run
+The pipeline we will use lives in the ``ap_pipe`` package, and is the camera-specific ``ApTemplate.yaml`` pipeline.
+To see it, either navigate to the `pipeline on GitHub <https://github.com/lsst/ap_pipe/blob/main/pipelines/LsstCamImSim/ApTemplate.yaml>`__ or display the pipeline on via the command line, e.g.,
 
 .. prompt:: bash
 
-   pipetask run -j 12 -b /repo/dc2 -d "band='g' AND skymap='DC2' AND tract=3829" -i 2.2i/defaults/test-med-1 -o u/USERNAME/OUTPUT-COLLECTION-1 -p ApTemplate-DC2.yaml#singleFrameAp --register-dataset-types
+   cat $AP_PIPE_DIR/pipelines/LsstCamImSim/ApTemplate.yaml
 
-This will take some time, but when it's done, you should have calibrated exposures and a visit summary table ready for making warps, selecting the best seeing visits, and assembling coadds for use as difference imaging templates.
-To continue, run:
+Note that this camera-specific ``ApTemplate.yaml`` pipeline imports both a camera-specific single-frame processing pipeline (sometimes called "processCcd") and a more generic AP Template building pipeline.
+
+To visualize this pipeline, use ``pipetask build``, e.g.,
 
 .. prompt:: bash
 
-   pipetask run -j 12 -b /repo/dc2 -d "skymap='DC2' AND tract=3829 AND patch=47" -i u/USERNAME/OUTPUT-COLLECTION-1 -o u/USERNAME/OUTPUT-COLLECTION-2 -p ApTemplate-DC2.yaml#makeTemplate --register-dataset-types
+   pipetask build -p $AP_PIPE_DIR/pipelines/LsstCamImSim/ApTemplate.yaml --pipeline-dot ApTemplate.dot
+   dot ApTemplate.dot -Tpng > ApTemplate.png
 
-This will also take some time.
-When it is complete, you should have good seeing coadds covering the entirety of patch 47 in tract 3829 for multiple bands and be ready to run the rest of the AP Pipeline (namely difference imaging and source association).
+To run this pipeline, make up an appropriate output collection name (``u/USERNAME/OUTPUT-COLLECTION-1`` in the example below), and run
 
-Performing difference imaging to make an APDB
----------------------------------------------
+.. prompt:: bash
+
+   pipetask run -j 4 -b /repo/dc2 -d "skymap='DC2' AND tract=4431 AND patch IN (9, 10, 16, 17) AND band='g'" -i 2.2i/defaults -o u/USERNAME/OUTPUT-COLLECTION-1 -p $AP_PIPE_DIR/pipelines/LsstCamImSim/ApTemplate.yaml --register-dataset-types
+
+To tell the process to run in the background and write output to a logfile, you may wish to prepend ``pipetask run`` with ``nohup`` and postpend the command with ``> OUTFILENAME &``.
+This will take some time, but when it's done, you should have calibrated exposures and a visit summary table, warps, and assembled good seeing coadds for use as templates.
+We are now ready to run the rest of the AP Pipeline (namely difference imaging and source association).
+
+Performing difference imaging and making an APDB
+------------------------------------------------
 
 This next step uses a second pipeline, which effectively includes :py:mod:`lsst.ip.diffim.subtractIamges.AlardLuptonSubtractTask`, :py:mod:`lsst.ip.diffim.detectAndMeasure.DetectAndMeasureTask`, :py:mod:`lsst.ap.association.TransformDiaSourceCatalogTask`, and :py:mod:`lsst.ap.association.DiaPipelineTask`.
 
+The pipeline we will use also lives in the ``ap_pipe`` package, and is the camera-specific ``ApPipe.yaml`` pipeline. To see it, either navigate to the `pipeline on GitHub <https://github.com/lsst/ap_pipe/blob/main/pipelines/LsstCamImSim/ApPipe.yaml>`__ or display the pipeline on via the command line, e.g.,
+
+.. prompt:: bash
+
+   cat $AP_PIPE_DIR/pipelines/LsstCamImSim/ApPipe.yaml
+
+This difference imaging pipeline requires coadds as inputs for use as templates, and treats all input raws as "science" images.
+
+Unlike before, however, we need to make our own pipeline that imports this pipeline so we can configure the APDB URL. Create and save this pipeline yaml file as, e.g., ``My-DC2-ApPipe.yaml`` in your working directory:
+
 .. prompt:: yaml
 
-   description: An AP pipeline for difference imaging with LsstCam-imSim
+   description: My very own AP pipeline for LsstCam-imSim
 
    instrument: lsst.obs.lsst.LsstCamImSim
    imports:
-   - location: ApTemplate-DC2.yaml
-     exclude:  # These tasks are not necessary, as we already have templates
-       - consolidateVisitSummary
-       - selectGoodSeeingVisits
-       - makeWarp
-       - assembleCoadd
-   - location: $AP_PIPE_DIR/pipelines/ApPipe.yaml
-     exclude:  # These tasks come from the ApTemplate-DC2 pipeline instead
-       - isr
-       - characterizeImage
-       - calibrate
+   - location: $AP_PIPE_DIR/pipelines/LsstCamImSim/ApPipe.yaml
 
-This difference imaging pipeline uses the good seeing templates we built and treats all the DP0 defaults as input "science" images.
+   tasks:
+     diaPipe:
+       class: lsst.ap.association.DiaPipelineTask
+       config:
+         apdb.isolation_level: READ_UNCOMMITTED
+         apdb.db_url: 'PATH-TO-YOUR-APDB-HERE'
 
-**This is a two-step process.**
-First, create an empty sqlite APDB:
+What to put for the ``apdb.db_url``? The simplest option, which works fine for relatively small processing runs, is to create an empty sqlite database in your working directory.
+Larger runs will require using, e.g., postgres, which is beyond the scope of this guide.
+To create an empty sqlite APDB:
 
 .. prompt:: bash
 
-   make_apdb.py -c isolation_level=READ_UNCOMMITTED -c db_url="sqlite:////PATH-TO-DESIRED-APDB/ApPipeTest1.db"
+   make_apdb.py -c isolation_level=READ_UNCOMMITTED -c db_url="PATH-TO-YOUR-APDB-HERE"
 
-Note that the APDB must be empty, and it is highly recommended to make a new one each time the AP Pipeline is rerun for any reason.
+**The APDB must exist and be empty before you run the AP Pipeline.**
+Note that sqlite APDBs require the ``isolation_level`` to be set to ``READ_UNCOMMITTED``, while postgres APDBs do not.
+It is highly recommended to make a new APDB each time the AP Pipeline is rerun for any reason.
+A typical ``apdb.db_url`` is, e.g., ``sqlite:////project/mrawls/my-working-directory/run1.db``.
 
-Second, run the pipeline:
+Next, edit your pipeline file to have the same configs used with ``make_apdb.py`` --- the configs you set when making the APDB must match those in your AP Pipeline.
+
+As before, to visualize the AP Pipeline, you may run, e.g.,
 
 .. prompt:: bash
 
-   pipetask run -j 12 -b /repo/dc2 -d "skymap='DC2' AND tract=3829 AND patch=47" -i u/USERNAME/OUTPUT-COLLECTION-2,2.2i/defaults/test-med-1 -o u/USERNAME/OUTPUT-COLLECTION-3 -p ApPipe-DC2.yaml -c diaPipe:apdb.isolation_level=READ_UNCOMMITTED -c diaPipe:apdb.db_url="sqlite:////PATH-TO-DESIRED-APDB/ApPipeTest1.db" --register-dataset-types
+   pipetask build -p My-DC2-ApPipe.yaml --pipeline-dot My-DC2-ApPipe.dot
+   dot My-DC2-ApPipe.dot -Tpng > My-DC2-ApPipe.png
 
-When this pipeline completes, you should have difference images and an APDB with populated tables (``DiaSource``, ``DiaObject``, etc.) for multiple bands in patch 47 of tract 3829 of this dataset.
+You are now ready to run the AP Pipeline!
+Notice you will need to substitute appropriate values for your input collection with templates and your desired new output collection name:
+
+.. prompt:: bash
+
+   pipetask run -j 4 -b /repo/dc2 -d "skymap='DC2' AND band='g'" -i u/USERNAME/OUTPUT-COLLECTION-1,u/mrawls/DM-34827/defaults/4patch_4431 -o u/USERNAME/OUTPUT-COLLECTION-2 -p My-DC2-ApPipe.yaml --register-dataset-types
+
+What are the output data products?
+==================================
+
+When the AP Pipeline completes, you will have difference images, difference image source tables, and an APDB with populated tables (``DiaSource``, ``DiaObject``, etc.) for ``g`` band visits that fully overlap four patches of tract 4431.
+
+A few analysis and plotting tools exist to explore the APDB and other AP Pipeline outputs.
+In the future, these will live in `analysis_ap <https://github.com/lsst/analysis_ap>`__, but in the interim, many have a temporary home in `ap_pipe-notebooks <https://github.com/lsst-dm/ap_pipe-notebooks>`__, which is not formally part of the Science Pipelines.
+One output from the AP Pipeline are are DIA (Difference Image Analysis) Source Tables, which but Butler can retrieve via ``goodSeeingDiff_diaSrcTable``.
+
+To see what DIA Source Tables exist, query, e.g.,
+
+.. prompt:: bash
+
+   butler query-data-ids /repo/dc2 visit detector --collections="u/USERNAME/OUTPUT-COLLECTION-2" --where "skymap='DC2' AND band='g' AND instrument='LSSTCam-imSim'" --datasets "goodSeeingDiff_diaSrcTable"
+
+The APDB also contains several tables with information about DIA Sources, DIA Objects, and Solar System Objects.
+Recall that Objects represent real astrophysical things, and are created by spatially associating per-visit Sources.
+The DIA prefix indicates we are talking about Sources and Objects in difference images.
+More information about the APDB schema is available in `dax_apdb <https://github.com/lsst/dax_apdb/blob/main/python/lsst/dax/apdb/apdbSchema.py>`__.
+
+.. note::
+
+   None of the following is a formally supported APDB user interface.
+   It one way to load a table from the APDB into memory in python and make a quick plot to see where the associated DIA Objects fall on the sky.
+   It also includes an example of how to load a ``goodSeeingDiff_diaSrcTable`` with the Butler for further analysis.
+
+Give this a try in a Jupyter notebook:
+
+.. code-block:: python
+   :name: apdb-simple-example
+
+   %matplotlib notebook
+   import sqlite3
+   import pandas as pd
+   import matplotlib.pyplot as plt
+   import lsst.daf.butler as dafButler
+
+   # Define the data we are exploring, and instantiate a Butler
+   repo = '/repo/dc2'
+   collections = 'u/USERNAME/OUTPUT-COLLECTION-2'
+   instrument='LSSTCam-imSim'
+   skymap='DC2'
+   butler = dafButler.Butler(repo, collections=collections, instrument=instrument, skymap=skymap)
+
+   # Load a diaSrcTable from the Butler for one (visit, detector)
+   diaSrcTable_example = butler.get('goodSeeingDiff_diaSrcTable', visit=960220, detector=33)
+
+   # Take a look at it
+   diaSrcTable_example.head()
+
+   # Connect to the APDB and load all DiaObjects from the whole run
+   connection = sqlite3.connect('PATH-TO-YOUR-APDB-HERE')
+   objTable = pd.read_sql_query('select "diaObjectId", "ra", "decl", \
+                              "nDiaSources", "gPSFluxMean", "validityEnd" \
+                              from '"DiaObject"' where "validityEnd" is NULL;', connection)
+
+   # Take a look at it
+   objTable
+
+   # Plot DIA Objects on the sky
+   fig = plt.figure(figsize=(6,6))
+   ax = fig.add_subplot(111)
+   ax.scatter(objTable.ra, objTable.decl, s=objTable.nDiaSources*2, marker='o', alpha=0.4)
+   ax.set_xlabel('RA (deg)')
+   ax.set_ylabel('Dec (deg)')
+   ax.set_title('DIA Objects on the sky')
+
+
 
 Processing Data with BPS
 ========================
 
-The example data processing steps above assume a relatively small data volume (a single patch), so running from the command line and using an sqlite APDB is appropriate.
+The example data processing steps above assume a relatively small data volume, so running from the command line and using an sqlite APDB is appropriate.
 However, if you want to process larger data volumes, you'll need to use the Batch Processing System (BPS, :py:mod:`lsst.ctrl.bps`) and a PostgreSQL APDB.
 
 Describing how to set up a PostgreSQL APDB is beyond the scope of this guide.
@@ -176,9 +243,9 @@ Save these BPS configuration files as ``ApTemplate-DC2-bps.yaml`` and ``ApPipe-D
 
    The :py:mod:`lsst.ctrl.bps` module is well-documented, and is the first place to look for how to submit a batch processing run on the lsst-devl machines.
 
-Ensure the ``pipelineYaml`` keyword points to ``ApTemplate-DC2.yaml`` and ``ApPipe-DC2.yaml`` in each configuration file, respectively, and that you specify appropriate values for ``inCollection``, ``outCollection``, and ``dataQuery`` like before on the command line with ``pipetask run`` and the ``-i``, ``-o``, and ``-d`` arguments.
+Ensure the ``pipelineYaml`` keyword points to the appropriate ApTemplate and ApPipe pipelines in each BPS configuration file, and that you specify appropriate values for ``inCollection``, ``outCollection``, and ``dataQuery`` like before on the command line with ``pipetask run`` and the ``-i``, ``-o``, and ``-d`` arguments.
 
-For example, to make good seeing templates using all available patches and bands, you may wish to use a less restrictive data query like ``instrument='LSSTCam-imSim' and tract in (3828, 3829) and skymap='DC2'``.
+For example, to make good seeing templates using all available patches and bands in two entire tracts, you may wish to use a data query like ``instrument='LSSTCam-imSim' and tract in (3828, 3829) and skymap='DC2'``.
 
 When you are ready to submit your first BPS run to build templates, follow the documentation to `submit a run <https://pipelines.lsst.io/v/weekly/modules/lsst.ctrl.bps/quickstart.html#submitting-a-run>`__, e.g.,
 
@@ -192,4 +259,3 @@ To submit the second BPS run and perform difference imaging and populate the Pos
 .. prompt:: bash
 
    bps submit ApPipe-DC2-bps.yaml
-
