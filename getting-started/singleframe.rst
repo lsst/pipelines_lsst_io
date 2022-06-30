@@ -36,11 +36,11 @@ Reviewing what data will be processed
 =====================================
 
 Pipeline tasks can operate on a single image or iterate over multiple images.
-You can query for the data available to process using the :command:`butler` command line utility.
+You can query for the data IDs of the exposures available to process using the :command:`butler` command line utility.
 
 .. code-block:: bash
 
-   butler query-data-ids SMALL_HSC --collections HSC/RC2/defaults --datasets 'raw'
+   butler query-data-ids SMALL_HSC exposure,detector --collections HSC/RC2/defaults --datasets 'raw'
 
 The first few lines look something like:
 
@@ -81,7 +81,7 @@ For example, here's how to select just ``HSC-I``-band datasets:
 
 .. code-block:: bash
 
-   butler query-data-ids SMALL_HSC --collections HSC/RC2/defaults --datasets 'raw' --where "physical_filter='HSC-I' AND instrument='HSC'"
+   butler query-data-ids SMALL_HSC exposure,detector --collections HSC/RC2/defaults --datasets 'raw' --where "physical_filter='HSC-I' AND instrument='HSC'"
 
 Now only data IDs for ``HSC-I`` datasets are printed.
 
