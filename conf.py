@@ -33,5 +33,16 @@ jinja_contexts = {
     }
 }
 
-import matplotlib.sphinxext.plot_directive
-extensions.remove(matplotlib.sphinxext.plot_directive.__name__)
+# Patch preset configuration of the matplotlib plot directive from
+# documenteer. In documenteer 0.5 we automatically configure the docs
+# with this extension, but in documenteer 0.6 we stopped adding this
+# extension by default because of compatibility issues with the latest
+# Sphinx. Once we move the Pipelines docs build in ci.lsst.codes to
+# Documenteer 0.6+ we can drop this patch.
+try:
+    import matplotlib.sphinxext.plot_directive
+    mpl_ext_name = matplotlib.sphinxext.plot_directive.__name__
+    if mpl_ext_name in extensions:  # noqa F821
+        extensions.remove(mpl_ext_name)  # noqa F821
+except ImportError:
+    pass
