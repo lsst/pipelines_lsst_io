@@ -113,7 +113,7 @@ When it is complete, you should have good seeing coadds covering the entirety of
 Performing difference imaging to make an APDB
 ---------------------------------------------
 
-This next step uses a second pipeline, which effectively includes :py:mod:`lsst.pipe.tasks.imageDifference.ImageDifferenceTask`, :py:mod:`lsst.ap.association.TransformDiaSourceCatalogTask`, and :py:mod:`lsst.ap.association.DiaPipelineTask`.
+This next step uses a second pipeline, which effectively includes :py:mod:`lsst.ip.diffim.subtractIamges.AlardLuptonSubtractTask`, :py:mod:`lsst.ip.diffim.detectAndMeasure.DetectAndMeasureTask`, :py:mod:`lsst.ap.association.TransformDiaSourceCatalogTask`, and :py:mod:`lsst.ap.association.DiaPipelineTask`.
 
 .. prompt:: yaml
 
