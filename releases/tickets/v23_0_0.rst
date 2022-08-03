@@ -1,6 +1,15 @@
 .. _release-v23-0-0-tickets:
 
 ###################################
+Tickets Addressed in Release 23.0.2
+###################################
+
+- `DM-34290 <https://jira.lsstcorp.org/browse/DM-34290>`_ : Add MJD times to CcdVisit/Visit table
+- `DM-34466 <https://jira.lsstcorp.org/browse/DM-34466>`_ : Write afterburner to re-calibrate src tables
+- `DM-34476 <https://jira.lsstcorp.org/browse/DM-34476>`_ : Remove wPerp from step5 of DP0.2 pipeline
+- `DM-34478 <https://jira.lsstcorp.org/browse/DM-34478>`_ : Remove consolidateForcedSourceTable from step5 of DP0.2 pipeline
+
+###################################
 Tickets Addressed in Release 23.0.1
 ###################################
 
