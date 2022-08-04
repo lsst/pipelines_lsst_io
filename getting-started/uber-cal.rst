@@ -75,14 +75,30 @@ E.g.:
 
 Note the input collection is the same as you passed to ``FGCM`` since ``jointcal`` doesn't depend on any of the outputs of ``FGCM``.
 
+Apply the calibrations
+======================
+
+Now you will want to apply the calibrations derived by running ``FGCM`` and
+``jointcal`` to the source catalogs using the following (as always, changing
+the subset name and collection name appropriately):
+
+.. code-block:: bash
+
+   pipetask run -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml \
+                -p $RC2_SUBSET_DIR/pipelines/DRP.yaml#source_calibration \
+                -i u/$USER/single_frame,u/$USER/fgcm,u/$USER/jointcal \
+                -o u/$USER/source_calibration \
+                --register-dataset-types
+
 Wrap up
 =======
 
-In this tutorial, you've computed the improved photometric and astrometric calibration from multiple visits.
+In this tutorial, you've computed the improved photometric and astrometric calibration from multiple visits, and applied the calibration to the source catalogs from those visits.
 Here are some key takeaways:
 
 - ``FGCM`` provides improved photometric calibration.
 - Astrometric calibration improvements are provided by running ``jointcal``.
+- Calibrations can be applied to the visit-level source catalogs by running the ``calibrate`` subset of tasks.
 - Given a pipeline description, e.g. ``DRP.yaml``, subset can be specified, so running multiple steps can be done with very similar command line syntax.
 
 Continue this tutorial in :doc:`part 5, where you'll warp single frame images and stack them to make coadds <coaddition>`.

@@ -64,7 +64,7 @@ Remember that when specifying the output ``tract`` and ``patch`` information, yo
 In this case, the skymap, called ``hsc_ring_v1`` from a larger HSC run is used.
 The filtering we will do here is:
 
-.. code-block:: bash 
+.. code-block:: bash
 
    -d "tract = 9813 AND skymap = 'hsc_rings_v1' AND patch in (38, 39, 40, 41)"
 
