@@ -113,11 +113,12 @@ Running single frame processing
    If you do not wish to process all the data in the repository at this time, you can specify a data query that will reduce the number of exposures to be processed.
    Simply add the argument ``-d "instrument='HSC' AND detector=41 AND exposure=322"`` to the command line below, and change ``pipelines/DRP.yaml#singleFrame`` to ``pipelines/DRP.yaml#simpleSingleFrame``.
 
-   Note that this will give you an idea of how to execute processing steps from the command line, but **this subset of data will not be sufficient for the full tutorial. If you wish to follow the entire tutorial, you will need to use the full** ``rc2_subset`` **dataset.**
+   Note that this will give you an idea of how to execute processing steps from the command line, but this subset of data will not be sufficient for the full tutorial.
+   If you wish to follow the entire tutorial, you will need to use the full ``rc2_subset`` dataset.
 
    Data queries will be discussed in more detail later.
 
-After learning about datasets, go ahead and run single frame processing  using the :command:`pipetask` command on all ``raw`` datasets in the repository:
+After learning about datasets, go ahead and run single frame processing using the :command:`pipetask` command on all ``raw`` datasets in the repository:
 
 .. code-block:: bash
 
