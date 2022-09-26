@@ -96,7 +96,7 @@ This example uses ``coadds`` as the output collection.
    pipetask run -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml \
                 -d "tract = 9813 AND skymap = 'hsc_rings_v1' AND patch in (38, 39, 40, 41)" \
                 -p $RC2_SUBSET_DIR/pipelines/DRP.yaml#makeWarp \
-                -i u/$USER/jointcal,u/$USER/fgcm \
+                -i u/$USER/source_calibration,u/$USER/jointcal,u/$USER/fgcm \
                 -o u/$USER/warps \
                 --register-dataset-types
 
