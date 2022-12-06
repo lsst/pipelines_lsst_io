@@ -5,6 +5,7 @@ Release History
 .. toctree::
    :maxdepth: 1
 
+   v24_0_0
    v23_0_0
    v22_0_0
    v21_0_0
