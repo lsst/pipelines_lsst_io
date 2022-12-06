@@ -1,0 +1,12 @@
+.. _release-v24-0-0-tickets:
+
+###################################
+Tickets Addressed in Release 24.0.0
+###################################
+
+Tickets merged after w_2022_28 and backported
+---------------------------------------------
+
+
+Tickets merged before w_2022_28
+-------------------------------
