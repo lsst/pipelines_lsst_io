@@ -153,6 +153,13 @@ These Tasks or methods will be deprecated in the next major release.
 
 Matthias will fill in the pending deprecations.
 
+Deprecated Gen 3 code in pipe_drivers
+-------------------------------------
+
+The ``PipelineTask`` classes in ``pipe_drivers``, ``FocalPlaneBackground`` and ``SkyCorrectionTask``, should no longer be used and the identical code in ``pipe_tasks`` should be used instead.
+Please update any Gen3 pipeline definitions to use the new location.
+``pipe_drivers`` (along with ``ctrl_pool`` and ``daf_persistence``) will be removed following the release of v25.0.0.
+
 .. _release-v24-0-0-deprecations:
 
 Deprecations
@@ -169,15 +176,15 @@ These packages/functions are deprecated and will not be available in the next ma
 - :ref:`release-v24-0-0-deprecate-supported-datasets`
 - :ref:`release-v24-0-0-deprecate-configurations`
 
-
 .. _release-v24-0-0-deprecate-gen2:
 
 Deprecated Generation 2 Middleware
 ----------------------------------
 
 Generation 2 middleware (Gen2) is no longer being developed and should not be used for new code.
-Gen2 infrastructure code (within e.g., :ref:`lsst.pipe.tasks`, :ref:`lsst.pipe.base`, :ref:`lsst.obs.base`, `lsst.daf.persistence <https://github.com:lsst/daf_persistence>`_, and obs packages) will no longer be maintained after January 1, 2022, and may be removed at any point afterward.
-The CI package ``ci_hsc_gen2`` will continue to be run, and the tasks it checks will be maintained until we remove the Gen2 infrastructure code in 2022.
+Gen2 infrastructure code (within e.g., :ref:`lsst.pipe.tasks`, :ref:`lsst.pipe.base`, :ref:`lsst.obs.base`, `lsst.daf.persistence <https://github.com:lsst/daf_persistence>`_, and obs packages) will be removed for the next release.
+
+The CI package ``ci_hsc_gen2`` will continue to be run, and the tasks it checks will be maintained until we remove the Gen2 infrastructure code as part of the next release.
 Following this release, we will remove Gen2 infrastructure code and the command-line task entry points, ``runDataRef``, to the Tasks.
 
 .. _release-v24-0-0-deprecate-decamRawIngestTask:
