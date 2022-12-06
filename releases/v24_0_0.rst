@@ -60,7 +60,17 @@ Major New Features
 Generation 3 Middleware
 -----------------------
 
-Tim Jenness will make a statment here.
+This has now formally replaced the Generation 2 middleware.
+Some highlights of this release:
+
+* We have changed the multi-snap visit definition to match operations at the observatory.
+* New butler commands ``remove-runs`` and ``remove-collections`` have been added. These should be used instead of (now deprecated) ``prune-collections``, which can remove more than people expect when chained collections are pruned.
+* It is now possible for the Python type associated with a dataset type to not match that of the butler registry if a converter function has been registered.
+* The command-line tools now only set the logging level of ``lsst`` loggers by default rather than modifying the root logger.
+* Graph building now includes additional diagnostics when an empty quantum graph is reported.
+* New ``pipetask`` commands ``purge`` and ``cleanup`` have been added.
+* A simple pipeline execution class has been added to make it easier to run pipelines in unit tests.
+* The ``bps`` command now includes ``restart`` and ``ping`` functionality.
 
 For more information, see detailed notes on changes to the following middleware packages on this release:
 
