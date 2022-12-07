@@ -184,7 +184,6 @@ Deprecated Generation 2 Middleware
 Generation 2 middleware (Gen2) is no longer being developed and should not be used for new code.
 Gen2 infrastructure code (within e.g., :ref:`lsst.pipe.tasks`, :ref:`lsst.pipe.base`, :ref:`lsst.obs.base`, `lsst.daf.persistence <https://github.com:lsst/daf_persistence>`_, and obs packages) will be removed for the next release.
 
-The CI package ``ci_hsc_gen2`` will continue to be run, and the tasks it checks will be maintained until we remove the Gen2 infrastructure code as part of the next release.
 Following this release, we will remove Gen2 infrastructure code and the command-line task entry points, ``runDataRef``, to the Tasks.
 
 .. _release-v24-0-0-deprecate-decamRawIngestTask:
