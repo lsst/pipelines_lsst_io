@@ -19,7 +19,7 @@ Release 24.0.0 (2022-12-09)
 +-------------------------------------------+------------+
 
 
-This release is based on the ``w_2022_28`` weekly build with XX tickets backported.
+This release is based on the ``w_2022_28`` weekly build with 13 tickets backported.
 
 The notes below highlight significant technical changes to the Science Pipelines codebase in this release.
 For a complete list of changes made, see :doc:`tickets/v24_0_0`.
@@ -84,7 +84,7 @@ For more information, see detailed notes on changes to the following middleware 
 Scarlet Lite
 ------------
 
-Scarlet List is now used by default for measurements on coadds. It is algorithmically identical to Scarlet when processing data from a single camera and takes advantage of analytic gradients to improve runtime and memory usage.
+Scarlet Lite is now used by default for measurements on coadds. It is algorithmically identical to Scarlet when processing data from a single camera and takes advantage of analytic gradients to improve runtime and memory usage.
 Change the configuration parameter ``version`` in :py:class:`~lsst.meas.extensions.scarlet.ScarletDeblendTask` to switch.
 
 See :ref:`lsst.meas.extensions.scarlet` for more info.
@@ -102,7 +102,7 @@ PSFex and PcaPsf are still available per optional configuration.
 Repeatable Star Selection for PSF Modeling
 ------------------------------------------
 
-The default data release production pipeline now includes Tasks :lsst-task:`~lsst.pipe.tasks.isolatedStarAssociation.IsolatedStarAssociationTask` and :lsst-task:`~lsst.pipe.tasks.finalizeCharacterization.FinalizeCharacterizationTask`, which combin multiple visits to identify a consistent set of isolated stars to use for PSF modeling in ever visit.
+The default data release production pipeline now includes Tasks :lsst-task:`~lsst.pipe.tasks.isolatedStarAssociation.IsolatedStarAssociationTask` and :lsst-task:`~lsst.pipe.tasks.finalizeCharacterization.FinalizeCharacterizationTask`, which combine multiple visits to identify a consistent set of isolated stars to use for PSF modeling in ever visit.
 
 .. _release-v24-0-0-amp-matching:
 
@@ -151,7 +151,11 @@ Pending Deprecations
 
 These Tasks or methods will be deprecated in the next major release.
 
-Matthias will fill in the pending deprecations.
+- :ref:`release-v24-0-0-deprecate-gen3-code`
+- :ref:`release-v24-0-0-deprecate-shared-pointers`
+
+.. _release-v24-0-0-deprecate-gen3-code:
+
 
 Deprecated Gen 3 code in pipe_drivers
 -------------------------------------
@@ -159,6 +163,14 @@ Deprecated Gen 3 code in pipe_drivers
 The ``PipelineTask`` classes in ``pipe_drivers``, ``FocalPlaneBackground`` and ``SkyCorrectionTask``, should no longer be used and the identical code in ``pipe_tasks`` should be used instead.
 Please update any Gen3 pipeline definitions to use the new location.
 ``pipe_drivers`` (along with ``ctrl_pool`` and ``daf_persistence``) will be removed following the release of v25.0.0.
+
+.. _release-v24-0-0-deprecate-shared-pointers:
+
+Discourage shared_ptr arguments for C++ member functions
+--------------------------------------------------------
+Smart pointers (such as ``shared_ptr``) should only be used as arguments if a reference, const reference, or raw pointer cannot be used. In ``afw`` and ``daf_base`` some member functions were overloaded and the old implementations using ``shared_ptr`` were marked deprecated and will be removed following the release of v25.0.0.
+
+For more information, refer to :jira:`RFC-817`.
 
 .. _release-v24-0-0-deprecations:
 
@@ -246,8 +258,8 @@ The ``getSupportedDatasets`` method will be removed after v24.
 
 .. _release-v24-0-0-deprecate-configurations:
 
-Deprecated Task Configurations:
--------------------------------
+Deprecated Task Configurations
+------------------------------
 
 The following configurations are no longer used and will be removed after the 24.0.0 release:
 
