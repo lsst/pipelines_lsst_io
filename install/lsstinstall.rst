@@ -52,6 +52,8 @@ For most use cases we recommend downloading and running :command:`lsstinstall` l
       chmod u+x lsstinstall
       ./lsstinstall -T {{ release_eups_tag }}
 
+The :option:`-T` option specifies the eups tag associated with the release you would like to install.
+
 Then load the LSST software environment into your shell:
 
 .. code-block:: bash
@@ -88,7 +90,7 @@ Then load the LSST software environment into your shell:
       curl -sSL https://raw.githubusercontent.com/lsst/shebangtron/main/shebangtron | python
       setup lsst_distrib
 
-If prebuilt binaries are available for your platform (and you did not specify the :option:`-B <lsstinstall -B>` argument to the :command:`lsstinstall` command) the installation should take roughly 10 minutes.
+If prebuilt binaries are available for your platform (and you did not specify the :option:`-B` argument to the :command:`lsstinstall` command) the installation should take roughly 10 minutes.
 Otherwise, the installation falls back to a source build that can take two hours, depending on the top-level package and your machine's performance.
 See :ref:`lsstinstall-find-binaries`.
 
@@ -104,7 +106,7 @@ See :doc:`setup` for more information.
      You can install other tagged versions of the LSST Science Pipelines, though.
      See :ref:`lsstinstall-other-tags`.
 
-   - If you're curious about the shebangtron, see its repository at `github.com/lsst/shebrangtron <https://github.com/lsst/shebangtron>`_.
+   - If you're curious about the shebangtron, see its repository at `github.com/lsst/shebangtron <https://github.com/lsst/shebangtron>`_.
 
 .. _lsstinstall-test:
 
@@ -133,10 +135,11 @@ The above steps guided you through LSST's recommended installation.
 These topics provide additional information about the installation and ways to customize it:
 
 - :ref:`lsstinstall-shared-permissions`.
-- :ref:`lsstinstall-unset-variables`.
 - :ref:`lsstinstall-background`.
 - :ref:`lsstinstall-mambaforge`.
 - :ref:`lsstinstall-user-conda`.
+- :ref:`lsstinstall-rubin-env`.
+- :ref:`lsstinstall-rubin-env-developer`.
 - :ref:`lsstinstall-binary-packages`.
 - :ref:`lsstinstall-find-binaries`.
 - :ref:`lsstinstall-binary-compatibility`.
@@ -153,6 +156,15 @@ You can make a single LSST Science Pipelines installation accessible to multiple
 First, create a separate unix group (called ``lsst``, for example) with a ``umask`` of ``002`` (all access permissions for the group and allow other users to read/execute).
 
 Then set the ownership of the installation directory to the ``lsst`` group, have the ``SGID`` (2000) bit set, and allow group read/write/execute (mode 2775).
+
+After installing the conda environment, make sure to remove write permissions from the ``conda/pkgs/urls*`` files in the base conda installation.
+If these files are writable, conda will attempt to record user environment information in the shared installation.
+
+.. code-block:: bash
+
+   chmod go-w ${CONDA_EXE%bin/conda}/pkgs/urls*
+
+Making them unwritable may lead to spurious ``libmamba`` error messages when creating user environments, but these do not affect the installation.
 
 .. _lsstinstall-background:
 
@@ -197,10 +209,41 @@ How to use your own conda with lsstinstall
 :command:`lsstinstall` installs a new conda based on Mambaforge by default.
 If desired, you can use your own pre-existing conda installation.
 
-To do so, either have that conda activated when you run :command:`lsstinstall`, or provide the `-p` option to :command:`lsstinstall` pointing to the conda installation's prefix.
+To do so, either have that conda activated when you run :command:`lsstinstall`, or provide the :option:`-p` option to :command:`lsstinstall` pointing to the conda installation's prefix.
 Having :command:`mamba` installed in the ``base`` environment is recommended for faster dependency solves.
 
 A Science Pipelines environment will still be created (unless you already have one).
+
+.. _lsstinstall-rubin-env:
+
+About the rubin-env metapackage
+-------------------------------
+
+The conda environment created by :command:`lsstinstall` is based on the rubin-env conda metapackage.
+Each release of the LSST Science Pipelines is built with a particular rubin-env version.
+A given rubin-env version is typically used to build many releases (daily, weekly, and sometimes major) of the Science Pipelines, and a given release of the Science Pipelines source is often compatible with more than one rubin-env version.
+
+Note that a given rubin-env version does not itself exactly specify all versions of its dependencies.
+We typically allow dependency versions to "float" to more recent updates in order to allow greater compatibility with user-installed packages and to pick up bug fixes.
+We only restrict these updates if newer versions cause incompatibilities with the Science Pipelines source code.
+This means that one user's installation of a given rubin-env version may be different from another's.
+To assist with debugging, you may be asked to list the installed dependency versions with the :command:`conda env export` command.
+In production, the dependencies are frozen at the versions that were tested when the :ref:`docker containers <docker>` were built.
+
+You choose the version of the dependencies with the :command:`lsstinstall` arguments :option:`-T` (to match the version used to build a particular tag of the Science Pipelines), :option:`-X` (to use the exact packages used for that tag's build, not allowing any to float to more recent updates), or :option:`-v` (to specify a particular version manually).
+
+You can update the versions of the rubin-env dependencies to the latest compatible ones for the rubin-env version specified by using :command:`lsstinstall` with the :option:`-u` option.
+
+.. _lsstinstall-rubin-env-developer:
+
+About the rubin-env-developer metapackage
+-----------------------------------------
+
+The rubin-env-developer metapackage adds tools and utilities that are useful for developers working on improving the LSST Science Pipelines but not necessarily for users processing data with them.
+It can be installed on top of the rubin-env installation performed by :command:`lsstinstall` by specifying the :option:`-d` option.
+
+Only rubin-env versions 5.0.0 and greater can use this option.
+
 
 .. _lsstinstall-binary-packages:
 
@@ -217,8 +260,7 @@ Platforms are defined by two factors:
 
 When you run :command:`lsstinstall`, it looks at your system to identify your operating system.
 
-You choose the version of the dependencies with `-T` (to match the version used to build a particular tag of the Science Pipelines), `-X` (to use the exact packages used for that tag's build, not allowing any to float to more recent updates), or `-v` (to specify a particular version manually).
-
+See :ref:`lsstinstall-rubin-env` for more about the rubin-env metapackage and how to select its version.
 The EUPS packages that make up the Science Pipelines are installed within that environment, as they are only binary-compatible with its conda packages and tools.
 The URLs used to retrieve EUPS packages are also stored within the environment in ``$EUPS_PATH/pkgroot``.
 ``loadLSST.sh`` will automatically read this file to enable proper use of :command:`eups distrib install` by setting the ``EUPS_PKGROOT`` environment variable.
@@ -247,7 +289,7 @@ First, get your EUPS package root URLs:
    eups distrib path
 
 If the only URL listed is https://eups.lsst.codes/stack/src, it means that :command:`lsstinstall` configured your environment to not use binary packages.
-Try re-running :command:`lsstinstall` (see :ref:`lsstinstall-run`) without the :option:`-B <lsstinstall -B>` argument, and check to make sure that your computing platform is supported for binary packages (currently Linux Intel and macOS Intel only).
+Try re-running :command:`lsstinstall` (see :ref:`lsstinstall-run`) without the :option:`-B` argument, and check to make sure that your computing platform is supported for binary packages (currently Linux Intel and macOS Intel only).
 
 If :command:`eups distrib path` includes an additional URL that doesn't end with ``/src`` (for example, ``https://eups.lsst.codes/stack/osx/10.9/conda-system/miniconda3-py38_4.9.2-0.8.0``), it means :command:`lsstinstall` has configured a binary package root.
 The construction of the binary package root URL is based on your OS and rubin-env version (see :ref:`lsstinstall-binary-packages`).
@@ -314,14 +356,15 @@ You can see all available tags at https://eups.lsst.codes/stack/src/tags (each t
 lsstinstall argument reference
 --------------------------------
 
-.. program:: lsstinstall
-
 .. code-block:: text
 
    usage: lsstinstall [-n]
        [-T EUPS_TAG | -X EUPS_TAG | -v RUBINENV_VERSION]
-       [-e ENV_NAME] [-u] [-p CONDA_PATH] [-P] [-E EUPS_URL]
-       [-B] [-S] [-h]
+       [-e ENV_NAME] [-u] [-d]
+       [-p CONDA_PATH] [-P] [-C CHANNEL]
+       [-E EUPS_URL]
+       [-B] [-S]
+       [-h]
 
 .. option:: -n
 
@@ -347,6 +390,10 @@ lsstinstall argument reference
 
     Update rubin-env in an existing environment to the latest build.
 
+.. option:: -d
+
+    Add a compatible rubin-env-developer to rubin-env (5.0.0 and later).
+
 .. option:: -p <CONDA_PATH>
 
     Specify the path to the conda installation.
@@ -357,6 +404,12 @@ lsstinstall argument reference
 .. option:: -P
 
     DO NOT use an existing activated conda; always install a new one.
+
+.. option:: -C <CHANNEL>
+
+    Use the given conda channel before the conda-forge channel.
+    May be repeated; first has highest priority.
+    Useful primarily for testing new rubin-env versions in the ``dev`` channel.
 
 .. option:: -E <EUPS_URL>
 
