@@ -9,6 +9,7 @@ Installing the LSST Science Pipelines
 
    prereqs
    newinstall
+   lsstinstall
    setup
    top-level-packages
    docker
