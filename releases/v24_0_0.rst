@@ -1,0 +1,283 @@
+.. _release-latest:
+.. _release-v24-0-0:
+
+###########################
+Release 24.0.0 (2022-12-09)
+###########################
+
+.. toctree::
+   :hidden:
+
+   tickets/v24_0_0
+
++-------------------------------------------+------------+
+| Source                                    | Identifier |
++===========================================+============+
+| Git tag                                   | 24.0.0     |
++-------------------------------------------+------------+
+| :doc:`EUPS distrib </install/newinstall>` | v24\_0\_0  |
++-------------------------------------------+------------+
+
+
+This release is based on the ``w_2022_28`` weekly build with 13 tickets backported.
+
+The notes below highlight significant technical changes to the Science Pipelines codebase in this release.
+For a complete list of changes made, see :doc:`tickets/v24_0_0`.
+
+A Characterization Metric Report will be released describing the scientific performance of this release in terms of scientific performance metrics with the first minor release.
+
+If you have questions or comments about this release, visit our `community forum <https://community.lsst.org>`_ for advice.
+
+- :ref:`release-v24-0-0-functionality`
+- :ref:`release-v24-0-0-interface`
+- :ref:`release-v24-0-0-pending-deprecations`
+- :ref:`release-v24-0-0-deprecations`
+
+*See also:*
+
+- :doc:`Installation instructions </install/index>`
+- :doc:`Known issues </known-issues>`
+- `Doxygen Documentation`__
+
+__ http://doxygen.lsst.codes/stack/doxygen/xlink_main_2022_07_07_08.22.14/
+
+
+.. _release-v24-0-0-functionality:
+
+Major New Features
+==================
+
+- :ref:`release-v24-0-0-gen3`
+- :ref:`release-v24-0-0-scarlet-lite`
+- :ref:`release-v24-0-0-piff`
+- :ref:`release-v24-0-0-repeatable-stars`
+- :ref:`release-v24-0-0-amp-matching`
+- :ref:`release-v24-0-0-python310`
+
+
+.. _release-v24-0-0-gen3:
+
+Generation 3 Middleware
+-----------------------
+
+This has now formally replaced the Generation 2 middleware.
+Some highlights of this release:
+
+* We have changed the multi-snap visit definition to match operations at the observatory.
+* New butler commands ``remove-runs`` and ``remove-collections`` have been added. These should be used instead of (now deprecated) ``prune-collections``, which can remove more than people expect when chained collections are pruned.
+* It is now possible for the Python type associated with a dataset type to not match that of the butler registry if a converter function has been registered.
+* The command-line tools now only set the logging level of ``lsst`` loggers by default rather than modifying the root logger.
+* Graph building now includes additional diagnostics when an empty quantum graph is reported.
+* New ``pipetask`` commands ``purge`` and ``cleanup`` have been added.
+* A simple pipeline execution class has been added to make it easier to run pipelines in unit tests.
+* The ``bps`` command now includes ``restart`` and ``ping`` functionality.
+
+For more information, see detailed notes on changes to the following middleware packages on this release:
+
+- :doc:`lsst.daf.butler </modules/lsst.daf.butler/CHANGES>`,
+- :doc:`lsst.pipe.base </modules/lsst.pipe.base/CHANGES>`,
+- :doc:`lsst.ctrl.mpexec </modules/lsst.ctrl.mpexec/CHANGES>`,
+- :doc:`lsst.ctrl.bps </modules/lsst.ctrl.bps/CHANGES>`.
+
+.. _release-v24-0-0-scarlet-lite:
+
+Scarlet Lite
+------------
+
+Scarlet Lite is now used by default for measurements on coadds. It is algorithmically identical to Scarlet when processing data from a single camera and takes advantage of analytic gradients to improve runtime and memory usage.
+Change the configuration parameter ``version`` in :py:class:`~lsst.meas.extensions.scarlet.ScarletDeblendTask` to switch.
+
+See :ref:`lsst.meas.extensions.scarlet` for more info.
+
+.. _release-v24-0-0-piff:
+
+PIFF Default for PSF Modeling
+-----------------------------
+The data release pipeline now uses `Piff <https://github.com/rmjarvis/Piff>`_ as the default PSF modeling algorithm.
+PSFex and PcaPsf are still available per optional configuration.
+:jirab:`RFC-755`
+
+.. _release-v24-0-0-repeatable-stars:
+
+Repeatable Star Selection for PSF Modeling
+------------------------------------------
+
+The default data release production pipeline now includes Tasks :lsst-task:`~lsst.pipe.tasks.isolatedStarAssociation.IsolatedStarAssociationTask` and :lsst-task:`~lsst.pipe.tasks.finalizeCharacterization.FinalizeCharacterizationTask`, which combine multiple visits to identify a consistent set of isolated stars to use for PSF modeling in ever visit.
+
+.. _release-v24-0-0-amp-matching:
+
+Amp-to-amp Offset Matching During ISR
+-------------------------------------
+
+The `~lsst.ip.isr.IsrTask` includes the Pan-STARRS “pattern continuity” algorithm (a.k.a amp-to-amp matching) that applies additive offsets to the background levels of individual amplifiers so that the boundaries are continuous.
+
+.. _release-v24-0-0-python310:
+
+Use Python 3.10
+---------------
+
+As approved in :jirab:`RFC-845`, the Science Pipelines uses 3.10 as the baseline python version.
+
+
+.. _release-v24-0-0-interface:
+
+Significant Interface Changes
+=============================
+
+- :ref:`release-v24-0-0-new-packages`
+- :ref:`release-v24-0-0-packages-removed`
+
+.. _release-v24-0-0-new-packages:
+
+New Packages Added
+------------------
+* `analysis_drp <https://github.com/lsst/analysis_drp>`_ provides static plotting code for monitoriing pipeline quality.
+* `atmospec <https://github.com/lsst/atmospec>`_ and `spectractor <https://github.com/lsst/spectractor>`_ provide support for analyzing spetra from LATISS.
+* `lsst\_bps\_plugins <https://github.com/lsst/lsst_bps_plugins>`_, :ref:`lsst.ctrl.bps.htcondor`, and  :ref:`lsst.ctrl.bps.panda`
+* :ref:`lsst.drp.pipe` provide high-level pipeline specification for data releases.
+* resources
+
+.. _release-v24-0-0-packages-removed:
+
+Packages Removed
+--------------------
+* `validate_drp <https://github.com/lsst/validate_drp>`_, `validate_data_cfht <https://github.com/lsst/validate_data_cfht>`_, `validate_data_decam <https://github.com/lsst/validate_data_decam>`_ were removed. The algorithms implemented in `validate_drp <https://github.com/lsst/validate_drp>`_ were ported as-is to run in :ref:`lsst.faro`. All future development of scientific performance metrics will be carried out in faro.
+* A number of packages that were gen2-specific, `obs_test <https://github.com/lsst-dm/legacy-obs_test>`_, `obs_test_data <https://github.com/lsst/obs_test_data>`_, `ctrl_orca <https://github.com/lsst-dm/legacy-ctrl_orca>`_,  `ctrl_execute <https://github.com/lsst/ctrl_execute>`_, `ctrl_platform_lsstvc <https://github.com/lsst-dm/legacy-ctrl_platform_lsstvc>`_, were also removed.
+
+.. _release-v24-0-0-pending-deprecations:
+
+Pending Deprecations
+====================
+
+These Tasks or methods will be deprecated in the next major release.
+
+- :ref:`release-v24-0-0-deprecate-gen3-code`
+- :ref:`release-v24-0-0-deprecate-shared-pointers`
+
+.. _release-v24-0-0-deprecate-gen3-code:
+
+
+Deprecated Gen 3 code in pipe_drivers
+-------------------------------------
+
+The ``PipelineTask`` classes in ``pipe_drivers``, ``FocalPlaneBackground`` and ``SkyCorrectionTask``, should no longer be used and the identical code in ``pipe_tasks`` should be used instead.
+Please update any Gen3 pipeline definitions to use the new location.
+``pipe_drivers`` (along with ``ctrl_pool`` and ``daf_persistence``) will be removed following the release of v25.0.0.
+
+.. _release-v24-0-0-deprecate-shared-pointers:
+
+Discourage shared_ptr arguments for C++ member functions
+--------------------------------------------------------
+Smart pointers (such as ``shared_ptr``) should only be used as arguments if a reference, const reference, or raw pointer cannot be used. In ``afw`` and ``daf_base`` some member functions were overloaded and the old implementations using ``shared_ptr`` were marked deprecated and will be removed following the release of v25.0.0.
+
+For more information, refer to :jira:`RFC-817`.
+
+.. _release-v24-0-0-deprecations:
+
+Deprecations
+============
+
+These packages/functions are deprecated and will not be available in the next major release.
+
+- :ref:`release-v24-0-0-deprecate-gen2`
+- :ref:`release-v24-0-0-deprecate-decamRawIngestTask`
+- :ref:`release-v24-0-0-deprecate-doApplyUberCal-in-forcedPhotCcd.py`
+- :ref:`release-v24-0-0-deprecate-configurations-in-psfexStarSelector.py`
+- :ref:`release-v24-0-0-deprecate-default-position`
+- :ref:`release-v24-0-0-deprecate-logging`
+- :ref:`release-v24-0-0-deprecate-supported-datasets`
+- :ref:`release-v24-0-0-deprecate-configurations`
+
+.. _release-v24-0-0-deprecate-gen2:
+
+Deprecated Generation 2 Middleware
+----------------------------------
+
+Generation 2 middleware (Gen2) is no longer being developed and should not be used for new code.
+Gen2 infrastructure code (within e.g., :ref:`lsst.pipe.tasks`, :ref:`lsst.pipe.base`, :ref:`lsst.obs.base`, `lsst.daf.persistence <https://github.com:lsst/daf_persistence>`_, and obs packages) will be removed for the next release.
+
+Following this release, we will remove Gen2 infrastructure code and the command-line task entry points, ``runDataRef``, to the Tasks.
+
+.. _release-v24-0-0-deprecate-decamRawIngestTask:
+
+Deprecated DecamRawIngestTask
+-----------------------------
+
+DECam no longer requires a specialist Gen3 ingest task.
+Please use the default `~lsst.obs.base.RawIngestTask`.
+`~lsst.obs.decam.ingest.DecamRawIngestTask` will be removed after v24.
+
+.. _release-v24-0-0-deprecate-doApplyUberCal-in-forcedPhotCcd.py:
+
+Deprecated doApplyUberCal in ForcedPhotCcdTask
+----------------------------------------------
+
+The field ``doApplyUberCal`` is deprecated.
+Use ``doApplyExternalPhotoCalib`` and ``doApplyExternalSkyWcs`` instead.
+It will be removed after this release.
+:jirab:`DM-23352`
+
+
+.. _release-v24-0-0-deprecate-configurations-in-psfexStarSelector.py:
+
+Deprecated configurations in PsfexStarSelectorTask
+--------------------------------------------------
+
+The following configurations are no longer used and will be removed after this release:
+
+* ``maxbad``
+* ``maxbadflag``
+
+:jirab:`DM-5684`
+
+.. _release-v24-0-0-deprecate-default-position:
+
+Deprecate PSF evaluation without position argument
+--------------------------------------------------
+
+PSF models are spatially-varying. Evaluation of these models with methods such as ``psf.computeImage()`` without a position argument will return the realization of the PSF at the average position. A position argument will be required after v24. The current behavior can be replicated by explicitly providing the average position like ``psf.computeImage(psf.getAveragePosition())``.
+
+For more information, refer to :jira:`RFC-796`.
+
+.. _release-v24-0-0-deprecate-logging:
+
+Deprecate f-string log messages
+-------------------------------
+
+f-string log messages are now deprecated to match Python logging convention.
+
+For more information, refer to :jira:`RFC-789`.
+
+.. _release-v24-0-0-deprecate-supported-datasets:
+
+Deprecate ap.verify.Dataset.getSupportedDatasets
+------------------------------------------------
+
+The concept of 'supported' datasets is deprecated.
+The ``getSupportedDatasets`` method will be removed after v24.
+
+.. _release-v24-0-0-deprecate-configurations:
+
+Deprecated Task Configurations
+------------------------------
+
+The following configurations are no longer used and will be removed after the 24.0.0 release:
+
+In :lsst-task:`~lsst.pipe.tasks.selectImages.PsfWcsSelectImagesTask`, the following configuration parameters and functionality have been moved to :lsst-task:`~lsst.pipe.tasks.computeExposureSummaryStats.ComputeExposureSummaryStatsTask`:
+
+* ``starSelection``
+* ``starShape``
+* ``psfShape``
+
+The configuration parameter ``doLegacyStarSelectionComputation`` has been added to provide backwards compatibility for the duration of two releases.
+
+In ``lsst.pipe.tasks.InsertFakesTask``:
+
+* ``raColName``: Use ``ra_col`` instead.
+* ``decColName``: Use ``dec_col`` instead.
+* ``diskHLR``, ``aDisk``, ``bDisk``, ``paDisk``: Use ``disk_semimajor_col``, ``disk_axis_ratio_col``, and ``disk_pa_col`` to specify disk half-light ellipse.
+* ``nDisk``: Use ``disk_n`` instead.
+* ``bulgeHLR``, ``bulge_pa_col``, ``aBulge``, ``bBulge``, ``paBulge``: Use ``bulge_semimajor_col``, ``bulge_axis_ratio_col``, and  to specify disk half-light ellipse.
+* ``nBulge``: Use ``bulge_n`` instead.
+* ``magVar``: Use ``mag_col`` instead.
+* ``sourceSelectionColName``: Use ``select_col`` instead.
