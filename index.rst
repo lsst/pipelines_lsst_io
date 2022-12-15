@@ -51,6 +51,7 @@ Recommended installation path:
 
 Alternative distributions and installation methods:
 
+- :doc:`Installing with lsstinstall <install/lsstinstall>`
 - :doc:`install/docker`
 - :doc:`Installing from source with lsstsw <install/lsstsw>`
 - `CernVM FS <https://sw.lsst.eu>`_ (contributed by CC-IN2P3)
