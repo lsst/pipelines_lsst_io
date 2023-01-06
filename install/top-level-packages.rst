@@ -27,36 +27,30 @@ lsst\_distrib
 This package provides all of the core Science Pipelines functionality, together with additional measurement algorithms, support for a wider variety of instrumentation, and process execution middleware designed for running pipelines on a cluster.
 In addition to the contents of ``lsst_apps``, it provides the following packages:
 
-- `ap_verify <https://github.com/lsst/ap_verify>`_
+- `ap\_verify <https://github.com/lsst/ap_verify>`_
+- `atmospec <https://github.com/lsst/atmospec>`_
 - `cbp <https://github.com/lsst/cbp>`_
 - `cp\_pipe <https://github.com/lsst/cp_pipe>`_
-- `ctrl\_execute <https://github.com/lsst/ctrl_execute>`_
+- `cp\_verify <https://github.com/lsst/cp_verify>`_
+- `ctrl\_bps <https://github.com/lsst/ctrl_bps>`_
 - `ctrl\_mpexec <https://github.com/lsst/ctrl_mpexec>`_
-- `ctrl\_orca <https://github.com/lsst/ctrl_orca>`_
-- `ctrl\_platform_lsstvc <https://github.com/lsst/ctrl_platform_lsstvc>`_
-- `ctrl\_pool <https://github.com/lsst/ctrl_pool>`_
+- `display\_astrowidgets <https://github.com/lsst/display_astrowidgets>`_
 - `display\_firefly <https://github.com/lsst/display_firefly>`_
 - `display\_matplotlib <https://github.com/lsst/display_matplotlib>`_
-- `eigen <https://github.com/lsst/eigen>`_ (Eigen is also installed through our :ref:`Conda environment <system-prereqs>`; this version is only necessary to support Jointcal)
-- `fgcm <https://github.com/lsst/fgcm>`_
+- `drp\_pipe <https://github.com/lsst/drp_pipe>`_
+- `faro <https://github.com/lsst/faro>`_
 - `fgcmcal <https://github.com/lsst/fgcmcal>`_
-- `firefly\_client <https://github.com/lsst/firefly_client>`_
 - `jointcal <https://github.com/lsst/jointcal>`_
-- `jointcal\_cholmod <https://github.com/lsst/jointcal_cholmod>`_
-- `lsst_obs <https://github.com/lsst/lsst_obs>`_
+- `lsst\_bps_plugins <https://github.com/lsst/lsst_bps_plugins>`_ (contains supported BPS plugins)
+- `lsst\_obs <https://github.com/lsst/lsst_obs>`_ (contains supported "obs" packages)
 - `meas\_extensions_convolved <https://github.com/lsst/meas_extensions_convolved>`_
+- `meas\_extensions_gaap <https://github.com/lsst/meas_extensions_gaap>`_
 - `meas\_extensions_photometryKron <https://github.com/lsst/meas_extensions_photometryKron>`_
+- `meas\_extensions_scarlet <https://github.com/lsst/meas_extensions_scarlet>`_
 - `meas\_extensions_shapeHSM <https://github.com/lsst/meas_extensions_shapeHSM>`_
-- `obs\_cfht <https://github.com/lsst/obs_cfht>`_
-- `obs\_ctio0m9 <https://github.com/lsst/obs_ctio0m9>`_
-- `obs\_decam <https://github.com/lsst/obs_decam>`_
-- `obs\_decam_data <https://github.com/lsst/obs_decam_data>`_
-- `obs\_lsst <https://github.com/lsst/obs_lsst>`_
-- `obs\_lsst_data <https://github.com/lsst/obs_lsst_data>`_
-- `obs\_subaru <https://github.com/lsst/obs_subaru>`_
-- `obs\_subaru\_data <https://github.com/lsst/obs_subaru_data>`_
-- `pipe\_drivers <https://github.com/lsst/pipe_drivers>`_
-- `synpipe <https://github.com/lsst/synpipe>`_
+- `meas\_extensions_trailedSources <https://github.com/lsst/meas_extensions_trailedSources>`_
+- `sdm\_schemas <https://github.com/lsst/sdm_schemas>`_
+- `verify <https://github.com/lsst/verify>`_
 
 Example installation (:ref:`more info <newinstall-install>`):
 
