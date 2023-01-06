@@ -40,8 +40,11 @@ In addition to the contents of ``lsst_apps``, it provides the following packages
 - `jointcal\_cholmod <https://github.com/lsst/jointcal_cholmod>`_
 - `lsst_obs <https://github.com/lsst/lsst_obs>`_
 - `meas\_extensions_convolved <https://github.com/lsst/meas_extensions_convolved>`_
+- `meas\_extensions_gaap <https://github.com/lsst/meas_extensions_gaap>`_
 - `meas\_extensions_photometryKron <https://github.com/lsst/meas_extensions_photometryKron>`_
+- `meas\_extensions_scarlet <https://github.com/lsst/meas_extensions_scarlet>`_
 - `meas\_extensions_shapeHSM <https://github.com/lsst/meas_extensions_shapeHSM>`_
+- `meas\_extensions_trailedSources <https://github.com/lsst/meas_extensions_trailedSources>`_
 - `obs\_cfht <https://github.com/lsst/obs_cfht>`_
 - `obs\_decam <https://github.com/lsst/obs_decam>`_
 - `obs\_decam_data <https://github.com/lsst/obs_decam_data>`_
