@@ -57,9 +57,11 @@ The Science Pipelines provides native integrations for many observatories, inclu
 
 First, clone `rc2_subset`_ using Git:
 
-.. code-block:: bash
+.. jinja:: default
 
-   git clone https://github.com/lsst-dm/rc2_subset
+   .. code-block:: bash
+
+     git clone -b {{ release_eups_tag }} https://github.com/lsst/rc2_subset
 
 Then :command:`setup` the package to add it to the EUPS stack:
 
@@ -173,5 +175,5 @@ Here are some key takeaways:
 
 In :doc:`part 2 of this tutorial series <singleframe>` you will process the HSC data in this newly-created Butler repository into calibrated exposures.
 
-.. _rc2_subset: https://github.com/lsst-dm/rc2_subset
+.. _rc2_subset: https://github.com/lsst/rc2_subset
 .. _Community Forum: https://community.lsst.org
