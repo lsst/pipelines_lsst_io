@@ -61,7 +61,7 @@ First, clone `rc2_subset`_ using Git:
 
    .. code-block:: bash
 
-     git clone -b {{ release_eups_tag }} https://github.com/lsst/rc2_subset
+     git clone -b {{ release_git_ref }} https://github.com/lsst/rc2_subset
 
 Then :command:`setup` the package to add it to the EUPS stack:
 
