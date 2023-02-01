@@ -56,11 +56,12 @@ From the :file:`lsstsw` directory, run:
 
 .. code-block:: bash
 
-   rebuild lsst_distrib
+   rebuild -t current lsst_distrib
 
 Once the ``rebuild`` step finishes, note the build number printed on screen.
 It is formatted as "``bNNNN``."
-Tag this build as ``current`` so that EUPS can set it up by default:
+The ``-t current`` argument automatically marks the installed packages with the "current" tag, so that eups will set them up when no version is specified.
+The equivalent command to do this manually would be:
 
 .. code-block:: bash
 
@@ -101,7 +102,7 @@ You can upgrade an lsstsw installation in-place by following these steps from wi
 #. Run `git pull` to download the latest environment definition.
 #. Run `bin/deploy` to install that new conda environment.
 #. Start a new shell for the final command, to ensure your shell environment is properly configured for the new lsstsw env, and `source lsstsw/bin/envconfig` if it is not automatically sourced during your shell startup.
-#. Run `rebuild -u lsst_distrib` to download the latest repos definition file and rebuild the entire Science Pipelines codebase.
+#. Run `rebuild -u -t current lsst_distrib` to download the latest repos definition file, rebuild the entire Science Pipelines codebase, and mark the installed packages with the eups "current" tag.
 
 If you do not intend to use your older builds in the future, you can remove all of the sub-directories in your :file:`stack/VERSION/` (where ``VERSION`` is the old environment version) path before the upgrade, to save space and reduce the number of eups package versions.
 
