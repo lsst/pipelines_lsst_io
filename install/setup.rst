@@ -26,7 +26,7 @@ Setting the LSST Science Pipelines in a shell is a two-step process:
 
    .. note::
 
-      These installation are for :doc:`newinstall.sh <newinstall>`-based installations.
+      These installation are for :doc:`newinstall.sh <newinstall>`- and :doc:`lsstinstall`-based installations.
       For ``lsstsw``, follow :ref:`these instructions <lsstsw-setup>` instead.
 
 2. Set up a top-level package:
