@@ -16,7 +16,8 @@ Release 23.0.0 (2021-12-21)
 +-------------------------------------------+------------+
 | :doc:`EUPS distrib </install/newinstall>` | v23\_0\_0  |
 +-------------------------------------------+------------+
-
+| rubin-env version                         | 0.8.4      |
++-------------------------------------------+------------+
 
 This release is based on the ``w_2021_40`` weekly build, with 29 tickets backported to support the Data Preview 0.2 data release.
 
