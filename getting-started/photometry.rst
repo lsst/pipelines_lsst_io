@@ -47,12 +47,12 @@ The fifth and final step is executed in :ref:`this section <getting-started-tuto
 
 .. code-block:: bash
 
-   pipetask run -b SMALL_HSC/butler.yaml \
-                -d "tract = 9813 AND skymap = 'hsc_rings_v1' AND patch in (38, 39, 40, 41)" \
-                -p 'pipelines/DRP.yaml#coadd_measurement' \
-                -i u/$USER/coadds \
-                --register-dataset-types \
-                -o u/$USER/coadd_meas
+   pipetask run --register-dataset-types \
+   -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml \
+   -i u/$USER/coadds \
+   -o u/$USER/coadd_meas \
+   -p $DRP_PIPE_DIR/pipelines/HSC/DRP-RC2_subset.yaml#coadd_measurement \
+   -d "skymap = 'hsc_rings_v1' AND tract = 9813 AND patch in (38, 39, 40, 41)"
 
 Notice that since this task operates on coadds, we can select the coadds using the ``tract``, and ``patch`` data ID keys.
 In past sections, the examples left off the ``-d`` argument in order to process all available data.
@@ -124,12 +124,12 @@ Re-measure the coadds using these fixed source positions (the forced photometry 
 
 .. code-block:: bash
 
-   pipetask run -b SMALL_HSC/butler.yaml \
-                -d "tract = 9813 AND skymap = 'hsc_rings_v1' AND patch in (38, 39, 40, 41)" \
-                -p 'pipelines/DRP.yaml#forced_objects' \
-                -i u/$USER/coadd_meas \
-                --register-dataset-types \
-                -o u/$USER/objects
+   pipetask run --register-dataset-types \
+   -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml \
+   -i u/$USER/coadd_meas \
+   -o u/$USER/objects \
+   -p $DRP_PIPE_DIR/pipelines/HSC/DRP-RC2_subset.yaml#forced_objects \
+   -d "skymap = 'hsc_rings_v1' AND tract = 9813 AND patch in (38, 39, 40, 41)"
 
 As above, this selects just the patches that have full coverage.
 
