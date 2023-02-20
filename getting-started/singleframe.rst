@@ -111,7 +111,7 @@ Running single frame processing
 
    As mentioned in :doc:`part 1 <data-setup>`, this part of the processing is by far the most time consuming.
    If you do not wish to process all the data in the repository at this time, you can specify a data query that will reduce the number of exposures to be processed.
-   Simply add the argument ``-d "instrument='HSC' AND detector=41 AND exposure=322"`` to the command line below, and change ``pipelines/DRP.yaml#singleFrame`` to ``pipelines/DRP.yaml#simpleSingleFrame``.
+   Simply add the argument ``-d "instrument='HSC' AND exposure=322" AND detector=41`` to the command line below, and change ``#singleFrame`` to ``#simpleSingleFrame``.
 
    Note that this will give you an idea of how to execute processing steps from the command line, but this subset of data will not be sufficient for the full tutorial.
    If you wish to follow the entire tutorial, you will need to use the full ``rc2_subset`` dataset.
@@ -131,10 +131,11 @@ After learning about datasets, go ahead and run single frame processing using th
 There are many arguments to command:``pipetask run``.
 You can get useful information by saying command:``pipetask run --help``, but let's go over the ones listed here.
 
-The ``-b`` option specifies which butler definition to use when constructing the ``Butler`` object to use in processing.
+The ``--register-dataset-types`` switch tells the butler to register a dataset type if it doesn't already have a definition for it.
+Because pipelines are allowed to define datasets at runtime, this switch is necessary if you expect products to be produced that are not already represented in the registry as in this case where we are producing calibrated exposures in a repository that contains only ``raw`` files.
+If you expect that all of the dataset types should already be registered, as is the case when processing another subset of data with a pipeline that has already been run, it can help catch unexpected behavior to remove that switch.
 
-The ``-p`` option specifies which pipeline to run.
-The full pipeline definition lives in the ``DRP.yaml`` file, but subtasks of the full processing can be run by specifying the subtask name with the ``#`` character, e.g. ``#singleFrame`` in this case.
+The ``-b`` option specifies which butler definition to use when constructing the ``Butler`` object to use in processing.
 
 The ``-i`` option indicates the input collections to use in processing.
 You will learn more about collections later in this document.
@@ -144,9 +145,8 @@ These tutorials suggest that you put the outputs in collections under a namespac
 In this case, there is little reason to be so careful because you are likely to have cloned into a space not shared with others.
 However, it is good practice for times when you may be using a repository with a registry used by other users on the same system.
 
-The ``--register-dataset-types`` switch tells the butler to register a dataset type if it doesn't already have a definition for it.
-Because pipelines are allowed to define datasets at runtime, this switch is necessary if you expect products to be produced that are not already represented in the registry as in this case where we are producing calibrated exposures in a repository that contains only ``raw`` files.
-If you expect that all of the dataset types should already be registiered, as is the case when processing another subset of data with a pipeline that has already been run, it can help catch unexpected behavior to remove that switch.
+The ``-p`` option specifies which pipeline to run.
+The full pipeline definition lives in the ``.yaml`` file, but subtasks of the full processing can be run by specifying the subtask name with the ``#`` character, e.g. ``#singleFrame`` in this case.
 
 .. tip::
 

@@ -46,11 +46,11 @@ As in :doc:`part 2 <singleframe>` you will be running pipelines configured to pr
 
 .. code-block:: bash
 
-   pipetask run -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml \
-                -p $RC2_SUBSET_DIR/pipelines/DRP.yaml#fgcm \
-                -i u/$USER/single_frame \
-                -o u/$USER/fgcm \
-                --register-dataset-types
+   pipetask run --register-dataset-types \
+   -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml \
+   -i u/$USER/single_frame \
+   -o u/$USER/fgcm \
+   -p $DRP_PIPE_DIR/pipelines/HSC/DRP-RC2_subset.yaml#fgcm
 
 This should look very similar to the command executed in :doc:`part 2 <singleframe>`.
 There are three differences: 1) the subset to execute changed from ``singleFrame`` to ``fgcm``, 2) the input is now ``single_frame``, which contains pointers to the inputs to and outputs from ``singleFrame``, and 3) the output collection is now ``fgcm``.
@@ -67,11 +67,11 @@ E.g.:
 
 .. code-block:: bash
 
-   pipetask run -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml \
-                -p $RC2_SUBSET_DIR/pipelines/DRP.yaml#jointcal \
-                -i u/$USER/single_frame \
-                -o u/$USER/jointcal \
-                --register-dataset-types
+   pipetask run --register-dataset-types \
+   -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml \
+   -i u/$USER/single_frame \
+   -o u/$USER/jointcal \
+   -p $DRP_PIPE_DIR/pipelines/HSC/DRP-RC2_subset.yaml#jointcal
 
 Note the input collection is the same as you passed to ``FGCM`` since ``jointcal`` doesn't depend on any of the outputs of ``FGCM``.
 
@@ -84,11 +84,11 @@ the subset name and collection name appropriately):
 
 .. code-block:: bash
 
-   pipetask run -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml \
-                -p $RC2_SUBSET_DIR/pipelines/DRP.yaml#source_calibration \
-                -i u/$USER/single_frame,u/$USER/fgcm,u/$USER/jointcal \
-                -o u/$USER/source_calibration \
-                --register-dataset-types
+   pipetask run --register-dataset-types \
+   -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml \
+   -i u/$USER/single_frame,u/$USER/fgcm,u/$USER/jointcal \
+   -o u/$USER/source_calibration \
+   -p $DRP_PIPE_DIR/pipelines/HSC/DRP-RC2_subset.yaml#source_calibration
 
 Wrap up
 =======
@@ -99,7 +99,7 @@ Here are some key takeaways:
 - ``FGCM`` provides improved photometric calibration.
 - Astrometric calibration improvements are provided by running ``jointcal``.
 - Calibrations can be applied to the visit-level source catalogs by running the ``calibrate`` subset of tasks.
-- Given a pipeline description, e.g. ``DRP.yaml``, subset can be specified, so running multiple steps can be done with very similar command line syntax.
+- Given a pipeline description, e.g. the ``.yaml`` file used here, a subset can be specified, so running multiple steps can be done with very similar command line syntax.
 
 Continue this tutorial in :doc:`part 5, where you'll warp single frame images and stack them to make coadds <coaddition>`.
 
