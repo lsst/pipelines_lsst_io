@@ -32,6 +32,10 @@ jinja_contexts = {
         "newinstall_ref": "24.0.0",
     }
 }
+# add click to list of extensions
+# it is not enabled in build_pipelines_lsst_io_configs
+if 'sphinx_click' not in extensions:
+    extensions.append('sphinx_click')
 
 # Patch preset configuration of the matplotlib plot directive from
 # documenteer. In documenteer 0.5 we automatically configure the docs
