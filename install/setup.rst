@@ -32,7 +32,7 @@ Setting the LSST Science Pipelines in a shell is a two-step process:
       These installation are for :doc:`newinstall.sh <newinstall>`- and :doc:`lsstinstall`-based installations.
       For ``lsstsw``, follow :ref:`these instructions <lsstsw-setup>` instead.
 
-      To find the ``rubin-env`` conda metapackage version appropriate for a particular science pipelines release, see :ref:`release-history`.
+      To find the ``rubin-env`` conda metapackage version appropriate for a particular science pipelines release, see :ref:`release-history` or the release tag files at `https://eups.lsst.codes/stack/src/tags/`_.
 
 
 2. Set up a top-level package:

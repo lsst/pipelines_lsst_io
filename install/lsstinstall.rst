@@ -77,7 +77,7 @@ For other conda environments installed by LSST tools, this name will be the ``ru
    - :ref:`lsstinstall-mambaforge`.
    - :ref:`lsstinstall-reference`.
 
-   To find the ``rubin-env`` conda metapackage version appropriate for a particular science pipelines release, see :ref:`release-history`.
+   To find the ``rubin-env`` conda metapackage version appropriate for a particular science pipelines release, see :ref:`release-history` or the release tag files at `https://eups.lsst.codes/stack/src/tags/`_.
 
 .. _lsstinstall-install:
 

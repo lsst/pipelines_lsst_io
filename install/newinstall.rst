@@ -70,7 +70,7 @@ Then load the LSST software environment into your shell:
    source loadLSST.zsh  # for zsh
 
 To customize the conda environment used, set the ``LSST_CONDA_ENV_NAME`` environment variable to a conda enviroment name when sourcing the file.
-For other conda environments installed by LSST tools, this name will be the ``rubin-env`` metapackage version prefixed with ``lsst-scipipe-``.
+For other conda environments installed by LSST tools, this name will be the ``rubin-env`` metapackage version prefixed with ``lsst-scipipe-`` or the release tag files at `https://eups.lsst.codes/stack/src/tags/`_.
 
 .. note::
 
