@@ -69,6 +69,9 @@ Then load the LSST software environment into your shell:
    source loadLSST.ksh  # for ksh
    source loadLSST.zsh  # for zsh
 
+To customize the conda environment used, set the ``LSST_CONDA_ENV_NAME`` environment variable to a conda enviroment name when sourcing the file.
+For other conda environments installed by LSST tools, this name will be the ``rubin-env`` metapackage version prefixed with ``lsst-scipipe-`` or the release tag files at `https://eups.lsst.codes/stack/src/tags/`_.
+
 .. note::
 
    Here are ways to customize the :command:`newinstall.sh` installation for specific needs:
@@ -84,6 +87,9 @@ Then load the LSST software environment into your shell:
    - :ref:`newinstall-background`.
    - :ref:`newinstall-miniconda`.
    - :ref:`newinstall-reference`.
+
+   To find the ``rubin-env`` conda metapackage version appropriate for a particular science pipelines release, see :ref:`release-history`.
+
 
 .. _newinstall-install:
 

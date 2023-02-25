@@ -60,6 +60,9 @@ Then load the LSST software environment into your shell:
 
    source loadLSST.sh
 
+To customize the conda environment used, set the ``LSST_CONDA_ENV_NAME`` environment variable to a conda enviroment name when sourcing the file.
+For other conda environments installed by LSST tools, this name will be the ``rubin-env`` metapackage version prefixed with ``lsst-scipipe-``.
+
 .. note::
 
    Here are ways to customize the :command:`lsstinstall` installation for specific needs:
@@ -73,6 +76,8 @@ Then load the LSST software environment into your shell:
    - :ref:`lsstinstall-background`.
    - :ref:`lsstinstall-mambaforge`.
    - :ref:`lsstinstall-reference`.
+
+   To find the ``rubin-env`` conda metapackage version appropriate for a particular science pipelines release, see :ref:`release-history` or the release tag files at `https://eups.lsst.codes/stack/src/tags/`_.
 
 .. _lsstinstall-install:
 

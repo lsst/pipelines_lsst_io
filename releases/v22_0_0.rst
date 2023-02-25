@@ -16,6 +16,8 @@ Release 22.0.0 (2021-07-09)
 +-------------------------------------------+------------+
 | :doc:`EUPS distrib </install/newinstall>` | v22\_0\_0  |
 +-------------------------------------------+------------+
+| rubin-env version                         | 0.4.3      |
++-------------------------------------------+------------+
 
 This release is based on the ``w_2021_14`` weekly build.
 The bug fix on :jirab:`DM-29907` was backported.

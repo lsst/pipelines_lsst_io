@@ -2,7 +2,7 @@
 Installing the LSST Science Pipelines
 #####################################
 
-.. This page acts as an index.html for the install/ path, but the currated contents are on the homepage.
+.. This page acts as an index.html for the install/ path, but the curated contents are on the homepage.
 
 .. toctree::
    :maxdepth: 1
