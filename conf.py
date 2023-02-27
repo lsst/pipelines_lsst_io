@@ -1,18 +1,18 @@
 """Sphinx configurations for pipeline_lsst_io.
 
 These configurations are centrally defined in Documenteer
-(https://github.com/lsst-sqre/documenteer).
+(https://github.com/lsst-sqre/documenteer). Documentation:
+https://documenteer.lsst.io/pipelines/configuration.html
 """
 
-from documenteer.sphinxconfig.stackconf import \
-    build_pipelines_lsst_io_configs
+from documenteer.conf.pipelines import *
 
+project = "LSST Science Pipelines"
+html_theme_options["logotext"] = project
+html_title = project
+html_short_title = project
 
-globals().update(build_pipelines_lsst_io_configs(
-    project_name='LSST Science Pipelines',
-))
-
-# Patch EUPS tag subsitutions
+# Patch EUPS tag substitutions
 rst_epilog = """
 
 .. |eups-tag| replace:: v23_0_2
@@ -32,6 +32,3 @@ jinja_contexts = {
         "newinstall_ref": "23.0.2",
     }
 }
-
-import matplotlib.sphinxext.plot_directive
-extensions.remove(matplotlib.sphinxext.plot_directive.__name__)
