@@ -148,4 +148,4 @@ Here are some key takeaways:
 
 Continue this tutorial in :doc:`part 6, where you'll measure sources <photometry>` in the coadds.
 
-.. _example dataset: https://github.com/lsst-dm/rc2_subset
+.. _example dataset: https://github.com/lsst/rc2_subset
