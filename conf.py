@@ -4,13 +4,13 @@ These configurations are centrally defined in Documenteer
 (https://github.com/lsst-sqre/documenteer).
 """
 
-from documenteer.sphinxconfig.stackconf import \
-    build_pipelines_lsst_io_configs
+from documenteer.conf.pipelinespkg import *
 
+project='LSST Science Pipelines'
+html_theme_options["logotext"] = project
+html_title = project
+html_short_title = project
 
-globals().update(build_pipelines_lsst_io_configs(
-    project_name='LSST Science Pipelines',
-))
 
 # Patch EUPS tag subsitutions
 rst_epilog = """
