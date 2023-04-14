@@ -32,3 +32,6 @@ jinja_contexts = {
         "newinstall_ref": "24.0.0",
     }
 }
+
+# needed for pipe_base
+intersphinx_mapping['networkx'] = ('https://networkx.org/documentation/stable/', None)
