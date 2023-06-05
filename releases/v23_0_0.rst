@@ -2,7 +2,7 @@
 .. _release-v23-0-0:
 
 ###########################
-Release 23.0.2 (2022-05-26)
+Release 23.0.4 (2023-03-12)
 ###########################
 
 .. toctree::
@@ -13,13 +13,16 @@ Release 23.0.2 (2022-05-26)
 +-------------------------------------------+------------+
 | Source                                    | Identifier |
 +===========================================+============+
-| Git tag                                   | 23.0.2     |
+| Git tag                                   | 23.0.4     |
 +-------------------------------------------+------------+
-| :doc:`EUPS distrib </install/newinstall>` | v23\_0\_2  |
+| :doc:`EUPS distrib </install/newinstall>` | v23\_0\_4  |
++-------------------------------------------+------------+
+| rubin-env version                         | 0.8.5      |
 +-------------------------------------------+------------+
 
 
-This release is based on the ``w_2021_40`` weekly build (September 30, 2021), with 46 tickets backported to 23.0.2 to support the Data Preview 0.2 Data Release (DP0.2).
+
+This release is based on the ``w_2021_40`` weekly build (September 30, 2021), with 63 tickets backported to 23.0.4 to support the Data Preview 0.2 Data Release (DP0.2).
 
 For the production of DP0.2, 23.0.0 was used for single-frame processing (the Tasks within the Pipeline subsets ``step1`` and ``step2``), and 23.0.1 was used for coadd-processing (Tasks within the Pipeline subset ``step3``).
 23.0.2 was used for associating DIA Objects, their forced photometry, recalibrating the Source Tables, aggregating global property maps and parquet tables (Tasks within the Pipeline subsets ``step5``, ``step6``, and ``step7``).
