@@ -98,13 +98,13 @@ queryDimensionRecords
 Those metadata tables include observations (the ``exposure`` and ``visit`` dimensions), instruments (``instrument``, ``physical_filter``, ``detector``), and regions on the sky (``skymap``, ``tract``, ``patch``, ``htm7``).
 That isn't an exhaustive list of dimension tables (actually pseudo-tables in some cases), but you can get one in Python with::
 
-    >>> print(butler.registry.dimensions.names)
+    >>> print(butler.dimensions.getStaticDimensions())
 
 And while `~Registry.queryDimensionRecords` shows you the schema of those tables with each record it returns, you can also get it without querying for any data with (e.g.)
 
 .. code-block:: python
 
-    >>> print(butler.registry.dimensions["exposure"].RecordClass.fields)
+    >>> print(butler.dimensions["exposure"].RecordClass.fields)
     exposure:
       instrument: str
       id: int
