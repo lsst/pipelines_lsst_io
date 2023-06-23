@@ -95,12 +95,12 @@ This example uses ``coadds`` as the output collection.
 
    pipetask run --register-dataset-types \
    -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml \
-   -i u/$USER/source_calibration,u/$USER/jointcal,u/$USER/fgcm \
+   -i u/$USER/source_calibration,u/$USER/gbdes,u/$USER/fgcm \
    -o u/$USER/warps \
    -p $DRP_PIPE_DIR/pipelines/HSC/DRP-RC2_subset.yaml#makeWarp \
    -d "skymap = 'hsc_rings_v1' AND tract = 9813 AND patch in (38, 39, 40, 41)"
 
-Note that warping requires the ouptuts of both ``jointcal`` and ``FGCM``, so both of those collections need to be specified as inputs.
+Note that warping requires the ouptuts of both ``gbdes`` and ``FGCM``, so both of those collections need to be specified as inputs.
 Again, this will warp all calibrated exposures.
 If you wish to pare down the data to be processed, you can specify a data query like the one earlier in this section using the ``-d`` argument.
 
