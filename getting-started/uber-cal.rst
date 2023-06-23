@@ -20,8 +20,8 @@ Improving the photometric and astrometric calibrations can lead to better coadds
 For photometric calibration the system is the Forward Global Calibration Method (`FGCM`_).
 We use a reference catalog from Pan-STARRS.
 
-Refined astrometric calibration is provided by an in-house algorithm called ``jointcal``.
-For ``jointcal`` we use an astrometric reference catalog derived from the second data release of the `Gaia`_ source catalog.
+Refined astrometric calibration is provided by an algorithm called ``gbdes``.
+For ``gbdes`` we use an astrometric reference catalog derived from the second data release of the `Gaia`_ source catalog.
 
 It is out of scope to go into the details of the algorithms here, but you will learn how to run them.
 Also worth noting is that, in this instance, we will not see much benefit from global calibration since our dataset is small, but for larger datasets it can be a big benefit.
@@ -58,10 +58,10 @@ There are three differences: 1) the subset to execute changed from ``singleFrame
 Note that unlike the ``singleFrame`` pipeline, FGCM must be run on only a single core.
 Setting the ``-j`` switch to anything other than ``1`` will result in an error.
 
-jointcal
+gbdes
 ========
 
-You can do ``jointcal`` in much the same way as you did FGCM.
+You can do ``gbdes`` in much the same way as you did FGCM.
 Change the subset name and collection name appropriately.
 E.g.:
 
@@ -70,23 +70,23 @@ E.g.:
    pipetask run --register-dataset-types \
    -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml \
    -i u/$USER/single_frame \
-   -o u/$USER/jointcal \
-   -p $DRP_PIPE_DIR/pipelines/HSC/DRP-RC2_subset.yaml#jointcal
+   -o u/$USER/gbdes \
+   -p $DRP_PIPE_DIR/pipelines/HSC/DRP-RC2_subset.yaml#GbdesAstrometricFitTask
 
-Note the input collection is the same as you passed to ``FGCM`` since ``jointcal`` doesn't depend on any of the outputs of ``FGCM``.
+Note the input collection is the same as you passed to ``FGCM`` since ``gbdes`` doesn't depend on any of the outputs of ``FGCM``.
 
 Apply the calibrations
 ======================
 
 Now you will want to apply the calibrations derived by running ``FGCM`` and
-``jointcal`` to the source catalogs using the following (as always, changing
+``gbdes`` to the source catalogs using the following (as always, changing
 the subset name and collection name appropriately):
 
 .. code-block:: bash
 
    pipetask run --register-dataset-types \
    -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml \
-   -i u/$USER/single_frame,u/$USER/fgcm,u/$USER/jointcal \
+   -i u/$USER/single_frame,u/$USER/fgcm,u/$USER/gbdes \
    -o u/$USER/source_calibration \
    -p $DRP_PIPE_DIR/pipelines/HSC/DRP-RC2_subset.yaml#source_calibration
 
@@ -97,7 +97,7 @@ In this tutorial, you've computed the improved photometric and astrometric calib
 Here are some key takeaways:
 
 - ``FGCM`` provides improved photometric calibration.
-- Astrometric calibration improvements are provided by running ``jointcal``.
+- Astrometric calibration improvements are provided by running ``gbdes``.
 - Calibrations can be applied to the visit-level source catalogs by running the ``calibrate`` subset of tasks.
 - Given a pipeline description, e.g. the ``.yaml`` file used here, a subset can be specified, so running multiple steps can be done with very similar command line syntax.
 
