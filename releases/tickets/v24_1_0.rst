@@ -1,0 +1,24 @@
+.. _release-v24-1-0-tickets:
+
+###################################
+Tickets Addressed in Release 24.1.0
+###################################
+
+- `DM-16724 <https://jira.lsstcorp.org/browse/DM-16724>`_:  Dynamic detection failure due to lack of sky-object measurements is too quiet [meas_algorithms]
+- `DM-23781 <https://jira.lsstcorp.org/browse/DM-23781>`_:  Improve Sky Object Placement [meas_algorithms]
+- `DM-34959 <https://jira.lsstcorp.org/browse/DM-34959>`_:  Replace read\_gpickle and write\_gpickle in GenericWorkflow [ctrl_bps]
+- `DM-35207 <https://jira.lsstcorp.org/browse/DM-35207>`_:  Use final PSF models to determine inputs to coaddition [analysis_drp, ap_pipe, drp_pipe, meas_base, obs_lsst, pipe_tasks, pipelines_check]
+- `DM-36998 <https://jira.lsstcorp.org/browse/DM-36998>`_:  Remove large objects from Piff results by default [meas_extensions_piff]
+- `DM-37249 <https://jira.lsstcorp.org/browse/DM-37249>`_:  Make butler registry compatible with transaction-level connection pooling [daf_butler]
+- `DM-37257 <https://jira.lsstcorp.org/browse/DM-37257>`_:  If brightObjectMask is unavailable proceed making Coadd without [pipe_tasks]
+- `DM-37411 <https://jira.lsstcorp.org/browse/DM-37411>`_:  Add visit-level PSF model robustness metrics [afw, meas_deblender, pipe_tasks, sdm_schemas]
+- `DM-37412 <https://jira.lsstcorp.org/browse/DM-37412>`_:  Refactor ComputeExposureSummaryStats to allow fine-grained updates [afw, pipe_tasks]
+- `DM-37559 <https://jira.lsstcorp.org/browse/DM-37559>`_:  DM-35207 broke ap\_verify [ap_pipe]
+- `DM-37786 <https://jira.lsstcorp.org/browse/DM-37786>`_:  updateVisitSummary failure in some HSC-RC2 visits with w\_2023\_03  [drp_pipe, pipe_base, pipe_tasks]
+- `DM-37954 <https://jira.lsstcorp.org/browse/DM-37954>`_:  Backport bps\_usdf.yaml to v24.0.0 [ctrl_bps_panda]
+- `DM-38065 <https://jira.lsstcorp.org/browse/DM-38065>`_:  Make release notes for middleware v25 [ctrl_bps, ctrl_bps_panda]
+- `DM-38307 <https://jira.lsstcorp.org/browse/DM-38307>`_:  Allow output collection to not be specified [ctrl_bps, ctrl_bps_panda]
+- `DM-38808 <https://jira.lsstcorp.org/browse/DM-38808>`_:  Proper motion correction is wrong for negative epoch shift in ReferenceObjectLoader [jointcal, meas_algorithms]
+- `DM-39101 <https://jira.lsstcorp.org/browse/DM-39101>`_:  Implement a maximum aperture radius for Kron aperture calculations [meas_extensions_photometryKron]
+- `DM-39342 <https://jira.lsstcorp.org/browse/DM-39342>`_:  v24 DRP-Prod.yaml: Ensure FGCM configs handle HSC-I2/R2  and add version w/ DIA pipeline  [drp_pipe]
+- `DM-39482 <https://jira.lsstcorp.org/browse/DM-39482>`_:  Correct HSC NB1010 colorterm filtername [ap_pipe, fgcmcal, obs_subaru]
