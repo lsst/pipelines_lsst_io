@@ -71,6 +71,8 @@ To install the LSST Simulation software, such as MAF, please follow the `LSST Si
 
    install/index
 
+.. _part-frameworks:
+
 Frameworks
 ==========
 
@@ -121,6 +123,35 @@ Indices
 - :doc:`Tasks <tasks>`
 - :ref:`genindex`
 - :ref:`Search <search>`
+
+.. _part-citation:
+
+Citing and acknowledging the LSST Science Pipelines
+===================================================
+
+If you use the science pipelines in a published work, we request that you cite `Bosch et al. 2018 <https://ui.adsabs.harvard.edu/abs/2018PASJ...70S...5B/abstract>`_, `2019 <https://ui.adsabs.harvard.edu/abs/2019ASPC..523..521B/abstract>`_.
+In addition, it is appropriate to include an acknowledgement of the form:
+
+  This paper makes use of LSST Science Pipelines software developed by the `Vera C. Rubin Observatory <https://rubinobservatory.org/>`_.
+  We thank the Rubin Observatory for making their code available as free software at `https://pipelines.lsst.io <https://pipelines.lsst.io/>`_.
+
+For studies that make use of the Data Butler and pipeline execution system, we request that you additionally cite `Jenness et al. 2022 <https://ui.adsabs.harvard.edu/abs/2022SPIE12189E..11J/abstract>`_.
+For studies that make use of the SCARLET source separation framework, we request that you additionally cite `Melchior et al. 2018 <https://ui.adsabs.harvard.edu/abs/2018A%26C....24..129M/abstract>`_.
+
+As the Rubin Observatory is not funded to provide support for the LSST Science Pipelines outside of the project, any support provided by project members will come out of their own free or science time.
+A fair way to acknowledge their help and good will may be to offer co-authorship on technical papers describing the derived software (e.g. pipelines).
+
+.. _part-license:
+
+License
+=======
+
+All LSST Science Pipelines code is `free software <http://www.gnu.org/philosophy/free-sw.html>`_, licensed under the terms of the `GNU General Public Licence, Version 3 <http://www.gnu.org/copyleft/gpl.html>`_.
+You have the freedom to run, copy, distribute, study, change and improve the software as you see fit within the terms of the GPL v3 license.
+Using, modifying or redistributing the LSST Science Pipelines does not make you subject to the LSST Project Publication Policy (`LPM-162 <https://ls.st/lpm-162>`_).
+This documentation is licensed under the `Creative Commons Attribution Share Alike 4.0 International License (CC-BY-SA 4.0) <https://github.com/lsst/pipelines_lsst_io/blob/main/LICENSE>`_.
+
+.. _part-more-info:
 
 More info
 =========
