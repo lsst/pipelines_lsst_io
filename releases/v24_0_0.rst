@@ -17,6 +17,8 @@ Release 24.0.0 (2022-12-09)
 +-------------------------------------------+------------+
 | :doc:`EUPS distrib </install/newinstall>` | v24\_0\_0  |
 +-------------------------------------------+------------+
+| rubin-env version                         | 4.0.5      |
++-------------------------------------------+------------+
 
 
 This release is based on the ``w_2022_28`` weekly build with 13 tickets backported.

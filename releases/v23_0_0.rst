@@ -1,7 +1,7 @@
 .. _release-v23-0-0:
 
 ###########################
-Release 23.0.0 (2021-12-21)
+Release 23.0.4 (2023-03-12)
 ###########################
 
 .. toctree::
@@ -12,13 +12,19 @@ Release 23.0.0 (2021-12-21)
 +-------------------------------------------+------------+
 | Source                                    | Identifier |
 +===========================================+============+
-| Git tag                                   | 23.0.0     |
+| Git tag                                   | 23.0.4     |
 +-------------------------------------------+------------+
-| :doc:`EUPS distrib </install/newinstall>` | v23\_0\_0  |
+| :doc:`EUPS distrib </install/newinstall>` | v23\_0\_4  |
++-------------------------------------------+------------+
+| rubin-env version                         | 0.8.5      |
 +-------------------------------------------+------------+
 
+This release is based on the ``w_2021_40`` weekly build (September 30, 2021), with 63 tickets backported to 23.0.4 to support the Data Preview 0.2 Data Release (DP0.2).
 
-This release is based on the ``w_2021_40`` weekly build, with 29 tickets backported to support the Data Preview 0.2 data release.
+For the production of DP0.2, 23.0.0 was used for single-frame processing (the Tasks within the Pipeline subsets ``step1`` and ``step2``), and 23.0.1 was used for coadd-processing (Tasks within the Pipeline subset ``step3``).
+23.0.2 was used for associating DIA Objects, their forced photometry, recalibrating the Source Tables, aggregating global property maps and parquet tables (Tasks within the Pipeline subsets ``step5``, ``step6``, and ``step7``).
+
+Rerunning a data release with the final minor release will produce the same results as the DP0.2. In other words, none of the updates to 23.0.1 affect single-frame processing, and none of the updates to 23.0.2 affect single-frame processing, coadd-processing, image-differencing, and forced-photometry.
 
 The notes below highlight significant technical changes to the Science Pipelines codebase in this release.
 For a complete list of changes made, see :doc:`tickets/v23_0_0`.
