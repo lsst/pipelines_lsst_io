@@ -1,0 +1,32 @@
+.. _release-latest:
+.. _release-v24-1-0:
+
+###########################
+Release 24.1.0 (2023-07-17)
+###########################
+
+.. toctree::
+   :hidden:
+
+   tickets/v24_1_0
+
++-------------------------------------------+------------+
+| Source                                    | Identifier |
++===========================================+============+
+| Git tag                                   | 24.1.0     |
++-------------------------------------------+------------+
+| :doc:`EUPS distrib </install/newinstall>` | v24\_1\_0  |
++-------------------------------------------+------------+
+| rubin-env version                         | 4.0.5      |
++-------------------------------------------+------------+
+
+This is a minor feature release, based on the :ref:`release-v24-0-0`,
+with 18 additional tickets back ported.
+
+For a complete list of changes made, see :doc:`tickets/v24_1_0`.
+
+The `Characterization Metric Report (DMTR-301) <https://dmtr-391.lsst.io/>`_ describes the scientific performance of this release in terms of scientific performance metrics. No characterixation report was provides for :ref:`release-v24-0-0`
+
+There are no changes to interfaces or deprecations in this release.
+
+If you have questions or comments about the LSST Science Pipelines, visit our community forum for advice: https://community.lsst.org/.
