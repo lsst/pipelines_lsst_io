@@ -49,71 +49,84 @@ Major New Features
 ==================
 
 - :ref:`release-v25-0-0-analysis-tools`
-- :ref:`release-v25-0-0-drp-tasks`
 - :ref:`release-v25-0-0-gbdes`
 - :ref:`release-v25-0-0-parsl-plugin`
+- :ref:`release-v25-0-0-hips`
 
 .. _release-v25-0-0-analysis-tools:
 
 Analysis Tools
 --------------
-A new package :ref:`analysis_tools <lsst.analysis.tools>` is available for
-efficient, scalable, consistent and reproducible calculation of metrics and plots for
-quality assurance analyses.
-
-.. _release-v25-0-0-drp-tasks:
-
-DRP Tasks
----------
-A new pipeline task  :doc:`drp_tasks </modules/lsst.drp.tasks/index>`, that creates a new visit-summary table after all ``lsst.afw.image.Exposure``
-components have been finalized, has been added.
-
+The new package, :ref:`analysis_tools <lsst.analysis.tools>`, implements a framework for modular, scalable, and reproducible computation of metrics and plots to assess both image and pipeline quality.
 
 .. _release-v25-0-0-gbdes:
 
 GBDES
 -----
-An adapted version of
-Gary Bernstein's DECam instrumental signature fitting and processing programs
-has been added package. `gbdes <https://github.com/lsst/gbdes>`_, will be used
-for astrometry in future versions of the science pipelines.
-
+A significantly modified fork of Dark Energy Survey's astrometric calibration algorithm has been added to the Science Pipelines.
+`gbdes <https://github.com/lsst/gbdes>`_ will be used for global astrometric fitting in the data release pipeline from v26.0.0.
+See also :jira:`RFC-853`.
 
 .. _release-v25-0-0-parsl-plugin:
 
-BPS Parsl Piugin
+BPS Parsl Plugin
 ----------------
 A Parsl-based plugin `ctrl_bps_parsl <https://github.com/lsst/ctrl_bps_parsl>`_ for the LSST Batch Production Service (BPS) execution framework as added.
 It is intended to support running LSST PipelineTask jobs on high-performance computing (HPC) clusters.
+
+.. _release-v25-0-0-hips:
+
+Hierarchical Progressive Surveys (HiPS) trees
+---------------------------------------------
+
+`~lsst.pipe.tasks.hips.GenerateHipsTask` was added to the pipelines.
+This Task generates Hierarchical Progressive Surveys (HiPS) trees from high-resolution, healpix-projected coadds. HiPS images produced by this Task are viewable in the Portal for `Data Preview 0.2 <https://dp0-2.lsst.io/>`_.
+
 
 .. _release-v25-0-0-interface:
 
 Significant Interface Changes
 =============================
 
+- :ref:`release-v25-0-0-new-diffim`
+- :ref:`release-v25-0-0-scarlet-storage`
 - :ref:`release-v25-0-0-new-packages`
 - :ref:`release-v25-0-0-packages-removed`
 
+
+.. _release-v25-0-0-new-diffim:
+
+Refactored Image Difference Tasks
+---------------------------------
+
+`~lsst.pipe.tasks.ImageDifferenceTask`, which performed both image subtraction and source detection, has been split into `~lsst.ip.diffim.AlardLuptonSubtractTask` and `~lsst.ip.diffim.DetectAndMeasureTask`. The first performs image subtraction, and the latter detects and measures sources on the image differences.
+
+.. _release-v25-0-0-scarlet-storage:
+
+Scarlet Outputs
+---------------
+
+`lsst.meas.extensions.ScarletDeblendTask` now outputs a single storage container that allows users to access both the scarlet models and flux re-distributed model while using an order of magnitude less storage space.
+
+
 .. _release-v25-0-0-new-packages:
+
 
 New Packages Added
 ------------------
-* `analysis_tools <https://github.com/lsst/analysis_tools>`_, quality assurance (QA) plots and metrics
-* `ctrl_bps_parsl <https://github.com/lsst/ctrl_bps_parsl>`_, BPS parsl plugin
-* `display_astrowidgets <https://github.com/lsst/display_astrowidgets>`_, astrowidgets implementation for afwDisplay
-* `drp_tasks <https://github.com/lsst/drp_tasks>`_, task to visit-summary table
-* `felis <https://github.com/lsst/felis>`_, database catalog descriptions
-* `gbdes <https://github.com/lsst/gbdes>`_, instrumental signature fitting and processing programs
-* `lsst_sitcom <https://github.com/lsst/lsst_sitcom>`_,
-  `summit_extras <https://github.com/lsst-sitcom/summit_extras>`_,
-  `summit_utils <https://github.com/lsst-sitcom/summit_utils>`_, summit observation utilities and extras
+* `analysis_tools <https://github.com/lsst/analysis_tools>`_ assists in the creation of quality assurance (QA) plots and metrics from the outputs of a data reduction pipeline
+* `ctrl_bps_parsl <https://github.com/lsst/ctrl_bps_parsl>`_ is the Parsl-based plugin for the LSST Batch Production Service (BPS) execution framework.
+* `display_astrowidgets <https://github.com/lsst/display_astrowidgets>`_ is the astrowidgets implementation for afwDisplay based on the Ginga image viewer
+* `drp_tasks <https://github.com/lsst/drp_tasks>`_ contains high-level Tasks specific to the data release production pipeline.
+* `felis <https://github.com/lsst/felis>`_ contains DBMS-agnostic schema descriptions
+* `gbdes <https://github.com/lsst/gbdes>`_ is a fork of the gbernstein/gbdes package, modified for use by the LSST Science Pipelines as a third-party dependency.
 
 .. _release-v25-0-0-packages-removed:
 
 Packages Removed
 ----------------
-* `Eigen <https://github.com/lsst/eigen>`_, replaced by the conda version
-* `ap_pipe_testdata <https://github.com/lsst/ap_pipe_testdata>`_, obsolete gen2 test data
+* `Eigen <https://github.com/lsst/eigen>`_, replaced by the conda version.
+* `ap_pipe_testdata <https://github.com/lsst/ap_pipe_testdata>`_, obsolete gen2 test data.
 
 .. _release-v25-0-0-pending-deprecations:
 
@@ -205,11 +218,19 @@ Deprecations
 
 These packages/functions are deprecated and will not be available in the next major release.
 
+- :ref:`release-v25-0-0-deprecated-image-difference-task`
 - :ref:`release-v25-0-0-deprecated-gen3-code`
 - :ref:`release-v25-0-0-deprecated-shared-pointers`
 - :ref:`release-v25-0-0-deprecated-configurations-in-psfexStarSelector.py`
 - :ref:`release-v25-0-0-deprecated-default-position`
 - :ref:`release-v25-0-0-deprecated-logging`
+
+.. _release-v25-0-0-deprecated-image-difference-task:
+
+Deprecated ImageDifferenceTask
+------------------------------
+
+`~lsst.pipe.tasks.ImageDifferenceTask` has been deprecated and will be removed after this release. It has been superseded by `~lsst.ip.diffim.AlardLuptonSubtractTask` and `~lsst.ip.diffim.DetectAndMeasureTask`.
 
 
 .. _release-v25-0-0-deprecated-gen3-code:
@@ -219,13 +240,13 @@ Deprecated Gen 3 code in pipe_drivers
 
 The ``PipelineTask`` classes in ``pipe_drivers``, ``FocalPlaneBackground`` and ``SkyCorrectionTask``, are deprecated and the identical code in ``pipe_tasks`` should be used instead.
 Please update any Gen3 pipeline definitions to use the new location.
-``pipe_drivers`` (along with ``ctrl_pool`` and ``daf_persistence``) will be removed following the release of v25.0.0.
+``pipe_drivers`` (along with ``ctrl_pool`` and ``daf_persistence``) will be removed following this release.
 
 .. _release-v25-0-0-deprecated-shared-pointers:
 
 Deprecated shared_ptr arguments for C++ member functions
 --------------------------------------------------------
-Smart pointers (such as ``shared_ptr``) should only be used as arguments if a reference, const reference, or raw pointer cannot be used. In ``afw`` and ``daf_base`` some member functions were overloaded and the old implementations using ``shared_ptr`` were marked deprecated and will be removed following the release of v25.0.0.
+Smart pointers (such as ``shared_ptr``) should only be used as arguments if a reference, const reference, or raw pointer cannot be used. In ``afw`` and ``daf_base`` some member functions were overloaded and the old implementations using ``shared_ptr`` were marked deprecated and will be removed following this release.
 
 For more information, refer to :jira:`RFC-817`.
 
