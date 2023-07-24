@@ -147,44 +147,36 @@ These Tasks or methods will be deprecated in the next major release.
 Deprecate method getInstrument
 ------------------------------
 
-``obs.base.util.getInstrument`` will be replaced by ``lsst.pipe.base.Instrument.from_string``
-and will be removed after release of release v27.0.0.
+``obs.base.util.getInstrument`` will be replaced by ``lsst.pipe.base.Instrument.from_string`` and will be removed after release of release v27.0.0.
 
 .. _release-v25-0-0-deprecate-pipe-tasks:
 
 Deprecate interfaces ParquetTable and MultilevelParquetTable
 ------------------------------------------------------------
 
-The Gen 2 I/O interfaces ``ParquetTable`` and ``MultilevelParquetTable`` in ``pipe_tasks``
-will be removed after the release of v26.0.0.
+The Gen 2 I/O interfaces ``ParquetTable`` and ``MultilevelParquetTable`` in ``pipe_tasks`` will be removed after the release of v26.0.0.
 
 .. _release-v25-0-0-deprecate-ip-diffim:
 
 Deprecate factory construction with makeIdFactory
 -------------------------------------------------
 
-ID factory construction with ``lsst.ip.diffim.detectAndMeasure.makeIdFactory`` should be replaced
-by using ``idGenerator`` config field and will be removed after the release of v27.0.0.
+ID factory construction with ``lsst.ip.diffim.detectAndMeasure.makeIdFactory`` should be replaced by using ``idGenerator`` config field and will be removed after the release of v27.0.0.
 
 .. _release-v25-0-0-deprecate-afw-table:
 
 Deprecate method get_bool_array
 -------------------------------
 
-The ``get_bool_array`` method in ``lsst.afw.table.BaseColumnView``
-and its derived subclasses should not be used as
-``Catalog.__getitem__`` now provides better support accessing flag/bool columns and
-will be removed after the release of v27.0.0.
+The ``get_bool_array`` method in ``lsst.afw.table.BaseColumnView`` and its derived subclasses should not be used as ``Catalog.__getitem__`` now provides better support accessing flag/bool columns and will be removed after the release of v27.0.0.
 
 .. _release-v25-0-0-deprecate-daf-butler:
 
 Pending deprecations in lsst.daf.butler
 ---------------------------------------
 
-The methods ``Butler.put``, ``Butler.get`` and ``Butler.getDeferred``
-should be replaced by ``Butler.putDirect``, ``Butler.getDirect`` and ``Butler.getDeferred``
-``Butler.datasetExistsDirect`` will be replaced by ``Butler.stored``.
-``Butler.datasetExists`` will be replaced by ``Butler.exists``.
+The methods ``Butler.put``, ``Butler.get`` and ``Butler.getDeferred`` should be replaced by ``Butler.putDirect``, ``Butler.getDirect`` and ``Butler.getDeferred``.
+``Butler.datasetExistsDirect`` will be replaced by ``Butler.stored``. ``Butler.datasetExists`` will be replaced by ``Butler.exists``.
 The ``Butler.datastore`` property will be deprecated.
 The ``DimensionPacker`` class will be deprecated in v26.0.0 in favor of configurable dimension packers.
 Before mentioned will be removed after the release of v27.0.0.
@@ -194,17 +186,14 @@ Before mentioned will be removed after the release of v27.0.0.
 Deprecate SkyMapDimensionPacker
 -------------------------------
 
-In ``lsst.skymap.packers.SkyMapDimensionPacker`` the methods ``getIntFromFilter``,
-``getFilterNameFromInt`` and ``getMaxIntForFilters``
-will be deprecated in v26.0.0 and be removed after the release of v27.0.0.
+In ``lsst.skymap.packers.SkyMapDimensionPacker`` the methods ``getIntFromFilter``, ``getFilterNameFromInt`` and ``getMaxIntForFilters`` will be deprecated in v26.0.0 and be removed after the release of v27.0.0.
 
 .. _release-v25-0-0-deprecate-configurations:
 
 Deprecated task configurations
 ------------------------------
 
-Configurations in  ``lsst.pipe.tasks.skyCorrectionu`` that will be removed after the release of v26.0.0.
-(see :jirab:`RFC-898` for further details):
+Configurations in  ``lsst.pipe.tasks.skyCorrectionu`` that will be removed after the release of v26.0.0. (see :jirab:`RFC-898` for further details):
 
 * ``bgModel`` : Use ``bgModel1`` instead
 * ``doBgModel``
@@ -212,8 +201,7 @@ Configurations in  ``lsst.pipe.tasks.skyCorrectionu`` that will be removed after
 
 The field ``doPsfMatch`` in ``lsst.pipe.tasks.coaddBase`` is no longer used and will be released after the release of v27.0.0.
 
-In ``lsst.cp,pipe.ptc.cpExtractPtcTask`` the following configurations have been moved to ``cpSolvePtcTask`` and will be
-removed after the release of v26.0.0:
+In ``lsst.cp,pipe.ptc.cpExtractPtcTask`` the following configurations have been moved to ``cpSolvePtcTask`` and will be removed after the release of v26.0.0:
 
 * ``minMeanSignal``
 * ``maxMeanSignal``
@@ -279,11 +267,9 @@ The following configurations are no longer used and will be removed after this r
 Deprecate PSF evaluation without position argument
 --------------------------------------------------
 
-PSF models are spatially-varying. Evaluation of these models with methods such as ``psf.computeImage``
-without a position argument will return the realization of the PSF at the average position.
+PSF models are spatially-varying. Evaluation of these models with methods such as ``psf.computeImage`` without a position argument will return the realization of the PSF at the average position.
 A position argument will be required after v25.
-The current behavior can be replicated by explicitly providing the average position like
-``psf.computeImage(psf.getAveragePosition)``.
+The current behavior can be replicated by explicitly providing the average position like ``psf.computeImage(psf.getAveragePosition)``.
 
 For more information, refer to :jira:`RFC-796`.
 
