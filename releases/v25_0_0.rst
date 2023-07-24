@@ -1,17 +1,299 @@
+.. _release-latest:
 .. _release-v25-0-0:
 
-#########################################
-Release Candidate 25.0.0 (in preparation)
-#########################################
+###########################
+Release 25.0.0 (2023-07-20)
+###########################
 
-+-------------------------------------------+-------------+
-| Source                                    | Identifier  |
-+===========================================+=============+
-| Git branch                                | v25.0.x     |
-+-------------------------------------------+-------------+
-| :doc:`EUPS distrib </install/newinstall>` | (none)      |
-+-------------------------------------------+-------------+
-| rubin-env version                         | 5.0.0       |
-+-------------------------------------------+-------------+
+.. toctree::
+   :hidden:
 
-This release candidate is based on the ``w_2022_48`` weekly build with 9 tickets backported.
+   tickets/v25_0_0
+
++-------------------------------------------+------------+
+| Source                                    | Identifier |
++===========================================+============+
+| Git tag                                   | 25.0.0     |
++-------------------------------------------+------------+
+| :doc:`EUPS distrib </install/newinstall>` | v25\_0\_0  |
++-------------------------------------------+------------+
+| rubin-env version                         | 5.0.1      |
++-------------------------------------------+------------+
+
+This release is based on the ``w_2022_48`` weekly build with 18 tickets backported.
+
+The notes below highlight significant technical changes to the Science Pipelines codebase in this release.
+For a complete list of changes made, see :doc:`tickets/v25_0_0`.
+
+The `Characterization Metric Report (DMTR-302) <https://dmtr-392.lsst.io/>`_ describes the scientific performance of this release in terms of scientific performance metrics.
+
+If you have questions or comments about this release, visit our `Community forum <https://community.lsst.org>`_ for advice.
+
+- :ref:`release-v25-0-0-functionality`
+- :ref:`release-v25-0-0-interface`
+- :ref:`release-v25-0-0-pending-deprecations`
+- :ref:`release-v25-0-0-deprecations`
+
+*See also:*
+
+- :doc:`Installation instructions </install/index>`
+- :doc:`Known issues </known-issues>`
+- `Doxygen Documentation`__
+
+__ http://doxygen.lsst.codes/stack/doxygen/xlink_main_2022_11_24_08.00.57/
+
+.. _release-v25-0-0-functionality:
+
+Major new features
+==================
+
+- :ref:`release-v25-0-0-analysis-tools`
+- :ref:`release-v25-0-0-gbdes`
+- :ref:`release-v25-0-0-parsl-plugin`
+- :ref:`release-v25-0-0-hips`
+
+.. _release-v25-0-0-analysis-tools:
+
+Analysis tools
+--------------
+
+The new package, :ref:`analysis_tools <lsst.analysis.tools>`, implements a framework for modular, scalable, and reproducible computation of metrics and plots to assess both image and pipeline quality.
+
+.. _release-v25-0-0-gbdes:
+
+GBDES
+-----
+
+A significantly modified fork of Dark Energy Survey's astrometric calibration algorithm has been added to the Science Pipelines.
+`gbdes <https://github.com/lsst/gbdes>`_ will be used for global astrometric fitting in the data release pipeline from v26.0.0.
+See also :jira:`RFC-853`.
+
+.. _release-v25-0-0-parsl-plugin:
+
+BPS Parsl plugin
+----------------
+
+A Parsl-based plugin `ctrl_bps_parsl <https://github.com/lsst/ctrl_bps_parsl>`_ for the LSST Batch Production Service (BPS) execution framework as added.
+It is intended to support running LSST PipelineTask jobs on high-performance computing (HPC) clusters.
+
+.. _release-v25-0-0-hips:
+
+Hierarchical Progressive Surveys (HiPS) trees
+---------------------------------------------
+
+`~lsst.pipe.tasks.hips.GenerateHipsTask` was added to the pipelines.
+This Task generates Hierarchical Progressive Surveys (HiPS) trees from high-resolution, healpix-projected coadds. HiPS images produced by this Task are viewable in the Portal for `Data Preview 0.2 <https://dp0-2.lsst.io/>`_.
+
+.. _release-v25-0-0-interface:
+
+Significant interface changes
+=============================
+
+- :ref:`release-v25-0-0-new-diffim`
+- :ref:`release-v25-0-0-scarlet-storage`
+- :ref:`release-v25-0-0-new-packages`
+- :ref:`release-v25-0-0-packages-removed`
+
+.. _release-v25-0-0-new-diffim:
+
+Refactored image difference tasks
+---------------------------------
+
+`~lsst.pipe.tasks.ImageDifferenceTask`, which performed both image subtraction and source detection, has been split into `~lsst.ip.diffim.AlardLuptonSubtractTask` and `~lsst.ip.diffim.DetectAndMeasureTask`. The first performs image subtraction, and the latter detects and measures sources on the image differences.
+
+.. _release-v25-0-0-scarlet-storage:
+
+Scarlet outputs
+---------------
+
+`lsst.meas.extensions.ScarletDeblendTask` now outputs a single storage container that allows users to access both the scarlet models and flux re-distributed model while using an order of magnitude less storage space.
+
+.. _release-v25-0-0-new-packages:
+
+New packages added
+------------------
+
+* `analysis_tools <https://github.com/lsst/analysis_tools>`_ assists in the creation of quality assurance (QA) plots and metrics from the outputs of a data reduction pipeline
+* `ctrl_bps_parsl <https://github.com/lsst/ctrl_bps_parsl>`_ is the Parsl-based plugin for the LSST Batch Production Service (BPS) execution framework.
+* `display_astrowidgets <https://github.com/lsst/display_astrowidgets>`_ is the astrowidgets implementation for afwDisplay based on the Ginga image viewer
+* `drp_tasks <https://github.com/lsst/drp_tasks>`_ contains high-level Tasks specific to the data release production pipeline.
+* `felis <https://github.com/lsst/felis>`_ contains DBMS-agnostic schema descriptions
+* `gbdes <https://github.com/lsst/gbdes>`_ is a fork of the gbernstein/gbdes package, modified for use by the LSST Science Pipelines as a third-party dependency.
+
+.. _release-v25-0-0-packages-removed:
+
+Packages removed
+----------------
+
+* `Eigen <https://github.com/lsst/eigen>`_, replaced by the conda version.
+* `ap_pipe_testdata <https://github.com/lsst/ap_pipe_testdata>`_, obsolete Gen 2 test data.
+
+.. _release-v25-0-0-pending-deprecations:
+
+Pending deprecations
+====================
+
+These Tasks or methods will be deprecated in the next major release.
+
+- :ref:`release-v25-0-0-deprecate-obs-base`
+- :ref:`release-v25-0-0-deprecate-pipe-tasks`
+- :ref:`release-v25-0-0-deprecate-ip-diffim`
+- :ref:`release-v25-0-0-deprecate-afw-table`
+- :ref:`release-v25-0-0-deprecate-daf-butler`
+- :ref:`release-v25-0-0-deprecate-configurations`
+
+.. _release-v25-0-0-deprecate-obs-base:
+
+Deprecate method getInstrument
+------------------------------
+
+``obs.base.util.getInstrument`` will be replaced by ``lsst.pipe.base.Instrument.from_string`` and will be removed after release of release v27.0.0.
+
+.. _release-v25-0-0-deprecate-pipe-tasks:
+
+Deprecate interfaces ParquetTable and MultilevelParquetTable
+------------------------------------------------------------
+
+The Gen 2 I/O interfaces ``ParquetTable`` and ``MultilevelParquetTable`` in ``pipe_tasks`` will be removed after the release of v26.0.0.
+
+.. _release-v25-0-0-deprecate-ip-diffim:
+
+Deprecate factory construction with makeIdFactory
+-------------------------------------------------
+
+ID factory construction with ``lsst.ip.diffim.detectAndMeasure.makeIdFactory`` should be replaced by using ``idGenerator`` config field and will be removed after the release of v27.0.0.
+
+.. _release-v25-0-0-deprecate-afw-table:
+
+Deprecate method get_bool_array
+-------------------------------
+
+The ``get_bool_array`` method in ``lsst.afw.table.BaseColumnView`` and its derived subclasses should not be used as ``Catalog.__getitem__`` now provides better support accessing flag/bool columns and will be removed after the release of v27.0.0.
+
+.. _release-v25-0-0-deprecate-daf-butler:
+
+Pending deprecations in lsst.daf.butler
+---------------------------------------
+
+The methods ``Butler.put``, ``Butler.get`` and ``Butler.getDeferred`` should be replaced by ``Butler.putDirect``, ``Butler.getDirect`` and ``Butler.getDeferred``.
+``Butler.datasetExistsDirect`` will be replaced by ``Butler.stored``. ``Butler.datasetExists`` will be replaced by ``Butler.exists``.
+The ``Butler.datastore`` property will be deprecated.
+The ``DimensionPacker`` class will be deprecated in v26.0.0 in favor of configurable dimension packers.
+Before mentioned will be removed after the release of v27.0.0.
+
+.. _release-v25-0-0-deprecate-skymap-packers:
+
+Deprecate SkyMapDimensionPacker
+-------------------------------
+
+In ``lsst.skymap.packers.SkyMapDimensionPacker`` the methods ``getIntFromFilter``, ``getFilterNameFromInt`` and ``getMaxIntForFilters`` will be deprecated in v26.0.0 and be removed after the release of v27.0.0.
+
+.. _release-v25-0-0-deprecate-configurations:
+
+Deprecated task configurations
+------------------------------
+
+Configurations in  ``lsst.pipe.tasks.skyCorrectionu`` that will be removed after the release of v26.0.0. (see :jirab:`RFC-898` for further details):
+
+* ``bgModel`` : Use ``bgModel1`` instead
+* ``doBgModel``
+* ``doBgModel1``
+
+The field ``doPsfMatch`` in ``lsst.pipe.tasks.coaddBase`` is no longer used and will be released after the release of v27.0.0.
+
+In ``lsst.cp,pipe.ptc.cpExtractPtcTask`` the following configurations have been moved to ``cpSolvePtcTask`` and will be removed after the release of v26.0.0:
+
+* ``minMeanSignal``
+* ``maxMeanSignal``
+
+
+.. _release-v25-0-0-deprecations:
+
+Deprecations
+============
+
+These packages/functions are deprecated and will not be available in the next major release.
+
+- :ref:`release-v25-0-0-deprecated-image-difference-task`
+- :ref:`release-v25-0-0-deprecated-gen3-code`
+- :ref:`release-v25-0-0-deprecated-shared-pointers`
+- :ref:`release-v25-0-0-deprecated-configurations-in-psfexStarSelector.py`
+- :ref:`release-v25-0-0-deprecated-default-position`
+- :ref:`release-v25-0-0-deprecated-logging`
+
+.. _release-v25-0-0-deprecated-image-difference-task:
+
+Deprecated ImageDifferenceTask
+------------------------------
+
+`~lsst.pipe.tasks.ImageDifferenceTask` has been deprecated and will be removed after this release. It has been superseded by `~lsst.ip.diffim.AlardLuptonSubtractTask` and `~lsst.ip.diffim.DetectAndMeasureTask`.
+
+.. _release-v25-0-0-deprecated-gen3-code:
+
+Deprecated Gen 3 code in pipe_drivers
+-------------------------------------
+
+The ``PipelineTask`` classes in ``pipe_drivers``, ``FocalPlaneBackground`` and ``SkyCorrectionTask``, are deprecated and the identical code in ``pipe_tasks`` should be used instead.
+Please update any Gen 3 pipeline definitions to use the new location.
+``pipe_drivers`` (along with ``ctrl_pool`` and ``daf_persistence``) will be removed following this release.
+
+.. _release-v25-0-0-deprecated-shared-pointers:
+
+Deprecated shared_ptr arguments for C++ member functions
+--------------------------------------------------------
+
+Smart pointers (such as ``shared_ptr``) should only be used as arguments if a reference, const reference, or raw pointer cannot be used. In ``afw`` and ``daf_base`` some member functions were overloaded and the old implementations using ``shared_ptr`` were marked deprecated and will be removed following this release.
+
+For more information, refer to :jira:`RFC-817`.
+
+The field ``doApplyUberCal`` is deprecated.
+Use ``doApplyExternalPhotoCalib`` and ``doApplyExternalSkyWcs`` instead.
+It will be removed after this release.
+:jirab:`DM-23352`
+
+.. _release-v25-0-0-deprecated-configurations-in-psfexStarSelector.py:
+
+Deprecated configurations in PsfexStarSelectorTask
+--------------------------------------------------
+The following configurations are no longer used and will be removed after this release:
+
+* ``maxbad``
+* ``maxbadflag``
+
+:jirab:`DM-5684`
+
+.. _release-v25-0-0-deprecated-default-position:
+
+Deprecate PSF evaluation without position argument
+--------------------------------------------------
+
+PSF models are spatially-varying. Evaluation of these models with methods such as ``psf.computeImage`` without a position argument will return the realization of the PSF at the average position.
+A position argument will be required after v25.
+The current behavior can be replicated by explicitly providing the average position like ``psf.computeImage(psf.getAveragePosition)``.
+
+For more information, refer to :jira:`RFC-796`.
+
+.. _release-v25-0-0-deprecated-logging:
+
+Deprecated f-string log messages
+--------------------------------
+
+f-string log messages are now deprecated to match Python logging convention.
+
+For more information, refer to :jira:`RFC-789`.
+
+.. _release-v25-0-0-deprecated-supported-datasets:
+
+Deprecated task configurations
+------------------------------
+
+In ``lsst.pipe.tasks.InsertFakesTask``:
+
+* ``raColName``: Use ``ra_col`` instead.
+* ``decColName``: Use ``dec_col`` instead.
+* ``diskHLR``, ``aDisk``, ``bDisk``, ``paDisk``: Use ``disk_semimajor_col``, ``disk_axis_ratio_col``, and ``disk_pa_col`` to specify disk half-light ellipse.
+* ``nDisk``: Use ``disk_n`` instead.
+* ``bulgeHLR``, ``bulge_pa_col``, ``aBulge``, ``bBulge``, ``paBulge``: Use ``bulge_semimajor_col``, ``bulge_axis_ratio_col``, and  to specify disk half-light ellipse.
+* ``nBulge``: Use ``bulge_n`` instead.
+* ``magVar``: Use ``mag_col`` instead.
+* ``sourceSelectionColName``: Use ``select_col`` instead.
