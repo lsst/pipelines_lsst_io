@@ -1,6 +1,12 @@
 .. _release-v25-0-0-tickets:
 
 ###################################
+Tickets Addressed in Release 25.0.1
+###################################
+
+= `DM-40391 <https://jira.lsstcorp.org/browse/DM-40391>`_: Spectractor build fails for rubinenv 5.0.1
+
+###################################
 Tickets Addressed in Release 25.0.0
 ###################################
 
