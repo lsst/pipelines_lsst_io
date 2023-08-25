@@ -20,7 +20,7 @@ Release 25.0.0 (2023-07-20)
 | rubin-env version                         | 5.0.1      |
 +-------------------------------------------+------------+
 
-This release is based on the ``w_2022_48`` weekly build with 19 tickets backported.
+This release is based on the ``w_2022_48`` weekly build with 21 tickets backported.
 
 The notes below highlight significant technical changes to the Science Pipelines codebase in this release.
 For a complete list of changes made, see :doc:`tickets/v25_0_0`.
