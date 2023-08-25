@@ -45,16 +45,16 @@ Installation
 
 Recommended installation path:
 
-- :doc:`Installing with newinstall.sh <install/newinstall>`
+- :doc:`Installing with lsstinstall <install/lsstinstall>`
 - :doc:`install/setup`
 - :doc:`install/top-level-packages`
 
 Alternative distributions and installation methods:
 
-- :doc:`Installing with lsstinstall <install/lsstinstall>`
 - :doc:`install/docker`
 - :doc:`Installing from source with lsstsw <install/lsstsw>`
 - `CernVM FS <https://sw.lsst.eu>`_ (contributed by CC-IN2P3)
+- :doc:`Installing with newinstall.sh <install/newinstall>`
 
 Related topics:
 

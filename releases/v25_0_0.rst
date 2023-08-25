@@ -1,5 +1,5 @@
 .. _release-latest:
-.. _release-v25-0-0:
+.. _release-v25-0-1:
 
 ###########################
 Release 25.0.0 (2023-07-20)
@@ -8,19 +8,19 @@ Release 25.0.0 (2023-07-20)
 .. toctree::
    :hidden:
 
-   tickets/v25_0_0
+   tickets/v25_0_1
 
 +-------------------------------------------+------------+
 | Source                                    | Identifier |
 +===========================================+============+
-| Git tag                                   | 25.0.0     |
+| Git tag                                   | 25.0.1     |
 +-------------------------------------------+------------+
-| :doc:`EUPS distrib </install/newinstall>` | v25\_0\_0  |
+| :doc:`EUPS distrib </install/newinstall>` | v25\_0\_1  |
 +-------------------------------------------+------------+
 | rubin-env version                         | 5.0.1      |
 +-------------------------------------------+------------+
 
-This release is based on the ``w_2022_48`` weekly build with 18 tickets backported.
+This release is based on the ``w_2022_48`` weekly build with 21 tickets backported.
 
 The notes below highlight significant technical changes to the Science Pipelines codebase in this release.
 For a complete list of changes made, see :doc:`tickets/v25_0_0`.
