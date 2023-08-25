@@ -1,6 +1,14 @@
 .. _release-v25-0-0-tickets:
 
 ###################################
+Tickets Addressed in Release 25.0.1
+###################################
+
+- `DM-40391 <https://jira.lsstcorp.org/browse/DM-40391>`_: Spectractor build fails for rubinenv 5.0.1
+- `DM-40456 <https://jira.lsstcorp.org/browse/DM-40456>`_: sphgeom is failing a test on macOS Ventura (13) on x86
+- `DM-40463 <https://jira.lsstcorp.org/browse/DM-40463>`_: gaap is failing a test on macOS Ventura
+
+###################################
 Tickets Addressed in Release 25.0.0
 ###################################
 
