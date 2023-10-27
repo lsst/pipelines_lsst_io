@@ -226,7 +226,7 @@ For example, from the command-line, this command returns one ``calexp`` from eac
     calexp HSC/runs/RC2/w_2021_06/DM-28654/sfm 5329565    i        HSC       40           HSC-I            0  1228
 
 Passing ``findFirst=True`` or ``--find-first`` requires the list of collections to be clearly ordered, however, ruling out wildcards like ``...`` ("all collections"), globs, and regular expressions.
-Single-dataset search methods like `Butler.get` and `Registry.findDataset` always use the find-first logic (and hence always require ordered collections).
+Single-dataset search methods like `Butler.get` and `Butler.find_dataset` always use the find-first logic (and hence always require ordered collections).
 
 .. _middleware_faq_data_id_missing_keys:
 
@@ -365,20 +365,20 @@ If you just want to load the calibration dataset appropriate for a particular ``
         collections="HSC/calib"
     )
 
-The lower-level `Registry.findDataset` method can also perform this search without actually reading the dataset, but you'll need to be explicit about how to do the temporal lookup::
+The lower-level `Butler.find_dataset` method can also perform this search without actually reading the dataset, but you'll need to be explicit about how to do the temporal lookup::
 
     raw_data_id = butler.registry.expandDataId(
         instrument="HSC",
         exposure=903334,
         detector=0,
     )
-    ref = butler.registry.findDataset(
+    ref = butler.find_dataset(
         "flat",
         raw_data_id,
         timespan=raw_data_id.timespan,
     )
 
-It's worth noting that `~Registry.findDataset` doesn't need or use the ``exposure`` key in the ``raw_data_id`` argument that is passed to it - a master flat isn't associated with an exposure - but it's happy to ignore it, and we *do* need it (or something else temporal) in order to get a data ID with a timespan for the last argument.
+It's worth noting that `~Butler.find_dataset` doesn't need or use the ``exposure`` key in the ``raw_data_id`` argument that is passed to it - a master flat isn't associated with an exposure - but it's happy to ignore it, and we *do* need it (or something else temporal) in order to get a data ID with a timespan for the last argument.
 
 Finally, if you need to query for calibration datasets *and* their validity ranges, and don't have a point in time you're starting from, the only option is `Registry.queryDatasetAssociations`.
 That's a bit less user-friendly - it only accepts one dataset type at a time, and doesn't let you restrict the data IDs at all - but it *can* query `~CollectionType.CALIBRATION` collections and it returns the associated validity ranges as well.
