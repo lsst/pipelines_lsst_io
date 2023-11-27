@@ -1,6 +1,17 @@
 .. _release-v25-0-0-tickets:
 
 ###################################
+Tickets Addressed in Release 25.0.2
+###################################
+
+- `DM-40186 <https://jira.lsstcorp.org/browse/DM-40186>`_: Investigate PDR2 detection errors:  983 instances of exited early Insufficient good sky source flux measurements for dynamic threshold calculation [meas\_algorithms]
+- `DM-40451 <https://jira.lsstcorp.org/browse/DM-40451>`_: Adapt scarlet to conditionally skip bands with partial coverage [afw, meas\_extensions\_scarlet, pipe\_tasks, sdm\_schemas]
+- `DM-40781 <https://jira.lsstcorp.org/browse/DM-40781>`_: RC2 tract 9813 psf weighted mean map has nans [pipe\_tasks]
+- `DM-40921 <https://jira.lsstcorp.org/browse/DM-40921>`_: DM-40451 breaks ci\_imsim [meas\_extensions\_scarlet, sdm\_schemas]
+- `DM-40957 <https://jira.lsstcorp.org/browse/DM-40957>`_: Investigate failed blends in RC2 subset after DM-40451 [meas\_extensions\_scarlet]
+- `DM-41008 <https://jira.lsstcorp.org/browse/DM-41008>`_: Fix long runtime in forcedPhotCcd with no data footprints [meas\_extensions\_scarlet, pipe\_tasks]
+
+###################################
 Tickets Addressed in Release 25.0.1
 ###################################
 

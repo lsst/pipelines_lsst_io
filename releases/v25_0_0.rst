@@ -1,14 +1,14 @@
 .. _release-latest:
-.. _release-v25-0-1:
+.. _release-v25-0-2:
 
 ###########################
-Release 25.0.1 (2023-08-28)
+Release 25.0.2 (2023-11-17)
 ###########################
 
 .. toctree::
    :hidden:
 
-   tickets/v25_0_1
+   tickets/v25_0_0
 
 +-------------------------------------------+------------+
 | Source                                    | Identifier |
@@ -20,7 +20,7 @@ Release 25.0.1 (2023-08-28)
 | rubin-env version                         | 5.0.1      |
 +-------------------------------------------+------------+
 
-This release is based on the ``w_2022_48`` weekly build with 21 tickets backported.
+This release is based on the ``w_2022_48`` weekly build with 27 tickets backported.
 
 The notes below highlight significant technical changes to the Science Pipelines codebase in this release.
 For a complete list of changes made, see :doc:`tickets/v25_0_0`.
