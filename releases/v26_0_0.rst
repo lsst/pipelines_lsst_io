@@ -1,0 +1,328 @@
+.. _release-latest:
+.. _release-v26-0-0:
+
+###########################
+Release 26.0.0 (2023-12-22)
+###########################
+
+.. toctree::
+   :hidden:
+
+   tickets/v26_0_0
+
++-------------------------------------------+------------+
+| Source                                    | Identifier |
++===========================================+============+
+| Git tag                                   | 26.0.0     |
++-------------------------------------------+------------+
+| :doc:`EUPS distrib </install/newinstall>` | v26\_0\_0  |
++-------------------------------------------+------------+
+| rubin-env version                         | 7.0.1      |
++-------------------------------------------+------------+
+
+This release is based on the ``w_2023_32`` weekly build with 11 tickets backported.
+
+The notes below highlight significant technical changes to the Science Pipelines codebase in this release.
+For a complete list of changes made, see :doc:`tickets/v26_0_0`.
+
+The `Characterization Metric Report (DMTR-421) <https://https://dmtr-421.lsst.io/>`_ describes the scientific performance of this release in terms of scientific performance metrics.
+
+If you have questions or comments about this release, visit our `Community forum <https://community.lsst.org>`_ for advice.
+
+- :ref:`release-v26-0-0-functionality`
+- :ref:`release-v26-0-0-interface`
+- :ref:`release-v26-0-0-deprecations`
+
+*See also:*
+
+- :doc:`Installation instructions </install/index>`
+- :doc:`Known issues </known-issues>`
+- `Doxygen Documentation`__
+
+__ http://doxygen.lsst.codes/stack/doxygen/xlink_v26.0.0_2023_12_14_04.16.55/
+
+.. _release-v26-0-0-functionality:
+
+Major new features
+==================
+
+- :ref:`release-v26-0-0-gbdes`
+- :ref:`release-v26-0-0-transiNet`
+- :ref:`release-v26.0.0-mkl`
+
+.. _release-v26-0-0-gbdes:
+
+Fitting with GBDES
+==================
+
+A significantly modified fork of Dark Energy Survey's astrometric calibration `gbdes <https://github.com/lsst/gbdes>`_ is now used for global astrometric fitting in the data release pipeline.
+See also :jira:`RFC-853`.
+
+
+.. _release-v26-0-0-transiNet:
+
+New package meas_transiNet
+==========================
+
+A ``PipelineTask`` interface for the ``TransiNet`` machine learning classification package.
+`TransiNet <https://github.com/NimSed/TransiNet0>`_  provides multiple deep learning-based transient detection implementations based on ``PyTorch``.
+
+.. _release-v26.0.0-mkl:
+
+Intel Math Kernel Library compatibility
+=======================================
+
+The codebase is now compatible with the Intel Math Kernel Library (MKL).
+``rubin-env 7.0.1`` provides now ``BLAS`` from ``MKL`` by default.
+
+.. _release-v26-0-0-interface:
+
+Significant interface changes
+=============================
+
+.. _release-v26-0-0-new-packages:
+
+New packages added
+------------------
+
+* `ctrl_execute <https://github.com/lsst/ctrl_execute>`_ for configuration writing and orchestration execution. It was removed in v24.0.0 and added back in this release.
+* `ctrl_platform_s3df <https://github.com/lsst/ctrl_platform_s3df>`_ provides S3DF specific templates used to write configuration files.
+* `daf_relation <https://github.com/lsst/daf_relation>`_ provides classes that represent relational algebra expression trees, along with algorithms to convert them to SQLAlchemy objects and Python generators.
+* `meas_transiNet <https://github.com/lsst/meas_transiNet>`_ provides a PipelineTask interface for the TransiNet machine learning classification package.
+
+.. _release-v26-0-0-packages-removed:
+
+Packages removed
+----------------
+
+* `ctrl_pool <https://github.com/lsst/ctrl_pool>`_,
+* `daf_persistence <https://github.com/lsst/daf_persistence>`_ and
+* `pipe_drivers <https://github.com/lsst/pipe_drivers>`_ are obsolete Gen2 middleware removed after the deprecation period.
+
+.. _release-v26-0-0-deprecations:
+
+Deprecations
+============
+
+These tasks or methods are now deprecated and will be removed in the next major release.
+See :jira:`RFC-945` for a clarification on the accelerated deprecation policy.
+
+- :ref:`release-v26-0-0-deprecated-pipe-tasks`
+- :ref:`release-v26-0-0-deprecated-ip-diffim`
+- :ref:`release-v26-0-0-deprecated-afw`
+- :ref:`release-v26-0-0-deprecated-daf-butler`
+- :ref:`release-v26-0-0-deprecated-skymap-packers`
+- :ref:`release-v26-0-0-deprecated-oks-base`
+- :ref:`release-v26-0-0-deprecated-pipe-tasks-postprocess`
+- :ref:`release-v26-0-0-deprecated-daf-butler-instrument`
+- :ref:`release-v26-0-0-deprecated-pipe-base`
+- :ref:`release-v26-0-0-deprecated-rfc-901`
+- :ref:`release-v26-0-0-deprecated-configurations`
+
+.. _release-v26-0-0-deprecated-pipe-tasks:
+
+Deprecations in lsst.pipe.tasks
+-------------------------------
+
+``makeSupplementaryDataGen3`` in ``assembleCoadd`` is deprecated in favor of ``_makeSupplementaryData``.
+
+The Gen 2 I/O interfaces ``ParquetTable`` and ``MultilevelParquetTable`` in ``pipe_tasks`` are deprecated.
+
+.. _release-v26-0-0-deprecated-ip-diffim:
+
+Deprecated factory construction with makeIdFactory
+--------------------------------------------------
+
+ID factory construction with ``lsst.ip.diffim.detectAndMeasure.makeIdFactory`` should be replaced by using ``idGenerator`` config field and will be removed.
+
+.. _release-v26-0-0-deprecated-afw:
+
+Deprecations in lsst.afw
+------------------------
+
+The ``get_bool_array`` method in ``lsst.afw.table.BaseColumnView`` and its derived subclasses should not be used as ``Catalog.__getitem__`` now provides better support accessing flag/bool columns and will be removed.
+
+In the class ``lsst.afw.image.MaskedImage`` the method ``getArray`` will be removed in favor the individual properties.
+
+.. _release-v26-0-0-deprecated-daf-butler:
+
+Deprecations in lsst.daf.butler
+-------------------------------
+
+In the classes ``Butler``, ``LimitedButler`` and ``QuantumBackedButler`` these methods are deprecated:
+
+* ``putDirect``: Use ``put`` instead
+* ``getDirect``, Use ``get`` instead
+* ``getDirectDeferred``, Use ``getDeferred`` instead
+* ``datasetExistsDirect``: Use ``datasetExistsDirect`` instead
+* ``datastore``, removed without replacement as the ``datastore`` property is now deprecated
+
+``CollectionSearch`` is deprecated in favor of tuples of string collection names.
+
+.. _release-v26-0-0-deprecated-skymap-packers:
+
+Deprecated SkyMapDimensionPacker
+--------------------------------
+
+In ``lsst.skymap.packers.SkyMapDimensionPacker`` the methods ``getIntFromFilter``, ``getFilterNameFromInt`` and ``getMaxIntForFilters`` are deprecated.
+
+.. _release-v26-0-0-deprecated-oks-base:
+
+Deprecations in lsst.obs.base
+-----------------------------
+
+The class ``ExposureIdInfo`` is deprecated in favor of ``lsst.meas.base.IdGenerator``.
+
+.. _release-v26-0-0-deprecated-pipe-tasks-postprocess:
+
+Deprecations in lsst.pipe.tasks.postprocess
+-------------------------------------------
+
+In the class ``WriteRecalibratedSourceTableTask`` the methods ``attachCalibs`` and ``getClosestTract`` will be removed.
+
+.. _release-v26-0-0-deprecated-daf-butler-instrument:
+
+Deprecations in lsst.daf.butler.instrument
+------------------------------------------
+
+The class ``ObservationDimensionPacker`` is deprecated in favor of configurable dimension packers.
+
+.. _release-v26-0-0-deprecated-pipe-base:
+
+Deprecations in lsst.pipe.base
+------------------------------
+
+The class ``ButlerQuantumContext`` has been renamed to ``QuantumContext`` and been given extra functionality.
+
+.. _release-v26-0-0-deprecated-rfc-901:
+
+Deprecation of most input calibration connections and configurations in favor of visitSummary
+---------------------------------------------------------------------------------------------
+
+This summarizes deprecated connections and configurations, which will be replaced in favor of the ``visitSummary`` connection. See :jira:`RFC-901`.
+
+Connections deprecated in ``lsst.pipe.tasks.MakeWarpConnections`` in favor of the ``visitSummary`` connection:
+
+* ``externalSkyWcsTractCatalog``
+* ``externalSkyWcsGlobalCatalog``
+* ``externalPhotoCalibTractCatalog``
+* ``externalPhotoCalibGlobalCatalog``
+* ``finalizedPsfApCorrCatalog``
+* ``wcsList``
+* ``bboxList``
+
+In ``lsst.pipe.tasks.MakeWarpConfig``: the configuration ``doApplyFinalizedPsf`` in favor of ``useVisitSummaryPsf``.
+
+In ``CoaddBaseConfig``: the configurations ``doApplyExternalPhotoCalib``, ``useGlobalExternalPhotoCalib``
+, ``doApplyExternalSkyWcs`` and ``useGlobalExternalSkyWcs``.
+
+In ``lsst.pipe.tasks.WriteRecalibratedSourceTableConnections`` the connections:
+
+* ``skyMap``
+* ``exposure``
+* ``externalSkyWcsTractCatalog``
+* ``externalSkyWcsGlobalCatalog``
+* ``externalPhotoCalibTractCatalog``
+* ``externalPhotoCalibGlobalCatalog``
+
+In ``lsst.pipe.tasks.WriteRecalibratedSourceTableConfig`` the configurations:
+
+* ``doApplyExternalPhotoCalib``
+* ``doApplyExternalSkyWcs``
+* ``useGlobalExternalPhotoCalib``
+* ``useGlobalExternalSkyWcs``
+
+In ``lsst.pipe.tasks.WriteObjectTableConfig``: the configuration ``engine``.
+
+In ``lsst.ip.diffim.SubtractInputConnections``: the connection ``finalizedPsfApCorrCatalog``.
+
+In ``lsst.ip.diffim.AlardLuptonSubtractBaseConfig``: the configuration ``doApplyFinalizedPsf`` in favor of ``doApplyExternalCalibrations``.
+
+In ``lsst.faro.measurement.DetectorMeasurementConnection`` the connections:
+
+* ``skyWcs``
+* ``photoCalib``
+* ``externalSkyWcsTractCatalog``
+* ``externalSkyWcsGlobalCatalog``
+* ``externalPhotoCalibTractCatalog``
+* ``externalPhotoCalibGlobalCatalog``
+
+In ``lsst.faro.measurement.DetectorMeasurementConfig`` the configurations:
+
+* ``doApplyExternalSkyWcs``
+* ``useGlobalExternalSkyWcs``
+* ``doApplyExternalPhotoCalib``
+* ``useGlobalExternalPhotoCalib``
+
+In ``lsst.faro.base.MatchedBaseConnections`` the connections:
+
+* ``photoCalibs``
+* ``astromCalibs``
+* ``externalSkyWcsTractCatalog``
+* ``externalSkyWcsGlobalCatalog``
+* ``externalPhotoCalibTractCatalog``
+* ``externalPhotoCalibGlobalCatalog``
+
+In ``lsst.faro.base.MatchedBaseConfig`` the configurations:
+
+* ``doApplyExternalSkyWcs``
+* ``useGlobalExternalSkyWcs``
+* ``doApplyExternalPhotoCalib``
+* ``useGlobalExternalPhotoCalib``
+
+In ``lsst.meas.base.ForcedPhotCcdConnections`` the connections:
+
+* ``externalSkyWcsTractCatalog``
+* ``externalSkyWcsGlobalCatalog``
+* ``externalPhotoCalibTractCatalog``
+* ``externalPhotoCalibGlobalCatalog``
+* ``finalizedPsfApCorrCatalog``
+
+In ``lsst.meas.base.ForcedPhotCcdConfig`` the configurations:
+
+* ``doApplyExternalPhotoCalib``
+* ``useGlobalExternalPhotoCalib``
+* ``doApplyExternalSkyWcs``
+* ``useGlobalExternalSkyWcs``
+* ``doApplyFinalizedPsf``
+
+In ``lsst.meas.baseForcedPhotCcdFromDataFrameConnections`` the connections:
+
+* ``externalSkyWcsTractCatalog``
+* ``externalSkyWcsGlobalCatalog``
+* ``externalPhotoCalibTractCatalog``
+* ``externalPhotoCalibGlobalCatalog``
+* ``finalizedPsfApCorrCatalog``
+
+.. _release-v26-0-0-deprecated-configurations:
+
+Deprecated task configurations
+------------------------------
+
+Configurations in ``lsst.pipe.tasks.skyCorrectionu`` that will be removed (see :jirab:`RFC-898` for further details):
+
+* ``bgModel``: Use ``bgModel1`` instead
+* ``doBgModel``
+* ``doBgModel1``
+
+The ``doPsfMatch`` in ``lsst.pipe.tasks.coaddBase`` is no longer used.
+
+In ``lsst.cp,pipe.ptc.cpExtractPtcTask`` the following configurations have been moved to ``cpSolvePtcTask`` and will be removed:
+
+* ``minMeanSignal``
+* ``maxMeanSignal``
+
+In ``lsst.pipe.tasks.InsertFakesTask``:
+
+* ``raColName``: Use ``ra_col`` instead
+* ``decColName``: Use ``dec_col`` instead
+* ``diskHLR``, ``aDisk``, ``bDisk``, ``paDisk``: Use ``disk_semimajor_col``, ``disk_axis_ratio_col``, and ``disk_pa_col`` to specify disk half-light ellipse
+* ``nDisk``: Use ``disk_n`` instead.
+* ``bulgeHLR``, ``bulge_pa_col``, ``aBulge``, ``bBulge``, ``paBulge``: Use ``bulge_semimajor_col``, ``bulge_axis_ratio_col``, and to specify disk half-light ellipse
+* ``nBulge``: Use ``bulge_n`` instead
+* ``magVar``: Use ``mag_col`` instead
+* ``sourceSelectionColName``: Use ``select_col`` instead
+
+In ``lsst.cp.pipe.LinearitySolveConfig`` the configurations ``photodiodeIntegrationMethod`` and ``photodiodeCurrentScale`` have been moved tp ``cpExtractPtcTask``.
+
+In ``lsst.pipe.base.config.PipelineTaskConfig`` the configuration ``saveMetadata`` is deprecated.
