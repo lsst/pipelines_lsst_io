@@ -175,7 +175,7 @@ The ``get_bool_array`` method in ``lsst.afw.table.BaseColumnView`` and its deriv
 Pending deprecations in lsst.daf.butler
 ---------------------------------------
 
-The methods ``Butler.put``, ``Butler.get`` and ``Butler.getDeferred`` should be replaced by ``Butler.putDirect``, ``Butler.getDirect`` and ``Butler.getDeferred``.
+The methods ``Butler.put``, ``Butler.get`` and ``Butler.getDeferred`` have been updated and should now replace calls to ``Butler.putDirect``, ``Butler.getDirect`` and ``Butler.getDeferred``, which are being removed.
 ``Butler.datasetExistsDirect`` will be replaced by ``Butler.stored``. ``Butler.datasetExists`` will be replaced by ``Butler.exists``.
 The ``Butler.datastore`` property will be deprecated.
 The ``DimensionPacker`` class will be deprecated in v26.0.0 in favor of configurable dimension packers.
