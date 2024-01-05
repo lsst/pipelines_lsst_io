@@ -113,7 +113,7 @@ Now you can explore the repository using the registry attribute of the Butler yo
    for col in registry.queryCollections():
        print(col)
    for ref in registry.queryDatasets('raw', collections='HSC/raw/all', instrument='HSC'):
-       print(ref.dataId.full)
+       print(ref.dataId)
 
 Read more about querying datasets :ref:`here <daf_butler_queries>`.
 

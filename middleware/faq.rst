@@ -152,8 +152,6 @@ Because there are usually many datasets in a data repository (even in a single c
 
 `~Registry.queryDatasets` usually *isn't* what you want if you're looking for raw-image metadata (use `~Registry.queryDimensionRecords` instead); it's easy to confuse the dimensions that represent observations with instances of the ``raw`` dataset type, because they are always ingested into the data repository together.
 
-In Python, you should almost always use `Butler.getDirect` instead of `Butler.get` to actually load the `DatasetRef` instances the query returns; `Butler.get` would repeat some of the work the query already performed.
-
 queryDataIds
 ------------
 
