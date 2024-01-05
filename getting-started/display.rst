@@ -95,7 +95,7 @@ Now, use the Butler client to find what data IDs are available for the ``calexp`
    import os
    collection = f"u/{os.environ['USER']}/single_frame"
    for ref in butler.registry.queryDatasets('calexp', physical_filter='HSC-R', collections=collection, instrument='HSC'):
-       print(ref.dataId.mapping)
+       print(ref.dataId)
 
 The printed output are data IDs for the ``calexp`` datasets with the ``HSC-R`` physical filter.
 The ``collections`` and ``instrument`` arguments are both required in this case.
