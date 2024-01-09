@@ -307,23 +307,19 @@ Given a name, you can get a column's values as a familiar Numpy array like this:
 Plotting sources on the display
 ===============================
 
-Now you'll overplot sources from the ``src`` table onto the image display using the ``Display``\ ’s ``dot`` method for plotting markers.
-``Display.dot`` plots markers individually, so you'll need to iterate over rows in the ``SourceTable``.
-It's more efficient to send a batch of updates to the display, though, so enclose the loop in a ``display.Buffering`` context, like this:
+Now you'll overplot sources from the ``src`` table onto the image display using the ``Display``\ ’s ``centroids`` method for plotting all of the sources from a catalog.
 
 .. code-block:: python
 
-   with display.Buffering():
-       for s in src:
-           display.dot("o", s.getX(), s.getY(), size=10, ctype="orange")
+    display.centroids(src)
 
-Now orange circles should appear in the DS9 window over every detected source.
+Now green circles should appear in the DS9 window over every detected source.
 
 .. note::
 
-   Notice the ``getX`` and ``getY`` methods for getting the (x,y) centroid of each source.
-   These methods are shortcuts, using the table's *slot* system.
-   Because the the ``src`` catalog contains measurements from several measurement plugins, slots are a way of easily using the pre-configured best measurements of a source.
+   ``display.centroids()`` uses the ``src.getX()`` and ``src.getY()`` methods to get the (x,y) centroid of each source.
+   These methods are shortcuts, using the table's *slot* system, specifically ``slot_Centroid``.
+   Because the ``src`` catalog contains measurements from several measurement plugins, slots are a way of easily using the pre-configured best measurements of a source.
 
 Clearing markers
 ================
@@ -342,14 +338,12 @@ Next, use the display to understand what sources were used for PSF measurement.
 
 The ``src`` table's ``calib_psf_used`` column describes whether the source was used for PSF measurement.
 First, set the mask to transparent so it's easier to see the markers.
-Since columns are Numpy arrays we can iterate over rows where ``src['calib_psf_used']`` is ``True`` with Numpy's boolean array indexing:
+Since columns are Numpy arrays we can just plot the rows where ``src['calib_psf_used']`` is ``True`` with Numpy's boolean array indexing:
 
 .. code-block:: python
 
    display.setMaskTransparency(100)
-   with display.Buffering():
-       for s in src[src['calib_psf_used']]:
-           display.dot("x", s.getX(), s.getY(), size=10, ctype="red")
+   display.centroids(src[src['calib_psf_used']], symbol='x', size=10, ctype="red")
 
 Red **x** symbols on the display mark all stars used by PSF measurement.
 
@@ -360,9 +354,7 @@ In this statement, you can use a logical ``&`` (and) operator to combine boolean
 
    rejectedPsfSources = src[src['calib_psf_candidate'] &
                             (src['calib_psf_used'] == False)]
-   with display.Buffering():
-       for s in rejectedPsfSources:
-           display.dot("+", s.getX(), s.getY(), size=10, ctype='green')
+   display.centroids(rejectedPsfSources, symbol="+", size=10, ctype='green')
 
 Now all green plus (**+**) symbols on the display mark rejected PSF measurement sources.
 
