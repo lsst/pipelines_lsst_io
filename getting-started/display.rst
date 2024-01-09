@@ -384,7 +384,7 @@ You can use the iterator returned by ``queryDatasets`` to make a simple movie, b
    display = afwDisplay.getDisplay()
    collection = f"u/{os.environ['USER']}/single_frame"
    for ref in butler.registry.queryDatasets('calexp', physical_filter='HSC-R', collections=collection, instrument='HSC'):
-       calexp = butler.getDirect(ref)
+       calexp = butler.get(ref)
        display.mtv(calexp)
        sleep(1)
 
