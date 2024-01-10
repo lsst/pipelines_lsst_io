@@ -61,11 +61,13 @@ In the Python interpreter, run:
 .. code-block:: python
 
    from lsst.daf.butler import Butler
-   butler = Butler('SMALL_HSC')
+   collection = f"u/{os.environ['USER']}/single_frame"
+   butler = Butler('SMALL_HSC', collections=collection, instrument='HSC')
 
 The Butler client reads from the data repository specified constructor.
 In the previous tutorial, you created the ``single_frame`` collection to isolate the outputs of ``singleFrame`` pipeline.
-This collection or a CHAINED collection that contains it will need to be specified whenever accessing datasets it contains.
+We will only be working with one collection in this tutorial, so we specify the ``collection`` when we create the butler, so that we do not have to specify it every time we want to access our data.
+Similarly, we specify the ``instrument`` argument because a butler repository can contain data from multiple instruments; in our case the repository only contains HSC data, but that may not be true in general.
 
 .. tip::
 
@@ -93,14 +95,10 @@ Now, use the Butler client to find what data IDs are available for the ``calexp`
 .. code-block:: python
 
    import os
-   collection = f"u/{os.environ['USER']}/single_frame"
-   for ref in butler.registry.queryDatasets('calexp', physical_filter='HSC-R', collections=collection, instrument='HSC'):
+   for ref in butler.registry.queryDatasets('calexp', physical_filter='HSC-R'):
        print(ref.dataId)
 
 The printed output are data IDs for the ``calexp`` datasets with the ``HSC-R`` physical filter.
-The ``collections`` and ``instrument`` arguments are both required in this case.
-The first is required because we have not set up default collections to query.
-The second is required because we are filtering on an instrument specific key so we need to say which instrument to use since a butler repository can contain data from multiple instruments.
 Following are few example lines:
 
 .. code-block:: text
@@ -132,8 +130,7 @@ Knowing a specific data ID, let's get the dataset with the Butler client's ``get
 .. code-block:: python
 
    import os
-   collection = f"u/{os.environ['USER']}/single_frame"
-   calexp = butler.get('calexp', visit=23718, detector=41, collections=collection, instrument='HSC')
+   calexp = butler.get('calexp', visit=23718, detector=41)
 
 This ``calexp`` is an ``ExposureF`` Python object.
 Exposures are powerful representations of image data because they contain not only the image data, but also a variance image for uncertainty propagation, a bit mask image plane, and key-value metadata.
@@ -258,8 +255,7 @@ The dataset type of this table is ``src``, which you can get from the Butler:
 .. code-block:: python
 
    import os
-   collection = f"u/{os.environ['USER']}/single_frame"
-   src = butler.get('src', visit=23718, detector=41, collections=collection, instrument='HSC')
+   src = butler.get('src', visit=23718, detector=41)
 
 This ``src`` dataset is a ``SourceCatalog``, which is a catalog object from the ``lsst.afw.table`` module.
 
@@ -374,8 +370,7 @@ You can use the iterator returned by ``queryDatasets`` to make a simple movie, b
    import lsst.afw.display as afwDisplay
 
    display = afwDisplay.getDisplay()
-   collection = f"u/{os.environ['USER']}/single_frame"
-   for ref in butler.registry.queryDatasets('calexp', physical_filter='HSC-R', collections=collection, instrument='HSC'):
+   for ref in butler.registry.queryDatasets('calexp', physical_filter='HSC-R'):
        calexp = butler.get(ref)
        display.mtv(calexp)
        sleep(1)
