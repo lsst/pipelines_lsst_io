@@ -92,7 +92,7 @@ You can access these calibrations directly from ``deepCoadd_calexp.photoCalib`` 
    Note that this method is slower than getting just the ``photoCalib`` component and should only be used if you intend to use the ``calexp`` later on.
 
 These ``PhotoCalib`` objects not only have methods for directly accessing calibration information, but also for applying those calibrations.
-Use the ``PhotoCalib.instFluxToMagnitude()`` method to transform instrumental fluxes in counts to AB magnitudes, and ``PhotoCalib.instFluxToNanojanksy()`` to transform counts into nanojansky.
+Use the ``PhotoCalib.instFluxToMagnitude()`` method to transform instrumental fluxes in counts to AB magnitudes, and ``PhotoCalib.instFluxToNanojansky()`` to transform counts into nanojansky.
 When called with an ``lsst.afw.table.SourceCatalog`` and string specifying the flux field name, these methods each return an array with the magnitude and magnitude error as a list of tuples.
 
 .. code-block:: python
