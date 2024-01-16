@@ -13,7 +13,7 @@ Getting started tutorial part 4: Using all the data to calibrate
 
 In this part of the :ref:`tutorial series <getting-started-tutorial>` you will use all of the results from the ``singleFrame`` pipeline to improve the photometric and astrometric calibrations.
 When there are overlapping datasets from multiple visits, it's possible to average out effects from the atmosphere and improve the overall calibration.
-This is sometime referred to as ubercalibration.
+This is sometimes referred to as ubercalibration.
 
 Improving the photometric and astrometric calibrations can lead to better coadds down the line, and correspondingly better measurements of objects.
 
