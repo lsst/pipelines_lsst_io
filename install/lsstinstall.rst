@@ -203,7 +203,7 @@ See :ref:`lsstinstall-user-conda` if you would like to use your own pre-existing
 conda can maintain multiple environments, each with its own version of Python and other packages.
 :command:`lsstinstall` will create one for each version of the Science Pipelines dependencies (currently managed by the rubin-env metapackage).
 This includes the compilers and build tools as well as C++ and Python packages needed by the software.
-You can add install other packages into a Science Pipelines environment, or you can create independent environments composed of other packages or cloned from a Science Pipelines environment.
+You can add or install other packages into a Science Pipelines environment, or you can create independent environments composed of other packages or cloned from a Science Pipelines environment.
 
 This Mambaforge installation won't affect your other Python installations (like the system's Python, your own Anaconda or Miniconda, or virtual environments).
 The LSST Miniconda environment is only active when you source the ``loadLSST`` script installed by :command:`lsstinstall` (see :doc:`setup`).
