@@ -53,6 +53,7 @@ For most use cases we recommend downloading and running :command:`lsstinstall` l
       ./lsstinstall -T {{ release_eups_tag }}
 
 The :option:`-T` option specifies the eups tag associated with the release you would like to install.
+You can use any release, including the official releases (starting with ``v``), the weekly releases (starting with ``w_``), or the daily releases (starting with ``d_``).
 
 Then load the LSST software environment into your shell:
 
@@ -87,13 +88,16 @@ For other conda environments installed by LSST tools, this name will be the ``ru
 .. jinja:: default
 
    The LSST Science Pipelines is distributed as the ``lsst_distrib`` EUPS package.
-   Install the current version, ``{{ release_eups_tag }}``:
+   Install the current official release version, ``{{ release_eups_tag }}``:
 
    .. code-block:: bash
 
       eups distrib install -t {{ release_eups_tag }} lsst_distrib
       curl -sSL https://raw.githubusercontent.com/lsst/shebangtron/main/shebangtron | python
       setup lsst_distrib
+
+You should use the same release tag here as you used for :command:`lsstinstall` above.
+If you do not need all of ``lsst_distrib``, you can specify one or more lower-level EUPS packages.
 
 If prebuilt binaries are available for your platform (and you did not specify the :option:`-B` argument to the :command:`lsstinstall` command) the installation should take roughly 10 minutes.
 Otherwise, the installation falls back to a source build that can take two hours, depending on the top-level package and your machine's performance.
