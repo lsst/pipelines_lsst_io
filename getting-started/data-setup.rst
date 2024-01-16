@@ -122,7 +122,7 @@ Notes on terminology
 
 First, a coherent set of pixels can have lots of names.
 In this set of tutorials, you will run into three.
-The term exposure, refers to a single image.
+The term exposure refers to a single image.
 The camera produces exposures that can be ingested into a data butler.
 Once ingested, exposures can be grouped together into visits via the ``define-visits`` subcommand to the ``butler`` command line tool.
 Visits can be made up of more than one exposure as in the baseline plan for each visit to be made up of two "snaps" for the LSST.
