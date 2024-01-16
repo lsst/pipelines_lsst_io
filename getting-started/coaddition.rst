@@ -100,7 +100,7 @@ This example uses ``coadds`` as the output collection.
    -p $DRP_PIPE_DIR/pipelines/HSC/DRP-RC2_subset.yaml#makeWarp \
    -d "skymap = 'hsc_rings_v1' AND tract = 9813 AND patch in (38, 39, 40, 41)"
 
-Note that warping requires the ouptuts of both ``gbdes`` and ``FGCM``, so both of those collections need to be specified as inputs.
+Note that warping requires the outputs of both ``gbdes`` and ``FGCM``, so both of those collections need to be specified as inputs.
 Again, this will warp all calibrated exposures.
 If you wish to pare down the data to be processed, you can specify a data query like the one earlier in this section using the ``-d`` argument.
 
@@ -117,7 +117,7 @@ Coadding warped images
 
 Now you'll assemble the warped images into coadditions for each patch with the ``assembleCoadd`` pipeline.
 As before, we will run without a data query to process a subset of the data, but a selection can be made with the ``-d`` argument just as with warping.
-In this case the the ``-d`` arguement could be omitted since the coaddition process will only find the warps from the previous command and will thus only produce coadds for those patches.
+In this case the the ``-d`` argument could be omitted since the coaddition process will only find the warps from the previous command and will thus only produce coadds for those patches.
 
 Run:
 
