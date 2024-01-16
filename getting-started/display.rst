@@ -172,7 +172,7 @@ Then use the display's ``mtv`` method to view the ``calexp`` in DS9:
 
 Notice that the DS9 display is filled with colorful regions.
 These are mask regions.
-Each color reflects a different mask bit that correspond to detections and different types of detector artifacts.
+Each color reflects a different mask bit that corresponds to detections and different types of detector artifacts.
 You'll learn how to interpret these colors :ref:`later <getting-started-display-mask-colors>`, but first you'll likely want to adjust the image display.
 
 Improving the image display
