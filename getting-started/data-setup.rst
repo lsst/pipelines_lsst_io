@@ -92,7 +92,7 @@ Instead, you access data through an instance of the **Butler** class.
 This gives you flexibility to work with data from different observatories without significantly changing your workflow.
 
 The Butler manages data in **repositories.**
-Butler repositories can be remote (the data is on a server, across a network) or local (the data in on a local filesystem).
+Butler repositories can be remote (the data are on a server, across a network) or local (the data are on a local filesystem).
 In this tutorial you'll create and use a local Butler repository, which is a simple directory.
 
 The `rc2_subset`_ git repository has a Butler repository contained within it.
@@ -144,7 +144,7 @@ This just means a named set of ``PipelineTask`` that make up a part of a larger 
 Notes on processing
 ===================
 
-The intention of this set of introductory recipes is to give you a realistic sense of how data is processed using the LSST Science Pipelines.
+The intention of this set of introductory recipes is to give you a realistic sense of how data are processed using the LSST Science Pipelines.
 That includes taking raw images all the way through to coaddition and forced photometry.
 Though the starting repository is small, a significant amount of processing needs to be done to produce all the datasets needed for downstream processing.
 This means that some steps can be quite time consuming and you should be prepared to wait or perhaps run things overnight if you intend to follow these examples line by line.
