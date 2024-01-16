@@ -5,7 +5,7 @@ Running with Docker
 ###################
 
 LSST provides versioned Docker images containing the Science Pipelines software.
-With Docker, you can quickly install download and run the LSST Science Pipelines on any platform without compiling from source.
+With Docker, you can quickly install, download, and run the LSST Science Pipelines on any platform without compiling from source.
 Docker is an effective and reliable alternative to the :doc:`newinstall.sh <newinstall>` and :doc:`lsstsw <lsstsw>`\ -based methods that install LSST software directly on your system.
 
 If you have issues using the LSST Docker images, reach out on the `LSST Community support forum <https://community.lsst.org/c/support>`_.
