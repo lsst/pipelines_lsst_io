@@ -344,7 +344,7 @@ EUPS tarball packages and compiler compatibility
 ------------------------------------------------
 
 EUPS binary tarball packages are prebuilt on LSST's continuous integration servers for a specific combination of operating system, compilers, Python, and Python dependencies.
-If you are developing packages alongside this installation, you might encounter application binary interface (ABI) incompatibilities if are using a different compiler version or a different Python environment.
+If you are developing packages alongside this installation, you might encounter application binary interface (ABI) incompatibilities if you are using a different compiler version or a different Python environment.
 
 In this case, the more reliable solution is to revert to a source installation.
 To do this, repeat the installation but run :command:`newinstall.sh` *without* the :option:`-t <newinstall.sh -t>` argument:
