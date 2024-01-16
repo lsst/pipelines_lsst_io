@@ -269,7 +269,7 @@ You can use matplotlib_ to create this visualization:
 
    import matplotlib.pyplot as plt
 
-   # Grab just the magnitudes and ignor the errors for now
+   # Grab just the magnitudes and ignore the errors for now
    plt_gMags_stellar = [el[0] for el in gMags[selected_stellar]]
    plt_rMags_stellar = [el[0] for el in rMags[selected_stellar]]
    plt_iMags_stellar = [el[0] for el in iMags[selected_stellar]]
