@@ -139,7 +139,7 @@ Third, you will see mention of "pipelines".
 Formally a ``Pipeline`` is made up of one or more ``PipelineTask`` objects.
 These can be further grouped into other pipelines.
 You will see reference to "subsets" of a pipeline.
-This just means a named set of ``PipelineTask`` that makes up a part of a larger pipeline, but that can be run independently.
+This just means a named set of ``PipelineTasks`` that makes up a part of a larger pipeline, but that can be run independently.
 
 Notes on processing
 ===================
