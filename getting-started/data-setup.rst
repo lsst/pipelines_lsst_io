@@ -122,24 +122,24 @@ Notes on terminology
 
 First, a coherent set of pixels can have lots of names.
 In this set of tutorials, you will run into three.
-The term exposure refers to a single image.
+The term "exposure" refers to a single image.
 The camera produces exposures that can be ingested into a data butler.
-Once ingested, exposures can be grouped together into visits via the ``define-visits`` subcommand to the ``butler`` command line tool.
+Once ingested, exposures can be grouped together into "visits" via the ``define-visits`` subcommand to the ``butler`` command line tool.
 Visits can be made up of more than one exposure as in the baseline plan for each visit to be made up of two "snaps" for the LSST.
 You will also see mention of ``Exposure``.
 This is the name of the python object, or instance thereof, that is used to manipulate pixel data within the Science Pipelines.
 The python object will always be presented capitalized and in monospace.
 
 Second, different projects call the instances of astrophysical bodies different names.
-In this project, sources are specific measurements of an astrophysical object.
-The term object refers to the astrophysical entity itself.
+In this project, "sources" are specific measurements of an astrophysical "object".
+The term "object" refers to the astrophysical entity itself.
 In other words, there is a unique record for each distinct object seen by the LSST, but multiple source measurements for each time the LSST revisits a particular part of the sky.
 
-Third, you will see mention of pipelines.
+Third, you will see mention of "pipelines".
 Formally a ``Pipeline`` is made up of one or more ``PipelineTask`` objects.
 These can be further grouped into other pipelines.
 You will see reference to "subsets" of a pipeline.
-This just means a named set of ``PipelineTask`` that make up a part of a larger pipeline, but that can be run independently.
+This just means a named set of ``PipelineTask`` that makes up a part of a larger pipeline, but that can be run independently.
 
 Notes on processing
 ===================
