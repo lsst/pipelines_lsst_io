@@ -14,7 +14,7 @@ Getting started tutorial part 5: coadding images
 In this part of the :ref:`tutorial series <getting-started-tutorial>` you will combine the individual exposures produced by the ``singleFrame`` pipeline (from :doc:`part 2 <singleframe>`) into deeper coadds (mosaic images).
 The dataset that defines how images are reprojected for coaddition is called a **skymap**.
 The example repository has a skymap that we can use for this purpose.
-We will warp (reproject) images into that skymap.
+We will "warp" (reproject) images into that skymap.
 Then, you will coadd the warped images together into deep images.
 
 Set up
@@ -117,7 +117,7 @@ Coadding warped images
 
 Now you'll assemble the warped images into coadditions for each patch with the ``assembleCoadd`` pipeline.
 As before, we will run without a data query to process a subset of the data, but a selection can be made with the ``-d`` argument just as with warping.
-In this case the the ``-d`` argument could be omitted since the coaddition process will only find the warps from the previous command and will thus only produce coadds for those patches.
+In this case the ``-d`` argument could be omitted since the coaddition process will only find the warped images from the previous command and will thus only produce coadds for those patches.
 
 Run:
 
