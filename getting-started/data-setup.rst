@@ -141,6 +141,10 @@ These can be further grouped into other pipelines.
 You will see reference to "subsets" of a pipeline.
 This just means a named set of ``PipelineTasks`` that makes up a part of a larger pipeline, but that can be run independently.
 
+Fourth, the Butler has a concept of "dataset type".
+As discussed in `Organizing and identifying datasets <https://pipelines.lsst.io/modules/lsst.daf.butler/organizing.html#dataset-types>`_, a ``DatasetType`` roughly corresponds to the role its datasets play in a processing pipeline, and a particular pipeline will typically accept particular dataset types as inputs and produce particular dataset types as outputs.
+In the context of this getting started tutorial, the most important mappings you will encounter between ``DatasetTypes`` and their corresponding concepts are as follows: a dataset type of ``raw`` corresponds to raw (uncalibrated) detector images, a dataset type of ``calexp`` corresponds to calibrated detector images, and a dataset type of ``deepCoadd`` corresponds to coadded sky images.
+
 Notes on processing
 ===================
 
