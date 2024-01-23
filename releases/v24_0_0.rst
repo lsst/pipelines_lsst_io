@@ -103,7 +103,7 @@ PSFex and PcaPsf are still available per optional configuration.
 Repeatable Star Selection for PSF Modeling
 ------------------------------------------
 
-The default data release production pipeline now includes Tasks :lsst-task:`~lsst.pipe.tasks.isolatedStarAssociation.IsolatedStarAssociationTask` and :lsst-task:`~lsst.pipe.tasks.finalizeCharacterization.FinalizeCharacterizationTask`, which combine multiple visits to identify a consistent set of isolated stars to use for PSF modeling in ever visit.
+The default data release production pipeline now includes Tasks :lsst-task:`~lsst.pipe.tasks.isolatedStarAssociation.IsolatedStarAssociationTask` and :lsst-task:`~lsst.pipe.tasks.finalizeCharacterization.FinalizeCharacterizationTask`, which combine multiple visits to identify a consistent set of isolated stars to use for PSF modeling in every visit.
 
 .. _release-v24-0-0-amp-matching:
 
@@ -132,7 +132,7 @@ Significant Interface Changes
 
 New Packages Added
 ------------------
-* `analysis_drp <https://github.com/lsst/analysis_drp>`_ provides static plotting code for monitoriing pipeline quality.
+* `analysis_drp <https://github.com/lsst/analysis_drp>`_ provides static plotting code for monitoring pipeline quality.
 * `atmospec <https://github.com/lsst/atmospec>`_ and `spectractor <https://github.com/lsst/spectractor>`_ provide support for analyzing spetra from LATISS.
 * `lsst\_bps\_plugins <https://github.com/lsst/lsst_bps_plugins>`_, :ref:`lsst.ctrl.bps.htcondor`, and  :ref:`lsst.ctrl.bps.panda`
 * :ref:`lsst.drp.pipe` provide high-level pipeline specification for data releases.

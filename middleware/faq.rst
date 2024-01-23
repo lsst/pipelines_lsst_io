@@ -5,7 +5,7 @@ Frequently asked questions
 .. py:currentmodule:: lsst.daf.butler
 
 This page contains answers to common questions about the data access and pipeline middleware, such as the `Butler` and `~lsst.pipe.base.PipelineTask` classes.
-The :ref:`lsst.daf.butler` package documention includes a number of overview documentation pages (especially :ref:`daf_butler_organizing_datasets`) that provide an introduction to many of the concepts referenced here.
+The :ref:`lsst.daf.butler` package documentation includes a number of overview documentation pages (especially :ref:`daf_butler_organizing_datasets`) that provide an introduction to many of the concepts referenced here.
 
 .. _middleware_faq_query_methods:
 

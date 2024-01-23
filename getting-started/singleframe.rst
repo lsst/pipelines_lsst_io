@@ -17,7 +17,7 @@ This will also use the reference catalog to establish a preliminary WCS and phot
 
 :ref:`Pipelines <pipe_base_creating_pipeline>` are defined in ``YAML`` files.
 The example git repository contains a pipeline definition for data release processing that is only slightly modified from the one used in production processing of HSC data.
-If you are interested in examining the pipeline defintions provided for this tutorial, look in ``$DRP_PIPE_DIR/pipelines/HSC/DRP-RC2_subset.yaml``.
+If you are interested in examining the pipeline definitions provided for this tutorial, look in ``$DRP_PIPE_DIR/pipelines/HSC/DRP-RC2_subset.yaml``.
 
 Set up
 ======
@@ -58,7 +58,7 @@ With these keys you can select exactly what data you want to process.
 It's worth noting that the keys shown here are not the minimal ones needed to specify, for example, a ``raw``.
 Only instrument+detector+exposure are necessary to uniquely identify a specific ``raw`` dataset, because the system knows that an exposure implies a physical_filter and a physical_filter implies a band.
 The ``raw`` dataset is special in the sense that it is the starting point for all processing.
-Images in the ``raw`` dataset have not had any processing applied to them and are as they arrive from the data aquisition system.
+Images in the ``raw`` dataset have not had any processing applied to them and are as they arrive from the data acquisition system.
 
 The important arguments are ``--collections`` and ``--datasets``.
 

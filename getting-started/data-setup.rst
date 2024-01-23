@@ -92,7 +92,7 @@ Instead, you access data through an instance of the **Butler** class.
 This gives you flexibility to work with data from different observatories without significantly changing your workflow.
 
 The Butler manages data in **repositories.**
-Butler repositories can be remote (the data is on a server, across a network) or local (the data in on a local filesystem).
+Butler repositories can be remote (the data are on a server, across a network) or local (the data are on a local filesystem).
 In this tutorial you'll create and use a local Butler repository, which is a simple directory.
 
 The `rc2_subset`_ git repository has a Butler repository contained within it.
@@ -122,29 +122,33 @@ Notes on terminology
 
 First, a coherent set of pixels can have lots of names.
 In this set of tutorials, you will run into three.
-The term exposure, refers to a single image.
+The term "exposure" refers to a single image.
 The camera produces exposures that can be ingested into a data butler.
-Once ingested, exposures can be grouped together into visits via the ``define-visits`` subcommand to the ``butler`` command line tool.
+Once ingested, exposures can be grouped together into "visits" via the ``define-visits`` subcommand to the ``butler`` command line tool.
 Visits can be made up of more than one exposure as in the baseline plan for each visit to be made up of two "snaps" for the LSST.
 You will also see mention of ``Exposure``.
 This is the name of the python object, or instance thereof, that is used to manipulate pixel data within the Science Pipelines.
 The python object will always be presented capitalized and in monospace.
 
 Second, different projects call the instances of astrophysical bodies different names.
-In this project, sources are specific measurements of an astrophysical object.
-The term object refers to the astrophysical entity itself.
+In this project, "sources" are specific measurements of an astrophysical "object".
+The term "object" refers to the astrophysical entity itself.
 In other words, there is a unique record for each distinct object seen by the LSST, but multiple source measurements for each time the LSST revisits a particular part of the sky.
 
-Third, you will see mention of pipelines.
+Third, you will see mention of "pipelines".
 Formally a ``Pipeline`` is made up of one or more ``PipelineTask`` objects.
 These can be further grouped into other pipelines.
 You will see reference to "subsets" of a pipeline.
-This just means a named set of ``PipelineTask`` that make up a part of a larger pipeline, but that can be run independently.
+This just means a named set of ``PipelineTasks`` that makes up a part of a larger pipeline, but that can be run independently.
+
+Fourth, the Butler has a concept of "dataset type".
+As discussed in `Organizing and identifying datasets <https://pipelines.lsst.io/modules/lsst.daf.butler/organizing.html#dataset-types>`_, a ``DatasetType`` roughly corresponds to the role its datasets play in a processing pipeline, and a particular pipeline will typically accept particular dataset types as inputs and produce particular dataset types as outputs.
+In the context of this getting started tutorial, the most important mappings you will encounter between ``DatasetTypes`` and their corresponding concepts are as follows: a dataset type of ``raw`` corresponds to raw (uncalibrated) detector images, a dataset type of ``calexp`` corresponds to calibrated detector images, and a dataset type of ``deepCoadd`` corresponds to coadded sky images.
 
 Notes on processing
 ===================
 
-The intention of this set of introductory recipes is to give you a realistic sense of how data is processed using the LSST Science Pipelines.
+The intention of this set of introductory recipes is to give you a realistic sense of how data are processed using the LSST Science Pipelines.
 That includes taking raw images all the way through to coaddition and forced photometry.
 Though the starting repository is small, a significant amount of processing needs to be done to produce all the datasets needed for downstream processing.
 This means that some steps can be quite time consuming and you should be prepared to wait or perhaps run things overnight if you intend to follow these examples line by line.

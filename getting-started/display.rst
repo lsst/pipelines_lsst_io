@@ -172,8 +172,10 @@ Then use the display's ``mtv`` method to view the ``calexp`` in DS9:
 
 Notice that the DS9 display is filled with colorful regions.
 These are mask regions.
-Each color reflects a different mask bit that correspond to detections and different types of detector artifacts.
-You'll learn how to interpret these colors :ref:`later <getting-started-display-mask-colors>`, but first you'll likely want to adjust the image display.
+Each color corresponds to one of a common set of boolean flags defined for each pixel; each flag has a distinct meaning, covering a range of concepts from detector artifacts to the contribution of a pixel to a detection.
+In this project we call the array of these flags the "mask" or "mask plane" associated with an image.
+(Note: This is a distinct concept from a "mask" for an array in ``numpy``.)
+You'll learn :ref:`later <getting-started-display-mask-colors>` how to interpret these flags (and their colors); for now you'll likely want to adjust the image display itself.
 
 Improving the image display
 ===========================
