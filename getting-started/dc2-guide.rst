@@ -70,11 +70,11 @@ Building good seeing templates
 ------------------------------
 
 The pipeline we will use lives in the ``ap_pipe`` package, and is the camera-specific ``ApTemplate.yaml`` pipeline.
-To see it, either navigate to the `pipeline on GitHub <https://github.com/lsst/ap_pipe/blob/main/pipelines/LsstCamImSim/ApTemplate.yaml>`__ or display the pipeline on via the command line, e.g.,
+To see it, either navigate to the `pipeline on GitHub <https://github.com/lsst/ap_pipe/blob/main/pipelines/LSSTCam-imSim/ApTemplate.yaml>`__ or display the pipeline on via the command line, e.g.,
 
 .. prompt:: bash
 
-   cat $AP_PIPE_DIR/pipelines/LsstCamImSim/ApTemplate.yaml
+   cat $AP_PIPE_DIR/pipelines/LSSTCam-imSim/ApTemplate.yaml
 
 Note that this camera-specific pipeline imports both a camera-specific single-frame processing pipeline (sometimes called "processCcd") and a more generic AP Template building pipeline.
 
@@ -82,18 +82,18 @@ To visualize this pipeline, you may wish to use ``pipetask build``, e.g.,
 
 .. prompt:: bash
 
-   pipetask build -p $AP_PIPE_DIR/pipelines/LsstCamImSim/ApTemplate.yaml --pipeline-dot ApTemplate.dot
+   pipetask build -p $AP_PIPE_DIR/pipelines/LSSTCam-imSim/ApTemplate.yaml --pipeline-dot ApTemplate.dot
    dot ApTemplate.dot -Tpng > ApTemplate.png
 
 Alternately, navigate to `this website that serves visualizations of all the AP and DRP pipelines <https://tigress-web.princeton.edu/~lkelvin/pipelines/current>`__.
-Click through to ``ap_pipe``, then ``LsstCamImSim``, and finally ``ApTemplate`` to find a PDF visualizing all the pipeline inputs, outputs, and intermediate data products.
+Click through to ``ap_pipe``, then ``LSSTCam-imSim``, and finally ``ApTemplate`` to find a PDF visualizing all the pipeline inputs, outputs, and intermediate data products.
 This PDF is auto-generated each week using the same ``pipetask build`` command as shown above.
 
 To run this pipeline, make up an appropriate output collection name (``u/USERNAME/OUTPUT-COLLECTION-1`` in the example below), and run
 
 .. prompt:: bash
 
-   pipetask run -j 4 -b /repo/dc2 -d "skymap='DC2' AND tract=4431 AND patch IN (9, 10, 16, 17) AND band='g'" -i 2.2i/defaults -o u/USERNAME/OUTPUT-COLLECTION-1 -p $AP_PIPE_DIR/pipelines/LsstCamImSim/ApTemplate.yaml
+   pipetask run -j 4 -b /repo/dc2 -d "skymap='DC2' AND tract=4431 AND patch IN (9, 10, 16, 17) AND band='g'" -i 2.2i/defaults -o u/USERNAME/OUTPUT-COLLECTION-1 -p $AP_PIPE_DIR/pipelines/LSSTCam-imSim/ApTemplate.yaml
 
 To tell the process to run in the background and write output to a logfile, you may wish to prepend ``pipetask run`` with ``nohup`` and postpend the command with ``> OUTFILENAME &``.
 This will take some time, but when it's done, you should have calibrated exposures and a visit summary table, warps, and assembled good seeing coadds for use as templates.
@@ -106,11 +106,11 @@ This next step uses a second pipeline, which begins once again with single frame
 If you choose to reuse some or all of the same input raw exposures, all previously-run steps will automatically be skipped and pre-existing outputs used.
 Afterwards, it performs difference imaging and saves the results in an Alert Production Database (APDB).
 
-The pipeline we will use also lives in the ``ap_pipe`` package, and is the camera-specific ``ApPipe.yaml`` pipeline. To see it, either navigate to the `pipeline on GitHub <https://github.com/lsst/ap_pipe/blob/main/pipelines/LsstCamImSim/ApPipe.yaml>`__ or display the pipeline on via the command line, e.g.,
+The pipeline we will use also lives in the ``ap_pipe`` package, and is the camera-specific ``ApPipe.yaml`` pipeline. To see it, either navigate to the `pipeline on GitHub <https://github.com/lsst/ap_pipe/blob/main/pipelines/LSSTCam-imSim/ApPipe.yaml>`__ or display the pipeline on via the command line, e.g.,
 
 .. prompt:: bash
 
-   cat $AP_PIPE_DIR/pipelines/LsstCamImSim/ApPipe.yaml
+   cat $AP_PIPE_DIR/pipelines/LSSTCam-imSim/ApPipe.yaml
 
 This difference imaging pipeline requires coadds as inputs for use as templates, and treats all input raws as "science" images.
 
@@ -130,7 +130,7 @@ A typical ``db_url`` is, e.g., ``sqlite:////path/to/my-working-directory/run1.db
 The configs you set when making the APDB must match those you give the AP Pipeline at runtime.
 
 As before, to visualize the AP Pipeline, you may navigate to `the website with visualizations of all the AP and DRP pipelines <https://tigress-web.princeton.edu/~lkelvin/pipelines/current>`__.
-Click through to ``ap_pipe``, then ``LsstCamImSim``, and finally ``ApPipe`` to find a PDF visualizing all the pipeline inputs, outputs, and intermediate data products.
+Click through to ``ap_pipe``, then ``LSSTCam-imSim``, and finally ``ApPipe`` to find a PDF visualizing all the pipeline inputs, outputs, and intermediate data products.
 This PDF is auto-generated each week using an analogous ``pipetask build`` command as shown above for ``ApTemplate.yaml``.
 
 You are now ready to run the AP Pipeline!
@@ -138,7 +138,7 @@ You will need to substitute appropriate values for your input collections, your 
 
 .. prompt:: bash
 
-   pipetask run -j 4 -b /repo/dc2 -d "skymap='DC2' AND band='g'" -i u/USERNAME/OUTPUT-COLLECTION-1,u/mrawls/DM-34827/defaults/4patch_4431 -o u/USERNAME/OUTPUT-COLLECTION-2 -p $AP_PIPE_DIR/pipelines/LsstCamImSim/ApPipe.yaml -c diaPipe:apdb.db_url="PATH-TO-YOUR-APDB-HERE"
+   pipetask run -j 4 -b /repo/dc2 -d "skymap='DC2' AND band='g'" -i u/USERNAME/OUTPUT-COLLECTION-1,u/mrawls/DM-34827/defaults/4patch_4431 -o u/USERNAME/OUTPUT-COLLECTION-2 -p $AP_PIPE_DIR/pipelines/LSSTCam-imSim/ApPipe.yaml -c diaPipe:apdb.db_url="PATH-TO-YOUR-APDB-HERE"
 
 What are the output data products?
 ==================================
