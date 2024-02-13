@@ -1,7 +1,7 @@
 .. _release-v24-1-0:
 
 ###########################
-Release 24.1.1 (2023-11-05)
+Release 24.1.3 (2023-02-13)
 ###########################
 
 .. toctree::
@@ -12,15 +12,15 @@ Release 24.1.1 (2023-11-05)
 +-------------------------------------------+------------+
 | Source                                    | Identifier |
 +===========================================+============+
-| Git tag                                   | 24.1.1     |
+| Git tag                                   | 24.1.3     |
 +-------------------------------------------+------------+
-| :doc:`EUPS distrib </install/newinstall>` | v24\_1\_1  |
+| :doc:`EUPS distrib </install/newinstall>` | v24\_1\_3  |
 +-------------------------------------------+------------+
 | rubin-env version                         | 4.0.5      |
 +-------------------------------------------+------------+
 
 This is a minor feature release, based on the :ref:`release-v24-0-0`,
-with 23 additional tickets back ported.
+with 35 additional tickets back ported.
 
 For a complete list of changes made, see :doc:`tickets/v24_1_0`.
 
