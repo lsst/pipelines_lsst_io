@@ -25,7 +25,7 @@ with 35 additional tickets back ported.
 
 For a complete list of changes made, see :doc:`tickets/v24_1_0`.
 
-The `Characterization Metric Report (DMTR-301) <https://dmtr-391.lsst.io/>`_ describes the scientific performance of this release in terms of scientific performance metrics. No characterixation report was provides for :ref:`release-v24-0-0`
+The `Characterization Metric Report (DMTR-391) <https://dmtr-391.lsst.io/>`_ describes the scientific performance of this release in terms of scientific performance metrics. No characterixation report was provided for :ref:`release-v24-0-0`
 
 There are no changes to interfaces or deprecations in this release.
 
