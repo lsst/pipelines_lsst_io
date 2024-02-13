@@ -1,6 +1,23 @@
 .. _release-v24-1-0-tickets:
 
 ###################################
+Tickets Addressed in Release 24.1.3
+###################################
+
+- `DM-36718 <https://jira.lsstcorp.org/browse/DM-36718>`_: Multi shapelet convolution test is very sensitive [shapelet]
+
+###################################
+Tickets Addressed in Release 24.1.2
+###################################
+
+- `DM-30947 <https://jira.lsstcorp.org/browse/DM-30947>`_: Reimplement C++ HSM moment measurement algorithms in Python [meas\_extensions\_shapeHSM]
+- `DM-41489 <https://jira.lsstcorp.org/browse/DM-41489>`_: Reimplement C++ HSM shear measurement algorithms in Python [meas\_extensions\_shapeHSM]
+- `DM-41648 <https://jira.lsstcorp.org/browse/DM-41648>`_: Write a plugin to output PSF higher order moments in meas catalogs [meas\_extensions\_shapeHSM]
+- `DM-41908 <https://jira.lsstcorp.org/browse/DM-41908>`_: Speed up HSM plugins in Python [meas\_extensions\_shapeHSM]
+- `DM-41994 <https://jira.lsstcorp.org/browse/DM-41994>`_: Speed up galsim interface with meas\_extensions\_shapeHSM [meas\_extensions\_shapeHSM]
+- `DM-42170 <https://jira.lsstcorp.org/browse/DM-42170>`_: Add unit test to verify shapeHSM shear measurements against GalSim's Python layer outputs [meas\_extensions\_shapeHSM]
+
+###################################
 Tickets Addressed in Release 24.1.1
 ###################################
 
