@@ -1,6 +1,18 @@
 .. _release-v25-0-0-tickets:
 
 ###################################
+Tickets Addressed in Release 25.0.3
+###################################
+
+- `DM-30947 <https://jira.lsstcorp.org/browse/DM-30947>`_: Reimplement C++ HSM moment measurement algorithms in Python [meas\_extensions\_shapeHSM]
+- `DM-35773 <https://jira.lsstcorp.org/browse/DM-35773>`_: Remove gen2 support from cp\_pipe [cp\_pipe]
+- `DM-41489 <https://jira.lsstcorp.org/browse/DM-41489>`_: Reimplement C++ HSM shear measurement algorithms in Python [meas\_extensions\_shapeHSM]
+- `DM-41648 <https://jira.lsstcorp.org/browse/DM-41648>`_: Write a plugin to output PSF higher order moments in meas catalogs [meas\_extensions\_shapeHSM]
+- `DM-41908 <https://jira.lsstcorp.org/browse/DM-41908>`_: Speed up HSM plugins in Python [meas\_extensions\_shapeHSM]
+- `DM-41994 <https://jira.lsstcorp.org/browse/DM-41994>`_: Speed up galsim interface with meas\_extensions\_shapeHSM [meas\_extensions\_shapeHSM]
+- `DM-42170 <https://jira.lsstcorp.org/browse/DM-42170>`_: Add unit test to verify shapeHSM shear measurements against GalSim's Python layer outputs [meas\_extensions\_shapeHSM]
+
+###################################
 Tickets Addressed in Release 25.0.2
 ###################################
 
