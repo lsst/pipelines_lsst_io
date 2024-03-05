@@ -4,52 +4,52 @@
 Tickets Addressed in Release 24.1.3
 ###################################
 
-- `DM-36718 <https://jira.lsstcorp.org/browse/DM-36718>`_: Multi shapelet convolution test is very sensitive [shapelet]
+- :jira:`DM-36718`: Multi shapelet convolution test is very sensitive [shapelet]
 
 ###################################
 Tickets Addressed in Release 24.1.2
 ###################################
 
-- `DM-30947 <https://jira.lsstcorp.org/browse/DM-30947>`_: Reimplement C++ HSM moment measurement algorithms in Python [meas\_extensions\_shapeHSM]
-- `DM-41489 <https://jira.lsstcorp.org/browse/DM-41489>`_: Reimplement C++ HSM shear measurement algorithms in Python [meas\_extensions\_shapeHSM]
-- `DM-41648 <https://jira.lsstcorp.org/browse/DM-41648>`_: Write a plugin to output PSF higher order moments in meas catalogs [meas\_extensions\_shapeHSM]
-- `DM-41908 <https://jira.lsstcorp.org/browse/DM-41908>`_: Speed up HSM plugins in Python [meas\_extensions\_shapeHSM]
-- `DM-41994 <https://jira.lsstcorp.org/browse/DM-41994>`_: Speed up galsim interface with meas\_extensions\_shapeHSM [meas\_extensions\_shapeHSM]
-- `DM-42170 <https://jira.lsstcorp.org/browse/DM-42170>`_: Add unit test to verify shapeHSM shear measurements against GalSim's Python layer outputs [meas\_extensions\_shapeHSM]
+- :jira:`DM-30947`: Reimplement C++ HSM moment measurement algorithms in Python [meas\_extensions\_shapeHSM]
+- :jira:`DM-41489`: Reimplement C++ HSM shear measurement algorithms in Python [meas\_extensions\_shapeHSM]
+- :jira:`DM-41648`: Write a plugin to output PSF higher order moments in meas catalogs [meas\_extensions\_shapeHSM]
+- :jira:`DM-41908`: Speed up HSM plugins in Python [meas\_extensions\_shapeHSM]
+- :jira:`DM-41994`: Speed up galsim interface with meas\_extensions\_shapeHSM [meas\_extensions\_shapeHSM]
+- :jira:`DM-42170`: Add unit test to verify shapeHSM shear measurements against GalSim's Python layer outputs [meas\_extensions\_shapeHSM]
 
 ###################################
 Tickets Addressed in Release 24.1.1
 ###################################
 
-- `DM-30535 <https://jira.lsstcorp.org/browse/DM-30535>`_: Create docs page for ScarletDeblendTask [afw, meas\_extensions\_scarlet]
-- `DM-40186 <https://jira.lsstcorp.org/browse/DM-40186>`_: Investigate PDR2 detection errors:  983 instances of exited early Insufficient good sky source flux measurements for dynamic threshold calculation [meas\_algorithms]
-- `DM-40451 <https://jira.lsstcorp.org/browse/DM-40451>`_: Adapt scarlet to conditionally skip bands with partial coverage [afw, meas\_extensions\_scarlet, pipe\_tasks, sdm\_schemas]
-- `DM-40456 <https://jira.lsstcorp.org/browse/DM-40456>`_: sphgeom is failing a test on macOS Ventura (13) on x86 [sphgeom]
-- `DM-40463 <https://jira.lsstcorp.org/browse/DM-40463>`_: gaap is failing a test on macOS Ventura [meas\_extensions\_gaap]
-- `DM-40781 <https://jira.lsstcorp.org/browse/DM-40781>`_: RC2 tract 9813 psf weighted mean map has nans [pipe\_tasks]
-- `DM-40921 <https://jira.lsstcorp.org/browse/DM-40921>`_: DM-40451 breaks ci\_imsim [meas\_extensions\_scarlet, sdm\_schemas]
-- `DM-40957 <https://jira.lsstcorp.org/browse/DM-40957>`_: Investigate failed blends in RC2 subset after DM-40451 [meas\_extensions\_scarlet]
-- `DM-41008 <https://jira.lsstcorp.org/browse/DM-41008>`_: Fix long runtime in forcedPhotCcd with no data footprints [meas\_extensions\_scarlet, pipe\_tasks]
+- :jira:`DM-30535`: Create docs page for ScarletDeblendTask [afw, meas\_extensions\_scarlet]
+- :jira:`DM-40186`: Investigate PDR2 detection errors:  983 instances of exited early Insufficient good sky source flux measurements for dynamic threshold calculation [meas\_algorithms]
+- :jira:`DM-40451`: Adapt scarlet to conditionally skip bands with partial coverage [afw, meas\_extensions\_scarlet, pipe\_tasks, sdm\_schemas]
+- :jira:`DM-40456`: sphgeom is failing a test on macOS Ventura (13) on x86 [sphgeom]
+- :jira:`DM-40463`: gaap is failing a test on macOS Ventura [meas\_extensions\_gaap]
+- :jira:`DM-40781`: RC2 tract 9813 psf weighted mean map has nans [pipe\_tasks]
+- :jira:`DM-40921`: DM-40451 breaks ci\_imsim [meas\_extensions\_scarlet, sdm\_schemas]
+- :jira:`DM-40957`: Investigate failed blends in RC2 subset after DM-40451 [meas\_extensions\_scarlet]
+- :jira:`DM-41008`: Fix long runtime in forcedPhotCcd with no data footprints [meas\_extensions\_scarlet, pipe\_tasks]
 
 ###################################
 Tickets Addressed in Release 24.1.0
 ###################################
 
-- `DM-16724 <https://jira.lsstcorp.org/browse/DM-16724>`_:  Dynamic detection failure due to lack of sky-object measurements is too quiet [meas_algorithms]
-- `DM-23781 <https://jira.lsstcorp.org/browse/DM-23781>`_:  Improve Sky Object Placement [meas_algorithms]
-- `DM-34959 <https://jira.lsstcorp.org/browse/DM-34959>`_:  Replace read\_gpickle and write\_gpickle in GenericWorkflow [ctrl_bps]
-- `DM-35207 <https://jira.lsstcorp.org/browse/DM-35207>`_:  Use final PSF models to determine inputs to coaddition [analysis_drp, ap_pipe, drp_pipe, meas_base, obs_lsst, pipe_tasks, pipelines_check]
-- `DM-36998 <https://jira.lsstcorp.org/browse/DM-36998>`_:  Remove large objects from Piff results by default [meas_extensions_piff]
-- `DM-37249 <https://jira.lsstcorp.org/browse/DM-37249>`_:  Make butler registry compatible with transaction-level connection pooling [daf_butler]
-- `DM-37257 <https://jira.lsstcorp.org/browse/DM-37257>`_:  If brightObjectMask is unavailable proceed making Coadd without [pipe_tasks]
-- `DM-37411 <https://jira.lsstcorp.org/browse/DM-37411>`_:  Add visit-level PSF model robustness metrics [afw, meas_deblender, pipe_tasks, sdm_schemas]
-- `DM-37412 <https://jira.lsstcorp.org/browse/DM-37412>`_:  Refactor ComputeExposureSummaryStats to allow fine-grained updates [afw, pipe_tasks]
-- `DM-37559 <https://jira.lsstcorp.org/browse/DM-37559>`_:  DM-35207 broke ap\_verify [ap_pipe]
-- `DM-37786 <https://jira.lsstcorp.org/browse/DM-37786>`_:  updateVisitSummary failure in some HSC-RC2 visits with w\_2023\_03  [drp_pipe, pipe_base, pipe_tasks]
-- `DM-37954 <https://jira.lsstcorp.org/browse/DM-37954>`_:  Backport bps\_usdf.yaml to v24.0.0 [ctrl_bps_panda]
-- `DM-38065 <https://jira.lsstcorp.org/browse/DM-38065>`_:  Make release notes for middleware v25 [ctrl_bps, ctrl_bps_panda]
-- `DM-38307 <https://jira.lsstcorp.org/browse/DM-38307>`_:  Allow output collection to not be specified [ctrl_bps, ctrl_bps_panda]
-- `DM-38808 <https://jira.lsstcorp.org/browse/DM-38808>`_:  Proper motion correction is wrong for negative epoch shift in ReferenceObjectLoader [jointcal, meas_algorithms]
-- `DM-39101 <https://jira.lsstcorp.org/browse/DM-39101>`_:  Implement a maximum aperture radius for Kron aperture calculations [meas_extensions_photometryKron]
-- `DM-39342 <https://jira.lsstcorp.org/browse/DM-39342>`_:  v24 DRP-Prod.yaml: Ensure FGCM configs handle HSC-I2/R2  and add version w/ DIA pipeline  [drp_pipe]
-- `DM-39482 <https://jira.lsstcorp.org/browse/DM-39482>`_:  Correct HSC NB1010 colorterm filtername [ap_pipe, fgcmcal, obs_subaru]
+- :jira:`DM-16724`:  Dynamic detection failure due to lack of sky-object measurements is too quiet [meas_algorithms]
+- :jira:`DM-23781`:  Improve Sky Object Placement [meas_algorithms]
+- :jira:`DM-34959`:  Replace read\_gpickle and write\_gpickle in GenericWorkflow [ctrl_bps]
+- :jira:`DM-35207`:  Use final PSF models to determine inputs to coaddition [analysis_drp, ap_pipe, drp_pipe, meas_base, obs_lsst, pipe_tasks, pipelines_check]
+- :jira:`DM-36998`:  Remove large objects from Piff results by default [meas_extensions_piff]
+- :jira:`DM-37249`:  Make butler registry compatible with transaction-level connection pooling [daf_butler]
+- :jira:`DM-37257`:  If brightObjectMask is unavailable proceed making Coadd without [pipe_tasks]
+- :jira:`DM-37411`:  Add visit-level PSF model robustness metrics [afw, meas_deblender, pipe_tasks, sdm_schemas]
+- :jira:`DM-37412`:  Refactor ComputeExposureSummaryStats to allow fine-grained updates [afw, pipe_tasks]
+- :jira:`DM-37559`:  DM-35207 broke ap\_verify [ap_pipe]
+- :jira:`DM-37786`:  updateVisitSummary failure in some HSC-RC2 visits with w\_2023\_03  [drp_pipe, pipe_base, pipe_tasks]
+- :jira:`DM-37954`:  Backport bps\_usdf.yaml to v24.0.0 [ctrl_bps_panda]
+- :jira:`DM-38065`:  Make release notes for middleware v25 [ctrl_bps, ctrl_bps_panda]
+- :jira:`DM-38307`:  Allow output collection to not be specified [ctrl_bps, ctrl_bps_panda]
+- :jira:`DM-38808`:  Proper motion correction is wrong for negative epoch shift in ReferenceObjectLoader [jointcal, meas_algorithms]
+- :jira:`DM-39101`:  Implement a maximum aperture radius for Kron aperture calculations [meas_extensions_photometryKron]
+- :jira:`DM-39342`:  v24 DRP-Prod.yaml: Ensure FGCM configs handle HSC-I2/R2  and add version w/ DIA pipeline  [drp_pipe]
+- :jira:`DM-39482`:  Correct HSC NB1010 colorterm filtername [ap_pipe, fgcmcal, obs_subaru]
