@@ -158,7 +158,7 @@ More info
 
 - Join us on the `LSST Community forum, community.lsst.org <http://community.lsst.org>`_.
 - Fork our code on GitHub at https://github.com/lsst.
-- Report issues in `Jira <https://jira.lsstcorp.org/projects/DM/issues/>`_.
+- Report issues in `Jira <https://ls.st/jira>`_.
 - Some API documentation, particularly for C++, is currently published separately on a `Doxygen site <http://doxygen.lsst.codes/stack/doxygen/x_mainDoxyDoc/>`_.
 - Our `Developer Guide <https://developer.lsst.io>`_ describes the procedures and standards followed by the DM team.
 - Learn more about Rubin Observatory Data Management by visiting http://lsst.org/about/dm.
