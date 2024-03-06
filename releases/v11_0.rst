@@ -64,7 +64,7 @@ It is now possible to perform instrument signal removal on an ``Exposure`` which
 ``FakeAmp``, a ``Detector``-like object object which supports returning
 gain and saturation level, was added to make it possible to run
 ``updateVariance`` and ``saturationDetection`` if required.
-(`DM-2890 <https://jira.lsstcorp.org/browse/DM-2890>`_)
+(:jira:`DM-2890`)
 
 ``PVi_j`` header cards are correctly saved to FITS files
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -247,9 +247,9 @@ source types.
 - `Documentation for ForcedSrcTransformTask <http://doxygen.lsst.codes/stack/doxygen/x_mainDoxyDoc/classlsst_1_1pipe_1_1tasks_1_1transform_measurement_1_1_forced_src_transform_task.html#ForcedSrcTransformTask_>`_.
 - `Documentation for CoaddSrcTransformTask <http://doxygen.lsst.codes/stack/doxygen/x_mainDoxyDoc/classlsst_1_1pipe_1_1tasks_1_1transform_measurement_1_1_coadd_src_transform_task.html#CoaddSrcTransformTask_>`_.
 
-(`DM-2191 <https://jira.lsstcorp.org/browse/DM-2191>`_,
-`DM-3473 <https://jira.lsstcorp.org/browse/DM-3473>`_,
-`DM-3483 <https://jira.lsstcorp.org/browse/DM-3483>`_)
+(:jira:`DM-2191`,
+:jira:`DM-3473`,
+:jira:`DM-3483`)
 
 Add ``NO_DATA`` mask plane
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
