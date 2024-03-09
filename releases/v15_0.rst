@@ -100,7 +100,7 @@ This release includes, for the first time, the package that allows the LSST plot
 Lossless compression on by default
 ----------------------------------
 
-Lossless compression is turned on by default when persisting any image-like data product. Read the `decision <https://jira.lsstcorp.org/browse/RFC-378>`_ and view the notes in `this LSST Community forum post <https://community.lsst.org/t/lossless-fits-compression-enabled/2410>`_ and links therein.
+Lossless compression is turned on by default when persisting any image-like data product. Read the :jira:`RFC-378` and view the notes in `this LSST Community forum post <https://community.lsst.org/t/lossless-fits-compression-enabled/2410>`_ and links therein.
 
 .. _release-v15-0-cmdline:
 

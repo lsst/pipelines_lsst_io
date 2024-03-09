@@ -32,3 +32,5 @@ jinja_contexts = {
         "newinstall_ref": "24.1.3",
     }
 }
+
+jira_uri_template = "https://ls.st/{ticket}"
