@@ -15,21 +15,21 @@ html_short_title = project
 # Patch EUPS tag substitutions
 rst_epilog = """
 
-.. |eups-tag| replace:: v25_0_3
-.. |eups-tag-mono| replace:: ``v25_0_3``
-.. |eups-tag-bold| replace:: **v25_0_3**
+.. |eups-tag| replace:: v25_0_4
+.. |eups-tag-mono| replace:: ``v25_0_4``
+.. |eups-tag-bold| replace:: **v25_0_4**
 """
 
 # Patch EUPS and Git tag context for Jinja templating
 jinja_contexts = {
     "default": {
-        "release_eups_tag": "v25_0_3",
-        "release_git_ref": "25.0.3",
-        "version": "v25_0_3",
-        "release": "v25_0_3",
-        "scipipe_conda_ref": "25.0.3",
-        "pipelines_demo_ref": "25.0.3",
-        "newinstall_ref": "25.0.3",
+        "release_eups_tag": "v25_0_4",
+        "release_git_ref": "25.0.4",
+        "version": "v25_0_4",
+        "release": "v25_0_4",
+        "scipipe_conda_ref": "25.0.4",
+        "pipelines_demo_ref": "25.0.4",
+        "newinstall_ref": "25.0.4",
     }
 }
 
