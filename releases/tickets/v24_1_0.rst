@@ -1,6 +1,12 @@
 .. _release-v24-1-0-tickets:
 
 ###################################
+Tickets Addressed in Release 24.1.4
+###################################
+
+- :jira:`DM-41900`: maskStreaks failed on 1 charImage dataId in the w\_2023\_47 RC2 [pipe\_tasks]
+
+###################################
 Tickets Addressed in Release 24.1.3
 ###################################
 
