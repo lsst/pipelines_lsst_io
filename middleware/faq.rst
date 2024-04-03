@@ -402,10 +402,33 @@ This will also catch most cases where a pipeline is misconfigured such that what
 We also perform some follow-up queries after generating an empty `QuantumGraph`, to see if any needed dimensions are lacking records entirely (the most common example of this case is forgetting to define visits after ingesting raws in a new data repository).
 
 If you get an empty `QuantumGraph` without any clear explanations in the  warning logs, it means something more complicated went wrong in that initial query, such as the input datasets, available dimensions, and boolean expression being mutually inconsistent (e.g. not having any bands in common, or tracts and visits not overlapping spatially).
-In this case, the arguments to `~Registry.queryDataIds` will be logged again as warnings), and the next step in debugging is to try that call manually with slight adjustments.
+In this case, the arguments to `~Registry.queryDataIds` will be logged again as warnings, and the next step in debugging is to try that call manually with slight adjustments.
 
-To guide this process, it can be very helpful to first use :any:`pipetask <lsst.ctrl.mpexec-script>` to create a diagram of the pipeline graph - a simpler directed acyclic graph that relates tasks to dataset types, without any data IDs.
-The ``--pipeline-dot`` argument writes this graph in the `GraphViz dot language`_, and you can use the ubiquitous ``dot`` command-line tool to transform that into a PNG, SVG, or other graphical format file:
+To guide this process, it can be very helpful to first use :any:`pipetask build --show pipeline-graph <lsst.ctrl.mpexec-script>` to create a diagram of the pipeline graph - a simpler directed acyclic graph that relates tasks to dataset types, without any data IDs:
+
+.. code:: sh
+
+    $ pipetask build ... --show pipeline-graph
+                      ○          camera
+                      │
+                    ○ │          raw
+                    │ │
+                  ◍ │ │          yBackground, transmission_sensor, transmi...[1]
+                  ├─┼─┤
+                  ■ │ │          isr
+                  │ │ │
+                  ○ │ │          postISRCCD
+                  │ │ │
+                  ■ │ │          characterizeImage
+                  │ │ │
+                  ◍ │ │          icSrc, icExpBackground, icExp
+                  │ │ │
+                ○ │ │ │          ps1_pv3_3pi_20170110
+                ├─┤ │ │
+                │ ■ │ │          calibrate
+    (...)
+
+The ``--pipeline-dot`` argument can also be used to create a version of this graph in the `GraphViz dot language`_, and you can use the ubiquitous ``dot`` command-line tool to transform that into a PNG, SVG, or other graphical format file:
 
 .. code:: sh
 
