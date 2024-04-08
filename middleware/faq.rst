@@ -402,10 +402,33 @@ This will also catch most cases where a pipeline is misconfigured such that what
 We also perform some follow-up queries after generating an empty `QuantumGraph`, to see if any needed dimensions are lacking records entirely (the most common example of this case is forgetting to define visits after ingesting raws in a new data repository).
 
 If you get an empty `QuantumGraph` without any clear explanations in the  warning logs, it means something more complicated went wrong in that initial query, such as the input datasets, available dimensions, and boolean expression being mutually inconsistent (e.g. not having any bands in common, or tracts and visits not overlapping spatially).
-In this case, the arguments to `~Registry.queryDataIds` will be logged again as warnings), and the next step in debugging is to try that call manually with slight adjustments.
+In this case, the arguments to `~Registry.queryDataIds` will be logged again as warnings, and the next step in debugging is to try that call manually with slight adjustments.
 
-To guide this process, it can be very helpful to first use :any:`pipetask <lsst.ctrl.mpexec-script>` to create a diagram of the pipeline graph - a simpler directed acyclic graph that relates tasks to dataset types, without any data IDs.
-The ``--pipeline-dot`` argument writes this graph in the `GraphViz dot language`_, and you can use the ubiquitous ``dot`` command-line tool to transform that into a PNG, SVG, or other graphical format file:
+To guide this process, it can be very helpful to first use :any:`pipetask build --show pipeline-graph <lsst.ctrl.mpexec-script>` to create a diagram of the pipeline graph - a simpler directed acyclic graph that relates tasks to dataset types, without any data IDs:
+
+.. code:: sh
+
+    $ pipetask build ... --show pipeline-graph
+                      ○          camera
+                      │
+                    ○ │          raw
+                    │ │
+                  ◍ │ │          yBackground, transmission_sensor, transmi...[1]
+                  ├─┼─┤
+                  ■ │ │          isr
+                  │ │ │
+                  ○ │ │          postISRCCD
+                  │ │ │
+                  ■ │ │          characterizeImage
+                  │ │ │
+                  ◍ │ │          icSrc, icExpBackground, icExp
+                  │ │ │
+                ○ │ │ │          ps1_pv3_3pi_20170110
+                ├─┤ │ │
+                │ ■ │ │          calibrate
+    (...)
+
+The ``--pipeline-dot`` argument can also be used to create a version of this graph in the `GraphViz dot language`_, and you can use the ubiquitous ``dot`` command-line tool to transform that into a PNG, SVG, or other graphical format file:
 
 .. code:: sh
 
@@ -425,11 +448,58 @@ But if you work through your pipeline task-by-task, and run each single-task pip
 
 .. _GraphViz dot language: https://graphviz.org/
 
+.. _middleware_faq_long_qg_generation:
+
+How can I make QuantumGraph generation faster?
+==============================================
+
+`QuantumGraph` generation can be slow in several different ways for different pipelines and datasets, and the first step in speeding it up is to look at the logs to see where it's spending its time.
+We strongly recommend passing ``--long-log`` to include timestamps in all logging, and passing ``--log-level lsst.pipe.base.quantum_graph_builder=VERBOSE`` can provide more information about `QuantumGraph` generation in particular.
+If you're running BPS, logs for this step are written to ``quantumGraphGeneration.out`` in the submit directory.
+
+Here's what's going on after a few important log messages (all ``INFO`` level):
+
+- ``Processing pipeline subgraph X of Y with N task(s).``: we're running the "big initial query" for all of the data IDs that might appear in the graph.
+  This step is usually quite fast (seconds or minutes for large graphs, not hours), but occasionally catastrophically slow (days) when the database's query optimizer chooses a bad plan, so it's the step most amenable to big speedups (more on this below).
+
+- ``Iterating over query results to associate quanta with datasets.``: we're processing the result rows of that big query, each of which will correspond to an edge or a set of similar edges in the graph.
+  This step is pure Python (no database queries), and the only way to make it faster is to shrink the size of the problem by splitting it up.
+  Splitting the task into steps may help more than splitting up data when this is the bottleneck, but only slightly.
+
+- ``Initial bipartite graph has 290189 quanta, 1073224 dataset nodes, and 3591767 edges from 234155 query row(s).``: the preliminary graph is built, and now we're performing many smaller database queries to look for input datasets (or outputs that may be in the way, in some cases), and asking each task if each of its quanta should be kept or pruned out.
+  This step is usually very close to linear in the number of quanta and is typically dominated by Python logic, but it does involve some database queries.
+  The ``VERBOSE`` logging can provide information about exactly which dataset it's querying for, and if any of these seem to be unusually slow, please report it to the middleware team (with logs and a link to the pipeline you're running).
+  There's not much a user can do about slowdowns here (aside from splitting up the problem).
+
+- When the graph has been built, ``pipetask`` will print a table with the number of quanta for each task.  If it pauses a long time after this, it's probably spending a long time writing the graph to disk.
+  This takes longer than it should (this is a known issue we have plans to fix, but it'll require some deep changes), but it should be linear in the number of quanta in the graph.
+
+When the "big initial query" is catastrophically slow, it's almost always because the query is complex enough that the database's query optimizer chose to execute it in a way that didn't take advantage of the right index, and our goal is to give it an equivalent or nearly-equivalent query that's simpler.
+By default, the query includes both the ``--data-query`` expression provided by the user and joins to a subqueries for each regular input dataset in the pipeline (but not prerequisites).
+
+The best way to simplify the query is to eliminate as many of those dataset subqueries as you can via the ``--dataset-query-constraint`` option, which provides direct control over the dataset types to join against.
+If you can easily write a ``--data-query`` argument that includes all of the data IDs you want to process and almost no data IDs you don't want to process (like an explicit ``tract`` or ``visit`` range), pass ``--dataset-query-constraint off`` to get rid of all of the dataset subqueries.
+
+When that's not easy, try to identify one input dataset type whose existence strongly implies the others (perhaps because they're all produced together by some previous processing), and pass that as the argument to ``--dataset-query-constraint``.
+Visualizing the pipeline as a graph (see e.g. ``pipetask build --show pipeline-graph``, as described in :ref:`middleware_faq_empty_quantum_graphs`) is the best way to do this.
+Dataset types with data IDs that are more similar to the data IDs of the quanta are probably best, and dataset types with coarser data IDs are probably better choices than those with finer data IDs (e.g. prefer ``tract`` over ``patch``, ``visit`` over ``{visit, detector}``), but this is based on intuition, not experience, and the most important thing is to reduce the number of dataset types down to zero or one.
+
+In most cases, a complex ``--data-query`` argument is preferable to even one input dataset constraint, but there are exceptions:
+
+- If the ``--data-query`` references a dimension that is completely irrelevant to the graph (e.g. putting an ``exposure`` constraint into a graph that only uses ``{tract, patch}`` data IDs), it can really slow things down, because it still gets included in the query and the number of result rows is multiplied by the number of matching irrelevant-dimension values (e.g. the number ``exposures``).
+  The fact that the ``exposure`` dimension is not spatial (but ``visit`` is) interacts with this in a particularly dramatic way: while it's fine to add a constraint on ``tract`` or ``patch`` to spatially control the a ``visit``-based pipeline, if you do this on a pipeline that only references ``exposure``, not ``visit`` (like ISR alone), the query system will not recognize that it needs to use ``visit`` to mediate between ``exposure`` and ``tract/patch``, and a disastrously huge query will be the result.
+
+- If the ``--data-query`` references dimension metadata fields rather than primary key values (e.g. ``visit.exposure_time`` rather than just ``visit``), we may not have indexes in place to make those selections fast.
+  Note that this includes the ``seqnum`` field of ``visit`` and ``exposure``, and - until the repositories are migrated to the latest dimension universe - ``day_obs`` as well.
+  We haven't actually observed this ever leading to catastrophic query performance, so it's not worth worrying about unless you're trying to fix a graph-generation problem that you know is slow, and if you do think this is a problem for you, please report it so we can add indexes in the future.
+
+Finally, while we haven't seen this problem in the wild (perhaps because ``--dataset-query-constraint`` is underused), if the combination of the ``--data-query`` and ``--dataset-query-constraint`` arguments leave the query underconstrained, it might run quickly but return many more result rows than we need.
+For example, if one passes ``--dataset-query-constraint off`` and the ``--data-query`` matches 1000 visits while only 10 of those have inputs, the initial query will return a factor of 100 more result rows than it might need - and while the initial query may still be fast enough to avoid being the bottleneck, this will result in a preliminary graph that is too big and needs to be pruned considerably by the follow-up queries for input datasets, making later steps of the process 100x slower.
 
 .. _middleware_faq_long_query:
 
-What do I do if a query method/command or pipetask graph generation is slow?
-============================================================================
+What do I do if a query method/command is slow?
+===============================================
 
 Adding the ``--log-level sqlalchemy.engine=DEBUG`` option to the :any:`butler <lsst.daf.butler-scripts>` or :any:`pipetask <lsst.ctrl.mpexec-script>` command will allow the SQL queries issued by the command to be inspected.
 Similarly, for a slow query method, adding ``logging.getLogger("sqlalchemy.engine").setLevel(logging.DEBUG)`` can help.
