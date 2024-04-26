@@ -1,6 +1,12 @@
 .. _release-v24-1-0-tickets:
 
 ###################################
+Tickets Addressed in Release 24.1.5
+###################################
+
+- `DM-43843 <https://ls.st//DM-43843>`_: Investigate failed blends in HSC PDR4 [meas\_extensions\_scarlet]
+
+###################################
 Tickets Addressed in Release 24.1.4
 ###################################
 
