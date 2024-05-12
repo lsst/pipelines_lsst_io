@@ -2,6 +2,7 @@
 # Sort alphabetically for maintainability.
 setupRequired(afw)
 setupRequired(alert_packet)
+setupRequired(analysis_ap)
 setupRequired(analysis_tools)
 setupRequired(ap_association)
 setupRequired(ap_pipe)
