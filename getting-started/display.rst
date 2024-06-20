@@ -52,7 +52,7 @@ Ensure that this Python session is running from the shell where you ran :command
 Some user-reported solutions to ds9-related issues include:
 
 * Launching ds9 *after* setting up the LSST environment in a new terminal window.
- * If using Ubuntu, installing `xpa-tools` with `sudo apt install xpa-tools; xpans`. 
+* If using Ubuntu, installing `xpa-tools` with `sudo apt install xpa-tools; xpans`. 
 
 
 Creating a Butler client
