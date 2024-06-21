@@ -52,7 +52,7 @@ Ensure that this Python session is running from the shell where you ran :command
 If the image does not display with DS9, try these troubleshooting steps:
 
  * launching DS9 *after* setting up the LSST environment in a new terminal window
- * installing ``xpa-tools`` with ``sudo apt install xpa-tools; xpans``
+ * if using `Debian/Ubuntu`_, installing ``xpa-tools`` with ``sudo apt install xpa-tools; xpans``
 
 
 Creating a Butler client
