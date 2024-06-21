@@ -67,7 +67,7 @@ If you wish to follow the instructions for :doc:`lsstsw` (recommended for some d
 
    sudo apt-get update && sudo apt-get install git
 
-Tip: to display images in DS9, the installing ``xpa-tools`` with the following statement
+Tip: to display images in DS9, installing ``xpa-tools`` with the following statement
 might be necessary in some cases:
 
 .. code-block:: bash
