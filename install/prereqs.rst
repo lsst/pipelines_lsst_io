@@ -67,6 +67,14 @@ If you wish to follow the instructions for :doc:`lsstsw` (recommended for some d
 
    sudo apt-get update && sudo apt-get install git
 
+Tip: installing ``xpa-tools`` with this specific statement might be necessary, in some cases,
+in order to avoid `xpa`-related errors when displaying images in DS9:
+
+.. code-block:: bash
+
+   sudo apt install xpa-tools; xpans
+
+
 macOS
 -----
 
