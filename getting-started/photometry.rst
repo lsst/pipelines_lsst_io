@@ -52,7 +52,15 @@ The fifth and final step is executed in :ref:`this section <getting-started-tuto
    -i u/$USER/coadds \
    -o u/$USER/coadd_meas \
    -p $DRP_PIPE_DIR/pipelines/HSC/DRP-RC2_subset.yaml#coadd_measurement \
-   -d "skymap = 'hsc_rings_v1' AND tract = 9813 AND patch in (38, 39, 40, 41)"
+   -d "skymap = 'hsc_rings_v1' AND tract = 9813 AND patch in (38, 39, 40, 41)" \
+   -c detection:detection.thresholdValue=250.0
+
+.. note::
+
+   The ``-c`` argument is used to set a configuration parameter.
+   In this case, the detection threshold is set to 250.0.
+   This is a high threshold, but it is used here to reduce the number of detections in the tutorial data.
+   In a real analysis, you would want to set this to a lower value to detect fainter objects.
 
 Notice that since this task operates on coadds, we can select the coadds using the ``tract``, and ``patch`` data ID keys.
 In past sections, the examples left off the ``-d`` argument in order to process all available data.
