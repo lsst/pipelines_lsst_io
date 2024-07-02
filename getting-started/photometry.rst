@@ -70,10 +70,10 @@ For example, some algorithms expect multiple images to overlap, or multi-band co
 Those four patches have coverage from all 40 visits in the tutorial repository which means there doesn't need to be as much fine tuning to configurations, and we can process these patches just as the large scale HSC processing is done.
 As with previous examples, the outputs will go in a collection placed under a namespace defined by your username.
 
-.. note:
+.. note::
 
-  The processing in this part can be quite expensive and take a long time.
-  You can use the `-j<num cores>` argument to allow the processing to take more cores, if you have access to more than one.
+   The processing in this part can be quite expensive and take a long time.
+   You can use the `-j<num cores>` argument to allow the processing to take more cores, if you have access to more than one.
 
 .. _getting-started-tutorial-detect-coadds:
 
