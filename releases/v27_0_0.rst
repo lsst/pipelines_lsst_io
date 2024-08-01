@@ -106,6 +106,13 @@ Packages removed
 
 - `scarlet_extensions <https://github.com/lsst/scarlet_extensions>`_, obsolete scarlet utilities.
 
+Task and Data Product changes
+-----------------------------
+
+* The Alert Production pipelines now use the new `~lsst.pipe.tasks.calibrateImage.CalibrationImageTask` for PSF modeling, background, subtraction, and initiall calibration immediately after ISR, instead of the two-task sequence of `~lsst.pipe.tasks.characterizeImage.CharacterizeImageTask` and `~lsst.pipe.tasks.calibrate.CalibrateTask`.
+  The new task is leaner and simpler, and it can handle pairs of "snaps", but its output data products are slightly different.
+  It will be included in the Data Release Production pipelines in a future release.
+
 .. _release-v27-0-0-deprecations:
 
 Deprecations
