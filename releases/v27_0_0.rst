@@ -48,37 +48,39 @@ Major new features
 
 - :ref:`release-v27-0-0-cell-coadd`
 - :ref:`release-v27-0-0-source-injection`
-- :ref:`release-v27-0-0-spectrograph-injection`
-- :ref:`release-v27-0-0-generic-cameras`
+- :ref:`release-v27-0-0-obs-fiber-spectrograph`
+- :ref:`release-v27-0-0-obs-generic-camera`
 
 .. _release-v27-0-0-cell-coadd:
 
-Cell Coadd Package
-------------------
+Cell Coadds Package
+-------------------
 
-It includes the data structures for defining coadds of astronomical images in small (few arcsecond) cells, in which only input images that fully contain a cell are included.
+The `cell_coadds <https://github.com/lsst/cell_coadds>`_ package includes data structures for defining coadds of astronomical images in small (few arcsecond) cells, in which only input images that fully contain a cell are included.
 This helps mitigate problems with PSF discontinuities that are present in traditional coadds.
 
-.. _release-v27-0-0-spectrograph-injection:
+Pipeline tasks that use these data structures to actually build cell-based coadds are in development as of this release and maybe be usable, but they are not stable and are not included in the main DRP pipelines.
+
+.. _release-v27-0-0-obs-fiber-spectrograph:
 
 Ingestion of Fiber Spectrograph Data
 ------------------------------------
 
-With `obs_fiberspectrograph` a new package is available to ingest fiber spectrograph data.
+The `obs_fiberspectrograph` package adds support for data from fiber spectrographs that Rubin Observatory uses to monitor calibration light sources.
 
-.. _release-v27-0-0-generic-cameras:
+.. _release-v27-0-0-obs-generic-camera:
 
 Support for Generic Cameras
 ----------------------------
 
-A new package `obs_rubinGenericCamera` adds support for Rubin generic camera specific configurations.
+The `obs_rubinGenericCamera` package adds support for data from the generic cameras used at Rubin Observatory, including the star trackers, the AuxTel pointing camera, and the all-sky camera.
 
 .. _release-v27-0-0-source-injection:
 
 Source Injection
 ----------------
 
-The source_injection package contains tools designed to assist in the injection of synthetic sources into scientific imaging.
+The ``source_injection`` package (`GitHub <<https://github.com/lsst/source_injection>`_, `documentation <lsst.source.injection>`) contains tools designed to assist in the injection of synthetic sources into scientific imaging at various points in the Rubin pipelines.
 Source generation and subsequent source injection is powered by the GalSim software package.
 
 .. _release-v27-0-0-interface:
@@ -91,11 +93,11 @@ Significant interface changes
 New packages added
 ------------------
 
-* `cell_coadds <https://github.com/lsst/cell_coadds>`_, providing data structures for defining coadds of astronomical images in small (few arcsecond) cells
-* `obs_fiberspectrograph <https://github.com/lsst/obs_fiberspectrograph>`_, a package to ingest fiber spectrograph data.
-* `obs_rubinGenericCamera <https://github.com/lsst/obs_rubinGenericCamera>`_, support for the generic cameras used on Cerro Pachon.
-* `scarlet_lite <https://github.com/lsst/scarlet_lite>`_, separate package providing `scarlet_lite` functionality previously implemented in `meas_extensions_scarlet`.
-* `source_injection <https://github.com/lsst/source_injection>`_, contains tools designed to assist in the injection of synthetic sources into scientific imaging.
+* `cell_coadds <https://github.com/lsst/cell_coadds>`_ (see :ref:`above <release-v27-0-0-cell-coadd>`)
+* `obs_fiberspectrograph <https://github.com/lsst/obs_fiberspectrograph>`_ (see :ref:`above <release-v27-0-0-obs-fiber-spectrograph>`)
+* `obs_rubinGenericCamera <https://github.com/lsst/obs_rubinGenericCamera>`_, (see :ref:`above <release-v27-0-0-obs-generic-camera>`)
+* `source_injection <https://github.com/lsst/source_injection>`_ (see :ref:`above <release-v27-0-0-source-injection>`)
+* `scarlet_lite <https://github.com/lsst/scarlet_lite>`_, an optimized subset of the original Scarlet package used and maintained by Rubin DM.
 
 .. _release-v27-0-0-packages-removed:
 
