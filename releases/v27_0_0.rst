@@ -132,6 +132,8 @@ Deprecations in lsst.pipe.tasks
 
 The python classes `~lsst.pipe.tasks.setPrimaryFlags.SetPrimaryFlagsConfig` and `~lsst.pipe.tasks.setPrimaryFlags.SetPrimaryFlagsConfig` have been moved to `lsst.meas.algorithms`.
 
+The coaddition tasks `~lsst.pipe.tasks.assembleCoadd.AssembleCoaddTask` and `~lsst.pipe.tasks.assembleCoadd.CompareWarpAssembleCoaddTask` have moved to `lsst.drp.tasks`.
+
 .. _release-v27-0-0-deprecated-meas-base:
 
 Deprecations in lsst.meas.base
