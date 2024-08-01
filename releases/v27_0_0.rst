@@ -80,7 +80,7 @@ The `obs_rubinGenericCamera` package adds support for data from the generic came
 Source Injection
 ----------------
 
-The ``source_injection`` package (`GitHub <<https://github.com/lsst/source_injection>`_, `documentation <lsst.source.injection>`) contains tools designed to assist in the injection of synthetic sources into scientific imaging at various points in the Rubin pipelines.
+The source `~lsst.source.injection` package (`GitHub <https://github.com/lsst/source_injection>`_) contains tools designed to assist in the injection of synthetic sources into scientific imaging at various points in the Rubin pipelines.
 Source generation and subsequent source injection is powered by the GalSim software package.
 
 .. _release-v27-0-0-interface:
@@ -148,4 +148,4 @@ Deprecated task configurations
 
 In `~lsst.fgcmcal.FgcmFitCycleConfig` the configuration field ``nCore`` will be removed. Please specify the number of cores with ``pipetask run --cores-per-quantum`` instead.
 
-In `~lsst.analysis.tools.tasks.CatalogMatchConfig`: ``targetDecColumn`` has been been replaced by ``targetRaColumn`` and ``decColumn`` has been replaced by ``targetDecColumn``.
+In `~lsst.analysis.tools.tasks.CatalogMatchConfig` ``targetDecColumn`` has been been replaced by ``targetRaColumn`` and ``decColumn`` has been replaced by ``targetDecColumn``.
