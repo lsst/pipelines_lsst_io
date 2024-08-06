@@ -1,0 +1,151 @@
+.. _release-latest:
+.. _release-v27-0-0:
+
+###########################
+Release 27.0.0 (2024-06-25)
+###########################
+
+.. toctree::
+   :hidden:
+
+   tickets/v27_0_0
+
++-------------------------------------------+------------+
+| Source                                    | Identifier |
++===========================================+============+
+| Git tag                                   | 27.0.0     |
++-------------------------------------------+------------+
+| :doc:`EUPS distrib </install/newinstall>` | v27\_0\_0  |
++-------------------------------------------+------------+
+| rubin-env version                         | 8.0.0      |
++-------------------------------------------+------------+
+
+This release is based on the ``w_2024_16`` weekly build with 3 tickets backported.
+
+The notes below highlight significant technical changes to the Science Pipelines codebase in this release.
+For a complete list of changes made, see :doc:`tickets/v27_0_0`.
+
+The `Characterization Metric Report (DMTR-431) <https://dmtr-431.lsst.io>`_ describes the scientific performance of this release in terms of scientific performance metrics.
+
+If you have questions or comments about this release, visit our `Community forum <https://community.lsst.org>`_ for advice.
+
+- :ref:`release-v27-0-0-functionality`
+- :ref:`release-v27-0-0-interface`
+- :ref:`release-v27-0-0-deprecations`
+
+*See also:*
+
+- :doc:`Installation instructions </install/index>`
+- :doc:`Known issues </known-issues>`
+- `Doxygen Documentation`__
+
+__ http://doxygen.lsst.codes/stack/doxygen/xlink_v27.0.0_2024_06_26_00.56.30
+
+.. _release-v27-0-0-functionality:
+
+Major new features
+==================
+
+- :ref:`release-v27-0-0-cell-coadd`
+- :ref:`release-v27-0-0-source-injection`
+- :ref:`release-v27-0-0-obs-fiber-spectrograph`
+- :ref:`release-v27-0-0-obs-generic-camera`
+
+.. _release-v27-0-0-cell-coadd:
+
+Cell Coadds Package
+-------------------
+
+The `cell_coadds <https://github.com/lsst/cell_coadds>`_ package includes data structures for defining coadds of astronomical images in small (few arcsecond) cells, in which only input images that fully contain a cell are included.
+This helps mitigate problems with PSF discontinuities that are present in traditional coadds.
+
+Pipeline tasks that use these data structures to actually build cell-based coadds are in development as of this release and maybe be usable, but they are not stable and are not included in the main DRP pipelines.
+
+.. _release-v27-0-0-obs-fiber-spectrograph:
+
+Ingestion of Fiber Spectrograph Data
+------------------------------------
+
+The `obs_fiberspectrograph` package adds support for data from fiber spectrographs that Rubin Observatory uses to monitor calibration light sources.
+
+.. _release-v27-0-0-obs-generic-camera:
+
+Support for Generic Cameras
+----------------------------
+
+The `obs_rubinGenericCamera` package adds support for data from the generic cameras used at Rubin Observatory, including the star trackers, the AuxTel pointing camera, and the all-sky camera.
+
+.. _release-v27-0-0-source-injection:
+
+Source Injection
+----------------
+
+The source `~lsst.source.injection` package (`GitHub <https://github.com/lsst/source_injection>`_) contains tools designed to assist in the injection of synthetic sources into scientific imaging at various points in the Rubin pipelines.
+Source generation and subsequent source injection is powered by the GalSim software package.
+
+.. _release-v27-0-0-interface:
+
+Significant interface changes
+=============================
+
+.. _release-v27-0-0-new-packages:
+
+New packages added
+------------------
+
+* `cell_coadds <https://github.com/lsst/cell_coadds>`_ (see :ref:`above <release-v27-0-0-cell-coadd>`)
+* `obs_fiberspectrograph <https://github.com/lsst/obs_fiberspectrograph>`_ (see :ref:`above <release-v27-0-0-obs-fiber-spectrograph>`)
+* `obs_rubinGenericCamera <https://github.com/lsst/obs_rubinGenericCamera>`_, (see :ref:`above <release-v27-0-0-obs-generic-camera>`)
+* `source_injection <https://github.com/lsst/source_injection>`_ (see :ref:`above <release-v27-0-0-source-injection>`)
+* `scarlet_lite <https://github.com/lsst/scarlet_lite>`_, an optimized subset of the original Scarlet package used and maintained by Rubin DM.
+
+.. _release-v27-0-0-packages-removed:
+
+Packages removed
+----------------
+
+- `scarlet_extensions <https://github.com/lsst/scarlet_extensions>`_, obsolete scarlet utilities.
+
+Task and Data Product changes
+-----------------------------
+
+* The Alert Production pipelines now use the new `~lsst.pipe.tasks.calibrateImage.CalibrationImageTask` for PSF modeling, background, subtraction, and initiall calibration immediately after ISR, instead of the two-task sequence of `~lsst.pipe.tasks.characterizeImage.CharacterizeImageTask` and `~lsst.pipe.tasks.calibrate.CalibrateTask`.
+  The new task is leaner and simpler, and it can handle pairs of "snaps", but its output data products are slightly different.
+  It will be included in the Data Release Production pipelines in a future release.
+
+.. _release-v27-0-0-deprecations:
+
+Deprecations
+============
+
+These tasks or methods are now deprecated and will be removed in the next major release.
+See :jira:`RFC-945` for a clarification on the accelerated deprecation policy.
+
+- :ref:`release-v27-0-0-deprecated-pipe-tasks`
+- :ref:`release-v27-0-0-deprecated-meas-base`
+- :ref:`release-v27-0-0-deprecated-configurations`
+
+.. _release-v27-0-0-deprecated-pipe-tasks:
+
+Deprecations in lsst.pipe.tasks
+-------------------------------
+
+The python classes `~lsst.pipe.tasks.setPrimaryFlags.SetPrimaryFlagsConfig` and `~lsst.pipe.tasks.setPrimaryFlags.SetPrimaryFlagsConfig` have been moved to `lsst.meas.algorithms`.
+
+The coaddition tasks `~lsst.pipe.tasks.assembleCoadd.AssembleCoaddTask` and `~lsst.pipe.tasks.assembleCoadd.CompareWarpAssembleCoaddTask` have moved to `lsst.drp.tasks`.
+
+.. _release-v27-0-0-deprecated-meas-base:
+
+Deprecations in lsst.meas.base
+------------------------------
+
+The plugin `NaiveCentroid` is deprecated.
+
+.. _release-v27-0-0-deprecated-configurations:
+
+Deprecated task configurations
+------------------------------
+
+In `~lsst.fgcmcal.FgcmFitCycleConfig` the configuration field ``nCore`` will be removed. Please specify the number of cores with ``pipetask run --cores-per-quantum`` instead.
+
+In `~lsst.analysis.tools.tasks.CatalogMatchConfig` ``targetDecColumn`` has been been replaced by ``targetRaColumn`` and ``decColumn`` has been replaced by ``targetDecColumn``.
