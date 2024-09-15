@@ -29,7 +29,6 @@ jinja_contexts = {
         "release": "v27_0_0",
         "scipipe_conda_ref": "27.0.0",
         "pipelines_demo_ref": "27.0.0",
-        "newinstall_ref": "27.0.0",
     }
 }
 

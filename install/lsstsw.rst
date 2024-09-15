@@ -8,7 +8,7 @@ This page guides you through installing the LSST Science Pipelines from source w
 These are the same tools LSST Data Management uses to build and test the Science Pipelines.
 
 Since lsstsw presents the Science Pipelines as a directory of Git repositories cloned from `github.com/lsst <https://github.com/lsst>`__, this installation method can be very convenient for developing Science Pipelines code, particularly when modifying multiple packages at the same time.
-Other methods of installing LSST Science Pipelines software are :doc:`newinstall.sh <newinstall>` and :doc:`Docker <docker>`.
+Other methods of installing LSST Science Pipelines software are :doc:`lsstinstall <lsstinstall>` and :doc:`Docker <docker>`.
 
 If you have issues using lsstsw, here are two ways to get help:
 
