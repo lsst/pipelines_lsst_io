@@ -14,7 +14,7 @@ What does existing DC2 data look like?
 
 * The instrument is called ``LSSTCam-imSim``
 * The obs-package is ``obs_lsst``, i.e., :ref:`lsst.obs.lsst` (note ``imsim`` subdirectories within)
-* The skymap is called ``DC2``
+* The skymap is called ``DC2_cells_v1``
 * Patches go from 0 to 48
 * Detectors go from 0 to 188
 * Available bands are ``ugrizy``
@@ -48,7 +48,7 @@ To see some available datasets for processing, try, e.g.,
 
 .. prompt:: bash
 
-   butler query-data-ids /repo/dc2 tract patch visit --collections='u/mrawls/DM-34827/defaults/4patch_4431' --where "skymap='DC2' AND band='g' AND instrument='LSSTCam-imSim'" --datasets "raw"
+   butler query-data-ids /repo/dc2 tract patch visit --collections='u/mrawls/DM-34827/defaults/4patch_4431' --where "skymap='DC2_cells_v1' AND band='r' AND instrument='LSSTCam-imSim'" --datasets "raw"
 
 This command should print a list of data IDs that meet the search criteria, along with their tract, patch, and visit number.
 Certain arguments are required after the ``--where``, including ``skymap`` and ``instrument``, while most others are optional, and may include ``band``, ``tract``, ``patch``, etc.
@@ -57,47 +57,50 @@ Processing Data with the AP Pipelines
 =====================================
 
 Now it's time to process some data.
-In this guide, we will run a template-building pipeline, ``ApTemplate.yaml``, first.
-This pipeline starts with raw images and runs standard single frame processing (which includes :py:class:`lsst.ip.isr.isrTask.IsrTask`, :py:class:`lsst.pipe.tasks.characterizeImage.CharacterizeImageTask`, and :py:class:`lsst.pipe.tasks.calibrate.CalibrateTask`).
-From here, it is possible to run :py:class:`lsst.pipe.tasks.postprocess.ConsolidateVisitSummaryTask`, :py:class:`lsst.pipe.tasks.makeCoaddTempExp.MakeWarpTask`, :py:class:`lsst.pipe.tasks.selectImages.BestSeeingQuantileSelectVisitsTask`, and :py:class:`lsst.pipe.tasks.assembleCoadd.CompareWarpAssemblecoaddTask`.
-The final result is good seeing coadd templates.
+The pipeline ``ApPipe.yaml`` will be used to run difference imaging using a set of template files.
+In this guide, good seeing templates are assumed to have already been constructed using the :py:class:`~lsst.pipe.tasks.selectImages.BestSeeingQuantileSelectVisitsTask` and the :py:class:`~lsst.drp.tasks.assemble_coadd.CompareWarpAssembleCoaddTask`.
 
-In a second pipeline, ``ApPipe.yaml``, we will run difference imaging using the templates we just built.
-This pipeline also starts with single frame processing on raw images, followed by :py:class:`lsst.ip.diffim.subtractImages.AlardLuptonSubtractTask`, :py:class:`lsst.ip.diffim.detectAndMeasure.DetectAndMeasureTask`, :py:class:`lsst.ap.association.transformDiaSourceCatalog.TransformDiaSourceCatalogTask`, and :py:class:`lsst.ap.association.diaPipe.DiaPipelineTask`.
+The ``ApPipe.yaml`` pipeline starts with single frame processing on raw images, followed by :py:class:`~lsst.ip.diffim.subtractImages.AlardLuptonSubtractTask`, :py:class:`~lsst.ip.diffim.detectAndMeasure.DetectAndMeasureTask`, :py:class:`~lsst.ap.association.transformDiaSourceCatalog.TransformDiaSourceCatalogTask`, and :py:class:`~lsst.ap.association.diaPipe.DiaPipelineTask`.
 The final results include difference images, some output catalogs, and an Alert Production Database (APDB).
 
-Building good seeing templates
-------------------------------
+Importing good seeing templates
+-------------------------------
 
-The pipeline we will use lives in the ``ap_pipe`` package, and is the camera-specific ``ApTemplate.yaml`` pipeline.
-To see it, either navigate to the `pipeline on GitHub <https://github.com/lsst/ap_pipe/blob/main/pipelines/LSSTCam-imSim/ApTemplate.yaml>`__ or display the pipeline on via the command line, e.g.,
+As mentioned above, a series of good seeing templates are assumed to have been generated already.
+For convenience, a templates import script is available in the `ap_verify_ci_dc2` repository which assists with this process: `import_templates.py <https://github.com/lsst/ap_verify_ci_dc2/blob/main/scripts/import_templates.py>`__.
 
-.. prompt:: bash
+An example usage of this script is:
 
-   cat $AP_PIPE_DIR/pipelines/LSSTCam-imSim/ApTemplate.yaml
+.. code-block:: shell
 
-Note that this camera-specific pipeline imports both a camera-specific single-frame processing pipeline (sometimes called "processCcd") and a more generic AP Template building pipeline.
+    import_templates.py \
+    -b /repo/dc2 \
+    -t $MY_COLLECTION \
+    -w "skymap='DC2_cells_v1' and tract=4431 and patch IN (9,10,16,17) and band='r'"
 
-To visualize this pipeline, you may wish to use ``pipetask build``, e.g.,
+*where*
 
-.. prompt:: bash
+    `$MY_COLLECTION`
+        The collection containing the templates to import.
 
-   pipetask build -p $AP_PIPE_DIR/pipelines/LSSTCam-imSim/ApTemplate.yaml --pipeline-dot ApTemplate.dot
-   dot ApTemplate.dot -Tpng > ApTemplate.png
+We are now ready to run the AP Pipeline (namely difference imaging and source association).
+
+Visualizing a pipeline
+----------------------
+
+To visualize a pipeline, you may wish to use ``pipetask build``, e.g.,
+
+.. code-block:: shell
+
+    pipetask build \
+    -p $AP_PIPE_DIR/pipelines/LSSTCam-imSim/ApPipe.yaml \
+    --pipeline-dot ApPipe.dot
+
+    dot ApPipe.dot -Tpng > ApPipe.png
 
 Alternately, navigate to `this website that serves visualizations of all the AP and DRP pipelines <https://tigress-web.princeton.edu/~lkelvin/pipelines/current>`__.
-Click through to ``ap_pipe``, then ``LSSTCam-imSim``, and finally ``ApTemplate`` to find a PDF visualizing all the pipeline inputs, outputs, and intermediate data products.
+Click through to ``ap_pipe``, then ``LSSTCam-imSim``, and finally ``ApPipe`` to find a PDF visualizing all the pipeline inputs, outputs, and intermediate data products.
 This PDF is auto-generated each week using the same ``pipetask build`` command as shown above.
-
-To run this pipeline, make up an appropriate output collection name (``u/USERNAME/OUTPUT-COLLECTION-1`` in the example below), and run
-
-.. prompt:: bash
-
-   pipetask run -j 4 -b /repo/dc2 -d "skymap='DC2' AND tract=4431 AND patch IN (9, 10, 16, 17) AND band='g'" -i 2.2i/defaults -o u/USERNAME/OUTPUT-COLLECTION-1 -p $AP_PIPE_DIR/pipelines/LSSTCam-imSim/ApTemplate.yaml
-
-To tell the process to run in the background and write output to a logfile, you may wish to prepend ``pipetask run`` with ``nohup`` and postpend the command with ``> OUTFILENAME &``.
-This will take some time, but when it's done, you should have calibrated exposures and a visit summary table, warps, and assembled good seeing coadds for use as templates.
-We are now ready to run the rest of the AP Pipeline (namely difference imaging and source association).
 
 Performing difference imaging and making an APDB
 ------------------------------------------------
@@ -121,29 +124,28 @@ To create an empty sqlite APDB:
 
 .. prompt:: bash
 
-   make_apdb.py -c db_url="PATH-TO-YOUR-APDB-HERE"
+   apdb-cli create-sql sqlite:////path/to/my/database/apdb.sqlite3 apdb_config.py
 
 **The APDB must exist and be empty before you run the AP Pipeline.**
 It is highly recommended to make a new APDB each time the AP Pipeline is rerun for any reason.
-A typical ``db_url`` is, e.g., ``sqlite:////path/to/my-working-directory/run1.db``.
 
 The configs you set when making the APDB must match those you give the AP Pipeline at runtime.
 
 As before, to visualize the AP Pipeline, you may navigate to `the website with visualizations of all the AP and DRP pipelines <https://tigress-web.princeton.edu/~lkelvin/pipelines/current>`__.
 Click through to ``ap_pipe``, then ``LSSTCam-imSim``, and finally ``ApPipe`` to find a PDF visualizing all the pipeline inputs, outputs, and intermediate data products.
-This PDF is auto-generated each week using an analogous ``pipetask build`` command as shown above for ``ApTemplate.yaml``.
+This PDF is auto-generated each week using an analogous ``pipetask build`` command as shown above for ``ApPipe.yaml``.
 
 You are now ready to run the AP Pipeline!
 You will need to substitute appropriate values for your input collections, your desired new output collection, and your APDB URL in order to run
 
 .. prompt:: bash
 
-   pipetask run -j 4 -b /repo/dc2 -d "skymap='DC2' AND band='g'" -i u/USERNAME/OUTPUT-COLLECTION-1,u/mrawls/DM-34827/defaults/4patch_4431 -o u/USERNAME/OUTPUT-COLLECTION-2 -p $AP_PIPE_DIR/pipelines/LSSTCam-imSim/ApPipe.yaml -c diaPipe:apdb.db_url="PATH-TO-YOUR-APDB-HERE"
+   pipetask run -j 4 -b /repo/dc2 -d "skymap='DC2_cells_v1' AND band='r'" -i u/USERNAME/OUTPUT-COLLECTION-1,u/mrawls/DM-34827/defaults/4patch_4431 -o u/USERNAME/OUTPUT-COLLECTION-2 -p $AP_PIPE_DIR/pipelines/LSSTCam-imSim/ApPipe.yaml -c parameters:apdb_config=apdb_config.py
 
 What are the output data products?
 ==================================
 
-When the AP Pipeline completes, you will have difference images, difference image source tables, and an APDB with populated tables (``DiaSource``, ``DiaObject``, etc.) for ``g`` band visits that fully overlap four patches of tract 4431.
+When the AP Pipeline completes, you will have difference images, difference image source tables, and an APDB with populated tables (``DiaSource``, ``DiaObject``, etc.) for ``r`` band visits that fully overlap four patches of tract 4431.
 
 A few analysis and plotting tools exist to explore the APDB and other AP Pipeline outputs.
 These live in `analysis_ap <https://github.com/lsst/analysis_ap>`__.
@@ -153,7 +155,7 @@ To see what DIA Source Tables exist, query, e.g.,
 
 .. prompt:: bash
 
-   butler query-data-ids /repo/dc2 visit detector --collections="u/USERNAME/OUTPUT-COLLECTION-2" --where "skymap='DC2' AND band='g' AND instrument='LSSTCam-imSim'" --datasets "goodSeeingDiff_diaSrcTable"
+   butler query-data-ids /repo/dc2 visit detector --collections="u/USERNAME/OUTPUT-COLLECTION-2" --where "skymap='DC2_cells_v1' AND band='r' AND instrument='LSSTCam-imSim'" --datasets "goodSeeingDiff_diaSrcTable"
 
 The APDB also contains several tables with information about DIA Sources, DIA Objects, and Solar System Objects.
 Objects represent real astrophysical things, and are created by spatially associating per-visit Sources.
@@ -165,7 +167,7 @@ More information about the APDB schema is available in `sdm_schemas <https://git
    None of the following is a formally supported APDB user interface.
    It one way to load a table from the APDB into memory in python and make a quick plot to see where the associated DIA Objects fall on the sky.
    It also includes an example of how to load a ``goodSeeingDiff_diaSrcTable`` with the Butler for further analysis.
-   
+
    Future plans include support for visualizing some AP Pipeline outputs via :ref:`lsst.analysis.tools` and/or :ref:`lsst.analysis.ap`.
 
 Give this a try in a Jupyter notebook:
@@ -183,7 +185,7 @@ Give this a try in a Jupyter notebook:
    repo = '/repo/dc2'
    collections = 'u/USERNAME/OUTPUT-COLLECTION-2'
    instrument='LSSTCam-imSim'
-   skymap='DC2'
+   skymap='DC2_cells_v1'
    butler = dafButler.Butler(repo, collections=collections, instrument=instrument, skymap=skymap)
 
    # Load a diaSrcTable from the Butler for one (visit, detector)
@@ -218,17 +220,16 @@ The example data processing steps above assume a relatively small data volume, s
 However, if you want to process larger data volumes, you'll need to use the Batch Processing System (BPS, :py:mod:`lsst.ctrl.bps`) and a PostgreSQL APDB.
 
 Describing how to set up a PostgreSQL APDB from scratch is beyond the scope of this guide.
-One key difference between using an sqlite APDB versus a PostgreSQL APDB is that the former is a file on disk created from scratch when running ``make_apdb.py``.
-The latter requires a database to already exist, and ``make_apdb.py`` turns the specified schema (via the ``namespace`` config option) in an existing PostgreSQL database into an empty APDB.
+One key difference between using an sqlite APDB versus a PostgreSQL APDB is that the former is a file on disk created from scratch when running ``apdb-cli create-sql``.
+The latter requires a database to already exist, and ``apdb-cli create-sql`` turns the specified schema (via the ``namespace`` config option) in an existing PostgreSQL database into an empty APDB.
 As before, you will still need to run, e.g.,
 
 .. prompt:: bash
 
-   make_apdb.py -c db_url="postgresql://USER@DB_ADDRESS/DB_NAME" -c namespace='DESIRED_POSTGRES_SCHEMA_NAME'
+   apdb-cli create-sql sqlite:////path/to/my/database/apdb.sqlite3 apdb_config.py
 
-(being sure to replace ``USER``, ``DB_ADDRESS``, and ``DB_NAME`` with appropriate values).
-Next, use the documentation for :py:mod:`lsst.ctrl.bps` to `define a submission <https://pipelines.lsst.io/v/weekly/modules/lsst.ctrl.bps/quickstart.html#defining-a-submission>`__ by creating two BPS configuration files --- one for the template-building step and one for the difference-imaging step.
-Save these BPS configuration files as ``ApTemplate-DC2-bps.yaml`` and ``ApPipe-DC2-bps.yaml``.
+Next, use the documentation for :py:mod:`lsst.ctrl.bps` to `define a submission <https://pipelines.lsst.io/v/weekly/modules/lsst.ctrl.bps/quickstart.html#defining-a-submission>`__ by creating a BPS configuration file to perform difference-imaging.
+Save the BPS configuration file as ``ApPipe-DC2-bps.yaml``.
 
 .. note::
 
@@ -236,28 +237,21 @@ Save these BPS configuration files as ``ApTemplate-DC2-bps.yaml`` and ``ApPipe-D
    Refer to the `USDF documentation pages <https://developer.lsst.io/usdf/batch.html>`__ for the latest recommendations.
    There is likely a set of default configurations users must import or place directly in their BPS configuration file that pertain to the underlying architecture for batch job submissions.
 
-Ensure the ``pipelineYaml`` keyword points to the appropriate ApTemplate and ApPipe pipelines in each BPS configuration file, and that you specify appropriate values for ``butlerConfig``, ``inCollection``, ``outCollection`` (or ``payloadName``, which may be used to construct ``outCollection``), and ``dataQuery``.
+Ensure the ``pipelineYaml`` keyword points to the appropriate ApPipe pipeline in the BPS configuration file, and that you specify appropriate values for ``butlerConfig``, ``inCollection``, ``outCollection`` (or ``payloadName``, which may be used to construct ``outCollection``), and ``dataQuery``.
 These values mirror those on the command line via ``pipetask run`` and the ``-b``, ``-i``, ``-o``, and ``-d`` arguments, respectively.
 
-For example, to make good seeing templates using all available patches and bands in two entire tracts, you may wish to use a data query like ``instrument='LSSTCam-imSim' and tract in (3828, 3829) and skymap='DC2'``.
+For example, to generate difference imaging outputs using all available patches and bands in two entire tracts, you may wish to use a data query like ``instrument='LSSTCam-imSim' and tract in (3828, 3829) and skymap='DC2_cells_v1'``.
 
-When you are ready to submit your first BPS run to build templates, follow the documentation to `submit a run <https://pipelines.lsst.io/v/weekly/modules/lsst.ctrl.bps/quickstart.html#submitting-a-run>`__, e.g.,
-
-.. prompt:: bash
-
-   bps submit ApTemplate-DC2-bps.yaml
-
-Once the templates are built, the second BPS configuration file will typically need to have two input collections: the output collection from the first run and a collection with raw science images.
-
-As before, you will need to run ``make_apdb.py`` prior to running the second pipeline.
-To configure the APDB in a BPS configuration file that runs ``ApPipe.yaml``, add a line like this for a PostgreSQL APDB:
-
-.. prompt:: bash
-
-   extraQgraphOptions: "-c diaPipe:apdb.db_url='postgresql://USER@DB_ADDRESS/DB_NAME' -c diaPipe:apdb.namespace='DESIRED_POSTGRES_SCHEMA_NAME'"
-
-Finally, to submit the second BPS run and perform difference imaging and populate the APDB, run, e.g.,
+When you are ready to submit your BPS run, follow the documentation to `submit a run <https://pipelines.lsst.io/v/weekly/modules/lsst.ctrl.bps/quickstart.html#submitting-a-run>`__, e.g.,
 
 .. prompt:: bash
 
    bps submit ApPipe-DC2-bps.yaml
+
+This BPS configuration file may need to have more than one input collection, for example, the output collection containing the templates and a collection with raw science images.
+
+When working with a central PostgreSQL database (APDB) in a BPS configuration file that runs ``ApPipe.yaml``, these arguments are instead required to be passed into ``apdb-cli``:
+
+.. prompt:: bash
+
+   apdb-cli create-sql --namespace DESIRED_POSTGRES_SCHEMA_NAME postgresql://rubin@usdf-prompt-processing-dev.slac.stanford.edu/lsst-devl apdb_config.py
