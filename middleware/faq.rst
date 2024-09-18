@@ -12,38 +12,32 @@ The :ref:`lsst.daf.butler` package documentation includes a number of overview d
 When should I use each of the query methods/commands?
 =====================================================
 
-The `Registry` class and :any:`butler <lsst.daf.butler-scripts>` command-line tool support five major query operations that can be used to inspect a data repository:
+The `Butler` Python class and :any:`butler <lsst.daf.butler-scripts>` command-line tool support five major query operations that can be used to inspect a data repository:
 
-- `~Registry.queryCollections`
-- `~Registry.queryDatasetTypes`
-- `~Registry.queryDimensionRecords`
-- `~Registry.queryDatasets`
-- `~Registry.queryDataIds`
+.. list-table:: Major query operations
+   :header-rows: 1
 
-The :any:`butler <lsst.daf.butler-scripts>` command-line versions of these use the same names, but with dash-separated lowercase words (e.g. :any:`butler query-dimension-records <lsst.daf.butler-scripts>`).
+   * - Command-line tool
+     - Python API
+   * - ``butler query-collections``
+     - `Butler.collections.query_info <lsst.daf.butler.ButlerCollections.query_info>`
+   * - ``butler query-dataset-types``
+     - `Butler.registry.queryDatasetTypes <lsst.daf.butler.Registry.queryDatasetTypes>`
+   * - ``butler query-dimension-records``
+     - `Butler.query_dimension_records`
+   * - ``butler query-datasets``
+     - `Butler.query_datasets`
+   * - ``butler query-data-ids``
+     - `Butler.query_data_ids`
 
 These operations share :ref:`many optional arguments <daf_butler_queries>` that constrain what is returned, but their return types each reflect a different aspect of :ref:`how datasets are organized <daf_butler_organizing_datasets>`).
 
-.. note::
-
-    As a rule, these query methods return lazy iterator objects (sometimes custom classes, sometimes generators), and hence users calling them in interactive Python will often want to wrap the results in `list` or `set` in order to actually fetch results so they can be printed or iterated over multiple times::
-
-        >>> print(butler.registry.queryDataIds("detector", instrument="HSC"))
-        <DataCoordinate iterable with dimensions={instrument, detector}>
-
-        >>> print(list(butler.registry.queryDataIds("detector", instrument="HSC")))
-        {instrument: 'HSC', detector: 0},
-        {instrument: 'HSC', detector: 1},
-        ...
-
-
-
 .. _middleware_faq_query_methods_collections:
 
-queryCollections
-----------------
+Collections
+-----------
 
-`Registry.queryCollections` generally provides the best high-level view of the contents of a data repository, and from the command line the best way to view those high-level results is with the ``--chains=tree`` format.
+From the command-line, ``butler query-collections`` generally provides the best high-level view of the contents of a data repository, with the ``--chains=tree`` format.
 For all but the smallest repos, it's best to start with some kind of guess at what you're looking for, or the results will still be overwhelming large.
 
 .. code-block:: sh
@@ -85,46 +79,73 @@ For all but the smallest repos, it's best to start with some kind of guess at wh
 Note that some collections appear multiple times here - once as a top-level collection, and again later as some child of a `~CollectionType.CHAINED` collection (that's what the indentation means here).
 In the future we may be able to remove some of this duplication.
 
-queryDatasetTypes
------------------
+Similar functionality can be accessed from Python using `Butler.collections.query_info <lsst.daf.butler.ButlerCollections.query_info>`.
+
+Dataset Types
+-------------
 
 `Registry.queryDatasetTypes` reports the :ref:`dataset types <daf_butler_dataset_types>` that have been registered with a data repository, even if there aren't any datasets of that type actually present.
 That makes it less useful for exploring a data repository generically, but it's an important tool when you know the name of the dataset type already and want to see how it's defined.
 
-queryDimensionRecords
----------------------
+Dimension Records
+-----------------
 
-`Registry.queryDimensionRecords` is the best way to inspect the metadata records associated with data ID keys (:ref:`"dimensions" <lsst.daf.butler-dimensions_overview>`), and is usually the right tool for those looking for something similar to Gen2's `~lsst.daf.persistence.Butler.queryMetadata`.
+`Butler.query_dimension_records` is the best way to inspect the metadata records associated with data ID keys (:ref:`"dimensions" <lsst.daf.butler-dimensions_overview>`), and is usually the right tool for those looking for something similar to Gen2's `~lsst.daf.persistence.Butler.queryMetadata`.
 Those metadata tables include observations (the ``exposure`` and ``visit`` dimensions), instruments (``instrument``, ``physical_filter``, ``detector``), and regions on the sky (``skymap``, ``tract``, ``patch``, ``htm7``).
 That isn't an exhaustive list of dimension tables (actually pseudo-tables in some cases), but you can get one in Python with::
 
     >>> print(butler.dimensions.getStaticDimensions())
 
-And while `~Registry.queryDimensionRecords` shows you the schema of those tables with each record it returns, you can also get it without querying for any data with (e.g.)
+And while `~Butler.query_dimension_records` shows you the schema of those tables with each record it returns, you can also get it without querying for any data with (e.g.)
 
 .. code-block:: python
 
-    >>> print(butler.dimensions["exposure"].RecordClass.fields)
-    exposure:
-      instrument: str
+    >>> print(butler.dimensions["exposure"].schema)
+    exposure: 
+      instrument: string
       id: int
-      physical_filter: str
-      obs_id: str
+      physical_filter: string
+      obs_id: string
       exposure_time: float
+          Duration of the exposure with shutter open (seconds).
       dark_time: float
-      observation_type: str
-      observation_reason: str
+          Duration of the exposure with shutter closed (seconds).
+      observation_type: string
+          The observation type of this exposure (e.g. dark, bias, science).
+      observation_reason: string
+          The reason this observation was taken. (e.g. science, filter scan,
+          unknown).
       day_obs: int
+          Day of observation as defined by the observatory (YYYYMMDD
+          format).
       seq_num: int
-      group_name: str
+          Counter for the observation within a larger sequence. Context of
+          the sequence number is observatory specific. Can be a global
+          counter or counter within day_obs.
+      group_name: string
+          String group identifier associated with this exposure by the
+          acquisition system.
       group_id: int
-      target_name: str
-      science_program: str
+          Integer group identifier associated with this exposure by the
+          acquisition system.
+      target_name: string
+          Object of interest for this observation or survey field name.
+      science_program: string
+          Observing program (survey, proposal, engineering project)
+          identifier.
       tracking_ra: float
+          Tracking ICRS Right Ascension of boresight in degrees. Can be NULL
+          for observations that are not on sky.
       tracking_dec: float
+          Tracking ICRS Declination of boresight in degrees. Can be NULL for
+          observations that are not on sky.
       sky_angle: float
+          Angle of the instrument focal plane on the sky in degrees. Can be
+          NULL for observations that are not on sky, or for observations
+          where the sky angle changes during the observation.
       zenith_angle: float
-      timespan: lsst.daf.butler.Timespan
+          Angle in degrees from the zenith at the start of the exposure.
+      timespan: timespan
 
 For most dimensions and most data repositories, the number of records is quite large, so you'll almost always want a very constraining ``where`` argument to control what's returned, e.g.:
 
@@ -139,33 +160,30 @@ For most dimensions and most data repositories, the number of records is quite l
            HSC   8      1_46           46    1 SCIENCE
 
 When working with repositories of transient, cached datasets, note that dimension values may be retained in the registry for datasets that no longer exist (e.g. for provenance purposes) and may sometimes be present for datasets that do not yet exist.
-As a result, you should typically constrain the results using the ``datasets`` argument and possibly the ``collections`` argument to return only values for datasets that currently exist.
-Note that duplicate values may be returned (`see below <middleware_faq_duplicate_results>`_).
 
-queryDatasets
--------------
+Datasets
+--------
 
-`Registry.queryDatasets` is used to query for `DatasetRef` objects - handles that point directly to something at least approximately like a file on disk.
+`Butler.query_datasets` is used to query for `DatasetRef` objects - handles that point directly to something at least approximately like a file on disk.
 These correspond directly to what can be retrieved with `Butler.get`.
 
 Because there are usually many datasets in a data repository (even in a single collection), this also isn't a great tool for general exploration; it's perhaps most useful as a way to explore things *like* the thing you're looking for (perhaps because a call to `Butler.get` unexpectedly failed), by looking with similar collections, dataset types, or data IDs.
 
-`~Registry.queryDatasets` usually *isn't* what you want if you're looking for raw-image metadata (use `~Registry.queryDimensionRecords` instead); it's easy to confuse the dimensions that represent observations with instances of the ``raw`` dataset type, because they are always ingested into the data repository together.
+`~Butler.query_datasets` usually *isn't* what you want if you're looking for raw-image metadata (use `~Butler.query_dimension_records` instead); it's easy to confuse the dimensions that represent observations with instances of the ``raw`` dataset type, because they are always ingested into the data repository together.
 
-queryDataIds
-------------
+Data Ids
+--------
 
-`Registry.queryDataIds` is used to query for combinations of dimension values that *could* be used to identify datasets.
+`Butler.query_data_ids` is used to query for combinations of dimension values that *could* be used to identify datasets.
 
-The most important thing to know about `~Registry.queryDataIds` is when *not* to use it:
+The most important thing to know about `~Butler.query_data_ids` is when *not* to use it:
 
-- It's usually not what you want if you're looking for datasets that already exist (use `~Registry.queryDatasets` instead).
-  While `~Registry.queryDataIds` lets you constrain the returned data IDs to those for which a dataset exists (via the ``datasets`` keyword argument and ``--datasets`` and ``--collections`` options), that's a subtler, higher-order thing than what most users want.
+- It's usually not what you want if you're looking for datasets that already exist (use `~Butler.query_datasets` instead).
 
-- It's usually not what you want if you're looking for metadata associated with those data ID values (use `~Registry.queryDimensionRecords`).
-  While `~Registry.queryDataIds` can do that, too (via the `~registry.queries.DataCoordinateQueryResults.expanded` method on its result iterator), it's overkill if you're looking for metadata that corresponds to a single dimension rather than all of them.
+- It's usually not what you want if you're looking for metadata associated with those data ID values (use `~Butler.query_dimension_records`).
+  While `~Butler.query_data_ids` can do that, too (via the ``with_dimension_records`` parameter), it's overkill if you're looking for metadata that corresponds to a single dimension rather than all of them.
 
-`~Registry.queryDataIds` is most useful when you want to query for future datasets that *could* exist, such as when :ref:`debugging empty QuantumGraphs <middleware_faq_empty_quantum_graphs>`.
+`~Butler.query_data_ids` is most useful when you want to query for future datasets that *could* exist, such as when :ref:`debugging empty QuantumGraphs <middleware_faq_empty_quantum_graphs>`.
 
 .. _middleware_faq_cli_docs:
 
@@ -180,8 +198,13 @@ The :any:`pipetask <lsst.ctrl.mpexec-script>` tool is implemented entirely withi
 
 .. _middleware_faq_duplicate_results:
 
-Why do queries return duplicate results?
-========================================
+Why do queries using `Registry` methods return duplicate results?
+=================================================================
+
+.. note::
+
+    Modern Butler query methods (`Butler.query_datasets`, `Butler.query_data_ids`, and `Butler.query_dimension_records`) no longer return duplicate results.
+    The information in this section only applies when using the old `Registry` interface.
 
 The `Registry.queryDataIds`, `~Registry.queryDatasets`, and `~Registry.queryDimensionRecords` methods can sometimes return true duplicate values, simply because the SQL queries used to implement them do.
 You can always remove those duplicates by wrapping the calls in ``set()``; the `DataCoordinate`, `DatasetRef`, and `DimensionRecord` objects in the returned iterables are all hashable.
@@ -279,6 +302,11 @@ It's possible it would have been better to just not make it a `~collections.abc.
 
 How do I avoid errors involving queries for calibration datasets?
 =================================================================
+
+.. note::
+
+    The modern `Butler.query_datasets` method is able to search in calibration collections.
+    The information in this section only applies when using the old `Registry` interface.
 
 `Registry.queryDatasets` currently has a major limitation in that it can't query for datasets within a `~CollectionType.CALIBRATION` collection; the error message looks like this::
 
