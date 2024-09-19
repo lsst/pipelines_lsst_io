@@ -90,7 +90,7 @@ That makes it less useful for exploring a data repository generically, but it's 
 Dimension Records
 -----------------
 
-`Butler.query_dimension_records` is the best way to inspect the metadata records associated with data ID keys (:ref:`"dimensions" <lsst.daf.butler-dimensions_overview>`), and is usually the right tool for those looking for something similar to Gen2's `~lsst.daf.persistence.Butler.queryMetadata`.
+`Butler.query_dimension_records` is the best way to inspect the metadata records associated with data ID keys (:ref:`"dimensions" <lsst.daf.butler-dimensions_overview>`).
 Those metadata tables include observations (the ``exposure`` and ``visit`` dimensions), instruments (``instrument``, ``physical_filter``, ``detector``), and regions on the sky (``skymap``, ``tract``, ``patch``, ``htm7``).
 That isn't an exhaustive list of dimension tables (actually pseudo-tables in some cases), but you can get one in Python with::
 
