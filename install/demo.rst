@@ -10,7 +10,7 @@ This demo will allow you to quickly test your LSST Science Pipelines installatio
 Remember to first load the LSST Science Pipelines into your shell's environment.
 The method depends on how the Science Pipelines were installed:
 
-- :doc:`newinstall.sh <setup>`
+- :doc:`lsstinstall <setup>`
 - :ref:`lsstsw <lsstsw-setup>`
 
 2. Download the demo project
@@ -36,7 +36,7 @@ Then download the demo's data (if you aren't running the current stable release,
 .. caution::
 
    The demo's version should match your LSST Science Pipelines installed software.
-   If you installed from source (with :doc:`lsstsw <lsstsw>`) or with a :ref:`newer tag <newinstall-other-tags>`, you'll likely need to run the latest version of the demo (``main`` branch):
+   If you installed from source (with :doc:`lsstsw <lsstsw>`) or with a :ref:`newer tag <lsstinstall-other-tags>`, you'll likely need to run the latest version of the demo (``main`` branch):
 
    .. code-block:: bash
 

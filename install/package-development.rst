@@ -2,7 +2,7 @@
 Building a package with the installed Science Pipelines stack
 #############################################################
 
-You can build packages alongside an LSST Science Pipelines stack that you have installed with :doc:`newinstall.sh <newinstall>`, :doc:`lsstsw <lsstsw>`, or :doc:`Docker <docker>`.
+You can build packages alongside an LSST Science Pipelines stack that you have installed with :doc:`lsstinstall <lsstinstall>`, :doc:`lsstsw <lsstsw>`, or :doc:`Docker <docker>`.
 This page describes how to build and set up packages cloned directly from GitHub.
 
 .. note::
@@ -16,14 +16,10 @@ This page describes how to build and set up packages cloned directly from GitHub
 ================
 
 Before developing an individual package, you need an installed Science Pipelines stack.
-You can install the Pipelines through any of these methods: :doc:`newinstall.sh <newinstall>`, :doc:`lsstsw <lsstsw>`, or :doc:`Docker <docker>`.
+You can install the Pipelines through any of these methods: :doc:`lsstinstall <lsstinstall>`, :doc:`lsstsw <lsstsw>`, or :doc:`Docker <docker>`.
 
 Then set up the Pipelines software in a shell.
 See :doc:`setup` for more information.
-
-.. warning::
-
-   **newinstall.sh users:** read :ref:`newinstall-binary-compatibility` if the installed Pipelines stack uses prebuilt binary packages.
 
 .. _package-dev-clone:
 

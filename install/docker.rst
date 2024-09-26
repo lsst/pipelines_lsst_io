@@ -6,7 +6,7 @@ Running with Docker
 
 LSST provides versioned Docker images containing the Science Pipelines software.
 With Docker, you can quickly install, download, and run the LSST Science Pipelines on any platform without compiling from source.
-Docker is an effective and reliable alternative to the :doc:`newinstall.sh <newinstall>` and :doc:`lsstsw <lsstsw>`\ -based methods that install LSST software directly on your system.
+Docker is an effective and reliable alternative to the :doc:`lsstinstall <lsstinstall>` and :doc:`lsstsw <lsstsw>`\ -based methods that install LSST software directly on your system.
 
 If you have issues using the LSST Docker images, reach out on the `LSST Community support forum <https://community.lsst.org/c/support>`_.
 
@@ -41,8 +41,8 @@ Then in the container's shell, load the LSST environment and activate the ``lsst
    source /opt/lsst/software/stack/loadLSST.bash
    setup lsst_distrib
 
-This step is equivalent to the :doc:`set up instructions <setup>` for a :doc:`newinstall.sh <newinstall>`\ -based installation.
-In fact, the images are internally based on :command:`newinstall.sh`.
+This step is equivalent to the :doc:`set up instructions <setup>` for a :doc:`lsstinstall <lsstinstall>`\ -based installation.
+In fact, the images are internally based on :command:`lsstinstall`.
 
 When you're done with the container, exit from the container's shell:
 
@@ -259,13 +259,13 @@ For example:
 
    - CentOS 7 operating system.
    - ``lsst_distrib`` :doc:`top-level package <top-level-packages>`.
-   - ``{{ release_eups_tag }}`` EUPS tag. See :ref:`newinstall-other-tags` for an overview of LSST's EUPS tag schema.
+   - ``{{ release_eups_tag }}`` EUPS tag. See :ref:`lsstinstall-other-tags` for an overview of LSST's EUPS tag schema.
 
 You can see what tags are available by browsing `lsstsqre/centos on Docker Hub <https://hub.docker.com/r/lsstsqre/centos/tags/>`_.
 
 .. seealso::
 
-   See :ref:`newinstall-other-tags` for information on the different types of EUPS tags.
+   See :ref:`lsstinstall-other-tags` for information on the different types of EUPS tags.
 
 .. _`lsstsqre/centos`: https://hub.docker.com/r/lsstsqre/centos/
 .. _CentOS: https://www.centos.org

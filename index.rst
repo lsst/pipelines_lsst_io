@@ -54,7 +54,6 @@ Alternative distributions and installation methods:
 - :doc:`install/docker`
 - :doc:`Installing from source with lsstsw <install/lsstsw>`
 - `CernVM FS <https://sw.lsst.eu>`_ (contributed by CC-IN2P3)
-- :doc:`Installing with newinstall.sh <install/newinstall>`
 
 Related topics:
 

@@ -8,7 +8,6 @@ Installing the LSST Science Pipelines
    :maxdepth: 1
 
    prereqs
-   newinstall
    lsstinstall
    setup
    top-level-packages
