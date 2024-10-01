@@ -75,7 +75,7 @@ For other conda environments installed by LSST tools, this name will be the ``ru
    For background information about :command:`lsstinstall`, see:
 
    - :ref:`lsstinstall-background`.
-   - :ref:`lsstinstall-mambaforge`.
+   - :ref:`lsstinstall-miniforge3`.
    - :ref:`lsstinstall-reference`.
 
    To find the ``rubin-env`` conda metapackage version appropriate for a particular science pipelines release, see :ref:`release-history` or the release tag files at `https://eups.lsst.codes/stack/src/tags/`_.
@@ -145,7 +145,7 @@ These topics provide additional information about the installation and ways to c
 
 - :ref:`lsstinstall-shared-permissions`.
 - :ref:`lsstinstall-background`.
-- :ref:`lsstinstall-mambaforge`.
+- :ref:`lsstinstall-miniforge3`.
 - :ref:`lsstinstall-user-conda`.
 - :ref:`lsstinstall-rubin-env`.
 - :ref:`lsstinstall-rubin-env-developer`.
@@ -186,17 +186,17 @@ You activate this environment in a shell by sourcing the :command:`loadLSST.sh` 
 Here is how :command:`lsstinstall` prepares the environment:
 
 - Identifies your operating system to determine what EUPS binary packages should be installed (the *EUPS package root,* see :ref:`lsstinstall-binary-packages`).
-- Activates conda, installing it from Mambaforge_ if needed.
+- Activates conda, installing it from Miniforge3_ if needed.
 - Creates or updates a conda environment with conda packages that the LSST Science Pipelines depend on (see :ref:`system-prereqs`), including EUPS_, the package manager used by the LSST software stack.
 
 For information about :command:`lsstinstall`\ ’s arguments, see :ref:`lsstinstall-reference`.
 
-.. _lsstinstall-mambaforge:
+.. _lsstinstall-miniforge3:
 
-About the Mambaforge Python installed by lsstinstall
+About the Miniforge3 Python installed by lsstinstall
 ----------------------------------------------------
 
-:command:`lsstinstall` by default installs a conda package manager based on Mambaforge_, a minimal version of Anaconda_ preconfigured to use packages from the curated ``conda-forge`` channel along with the ``mamba`` fast dependency solver.
+:command:`lsstinstall` by default installs a conda package manager based on Miniforge3_, a minimal version of Anaconda_ preconfigured to use packages from the curated ``conda-forge`` channel along with the ``mamba`` fast dependency solver.
 This Python installation isn't required, but we recommend it.
 See :ref:`lsstinstall-user-conda` if you would like to use your own pre-existing conda (but conda is required).
 
@@ -205,17 +205,17 @@ conda can maintain multiple environments, each with its own version of Python an
 This includes the compilers and build tools as well as C++ and Python packages needed by the software.
 You can add or install other packages into a Science Pipelines environment, or you can create independent environments composed of other packages or cloned from a Science Pipelines environment.
 
-This Mambaforge installation won't affect your other Python installations (like the system's Python, your own Anaconda or Miniconda, or virtual environments).
+This Miniforge3 installation won't affect your other Python installations (like the system's Python, your own Anaconda or Miniconda, or virtual environments).
 The LSST Miniconda environment is only active when you source the ``loadLSST`` script installed by :command:`lsstinstall` (see :doc:`setup`).
 
-If you install other Python packages in a shell where the LSST Mambaforge is activated (with :command:`pip install` or :command:`conda install`) those packages are installed into the LSST Mambaforge's :file:`site-packages`, not your system's.
+If you install other Python packages in a shell where the LSST Miniforge3 is activated (with :command:`pip install` or :command:`conda install`) those packages are installed into the LSST Miniforge3's :file:`site-packages`, not your system's.
 
 .. _lsstinstall-user-conda:
 
 How to use your own conda with lsstinstall
 ------------------------------------------
 
-:command:`lsstinstall` installs a new conda based on Mambaforge by default.
+:command:`lsstinstall` installs a new conda based on Miniforge3 by default.
 If desired, you can use your own pre-existing conda installation.
 
 To do so, either have that conda activated when you run :command:`lsstinstall`, or provide the :option:`-p` option to :command:`lsstinstall` pointing to the conda installation's prefix.
@@ -449,7 +449,7 @@ lsstinstall argument reference
     Display a help message.
 
 
-.. _Mambaforge: https://mamba.readthedocs.io/en/latest/installation.html
+.. _Miniforge3: https://mamba.readthedocs.io/en/latest/installation.html
 .. _Anaconda: https://docs.anaconda.com
 .. _lsstsw: https://github.com/lsst/lsstsw
 .. _EUPS: https://github.com/RobertLuptonTheGood/eups
