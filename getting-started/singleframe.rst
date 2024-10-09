@@ -161,6 +161,12 @@ The full pipeline definition lives in the ``.yaml`` file, but subtasks of the fu
    :ref:`Dataset queries <daf_butler_queries>` can be specified using the ``-d`` argument to specify which specific datasets should be considered when building the execution graph.
    If this argument is omitted, all data in the repository that can be processed based on other inputs, e.g. calibrations, will be.
 
+.. note::
+
+   It's also possible to inject synthetic sources into your data as part of single frame processing.
+   Synthetic source injection is a powerful tool which may be useful in testing the performance of the pipeline or the expected behavior of your data.
+   For more information on how to inject synthetic sources into your data, see the :ref:`LSST Science Pipelines source injection documentation <lsst.source.injection>`.
+
 Aside: collections and quantum graphs
 ============================================
 
