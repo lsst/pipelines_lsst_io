@@ -13,7 +13,7 @@ Getting started tutorial part 2: calibrating single frames with Pipeline Tasks
 
 In this part of the :ref:`tutorial series <getting-started-tutorial>` you'll process individual raw HSC images in the Butler repository (which you assembled in :doc:`part 1 <data-setup>`) into calibrated exposures.
 We'll use the :command:`singleFrame` pipeline to remove instrumental signatures with dark, bias and flat field calibration images.
-This will also use the reference catalog to establish a preliminary WCS and photometric zeropoint solution.
+This will also use the reference catalog to establish a preliminary WCS (World Coordinate System) and photometric zeropoint solution.
 
 :ref:`Pipelines <pipe_base_creating_pipeline>` are defined in ``YAML`` files.
 The example git repository contains a pipeline definition for data release processing that is only slightly modified from the one used in production processing of HSC data.
@@ -40,7 +40,9 @@ You can query for the data IDs of the exposures available to process using the :
 
 .. code-block:: bash
 
-   butler query-data-ids SMALL_HSC exposure,detector --collections HSC/RC2/defaults --datasets 'raw'
+   butler query-data-ids SMALL_HSC exposure,detector \
+   --collections HSC/RC2/defaults \
+   --datasets 'raw'
 
 The first few lines look something like:
 
@@ -81,7 +83,10 @@ For example, here's how to select just ``HSC-I``-band datasets:
 
 .. code-block:: bash
 
-   butler query-data-ids SMALL_HSC exposure,detector --collections HSC/RC2/defaults --datasets 'raw' --where "physical_filter='HSC-I' AND instrument='HSC'"
+   butler query-data-ids SMALL_HSC exposure,detector \
+   --collections HSC/RC2/defaults \
+   --datasets 'raw' \
+   --where "instrument='HSC' AND physical_filter='HSC-I'"
 
 Now only data IDs for ``HSC-I`` datasets are printed.
 
@@ -111,7 +116,7 @@ Running single frame processing
 
    As mentioned in :doc:`part 1 <data-setup>`, this part of the processing is by far the most time consuming.
    If you do not wish to process all the data in the repository at this time, you can specify a data query that will reduce the number of exposures to be processed.
-   Simply add the argument ``-d "instrument='HSC' AND exposure=322" AND detector=41`` to the command line below, and change ``#singleFrame`` to ``#simpleSingleFrame``.
+   Simply add the argument ``-d "instrument='HSC' AND exposure=322 AND detector=41"`` to the command line below, and change ``#singleFrame`` to ``#simpleSingleFrame``.
 
    Note that this will give you an idea of how to execute processing steps from the command line, but this subset of data will not be sufficient for the full tutorial.
    If you wish to follow the entire tutorial, you will need to use the full ``rc2_subset`` dataset.
@@ -128,8 +133,8 @@ After learning about datasets, go ahead and run single frame processing using th
    -o u/$USER/single_frame \
    -p $DRP_PIPE_DIR/pipelines/HSC/DRP-RC2_subset.yaml#singleFrame
 
-There are many arguments to command:``pipetask run``.
-You can get useful information by saying command:``pipetask run --help``, but let's go over the ones listed here.
+There are many arguments to :command:`pipetask run`.
+You can get useful information by saying :command:`pipetask run --help`, but let's go over the ones listed here.
 
 The ``--register-dataset-types`` switch tells the butler to register a dataset type if it doesn't already have a definition for it.
 Because pipelines are allowed to define datasets at runtime, this switch is necessary if you expect products to be produced that are not already represented in the registry as in this case where we are producing calibrated exposures in a repository that contains only ``raw`` files.
@@ -189,7 +194,7 @@ Try building the quantum graph for the processing of a single detector:
    -i HSC/RC2/defaults \
    -o u/$USER/single_frame \
    -p $DRP_PIPE_DIR/pipelines/HSC/DRP-RC2_subset.yaml#simpleSingleFrame \
-   -d "instrument='HSC' AND detector=41 AND exposure=322" \
+   -d "instrument='HSC' AND exposure=322 AND detector=41" \
    --qgraph-dot single_frame.dot \
    --save-qgraph single_frame.qgraph
 
@@ -199,7 +204,7 @@ If you have ``graphviz`` installed, you can turn the ``dot`` file into something
 
 .. code-block:: bash
 
-   dot -Tpdf -osingle_frame.pdf single_frame.dot
+   dot single_frame.dot -Tpdf -o single_frame.pdf
 
 This should produce something similar to the following figure.
 
