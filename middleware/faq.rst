@@ -535,6 +535,79 @@ The resulting query logs can be useful for developers and database administrator
 
 .. _middleware_faq_clean_up_runs:
 
+How can I tell which data IDs failed when a processing run is unsuccessful?
+===========================================================================
+.. _middleware_faq_pipetask_report:
+
+The :any:`pipetask report <lsst.ctrl.mpexec-pipetask#report>` tool can be used to analyze executed quantum graphs, troubleshoot, diagnose failures, and confirm that fail-and-recovery attempts (such as when using ``--skip-existing-in``) are effective.
+
+Pipetask report is intended to work on the group level. When analyzing multiple graphs with pipetask report, all graphs should be attempts to execute the same pipeline with the same dataquery.
+
+The recommended usage is
+
+.. code:: sh
+``pipetask report --full-output-filename <path/to/output_file>.json --force-v2 REPO QGRAPHS``
+
+
+- The ``<path/to/output_file>.json`` option is the path to a file where the output can be stored
+- The ``--force-v2`` option makes sure that the most recent version of the tool is used even when the user passes only one graph
+- The ``REPO`` argument is the `Butler` repo where the output from the processing is stored
+- The ``QGRAPHS`` argument is a ``Sequence`` of `QuantumGraph`s to be analyzed, separated by spaces and passed in order of first to last executed
+
+This will print two `bps report` style tables, one for quanta and one for output datasets.
+
+In the output JSON file will be
+
+- A summary under every task with: 
+
+    * Every failed data ID and corresponding error message
+    * Every run containing failing data IDs, and their status
+    * A list of data IDs which have been "recovered"; i.e., successes from fail-and-recovery attempts
+- A list of the data IDs associated with every missing dataset
+- A field called `producer` connecting each `datasetType` to the task which produced it
+- Counts of quanta and datasets in all possible states. 
+
+Currently, the `--force-v2` option is the suggested usage until version 1 of pipetask report (using the `QuantumGraphExecutionReport` instead of the `QuantumProvenanceGraph`) is deprecated.
+
+The categories for a Quantum run on a particular data ID are determined as follows:
+-----------------------------------------------------------------------------------
+- Unknown: metadata is missing, or no attempt has been made to execute this task.
+- Successful: metadata and logs for this quantum exist. There are no previously successful quanta that transitioned to a non-successful state.
+- Blocked: the quantum has no metadata and no logs, and is a successor of an unsuccessful quantum.
+- Failed: the quantum has logs and no metadata.
+- Wonky: one of:
+
+    * a previously successful quantum fails/becomes blocked/unknown
+    * there are no logs for at least one of the runs with this quantum
+    * outputs for this quantum from different runs are both visible (could lead to downstream processing with mismatched/differently processed inputs)
+- Total: the sum of all the previous categories
+- Expected: the expected number of quanta, according to the graphs
+
+Roughly speaking, a Blocked quantum is simply a quantum which could not execute because its inputs are not present due to an upstream failure. A Wonky quantum is the result of infrastructure problems, or concerning middleware mismatches.
+
+The categories for a datasetType associated with a particular data ID are determined as follows:
+------------------------------------------------------------------------------------------------
+- Visible: the dataset exists and is queryable in butler find-first search. Would be used as input for downstream tasks.
+- Shadowed: the dataset exists but is not queryable in butler find-first search. Would not be used as input for downstream tasks.
+- Predicted Only: the Science Pipelines deemed the dataset unnecessary during the graph's execution, which is also known as a "NoWorkFound" case due to the message reported by the Science Pipelines.
+- Unsuccessful: the dataset is not present, as it would have been the product of a failed or blocked quantum.
+- Cursed: the dataset would have been marked as Visible, but is the product of an unsuccessful quantum. This is a problem for downstream tasks, so we mark it as Cursed instead. This is intended to halt processing
+- Total: the sum of all the previous categories
+- Expected: the expected number of datasets of this dataset type, according to the graphs
+
+
+Using pipetask aggregate-reports to combine group-level pipetask report summaries into a step-level rollup
+----------------------------------------------------------------------------------------------------------
+While `pipetask report` works on the group-level (on the same pipeline with the same dataquery), it is possible to collate the JSON output from multiple groups into one file. This is intended for combining group-level summaries into summaries over processing steps, and answering questions like "What are all the errors that occurred in step 1?" or "How many quanta were blocked in step 5?"
+
+Recommended usage is
+
+.. code:: sh
+``pipetask aggregate-reports --full-output-filename <path/to/combined/output_file>.json <path/to/group/file/1.json> <path/to/group/file/2.json>... ``
+
+where the argument to `--full-output-filename` is a filepath to store the combined `QuantumProvenanceGraph` summary.
+If no argument is passed, the combined summary will be printed to the screen.
+
 How do I clean up processing runs I don't need anymore?
 =======================================================
 
