@@ -533,6 +533,213 @@ Adding the ``--log-level sqlalchemy.engine=DEBUG`` option to the :any:`butler <l
 Similarly, for a slow query method, adding ``logging.getLogger("sqlalchemy.engine").setLevel(logging.DEBUG)`` can help.
 The resulting query logs can be useful for developers and database administrators to determine what, if anything, is going wrong.
 
+.. _middleware_faq_pipetask_report:
+
+How can I get a report on all failures and missing datasets in a run?
+=====================================================================
+
+The :any:`pipetask report <lsst.ctrl.mpexec-pipetask#report>` tool can be used to analyze executed quantum graphs, troubleshoot, diagnose failures, and confirm that fail-and-recovery attempts (such as when using ``--skip-existing-in``) are effective.
+
+When analyzing multiple graphs with ``pipetask report``, all graphs should be attempts to execute the same pipeline with the same dataquery.
+
+The recommended usage is
+
+.. code:: sh
+
+      pipetask report --full-output-filename <path/to/output_file>.json --force-v2 REPO QGRAPHS
+
+
+- The ``--full-output-filename <path/to/output_file>.json`` option provides the path to a file where the output of the full summary information can be stored
+- The ``--force-v2`` option makes sure that the most recent version of the tool is used even when the user passes only one graph
+- The ``REPO`` argument is the `Butler` repo where the output from the processing is stored
+- The ``QGRAPHS`` argument is a ``Sequence`` of `QuantumGraph`s to be analyzed, separated by spaces and passed in order of first to last executed
+
+.. note::
+
+    If the ``--full-output-filename`` argument is not provided, information on the error messages and data IDs for all failed quanta will be output to the command line, which can be overwhelming in the case of many failures.
+    If you do not need error information, consider the ``--brief`` option, which prints the same tables to the command line as ``--full-output-filename``, but does not save additional information to a file.
+
+This will print two ``bps report``-style tables, one for quanta and one for output datasets.
+
+In the output JSON file will be
+
+- A summary under every task with: 
+
+  * Every failed data ID and corresponding error message
+  * Every run containing failing data IDs, and their status
+  * A list of data IDs which have been "recovered"; i.e., successes from fail-and-recovery attempts
+- A list of the data IDs associated with every missing dataset
+- A field called ``producer`` connecting each ``datasetType`` for each data ID to the task which produced it
+- Counts of quanta and datasets in all possible states. 
+
+Currently, the ``--force-v2`` option is the suggested usage until version 1 of pipetask report (using the `QuantumGraphExecutionReport` instead of the `QuantumProvenanceGraph`) is deprecated.
+
+With that, we'll go into how to read the output of ``pipetask report``.
+
+The Quanta Table
+----------------
+
+The table for Quanta from the ``w_2024_28`` DC2 test-med-1 reprocessing run, before recoveries, looked like:
+
+.. code:: sh
+             Task          Unknown Successful Blocked Failed Wonky TOTAL EXPECTED
+    ---------------------- ------- ---------- ------- ------ ----- ----- --------
+                  makeWarp       0       6596       0      0     0  6596     6596
+     selectDeepCoaddVisits       0        294       0      0     0   294      294
+    selectGoodSeeingVisits       0        294       0      0     0   294      294
+               templateGen       0        288       0      6     0   294      294
+             assembleCoadd       0        280       0     14     0   294      294
+                 detection       0        280      14      0     0   294      294
+    healSparsePropertyMaps       0          1       5      0     0     6        6
+           mergeDetections       0         36      13      0     0    49       49
+                   deblend       0         36      13      0     0    49       49
+                   measure       0        216      78      0     0   294      294
+         mergeMeasurements       0         36      13      0     0    49       49
+           forcedPhotCoadd       0        216      78      0     0   294      294
+          writeObjectTable       0         36      13      0     0    49       49
+      transformObjectTable       0         36      13      0     0    49       49
+    consolidateObjectTable       0          0       1      0     0     1        1
+        matchObjectToTruth       0          0       1      0     0     1        1
+      compareObjectToTruth       0          0       1      0     0     1        1
+
+
+which indicates that there are 6 failed ``templateGen`` quanta, 14 failed ``assembleCoadd`` quanta, 14 blocked ``detection`` quanta, and so on.
+
+These totals are all determined by examining the status of each task run on each data ID from run to run.
+
+Status Definitions for Task Quanta 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Unknown
+"""""""
+The ``Unknown`` category could mean one of two things.
+Being the default value for the status of a task run on a particular data ID, it could technically mean that no attempt has been made to execute this part of the graph.
+However, in a table that does not look empty, it much more likely denotes that the task's metadata is missing for that data ID.
+This makes it impossible for us to tell whether the task succeeded or failed, but does point to possible infrastructure problems.
+
+Successful
+""""""""""
+This status is the trademark of a successful quantum.
+The specific path to being marked as successful by the `QuantumProvenanceGraph` is that metadata and log datasets exist for the task for the data ID in question.
+
+Blocked
+"""""""
+Blocked quanta are the successors of unsuccesful quanta which cannot be executed because their inputs are not present.
+They do not represent failure per se, but since they could not execute, they also do not produce output data products.
+The way that the `QuantumProvenanceGraph` identifies a ``Blocked`` quantum is that it has no metadata and no logs (so it did not start or finish execution) **and** that the task run on that particular data ID is a successor (according to the quantum graph) of a ``Failed`` quantum.
+
+Failed
+""""""
+There are log datasets but no metadata datasets for this task and data ID, indicating that the task started but did not finish execution.
+
+Wonky
+"""""
+A Wonky quantum is the result of infrastructure problems or concerning middleware mismatches.
+The category is intended to halt processing and require human intervention to proceed. As such, when a task is marked as ``Wonky`` for a particular data ID, no further successes (or any other statuses, for that matter) will change the overall status out of ``Wonky``.
+A quantum can only exit a ``Wonky`` state via human intervention. Currently, there are three paths to the ``Wonky`` state for a quantum:
+
+- A quantum which was marked as ``Successful`` on a previous processing attempt (run) has a more recent attempt (run) which the `QuantumProvenanceGraph` identifies as unsuccessful (i.e., Graph 1 says task *a* ran successfully on data ID *x*, but Graph 2 says task *a*'s attempt at data ID *x* was ``Failed``, ``Blocked``, or ``Unknown``)
+- Logs are missing for at least one of the attempts to run this task on this data ID
+- ``Registry.queryDatasets`` for the output datasets of this quantum return outputs from multiple different processing attempts (runs)
+
+The outputs of ``Registry.queryDatasets`` are important because they are the datasets which will be used as inputs to downstream tasks. If the inputs to a downstream task are from different processing attempts, the Butler cannot ensure that they have been processed in the same way, with the same inputs, dataqueries, etc.
+
+Total
+"""""
+The sum of all the previous categories.
+
+Expected
+""""""""
+The expected number of quanta, according to the quantum graphs.
+
+
+The Dataset Table
+-----------------
+The (abbreviated because there are many datasets) table for the output datasets from the same ``w_2024_38`` DC2 test-med-1 run, before recoveries, looked like
+
+.. code:: sh
+
+                      Dataset                    Visible Shadowed Predicted Only Unsuccessful Cursed TOTAL EXPECTED
+    -------------------------------------------- ------- -------- -------------- ------------ ------ ----- --------
+                            deepCoadd_directWarp    6384        0            457            0      0  6841     6841
+                        deepCoadd_psfMatchedWarp    6369        0            472            0      0  6841     6841
+                               makeWarp_metadata    6841        0              0            0      0  6841     6841
+                                    makeWarp_log    6841        0              0            0      0  6841     6841
+                                 deepCoaddVisits     294        0              0            0      0   294      294
+                  selectDeepCoaddVisits_metadata     294        0              0            0      0   294      294
+                       selectDeepCoaddVisits_log     294        0              0            0      0   294      294
+                                goodSeeingVisits     294        0              0            0      0   294      294
+                 selectGoodSeeingVisits_metadata     294        0              0            0      0   294      294
+                      selectGoodSeeingVisits_log     294        0              0            0      0   294      294
+                                 goodSeeingCoadd     288        0              0            6      0   294      294
+                          goodSeeingCoadd_nImage     288        0              0            6      0   294      294
+                            templateGen_metadata     288        0              0            6      0   294      294
+                                 templateGen_log     288        0              0            6      0   294      294
+                                       deepCoadd     280        0              0           14      0   294      294
+                              deepCoadd_inputMap     280        0              0           14      0   294      294
+                                deepCoadd_nImage     280        0              0           14      0   294      294
+                          assembleCoadd_metadata     280        0              0           14      0   294      294
+                               assembleCoadd_log     280        0              0           14      0   294      294
+                                   deepCoadd_det     280        0              0           14      0   294      294
+                                deepCoadd_calexp     280        0              0           14      0   294      294
+                     deepCoadd_calexp_background     280        0              0           14      0   294      294
+                     ...
+
+which shows ``Unsuccessful`` datasets for all the outputs of the failed ``getTemplate`` and ``assembleCoadd`` tasks, as well as the outputs of their (``Blocked``) successors. It also shows ``Predicted Only`` for some ``deepCoadd_directWarp`` and ``deepCoadd_psfMatchedWarp`` datasets, which is a result of these outputs being predicted when the `QuantumGraph` was built, but found to be unnecessary by the Science Pipelines during execution.
+
+Status Definitions for Datasets
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The statuses for datasets all pertain to whether a ``datasetType`` associated with a certain data ID exists in the `Butler`, and whether it could be used as an input to downstream tasks.
+
+Visible
+"""""""
+The dataset exists, and comes up in a find-first search (``Registry.queryDatasets``). This means it will be used as an input for downstream tasks.
+
+Shadowed
+""""""""
+The dataset exists in the `Butler`, but does not come up in a find-first search (``Registry.queryDatasets``). Therefore, we don't have to worry about it being used as an input.
+
+Predicted Only
+""""""""""""""
+This status occurs when the graph predicts an output dataset that ultimately is not produced by the Science Pipelines because it was deemed unnecessary when the graph was executed. These are commonly referred to as "NoWorkFound cases" because their output messages say "No work found for task" (and hence said task does not produce output datasets).
+
+Unsuccessful
+""""""""""""
+An unsuccessful status for a dataset just means it does not exist in the `Butler`. ``Unsuccessful`` datasets are the results of ``Failed`` and ``Blocked`` quanta.
+
+Cursed
+""""""
+A ``Cursed`` dataset is the result of an unsuccessful quantum which would otherwise be marked as ``Visible``. This means that if any datasets which were produced by non-``Successful`` quanta (this includes ``Unknown``, ``Failed``, ``Blocked`` and ``Wonky`` quanta) come up in a ``Registry.queryDatasets`` find-first search, we flag them as ``Cursed`` in order to halt processing, start investigation, and prevent them from being used as inputs later. Ideally ``Cursed`` datasets should be removed before processing continues.
+
+Total
+"""""
+The sum of all the previous categories.
+
+Expected
+""""""""
+The expected number of datasets, according to the quantum graphs.
+
+.. note::
+
+    The number in ``Total`` should always match the number in ``Expected``.
+    If it does not, this is a problem with this algorithm and should be reported to the developers.
+
+Combining group-level pipetask report summaries into a step-level rollup
+------------------------------------------------------------------------
+
+`pipetask report` works on the group-level (on attempts to execute the same pipeline with the same data-query). However, it is possible to collate the JSON output from multiple groups into one file. This is intended for combining group-level summaries into summaries over processing steps, and answering questions like "What are all the errors that occurred in step 1?" or "How many quanta were blocked in step 5?"
+
+Recommended usage is
+
+.. code:: 
+
+    pipetask aggregate-reports --full-output-filename <path/to/combined/output_file>.json <path/to/group/file/1.json> <path/to/group/file/2.json>... 
+
+
+where the argument to ``--full-output-filename`` is a filepath to store the combined `QuantumProvenanceGraph` summary.
+If no argument is passed, the combined summary will be printed to the screen.
+
+
 .. _middleware_faq_clean_up_runs:
 
 How do I clean up processing runs I don't need anymore?
