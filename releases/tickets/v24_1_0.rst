@@ -1,6 +1,12 @@
 .. _release-v24-1-0-tickets:
 
 ###################################
+Tickets Addressed in Release 24.1.6
+###################################
+
+- :jira:`DM-47113`: Backport fix to prevent NaN values in scarlet lite models to v24 [scarlet]
+
+###################################
 Tickets Addressed in Release 24.1.5
 ###################################
 
