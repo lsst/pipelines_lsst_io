@@ -15,7 +15,7 @@ html_short_title = project
 # Patch EUPS tag substitutions
 rst_epilog = """
 
-.. |eups-tag| replace:: v24_1_6_
+.. |eups-tag| replace:: v24_1_6
 .. |eups-tag-mono| replace:: ``v24_1_6``
 .. |eups-tag-bold| replace:: **v24_1_6**
 """
