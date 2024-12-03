@@ -20,12 +20,12 @@ Release 28.0.0 (2024-12-15)
 | rubin-env version                         | 9.0.0      |
 +-------------------------------------------+------------+
 
-This release is based on the ``w_2024_32`` weekly build with 1 ticket backported.
+This release is based on the ``w_2024_42`` weekly build with 2 ticket backported.
 
 The notes below highlight significant technical changes to the Science Pipelines codebase in this release.
 For a complete list of changes made, see :doc:`tickets/v28_0_0`.
 
-The `Characterization Metric Report (DMTR-441) <https://dmtr-441.lsst.io>`_ describes the scientific performance of this release in terms of scientific performance metrics.
+The `Characterization Metric Report (DMTR-451) <https://dmtr-451.lsst.io>`_ describes the scientific performance of this release in terms of scientific performance metrics.
 
 If you have questions or comments about this release, visit our `Community forum <https://community.lsst.org>`_ for advice.
 
@@ -46,6 +46,15 @@ __ http://doxygen.lsst.codes/stack/doxygen/xlink_v28.0.0_2024_06_26_00.56.30
 Major new features
 ==================
 
+- :ref:`release-v28-0-0-middleware`
+
+Notable Middleware Improvements
+-------------------------------
+
+.. _release-v28-0-0-middleware
+
+* Added new ``Butler`` interfaces to simplify queries and collection management. See ``Butler.collections``, ``Butler.query_datasets``, ``Butler.query_data_ids``, and ``Butler.query_dimension_records``. The new ``query_*`` interface uses a brand new query system that supports region and RA/Dec queries and they all support sorting and limit. It is recommended to migrate away from ``Butler.registry.query*`` interfaces.
+* There have been many improvements to the ``pipetask report`` command.
 
 .. _release-v28-0-0-interface:
 
@@ -58,20 +67,20 @@ New packages added
 ------------------
 
 * `analysis_ap <https://github.com/lsst/analysis_ap>`_
-* `gauss2d <https://github.com/lsst/gauss2d`_
-* `gauss2d_fit <https://github.com/lsst/gauss2d_fit`_
-* `meas_extensions_multiprofit <https://github.com/lsst/meas_extensions_multiprofit`_
-* `modelfit_parameters <https://github.com/lsst/modelfit_parameters`_
-* `multiprofit <https://github.com/lsst/multiprofit`_
-* `rucio_register <https://github.com/lsst/rucio_register`_
+* `gauss2d <https://github.com/lsst/gauss2d>`_
+* `gauss2d_fit <https://github.com/lsst/gauss2d_fit>`_
+* `meas_extensions_multiprofit <https://github.com/lsst/meas_extensions_multiprofit>`_
+* `modelfit_parameters <https://github.com/lsst/modelfit_parameters>`_
+* `multiprofit <https://github.com/lsst/multiprofit>`_
+* `rucio_register <https://github.com/lsst/rucio_register>`_
 
 .. _release-v28-0-0-packages-removed:
 
 Packages removed
 ----------------
 
-* `proxmin <https://github.com/lsst/proxmin`_ and
-* `scarlet <https://github.com/lsst/scarlet`_ are obsolete with the adoption of scarlet_\lite.
+* `proxmin <https://github.com/lsst/proxmin>`_ and
+* `scarlet <https://github.com/lsst/scarlet>`_ are obsolete with the adoption of scarlet_\lite.
 
 .. _release-v28-0-0-deprecations:
 
