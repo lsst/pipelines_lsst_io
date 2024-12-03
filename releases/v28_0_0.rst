@@ -1,0 +1,85 @@
+.. _release-latest:
+.. _release-v28-0-0:
+
+###########################
+Release 28.0.0 (2024-12-15)
+###########################
+
+.. toctree::
+   :hidden:
+
+   tickets/v28_0_0
+
++-------------------------------------------+------------+
+| Source                                    | Identifier |
++===========================================+============+
+| Git tag                                   | 28.0.0     |
++-------------------------------------------+------------+
+| :doc:`EUPS distrib </install/newinstall>` | v28\_0\_0  |
++-------------------------------------------+------------+
+| rubin-env version                         | 9.0.0      |
++-------------------------------------------+------------+
+
+This release is based on the ``w_2024_32`` weekly build with 1 ticket backported.
+
+The notes below highlight significant technical changes to the Science Pipelines codebase in this release.
+For a complete list of changes made, see :doc:`tickets/v28_0_0`.
+
+The `Characterization Metric Report (DMTR-441) <https://dmtr-441.lsst.io>`_ describes the scientific performance of this release in terms of scientific performance metrics.
+
+If you have questions or comments about this release, visit our `Community forum <https://community.lsst.org>`_ for advice.
+
+- :ref:`release-v28-0-0-functionality`
+- :ref:`release-v28-0-0-interface`
+- :ref:`release-v28-0-0-deprecations`
+
+*See also:*
+
+- :doc:`Installation instructions </install/index>`
+- :doc:`Known issues </known-issues>`
+- `Doxygen Documentation`__
+
+__ http://doxygen.lsst.codes/stack/doxygen/xlink_v28.0.0_2024_06_26_00.56.30
+
+.. _release-v28-0-0-functionality:
+
+Major new features
+==================
+
+
+.. _release-v28-0-0-interface:
+
+Significant interface changes
+=============================
+
+.. _release-v28-0-0-new-packages:
+
+New packages added
+------------------
+
+* `analysis_ap <https://github.com/lsst/analysis_ap>`_
+* `gauss2d <https://github.com/lsst/gauss2d`_
+* `gauss2d_fit <https://github.com/lsst/gauss2d_fit`_
+* `meas_extensions_multiprofit <https://github.com/lsst/meas_extensions_multiprofit`_
+* `modelfit_parameters <https://github.com/lsst/modelfit_parameters`_
+* `multiprofit <https://github.com/lsst/multiprofit`_
+* `rucio_register <https://github.com/lsst/rucio_register`_
+
+.. _release-v28-0-0-packages-removed:
+
+Packages removed
+----------------
+
+* `proxmin <https://github.com/lsst/proxmin`_ and
+* `scarlet <https://github.com/lsst/scarlet`_ are obsolete with the adoption of scarlet_\lite.
+
+.. _release-v28-0-0-deprecations:
+
+Deprecations
+============
+
+These tasks or methods are now deprecated and will be removed in the next major release.
+See :jira:`RFC-945` for a clarification on the accelerated deprecation policy.
+
+Deprecated task configurations
+------------------------------
