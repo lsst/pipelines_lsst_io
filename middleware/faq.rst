@@ -194,7 +194,7 @@ The ``butler`` command line tool uses a plugin system to allow packages downstre
 Unfortunately, this means there's no single documentation page that lists all subcommands; each package has its own page documenting the subcommands it provides.
 The :ref:`daf_butler <lsst.daf.butler-scripts>` and :ref:`obs_base <lsst.obs.base-cli>` pages contain most subcommands, but the best way to find them all is to use ``--help`` on the command-line.
 
-The :any:`pipetask <lsst.ctrl.mpexec-script>` tool is implemented entirely within ``ctrl_mpexec``, and its documentation can be found on :ref:`the command-line interface page for that package <lsst.ctrl.pipetask-script>` (and of course via ``--help``).
+The :any:`pipetask <lsst.ctrl.mpexec-script>` tool is implemented entirely within ``ctrl_mpexec``.
 
 .. _middleware_faq_duplicate_results:
 
