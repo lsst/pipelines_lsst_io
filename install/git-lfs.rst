@@ -10,47 +10,34 @@ This page describes how to configure Git LFS to work with LSST's servers.
 
 .. note::
 
-   LSST staff and contributors should follow the `instructions in the Developer Guide`_ for configuring Git LFS with authenticated (push) access.
+   LSST staff and contributors should follow the `instructions in the Developer Guide`_, specifically `Authenticating for push access`_,for configuring Git LFS with authenticated (push) access.
 
 .. _git-lfs-installation:
 
 Getting Git LFS
 ===============
 
-Git LFS comes with your LSST Science Pipelines installation.
+Git LFS may have been installed with your LSST Science Pipelines installation.
+
 To check that it's available, run:
 
 .. code-block:: bash
 
    git-lfs version
 
-You can also install Git LFS independently of the LSST Science Pipelines.
-Follow the instructions on the `Git LFS homepage`_ to install Git LFS onto your system.
-Note that we suggest using the specific version of Git LFS provided by our :ref:`standard environment <system-prereqs>`.
+If it is not installed, or if you want to use it You can also install Git LFS independently of the LSST Science Pipelines.
 
-.. _git-lfs-config:
+Follow the instructions on the `Git LFS homepage`_ to install Git LFS onto your system, and then the first bullet point in "Getting Started."
 
-Configuring Git LFS for LSST
-============================
+If all you will need to do is to use files that have been stored in Git LFS, and will not need to read them,
 
-Since LSST uses its own data servers, rather than GitHub's, you'll need to add some extra configurations beyond a regular installation.
+.. code-block:: bash
 
-Create or edit the :file:`~/.gitconfig` file to add these new lines:
+   git-lfs install
 
-.. code-block:: text
+is all you need to do after installing the git lfs binaries.  This must be done on each machine from which you will be accessing repositories with Git LFS-stored artifacts.
 
-   # Cache anonymous access to LSST Git LFS S3 servers
-   [credential "https://lsst-sqre-prod-git-lfs.s3-us-west-2.amazonaws.com"]
-       helper = store
-   [credential "https://s3.lsst.codes"]
-       helper = store
-
-Also create or edit the :file:`~/.git-credentials` file to add these new lines:
-
-.. code-block:: text
-
-   https://:@lsst-sqre-prod-git-lfs.s3-us-west-2.amazonaws.com
-   https://:@s3.lsst.codes
+If all you need is read-only access to LFS-stored files, you're done.  The ``.gitattributes`` file will already have been created appropriately in each LFS-using repository.
 
 .. _git-lfs-test:
 
@@ -65,12 +52,16 @@ Trying cloning the `testdata_decam`_ Git repository to test your configuration:
 
 .. note::
 
+Push access
+===========
+
    LSST contributors need to follow some extra steps to authenticate commands that push to the upstream repository on GitHub.
-   See the `Developer Guide for details`.
+   See `Authenticating for push access`_.
 
 .. _`Git LFS homepage`:
 .. _Git LFS: https://git-lfs.github.com/
 .. _`Developer Guide for details`:
 .. _`instructions in the Developer Guide`: https://developer.lsst.io/git/git-lfs.html
+.. _`Authenticating for push access`: https://developer.lsst.io/git/git-lfs.html#git-lfs-auth
 .. _`testdata_decam`: https://github.com/lsst/testdata_decam
 .. _`testdata_ci_hsc`: https://github.com/lsst/testdata_ci_hsc
