@@ -101,7 +101,7 @@ And while `~Butler.query_dimension_records` shows you the schema of those tables
 .. code-block:: python
 
     >>> print(butler.dimensions["exposure"].schema)
-    exposure: 
+    exposure:
       instrument: string
       id: int
       physical_filter: string
@@ -471,7 +471,16 @@ The ``--pipeline-dot`` argument can also be used to create a version of this gra
 That ``...`` should be replaced by most of the arguments you'd pass to :any:`pipetask <lsst.ctrl.mpexec-script>` that describe *what* to run (which tasks, pipelines, configuration, etc.), but not the ones that describe how, or what to use as inputs (no collection options).
 See ``pipetask build --help`` for details.
 
-This graph will often reveal some unexpected input dataset types, tasks, or relationships between the two that make it obvious what's wrong.
+For a modern, web-friendly alternative, the ``--pipeline-mermaid`` argument can be used to generate the same graph in `Mermaid.js`_ format:
+
+.. code:: sh
+
+    $ pipetask build ... --pipeline-mermaid pipeline.mmd
+    $ mmdc -i pipeline.mmd -o pipeline.svg
+
+The ``mmdc`` command is part of the `Mermaid CLI`_, which can render Mermaid definition files into PNG, SVG, or PDF files. Alternatively, the resulting ``.mmd`` file can be rendered with tools like the `Mermaid Live Editor`_ or Markdown platforms supporting Mermaid syntax such as GitHub. This format is particularly useful for creating interactive, easily shareable pipeline graphs.
+
+The visualized graph will often reveal some unexpected input dataset types, tasks, or relationships between the two that make it obvious what's wrong.
 
 Another useful approach is to try to simplify the pipeline, ideally removing all but the first task; if that works, you can generally rule it out as the cause of the problem, add the next task in, and repeat.
 
@@ -480,6 +489,9 @@ This is only possible when the dataset type is already in your input collections
 But if you work through your pipeline task-by-task, and run each single-task pipeline as well as produce a `QuantumGraph` for it, this should be true each step of the way as well.
 
 .. _GraphViz dot language: https://graphviz.org/
+.. _Mermaid.js: https://mermaid-js.github.io/mermaid/
+.. _Mermaid CLI: https://github.com/mermaid-js/mermaid-cli/
+.. _Mermaid Live Editor: https://mermaid-js.github.io/mermaid-live-editor/
 
 .. _middleware_faq_long_qg_generation:
 
@@ -577,7 +589,7 @@ In the output JSON file will be
   * A list of data IDs which have been "recovered"; i.e., successes from fail-and-recovery attempts
 - A list of the data IDs associated with every missing dataset
 - A field called ``producer`` connecting each ``datasetType`` for each data ID to the task which produced it
-- Counts of quanta and datasets in all possible states. 
+- Counts of quanta and datasets in all possible states.
 
 Currently, the ``--force-v2`` option is the suggested usage until version 1 of pipetask report (using the `QuantumGraphExecutionReport` instead of the `QuantumProvenanceGraph`) is deprecated.
 
@@ -614,7 +626,7 @@ which indicates that there are 6 failed ``templateGen`` quanta, 14 failed ``asse
 
 These totals are all determined by examining the status of each task run on each data ID from run to run.
 
-Status Definitions for Task Quanta 
+Status Definitions for Task Quanta
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Unknown
@@ -741,9 +753,9 @@ Combining group-level pipetask report summaries into a step-level rollup
 
 Recommended usage is
 
-.. code:: 
+.. code::
 
-    pipetask aggregate-reports --full-output-filename <path/to/combined/output_file>.json <path/to/group/file/1.json> <path/to/group/file/2.json>... 
+    pipetask aggregate-reports --full-output-filename <path/to/combined/output_file>.json <path/to/group/file/1.json> <path/to/group/file/2.json>...
 
 
 where the argument to ``--full-output-filename`` is a filepath to store the combined `QuantumProvenanceGraph` summary.
