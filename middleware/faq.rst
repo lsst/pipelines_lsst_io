@@ -779,50 +779,46 @@ You can see this structure for your own collections with a command like this one
       skymaps                                            RUN
     u/jbosch/DM-30649/20210614T191615Z                   RUN
 
-The RUN collections that directly hold the datasets are what we want to remove in order to free up space, but we have to start by deleting the `~CollectionType.CHAINED` collections that hold them first:
-
-.. code:: sh
-
-    $ butler remove-collections /repo/main u/jbosch/DM-30649
-
-You can add the ``--no-confirm`` option to skip the confirmation prompt if you like.
-
-If you're only deleting one collection at a time, it doesn't tell you anything new.
-
-Not deleting the CHAINED collection
------------------------------------
-
-If you don't want to remove the `~CollectionType.CHAINED` collection - you just want to remove the `~CollectionType.RUN` collection from it - you can instead do
-
-    $ butler collection-chain /repo/main --remove u/jbosch/DM-30649 u/jbosch/DM-20210614T191615Z
-
-Or, if you know the `~CollectionType.RUN` is the first one in the chain,
-
-    $ butler collection-chain /repo/main --pop u/jbosch/DM-30649
-
-In any case, once the `~CollectionType.CHAINED` collection is out of the way, we can delete the `~CollectionType.RUN` collections that start with the same prefix using a glob pattern:
-
-.. code:: sh
-
-    $ butler remove-runs /repo/main u/jbosch/DM-30649/*
-    The following RUN collections will be removed:
-    u/jbosch/DM-30649/20210614T191615Z
-    The following datasets will be removed:
-    calexp(18222), calexpBackground(18222), calexp_camera(168), calibrate_config(1), calibrate_metadata(18222), characterizeImage_config(1), characterizeImage_metadata(18231), consolidateSourceTable_config(1), consolidateVisitSummary_config(1), consolidateVisitSummary_metadata(168), fgcmBuildStarsTable_config(1), fgcmFitCycle_config(1), fgcmOutputProducts_config(1), icExp(18231), icExpBackground(18231), icSrc(18231), icSrc_schema(1), isr_config(1), isr_metadata(18232), postISRCCD(18232), skyCorr(17304), skyCorr_config(1), skyCorr_metadata(168), source(18222), src(18222), srcMatch(18222), srcMatchFull(18222), src_schema(1), transformSourceTable_config(1), visitSummary(168), writeSourceTable_config(1), writeSourceTable_metadata(18222)
-    Continue? [y/N]: y
-    Removed collections
-
-Here we've left the default confirmation behavior on because we used a glob, just to be safe.
-You can write one or more full RUN collection names explicitly (separated by commas), too, and that's what you'll need to do if you didn't follow the naming convention well enough for a glob to work.
-
-Removing `~CollectionType.RUN` collections always removes the files within them, but it does not remove the directory structure, because in the presence of arbitrary path templates (including any that may have been used in the past) and possible concurrent writes, it's difficult for the butler to recognize efficiently when a directory will end up empty.
-You're welcome to delete empty directories on your own after using ``remove-runs``; they're typically in subdirectories of the main repository directory named after the collection (it's possible to configure the butler such that this isn't the case, but rare).
-It's also completely fine to just leave them.
+The `~CollectionType.RUN` collections that directly hold the datasets are what we want to remove in order to free up space, but these need to be removed from the `~CollectionType.CHAINED` before this is possible.
+And we definitely don't want to delete the *input* collections.
 
 .. note::
 
     If you delete files from the filesystem before using butler commands to remove entries from the database, the commands for cleaning up the database are actually exactly the same.
     The butler won't know that the files are gone until you try to use or delete them, but when you try to delete them, it will just log this at debug level.
+
+The Easy Way: deleting everything
+---------------------------------
+
+If you want to delete an entire processing run - all of the output  `~CollectionType.RUN` collections and the `~CollectionType.CHAINED` collection, but (of course) not any of the input collections, just use ``pipetask purge``:
+
+.. code:: sh
+
+    $ pipetask purge -b /repo/main u/jbosch/DM-30649
+
+This relies entirely on collection name prefixes (it assumes output `~CollectionType.RUN` collections start with the `~CollectionType.CHAINED` collection name), so it works just fine with collections created by BPS.
+With the ``--recursive`` it would *probably* work with collections created by Campaign Management tooling, depending on how it was configured.
+But it won't work if you've run with ``--outpun-run`` overridden to something else.
+
+The Easy Way: delete a bad output runs
+--------------------------------------
+
+If you want to keep most of an output collection set but have a few bad `~CollectionType.RUN` collections that you can identify, start by reomving them from the `~CollectionType.CHAINED` collection:
+
+.. code:: sh
+
+    $ butler collection-chain /repo/main --remove u/jbosch/DM-30649 u/jbosch/DM-20210614T191615Z
+
+You can also pass ``--replace-run`` to ``pipetask run`` if you know the previous run was bad and want to kick it out of the chain.
+Note that neither of these approaches actually deletes the bad `~CollectionType.RUN` collection, but they do keep the datasets in it from being used as inputs in further processing with the chain.
+
+To actually delete all `~CollectionType.RUN` collections that are no longer members of a particular chain, use ``pipetask cleanup``:
+
+.. code:: sh
+
+    $ pipetask purge -b /repo/main u/jbosch/DM-30649
+
+Once again this just uses the assumption that the `~CollectionType.CHAINED` collection name is the prefix for all associated `~CollectionType.RUN` collections, so it works with any way of creating collections that maintains that relationship.
 
 Deleting only some datasets
 ---------------------------
@@ -848,3 +844,9 @@ If you don't want to delete the full RUN collection, just some datasets within i
 Note that here you have to know the exact `~CollectionType.RUN` collection that holds the datasets, and specify it twice (the argument to ``--purge`` is the collection to delete from, while the positional argument is the collection to query within - the latter could be some other kind of collection, but it's rare for that to be useful).
 
 The Python `Butler.pruneDatasets` method can be used for even greater control of what you want to delete, as it accepts an arbitrary `DatasetRef` iterable indicating what to delete.
+
+.. _middleware_faq_clean_up_directories:
+
+Removing `~CollectionType.RUN` collections always removes the files within them, but it does not remove the directory structure, because in the presence of arbitrary path templates (including any that may have been used in the past) and possible concurrent writes, it's difficult for the butler to recognize efficiently when a directory will end up empty.
+You're welcome to delete empty directories on your own after using ``remove-runs``; they're typically in subdirectories of the main repository directory named after the collection (it's possible to configure the butler such that this isn't the case, but rare).
+It's also completely fine to just leave them.
