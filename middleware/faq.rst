@@ -255,48 +255,53 @@ Why are some keys (usually filters) sometimes missing from data IDs?
 ====================================================================
 
 While most butler methods accept regular dictionaries as data IDs, internally we standardize them into instances of the `DataCoordinate` class, and that's also what will be returned by `Butler` and `Registry` methods.
-Printing a `DataCoordinate` can sometimes yield results with a confusing ``...`` in it::
+How much information a `DataCoordinate` has about a data ID depends on how it was obtained:
 
-    >>> dataId = butler.registry.expandDataId(instrument="HSC", exposure=903334)
-    >>> print(dataId)
-    {instrument: 'HSC', exposure: 903334, ...}
+- A minimal `DataCoordinate` has only the *required values* for the data ID - values for the dimensions in `DimensionGroup.required`, which are sufficent and necessary to look up any other implied dimenions.
 
-And similarly asking for its ``keys`` doesn't show everything you'd expect (same for ``values`` or ``items``); in particular, there are no ``physical_filter`` or ``band`` keys here, either::
+- A `DataCoordinate` can also have the *full values* for the data ID, i.e. all dimensions in its `DimensionGroup`, which includes those whose values are
+*implied* by the required values, recursively.
+  For example, if ``visit`` is in the required dimensions, ``physical_filter`` will be in the full dimensions because a ``visit`` implies a ``physical_filter`` (there is exactly one ``physical_filter`` for a particular ``visit``).
+  And because ``physical_filter`` implies ``band``, ``band`` will also be in the full values.
+  `DataCoordinate` objects obtained from the butler query system almost always have full values.
 
-    >>> print(dataId.keys())
-    {instrument, exposure}
+- A `DataCoordinate` with full values can also have a mapping of `DimensionRecord` objects with metadata about all of the dimension elements it identifies.
+  Dimension *elements* are a generalization of dimensions that also includes tables that hold metadata or relationships keyed on multiple dimensions, like
+  ``visit_detector_region``.
+  These are sometimes called "expanded" data IDs, and they can be obtained by using the ``.expanded`` (in the old `Registry` query system) and ``.with_dimension_records`` (in the new query system) query modifier methods, or by calling `Registry.expandDataId`.
 
-The quick solution to these problems is to use `DataCoordinate.full`, which is another more straightforward `~collections.abc.Mapping` that contains all of those keys:
+The amount of information in a `DataCoordinate` does not affect its equality comparisons or hash value, which is usually the behavior users expect, but it has two somewhat surprising implications:
 
-    >>> print(dataId.full)
-    {band: 'r', instrument: 'HSC', physical_filter: 'HSC-R', exposure: 903334}
+- `DataCoordinate` is not a `collections.abc.Mapping`.
+  It does behave in many ways like a `dict`, but it intentionally does not have a `~collections.abc.Mapping.keys` method or support direct iteration over its keys.
+  This is because `~collections.abc.Mapping` defines equality differently: two mappings are equal if they have the same keys and the same values for those keys, while two `DataCoordinate` instances can be equal even if they have different keys (if one has only the required dimension values and the other has full values, but the required values are the same).
+  Instead of `keys`, use `DataCoordinate.dimensions` to iterate explicitly over the required or full dimensions, or use `DataCoordinate.mapping` to get a `dict` of all of the values the `DataCoordinate` knows (but be careful not to use that `dict` for equality comparisons).
 
-You can also still use expressions like ``dataId["band"]``, even though those keys *seem* to be missing:
+- `DataCoordinate` can behave a little strangely when it is itself used as the key in a `dict` or `set`: if you put a minimal data ID in such a container, and then test whether a different, expanded `DataCoordinate` (for the same data ID) is in the container, the container will report that it is, even though that extra information from the expanded `DataCoordinate` isn't present.
 
-    >>> print(dataId["band"])
-    r
+.. note::
 
-The catch is these solutions only work if `DataCoordinate.hasFull` returns `True`; when it doesn't, accessing `DataCoordinate.full` will raise `AttributeError`, essentially saying that the `DataCoordinate` doesn't know what the filter values are, even though it knows other values (i.e. the ``exposure`` ID) that could be used to fetch them.
-The terminology we use for this is that ``{instrument, exposure}`` are the *required* dimensions for this data ID and ``{physical_filter, band}`` are *implied* dimensions::
+    Prior to the implementation of :jira:`RFC-834` in v27, `DataCoordinate` *was* a `collections.abc.Mapping` but its `~collections.abc.Mapping.keys` method only ever returned the required dimensions (even if it held values for the implied dimensions), which was even more confusing.
 
-    >>> dataId.graph.required
-    {instrument, exposure}
-    >>> dataId.graph.implied
-    {band, physical_filter}
+.. _middleware_faq_data_id_mapping:
 
-The good news is that any `DataCoordinate` returned by the `Registry` query methods will always have `~DataCoordinate.hasFull` return `True`, and you can use `Registry.expandDataId` to transform any other `DataCoordinate` or `dict` data ID into one that contains everything the database knows about those values.
+How do I make a `dict` from a `DataCoordinate`?
+===============================================
 
-The obvious follow-up question is why `DataCoordinate.keys` and stringification don't just report all of they key-value pairs the object actually knows, instead of hiding them.
-The answer is that `DataCoordinate` is trying to satisfy a conflicting set of demands on it:
+If you want a dictionary to use for comparison or minimal serialization, use::
 
-- We want it to be a `collections.abc.Mapping`, so it behaves much like the `dict` objects often used informally for data IDs.
-- We want a `DataCoordinate` that *only* knows the value for required dimensions to compare as equal to any data ID with the same values for those dimensions, regardless of whether those other data IDs also have values for implied dimensions.
-- `collections.abc.Mapping` defines equality to be equivalent to equality over ``items()``, so if one mapping includes more keys than the other, they can't be equal.
+    dict(data_coordinate.required)
 
-Our solution was to make it so `DataCoordinate` is always a `~collections.abc.Mapping` over just its required keys, with ``full`` available sometimes as a `~collections.abc.Mapping` over all of them.
-And because the `~collections.abc.Mapping` interface doesn't prohibit us from allowing ``__getitem__`` to succeed even when the given value isn't in ``keys``, we support that for implied dimensions as well.
-It's possible it would have been better to just not make it a `~collections.abc.Mapping` at all (i.e. remove ``keys``, ``values``, and ``items`` in favor of other ways to access those things).
-`DataCoordinate` :ref:`has already been through a number of revisions <lsst.daf.butler-dev_data_coordinate>`, though, and it's not clear it's worth yet another try.
+This has just the required values of the data coordinate (see :ref:`middleware_faq_data_id_missing_keys`), not the implied ones.
+
+If you want a dictionary to print for humans to read, use::
+
+    dict(data_coordinate.mapping)
+
+This has all of the values this `DataCoordinate` knows.
+The `DataCoordinate` itself can of course be printed, but since it elides the quotes around dimension names (often better for conciseness) it can't be copy-pasted back into Python like the correspond `dict` can.
+
+The `DataCoordinate.required` and `DataCoordinate.mapping` properties return true `collections.abc.Mapping` instances, so they can be used in many contexts where a `dict` would be accepted, but they are custom view types, not true `dict` objects.
 
 .. _middleware_faq_calibration_query_errors:
 
