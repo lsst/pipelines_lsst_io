@@ -544,6 +544,7 @@ How can I get a report on all failures and missing datasets in a run?
 =====================================================================
 
 The :any:`pipetask report <lsst.ctrl.mpexec-pipetask#report>` tool can be used to analyze executed quantum graphs, troubleshoot, diagnose failures, and confirm that fail-and-recovery attempts (such as when using ``--skip-existing-in``) are effective.
+It can also be used to categorize the "caveats" on certain successes, like the `lsst.pipe.base.NoWorkFound` exception.
 
 When analyzing multiple graphs with ``pipetask report``, all graphs should be attempts to execute the same pipeline with the same dataquery.
 
@@ -557,7 +558,7 @@ The recommended usage is
 - The ``--full-output-filename <path/to/output_file>.json`` option provides the path to a file where the output of the full summary information can be stored
 - The ``--force-v2`` option makes sure that the most recent version of the tool is used even when the user passes only one graph
 - The ``REPO`` argument is the `Butler` repo where the output from the processing is stored
-- The ``QGRAPHS`` argument is a ``Sequence`` of `QuantumGraph`s to be analyzed, separated by spaces and passed in order of first to last executed
+- The ``QGRAPHS`` argument is a sequence of quantum graphs to be analyzed, separated by spaces and passed in order of first to last executed
 
 .. note::
 
@@ -568,9 +569,10 @@ This will print two ``bps report``-style tables, one for quanta and one for outp
 
 In the output JSON file will be
 
-- A summary under every task with: 
+- A summary under every task with:
 
   * Every failed data ID and corresponding error message
+  * Every qualified-success data ID and a set of "caveat flags"
   * Every run containing failing data IDs, and their status
   * A list of data IDs which have been "recovered"; i.e., successes from fail-and-recovery attempts
 - A list of the data IDs associated with every missing dataset
@@ -626,6 +628,9 @@ Successful
 """"""""""
 This status is the trademark of a successful quantum.
 The specific path to being marked as successful by the `QuantumProvenanceGraph` is that metadata and log datasets exist for the task for the data ID in question.
+
+Successful quanta can still have caveats, and it's entirely possible that a pipeline bugs could cause what should be a failure to be misclassified as a success with caveats.
+The flags that characterize success caveats are documented in the `lsst.pipe.base.QuantumSuccessCaveats` enumeration.
 
 Blocked
 """""""
