@@ -9,11 +9,10 @@ This page lists software needed to install and use the LSST Science Pipelines.
 Platform compatibility
 ======================
 
-The LSST Data Management reference platform is CentOS 7.
+The LSST Data Management reference platform is AlmaLinux 9.
 This is the platform we officially develop, test, and operate with.
 
-Besides the reference platform, our developers and automatic tests regularly compile and run the Pipelines under CentOS 8, a variety of other Linux distributions, and various versions of macOS.
-See `LSST Stack Testing Status <https://ls.st/faq>`_ reports of building LSST software on various platforms.
+Besides the reference platform, the Pipelines can run on a variety of other Linux distributions like Ubuntu, and various versions of macOS.
 
 .. _system-prereqs:
 
@@ -34,22 +33,20 @@ In addition to the Conda environment, the following packages must be installed o
 
 .. _Conda: https://conda.io
 
-CentOS
-------
+AlmaLinux 9
+-----------
 
-On CentOS 8, patch and diffutils are required.
-On CentOS 7, diffutils is included with the operating system; only patch must be installed.
-They may be installed as follows:
+On AlmaLinux 9 patch needs to be installed.
 
 .. code-block:: bash
 
-   sudo yum install patch diffutils
+   sudo dnf install patch
 
 If you wish to follow the instructions for :doc:`lsstsw` (recommended for some developers, but not necessary for most users), you will also need to install git:
 
 .. code-block:: bash
 
-   sudo yum install git
+   sudo dnf install git
 
 Debian/Ubuntu
 -------------
@@ -84,7 +81,6 @@ On macOS systems, please install the Xcode Command Line Tools:
 
    xcode-select --install
    
-The ``scipipe_conda_env`` environment used for the Science Pipelines through Release 21.0.0 requires the software development kit (SDK) from Xcode 11.x (11.7 recommended); it is **not** compatible with the Xcode 12 SDK.
 
 .. _filesystem-prereqs:
 
