@@ -238,7 +238,7 @@ Finding images for different LSST Science Pipelines releases
 ============================================================
 
 LSST Science Pipelines Docker images are published as `lsstsqre/centos`_ on Docker Hub.
-These images are based on a CentOS_ base image.
+These images are based on an AlmaLinux_ base image.
 
 Docker images are versioned with tags, allowing you to run any release of the LSST Science Pipelines software.
 The schema of these tags is:
@@ -261,6 +261,10 @@ For example:
    - ``lsst_distrib`` :doc:`top-level package <top-level-packages>`.
    - ``{{ release_eups_tag }}`` EUPS tag. See :ref:`lsstinstall-other-tags` for an overview of LSST's EUPS tag schema.
 
+   .. note::
+
+      Although the container tag suggests it uses CentOS 7, the underlying image is AlmaLinux 9. The implementation of :jira:`RFC-1037` will introduce proper naming conventions for AlmaLinux.
+
 You can see what tags are available by browsing `lsstsqre/centos on Docker Hub <https://hub.docker.com/r/lsstsqre/centos/tags/>`_.
 
 .. seealso::
@@ -268,4 +272,4 @@ You can see what tags are available by browsing `lsstsqre/centos on Docker Hub <
    See :ref:`lsstinstall-other-tags` for information on the different types of EUPS tags.
 
 .. _`lsstsqre/centos`: https://hub.docker.com/r/lsstsqre/centos/
-.. _CentOS: https://www.centos.org
+.. _AlmaLinux: https://almalinux.org
