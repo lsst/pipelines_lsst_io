@@ -255,48 +255,53 @@ Why are some keys (usually filters) sometimes missing from data IDs?
 ====================================================================
 
 While most butler methods accept regular dictionaries as data IDs, internally we standardize them into instances of the `DataCoordinate` class, and that's also what will be returned by `Butler` and `Registry` methods.
-Printing a `DataCoordinate` can sometimes yield results with a confusing ``...`` in it::
+How much information a `DataCoordinate` has about a data ID depends on how it was obtained:
 
-    >>> dataId = butler.registry.expandDataId(instrument="HSC", exposure=903334)
-    >>> print(dataId)
-    {instrument: 'HSC', exposure: 903334, ...}
+- A minimal `DataCoordinate` has only the *required values* for the data ID - values for the dimensions in `DimensionGroup.required`, which are sufficent and necessary to look up any other implied dimenions.
 
-And similarly asking for its ``keys`` doesn't show everything you'd expect (same for ``values`` or ``items``); in particular, there are no ``physical_filter`` or ``band`` keys here, either::
+- A `DataCoordinate` can also have the *full values* for the data ID, i.e. all dimensions in its `DimensionGroup`, which includes those whose values are
+*implied* by the required values, recursively.
+  For example, if ``visit`` is in the required dimensions, ``physical_filter`` will be in the full dimensions because a ``visit`` implies a ``physical_filter`` (there is exactly one ``physical_filter`` for a particular ``visit``).
+  And because ``physical_filter`` implies ``band``, ``band`` will also be in the full values.
+  `DataCoordinate` objects obtained from the butler query system almost always have full values.
 
-    >>> print(dataId.keys())
-    {instrument, exposure}
+- A `DataCoordinate` with full values can also have a mapping of `DimensionRecord` objects with metadata about all of the dimension elements it identifies.
+  Dimension *elements* are a generalization of dimensions that also includes tables that hold metadata or relationships keyed on multiple dimensions, like
+  ``visit_detector_region``.
+  These are sometimes called "expanded" data IDs, and they can be obtained by using the ``.expanded`` (in the old `Registry` query system) and ``.with_dimension_records`` (in the new query system) query modifier methods, or by calling `Registry.expandDataId`.
 
-The quick solution to these problems is to use `DataCoordinate.full`, which is another more straightforward `~collections.abc.Mapping` that contains all of those keys:
+The amount of information in a `DataCoordinate` does not affect its equality comparisons or hash value, which is usually the behavior users expect, but it has two somewhat surprising implications:
 
-    >>> print(dataId.full)
-    {band: 'r', instrument: 'HSC', physical_filter: 'HSC-R', exposure: 903334}
+- `DataCoordinate` is not a `collections.abc.Mapping`.
+  It does behave in many ways like a `dict`, but it intentionally does not have a `~collections.abc.Mapping.keys` method or support direct iteration over its keys.
+  This is because `~collections.abc.Mapping` defines equality differently: two mappings are equal if they have the same keys and the same values for those keys, while two `DataCoordinate` instances can be equal even if they have different keys (if one has only the required dimension values and the other has full values, but the required values are the same).
+  Instead of `keys`, use `DataCoordinate.dimensions` to iterate explicitly over the required or full dimensions, or use `DataCoordinate.mapping` to get a `dict` of all of the values the `DataCoordinate` knows (but be careful not to use that `dict` for equality comparisons).
 
-You can also still use expressions like ``dataId["band"]``, even though those keys *seem* to be missing:
+- `DataCoordinate` can behave a little strangely when it is itself used as the key in a `dict` or `set`: if you put a minimal data ID in such a container, and then test whether a different, expanded `DataCoordinate` (for the same data ID) is in the container, the container will report that it is, even though that extra information from the expanded `DataCoordinate` isn't present.
 
-    >>> print(dataId["band"])
-    r
+.. note::
 
-The catch is these solutions only work if `DataCoordinate.hasFull` returns `True`; when it doesn't, accessing `DataCoordinate.full` will raise `AttributeError`, essentially saying that the `DataCoordinate` doesn't know what the filter values are, even though it knows other values (i.e. the ``exposure`` ID) that could be used to fetch them.
-The terminology we use for this is that ``{instrument, exposure}`` are the *required* dimensions for this data ID and ``{physical_filter, band}`` are *implied* dimensions::
+    Prior to the implementation of :jira:`RFC-834` in v27, `DataCoordinate` *was* a `collections.abc.Mapping` but its `~collections.abc.Mapping.keys` method only ever returned the required dimensions (even if it held values for the implied dimensions), which was even more confusing.
 
-    >>> dataId.graph.required
-    {instrument, exposure}
-    >>> dataId.graph.implied
-    {band, physical_filter}
+.. _middleware_faq_data_id_mapping:
 
-The good news is that any `DataCoordinate` returned by the `Registry` query methods will always have `~DataCoordinate.hasFull` return `True`, and you can use `Registry.expandDataId` to transform any other `DataCoordinate` or `dict` data ID into one that contains everything the database knows about those values.
+How do I make a `dict` from a `DataCoordinate`?
+===============================================
 
-The obvious follow-up question is why `DataCoordinate.keys` and stringification don't just report all of they key-value pairs the object actually knows, instead of hiding them.
-The answer is that `DataCoordinate` is trying to satisfy a conflicting set of demands on it:
+If you want a dictionary to use for comparison or minimal serialization, use::
 
-- We want it to be a `collections.abc.Mapping`, so it behaves much like the `dict` objects often used informally for data IDs.
-- We want a `DataCoordinate` that *only* knows the value for required dimensions to compare as equal to any data ID with the same values for those dimensions, regardless of whether those other data IDs also have values for implied dimensions.
-- `collections.abc.Mapping` defines equality to be equivalent to equality over ``items()``, so if one mapping includes more keys than the other, they can't be equal.
+    dict(data_coordinate.required)
 
-Our solution was to make it so `DataCoordinate` is always a `~collections.abc.Mapping` over just its required keys, with ``full`` available sometimes as a `~collections.abc.Mapping` over all of them.
-And because the `~collections.abc.Mapping` interface doesn't prohibit us from allowing ``__getitem__`` to succeed even when the given value isn't in ``keys``, we support that for implied dimensions as well.
-It's possible it would have been better to just not make it a `~collections.abc.Mapping` at all (i.e. remove ``keys``, ``values``, and ``items`` in favor of other ways to access those things).
-`DataCoordinate` :ref:`has already been through a number of revisions <lsst.daf.butler-dev_data_coordinate>`, though, and it's not clear it's worth yet another try.
+This has just the required values of the data coordinate (see :ref:`middleware_faq_data_id_missing_keys`), not the implied ones.
+
+If you want a dictionary to print for humans to read, use::
+
+    dict(data_coordinate.mapping)
+
+This has all of the values this `DataCoordinate` knows.
+The `DataCoordinate` itself can of course be printed, but since it elides the quotes around dimension names (often better for conciseness) it can't be copy-pasted back into Python like the correspond `dict` can.
+
+The `DataCoordinate.required` and `DataCoordinate.mapping` properties return true `collections.abc.Mapping` instances, so they can be used in many contexts where a `dict` would be accepted, but they are custom view types, not true `dict` objects.
 
 .. _middleware_faq_calibration_query_errors:
 
@@ -539,6 +544,7 @@ How can I get a report on all failures and missing datasets in a run?
 =====================================================================
 
 The :any:`pipetask report <lsst.ctrl.mpexec-pipetask#report>` tool can be used to analyze executed quantum graphs, troubleshoot, diagnose failures, and confirm that fail-and-recovery attempts (such as when using ``--skip-existing-in``) are effective.
+It can also be used to categorize the "caveats" on certain successes, like the `lsst.pipe.base.NoWorkFound` exception.
 
 When analyzing multiple graphs with ``pipetask report``, all graphs should be attempts to execute the same pipeline with the same dataquery.
 
@@ -552,7 +558,7 @@ The recommended usage is
 - The ``--full-output-filename <path/to/output_file>.json`` option provides the path to a file where the output of the full summary information can be stored
 - The ``--force-v2`` option makes sure that the most recent version of the tool is used even when the user passes only one graph
 - The ``REPO`` argument is the `Butler` repo where the output from the processing is stored
-- The ``QGRAPHS`` argument is a ``Sequence`` of `QuantumGraph`s to be analyzed, separated by spaces and passed in order of first to last executed
+- The ``QGRAPHS`` argument is a sequence of quantum graphs to be analyzed, separated by spaces and passed in order of first to last executed
 
 .. note::
 
@@ -563,9 +569,10 @@ This will print two ``bps report``-style tables, one for quanta and one for outp
 
 In the output JSON file will be
 
-- A summary under every task with: 
+- A summary under every task with:
 
   * Every failed data ID and corresponding error message
+  * Every qualified-success data ID and a set of "caveat flags"
   * Every run containing failing data IDs, and their status
   * A list of data IDs which have been "recovered"; i.e., successes from fail-and-recovery attempts
 - A list of the data IDs associated with every missing dataset
@@ -621,6 +628,9 @@ Successful
 """"""""""
 This status is the trademark of a successful quantum.
 The specific path to being marked as successful by the `QuantumProvenanceGraph` is that metadata and log datasets exist for the task for the data ID in question.
+
+Successful quanta can still have caveats, and it's entirely possible that a pipeline bugs could cause what should be a failure to be misclassified as a success with caveats.
+The flags that characterize success caveats are documented in the `lsst.pipe.base.QuantumSuccessCaveats` enumeration.
 
 Blocked
 """""""
@@ -774,50 +784,46 @@ You can see this structure for your own collections with a command like this one
       skymaps                                            RUN
     u/jbosch/DM-30649/20210614T191615Z                   RUN
 
-The RUN collections that directly hold the datasets are what we want to remove in order to free up space, but we have to start by deleting the `~CollectionType.CHAINED` collections that hold them first:
-
-.. code:: sh
-
-    $ butler remove-collections /repo/main u/jbosch/DM-30649
-
-You can add the ``--no-confirm`` option to skip the confirmation prompt if you like.
-
-If you're only deleting one collection at a time, it doesn't tell you anything new.
-
-Not deleting the CHAINED collection
------------------------------------
-
-If you don't want to remove the `~CollectionType.CHAINED` collection - you just want to remove the `~CollectionType.RUN` collection from it - you can instead do
-
-    $ butler collection-chain /repo/main --remove u/jbosch/DM-30649 u/jbosch/DM-20210614T191615Z
-
-Or, if you know the `~CollectionType.RUN` is the first one in the chain,
-
-    $ butler collection-chain /repo/main --pop u/jbosch/DM-30649
-
-In any case, once the `~CollectionType.CHAINED` collection is out of the way, we can delete the `~CollectionType.RUN` collections that start with the same prefix using a glob pattern:
-
-.. code:: sh
-
-    $ butler remove-runs /repo/main u/jbosch/DM-30649/*
-    The following RUN collections will be removed:
-    u/jbosch/DM-30649/20210614T191615Z
-    The following datasets will be removed:
-    calexp(18222), calexpBackground(18222), calexp_camera(168), calibrate_config(1), calibrate_metadata(18222), characterizeImage_config(1), characterizeImage_metadata(18231), consolidateSourceTable_config(1), consolidateVisitSummary_config(1), consolidateVisitSummary_metadata(168), fgcmBuildStarsTable_config(1), fgcmFitCycle_config(1), fgcmOutputProducts_config(1), icExp(18231), icExpBackground(18231), icSrc(18231), icSrc_schema(1), isr_config(1), isr_metadata(18232), postISRCCD(18232), skyCorr(17304), skyCorr_config(1), skyCorr_metadata(168), source(18222), src(18222), srcMatch(18222), srcMatchFull(18222), src_schema(1), transformSourceTable_config(1), visitSummary(168), writeSourceTable_config(1), writeSourceTable_metadata(18222)
-    Continue? [y/N]: y
-    Removed collections
-
-Here we've left the default confirmation behavior on because we used a glob, just to be safe.
-You can write one or more full RUN collection names explicitly (separated by commas), too, and that's what you'll need to do if you didn't follow the naming convention well enough for a glob to work.
-
-Removing `~CollectionType.RUN` collections always removes the files within them, but it does not remove the directory structure, because in the presence of arbitrary path templates (including any that may have been used in the past) and possible concurrent writes, it's difficult for the butler to recognize efficiently when a directory will end up empty.
-You're welcome to delete empty directories on your own after using ``remove-runs``; they're typically in subdirectories of the main repository directory named after the collection (it's possible to configure the butler such that this isn't the case, but rare).
-It's also completely fine to just leave them.
+The `~CollectionType.RUN` collections that directly hold the datasets are what we want to remove in order to free up space, but these need to be removed from the `~CollectionType.CHAINED` before this is possible.
+And we definitely don't want to delete the *input* collections.
 
 .. note::
 
     If you delete files from the filesystem before using butler commands to remove entries from the database, the commands for cleaning up the database are actually exactly the same.
     The butler won't know that the files are gone until you try to use or delete them, but when you try to delete them, it will just log this at debug level.
+
+The Easy Way: deleting everything
+---------------------------------
+
+If you want to delete an entire processing run - all of the output  `~CollectionType.RUN` collections and the `~CollectionType.CHAINED` collection, but (of course) not any of the input collections, just use ``pipetask purge``:
+
+.. code:: sh
+
+    $ pipetask purge -b /repo/main u/jbosch/DM-30649
+
+This relies entirely on collection name prefixes (it assumes output `~CollectionType.RUN` collections start with the `~CollectionType.CHAINED` collection name), so it works just fine with collections created by BPS.
+With the ``--recursive`` it would *probably* work with collections created by Campaign Management tooling, depending on how it was configured.
+But it won't work if you've run with ``--outpun-run`` overridden to something else.
+
+The Easy Way: delete a bad output runs
+--------------------------------------
+
+If you want to keep most of an output collection set but have a few bad `~CollectionType.RUN` collections that you can identify, start by reomving them from the `~CollectionType.CHAINED` collection:
+
+.. code:: sh
+
+    $ butler collection-chain /repo/main --remove u/jbosch/DM-30649 u/jbosch/DM-20210614T191615Z
+
+You can also pass ``--replace-run`` to ``pipetask run`` if you know the previous run was bad and want to kick it out of the chain.
+Note that neither of these approaches actually deletes the bad `~CollectionType.RUN` collection, but they do keep the datasets in it from being used as inputs in further processing with the chain.
+
+To actually delete all `~CollectionType.RUN` collections that are no longer members of a particular chain, use ``pipetask cleanup``:
+
+.. code:: sh
+
+    $ pipetask purge -b /repo/main u/jbosch/DM-30649
+
+Once again this just uses the assumption that the `~CollectionType.CHAINED` collection name is the prefix for all associated `~CollectionType.RUN` collections, so it works with any way of creating collections that maintains that relationship.
 
 Deleting only some datasets
 ---------------------------
@@ -843,3 +849,9 @@ If you don't want to delete the full RUN collection, just some datasets within i
 Note that here you have to know the exact `~CollectionType.RUN` collection that holds the datasets, and specify it twice (the argument to ``--purge`` is the collection to delete from, while the positional argument is the collection to query within - the latter could be some other kind of collection, but it's rare for that to be useful).
 
 The Python `Butler.pruneDatasets` method can be used for even greater control of what you want to delete, as it accepts an arbitrary `DatasetRef` iterable indicating what to delete.
+
+.. _middleware_faq_clean_up_directories:
+
+Removing `~CollectionType.RUN` collections always removes the files within them, but it does not remove the directory structure, because in the presence of arbitrary path templates (including any that may have been used in the past) and possible concurrent writes, it's difficult for the butler to recognize efficiently when a directory will end up empty.
+You're welcome to delete empty directories on your own after using ``remove-runs``; they're typically in subdirectories of the main repository directory named after the collection (it's possible to configure the butler such that this isn't the case, but rare).
+It's also completely fine to just leave them.
