@@ -29,6 +29,7 @@ Source installation issues
 Cross Platform
 --------------
 
+- It is not recommended to install using a privileged user, as certain tests might fail during the build process.
 - Compiling some packages---in particular ``afw``\ ---require large amounts of RAM to compile.
   This is compounded as the system will automatically attempt to parallelize the build, and can cause the build to run extremely slowly or fail altogether.
   On machines with less than 8 GB of RAM, disable parallelization by setting ``EUPSPKG_NJOBS=1`` in your environment before running ``eups distrib``.
