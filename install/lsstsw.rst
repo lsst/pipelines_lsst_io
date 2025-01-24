@@ -20,7 +20,7 @@ If you have issues using lsstsw, here are two ways to get help:
 1. Prerequisites
 ================
 
-The LSST Science Pipelines are developed and tested primarily on CentOS, but can be compiled and run on macOS, Debian, Ubuntu, and other Linux distributions.
+The LSST Science Pipelines are developed and tested primarily on AlmaLinux 9, but can be compiled and run on macOS, Debian, Ubuntu, and other Linux distributions.
 See :ref:`prereq-platforms` for information about LSST's official reference platform and build reports with other platforms, and follow the instructions under :ref:`system-prereqs` to ensure you have installed the prerequisite software for your platform.
 
 .. _lsstsw-deploy:
