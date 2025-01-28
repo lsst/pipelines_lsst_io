@@ -115,7 +115,8 @@ If you wish to pare down the data to be processed, you can specify a data query 
 Coadding warped images
 ======================
 
-Now you'll assemble the warped images into coadditions for each patch with the ``assembleCoadd`` pipeline.
+Now you will select warped images to include in the coadds using the ``selectDeepCoaddVisits`` task, then assemble the warped images into coadditions for each patch with the ``assembleCoadd`` pipeline. 
+Note that the two pipelines (``selectDeepCoaddVisits`` and ``assembleCoadd``) can be specified in a single call to ``pipetask`` by providing ``#selectDeepCoaddVisits,assembleCoadd`` in the call to ``pipetask``.
 As before, we will run without a data query to process a subset of the data, but a selection can be made with the ``-d`` argument just as with warping.
 In this case the ``-d`` argument could be omitted since the coaddition process will only find the warped images from the previous command and will thus only produce coadds for those patches.
 
@@ -127,7 +128,7 @@ Run:
    -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml \
    -i u/$USER/warps \
    -o u/$USER/coadds \
-   -p $DRP_PIPE_DIR/pipelines/HSC/DRP-RC2_subset.yaml#assembleCoadd \
+   -p $DRP_PIPE_DIR/pipelines/HSC/DRP-RC2_subset.yaml#selectDeepCoaddVisits,assembleCoadd \
    -d "skymap = 'hsc_rings_v1' AND tract = 9813 AND patch in (38, 39, 40, 41)"
 
 .. tip::
