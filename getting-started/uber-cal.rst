@@ -71,7 +71,7 @@ E.g.:
    -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml \
    -i u/$USER/single_frame \
    -o u/$USER/gbdes \
-   -p $DRP_PIPE_DIR/pipelines/HSC/DRP-RC2_subset.yaml#GbdesAstrometricFitTask
+   -p $DRP_PIPE_DIR/pipelines/HSC/DRP-RC2_subset.yaml#gbdesAstrometricFit
 
 Note the input collection is the same as you passed to ``FGCM`` since ``gbdes`` doesn't depend on any of the outputs of ``FGCM``.
 
