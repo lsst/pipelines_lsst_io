@@ -5,6 +5,7 @@ Characterization Metric Reports
 Starting from Summer 2015, administrative ("cycle") releases are accompanied by a measurements report characterizing the current performance.
 Metrics included in these reports are expected to increase in number and sophistication at subsequent releases.
 
+- :ref:`Release 28.0.0 <release-v28-0-0>`: `DMTR-451 <https://ls.st/DMTR-451>`_
 - :ref:`Release 27.0.0 <release-v27-0-0>`: `DMTR-431 <https://ls.st/DMTR-431>`_
 - :ref:`Release 26.0.0 <release-v26-0-0>`: `DMTR-421 <https://ls.st/DMTR-421>`_
 - :ref:`Release 25.0.0 <release-v25-0-0>`: `DMTR-392 <https://ls.st/DMTR-392>`_
