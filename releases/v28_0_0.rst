@@ -1,0 +1,266 @@
+.. _release-latest:
+.. _release-v28-0-0:
+
+###########################
+Release 28.0.0 (2025-01-24)
+###########################
+
+.. toctree::
+   :hidden:
+
+   tickets/v28_0_0
+
++--------------------------------------------+------------+
+| Source                                     | Identifier |
++============================================+============+
+| Git tag                                    | 28.0.0     |
++--------------------------------------------+------------+
+| :doc:`EUPS distrib </install/lsstinstall>` | v28\_0\_0  |
++--------------------------------------------+------------+
+| rubin-env version                          | 9.0.0      |
++--------------------------------------------+------------+
+
+This release is based on the ``w_2024_42`` weekly build with 2 tickets backported.
+
+The notes below highlight significant technical changes to the Science Pipelines codebase in this release.
+For a complete list of changes made, see :doc:`tickets/v28_0_0`.
+
+The `Characterization Metric Report (DMTR-451) <https://dmtr-451.lsst.io>`_ describes the scientific performance of this release in terms of scientific performance metrics.
+
+If you have questions or comments about this release, visit our `Community forum <https://community.lsst.org>`_ for advice.
+
+- :ref:`release-v28-0-0-functionality`
+- :ref:`release-v28-0-0-interface`
+- :ref:`release-v28-0-0-deprecations`
+
+*See also:*
+
+- :doc:`Installation instructions </install/index>`
+- :doc:`Known issues </known-issues>`
+- `Doxygen Documentation`__
+
+__ http://doxygen.lsst.codes/stack/doxygen/xlink_v28.0.0_2025_01_24_05.17.48
+
+.. _release-v28-0-0-functionality:
+
+Major new features
+==================
+
+- :ref:`release-v28-0-0-lsstinstall`
+- :ref:`release-v28-0-0-platform`
+- :ref:`release-v28-0-0-middleware`
+- :ref:`release-v28-0-0-multiprofit`
+- :ref:`release-v28-0-0-analysis-ap`
+
+.. _release-v28-0-0-lsstinstall:
+
+Supported installation method
+-----------------------------
+
+Installation with ``newinstall.sh`` is no longer supported. Please use :doc:`lsstinstall </install/lsstinstall>`.
+
+.. _release-v28-0-0-platform:
+
+Platform compatibility
+----------------------
+
+AlmaLinux 9 replaces CentOS 7 as official development, test and operation platform.
+
+.. _release-v28-0-0-middleware:
+
+Notable middleware improvements
+-------------------------------
+
+* Added new ``Butler`` interfaces to simplify queries and collection management. See ``Butler.collections``, ``Butler.query_datasets``, ``Butler.query_data_ids``, and ``Butler.query_dimension_records``. The new ``query_*`` interface uses a brand new query system that supports region and RA/Dec queries and they all support sorting and limit. It is recommended to migrate away from ``Butler.registry.query*`` interfaces.
+* There have been many improvements to the ``pipetask report`` command.
+
+.. _release-v28-0-0-multiprofit:
+
+Multiprofit source modelling
+-----------------------------
+
+:doc:`lsst.multiprofit </modules/lsst.multiprofit/index>` adds a python interface to the MultiProFit astronomical source modelling code and can be used through :doc:`lsst.meas.extensions.multiprofit </modules/lsst.meas.extensions.multiprofit/index>`, which  implements separate tasks for PSF and source model fitting.
+
+.. _release-v28-0-0-analysis-ap:
+
+New package analysis_ap
+-----------------------
+
+Adds scripts and pipelines to compute quality assurance metrics and the ability to make plots for studying the alerts pipeline output products with focus on human-driven analysis of DiaSources and DiaObjects written to the PPDB/APDB; for automatic metric and plot generation on butler outputs during processing runs, see `~lsst.analysis.tools.tasks.AssocDiaSrcDetectorVisitAnalysisTask` and related Tasks and Pipelines in :doc:`lsst.analysis.tools </modules/lsst.analysis.tools/index>`.
+
+.. _release-v28-0-0-interface:
+
+Significant interface changes
+=============================
+
+.. _release-v28-0-0-new-packages:
+
+New packages added
+------------------
+
+* `analysis_ap <https://github.com/lsst/analysis_ap>`_ (see :ref:`above <release-v28-0-0-analysis-ap>`).
+* `modelfit_parameters <https://github.com/lsst/modelfit_parameters>`_: A library for defining parameters used in fitting parametric models.
+* `gauss2d <https://github.com/lsst/gauss2d>`_ and `gauss2d_fit <https://github.com/lsst/gauss2d_fit>`_: Packages for defining and evaluating 2D Gaussian mixtures and images thereof.
+* `multiprofit <https://github.com/lsst/multiprofit>`_ and `meas_extensions_multiprofit <https://github.com/lsst/meas_extensions_multiprofit>`_ (see :ref:`above <release-v28-0-0-multiprofit>`).
+* `rucio_register <https://github.com/lsst/rucio_register>`_: Command and API to add Butler specific information to Rucio metadata.
+
+.. _release-v28-0-0-packages-removed:
+
+Packages removed
+----------------
+
+* `proxmin <https://github.com/lsst/proxmin>`_ and `scarlet <https://github.com/lsst/scarlet>`_ are obsolete with the adoption of scarlet\_lite.
+
+.. _release-v28-0-0-deprecations:
+
+Deprecations
+============
+
+- :ref:`release-v28-0-0-deprecated-verify`
+- :ref:`release-v28-0-0-deprecated-ip-isr`
+- :ref:`release-v28-0-0-deprecated-obs-chft`
+- :ref:`release-v28-0-0-deprecated-meas-extensions-shapeHSM`
+- :ref:`release-v28-0-0-deprecated-ep-pipe`
+- :ref:`release-v28-0-0-deprecated-pipe-tasks`
+- :ref:`release-v28-0-0-deprecated-ctrl-mpexec`
+- :ref:`release-v28-0-0-deprecated-analysis-tools`
+- :ref:`release-v28-0-0-deprecated-cp-pipe`
+- :ref:`release-v28-0-0-deprecated-lsst-skymap`
+- :ref:`release-v28-0-0-deprecated-ip-diffim`
+- :ref:`release-v28-0-0-deprecated-analysis-ap`
+- :ref:`release-v28-0-0-deprecated-daf-butler`
+- :ref:`release-v28-0-0-deprecated-configurations`
+
+These tasks or methods are now deprecated and will be removed in the next major release.
+See :jira:`RFC-945` for a clarification on the accelerated deprecation policy.
+
+.. _release-v28-0-0-deprecated-verify:
+
+Deprecations in lsst.verify
+---------------------------
+
+`~lsst.verify.tasks.ConfigApdbLoader` is deprecated. Please use `~lsst.verify.tasks.ApdbMetricConfig.apdb_config_url`.
+
+.. _release-v28-0-0-deprecated-ip-isr:
+
+Deprecations in lsst.ip.isr
+---------------------------
+
+``isrTask*.makeBinnedImages`` are no longer used. Please subtask ``BinExposureTask`` instead.
+
+.. _release-v28-0-0-deprecated-obs-chft:
+
+Deprecations in lsst.obs.chft
+-----------------------------
+
+``CfhtIsrTask.makeBinnedImages`` is no longer used. Please subtask ``BinExposureTask`` instead.
+
+.. _release-v28-0-0-deprecated-meas-extensions-shapeHSM:
+
+Deprecations in lsst.meas.extensions.shapeHSM
+---------------------------------------------
+
+The ``shearType`` setters are deprecated.
+
+.. _release-v28-0-0-deprecated-ep-pipe:
+
+Deprecations in lsst.ap.pipe
+----------------------------
+
+``createApFakes.CreateRandomApFakesTask`` is replaced by :doc:`source_injection </modules/lsst.source.injection/index>` tasks.
+
+.. _release-v28-0-0-deprecated-pipe-tasks:
+
+Deprecations in lsst.pipe.tasks
+-------------------------------
+
+The following tasks are replaced by :doc:`source_injection </modules/lsst.source.injection/index>` tasks:
+
+* `~lsst.pipe.tasks.matchFakes.MatchFakesTask`
+* `~lsst.pipe.tasks.insertFakes.InsertFakesTask`
+* `~lsst.pipe.tasks.processCcdWithFakes.ProcessCcdWithFakesTask`
+* `~lsst.pipe.tasks.processCcdWithFakes.ProcessCcdWithVariableFakesTask`
+
+The following unused classes in ``diff_matched_tract_catalog`` will be removed:
+
+* `~lsst.pipe.tasks.diff_matched_tract_catalog.MeasurementType`
+* `~lsst.pipe.tasks.diff_matched_tract_catalog.Statistic`
+* `~lsst.pipe.tasks.diff_matched_tract_catalog.Median`
+* `~lsst.pipe.tasks.diff_matched_tract_catalog.SigmaIQR`
+* `~lsst.pipe.tasks.diff_matched_tract_catalog.SigmaMAD`
+* `~lsst.pipe.tasks.diff_matched_tract_catalog.Percentile`
+* `~lsst.pipe.tasks.diff_matched_tract_catalog.SourceType`
+* `~lsst.pipe.tasks.diff_matched_tract_catalog.MatchType`
+
+In `~lsst.pipe.tasks.diff_matched_tract_catalog.DiffMatchedTractCatalogConfig` the attribute ``compute_stats`` will be removed.
+
+.. _release-v28-0-0-deprecated-ctrl-mpexec:
+
+Deprecations in lsst.ctrl.mpexec
+--------------------------------
+
+`~lsst.ctrl.mpexec.pipeline2dot` and `~lsst.ctrl.mpexec.graph2dot` should now be imported from ``lsst.pipe.base.dot_tools`` and will be removed.
+
+.. _release-v28-0-0-deprecated-analysis-tools:
+
+Deprecations in lsst.analysis.tools
+-----------------------------------
+
+`~lsst.analysis.tools.actions.vector.TreecorrConfig` is no longer a part of :doc:`analysis_tools </modules/lsst.analysis.tools/index>` (see :jira:`DM-45899`).
+
+.. _release-v28-0-0-deprecated-cp-pipe:
+
+Deprecations in lsst.cp.pipe
+----------------------------
+
+`~lsst.cp.pipe.OverscanModel`. `~lsst.cp.pipe.SimpleModel`, `~lsst.cp.pipe.SimulatedModel`, `~lsst.cp.pipe.SegmentSimulator` and `~lsst.cp.pipe.SegmentSimulator` moved to ``lsst.ip.isr.deferredCharge``, and will be removed.
+
+.. _release-v28-0-0-deprecated-lsst-skymap:
+
+Deprecations in lsst.skymap
+---------------------------
+
+The functions ``angToCoord``, ``coordToAnge`` and classes ``HealpixTractInfo``, ``HealpixSkyMapConfig``, ``HealpixSkyMap`` will be removed.
+``getInnerSkyPolygon/inner_sky_polygon`` are deprecated in favor of `~lsst.skymap.TractInfo.inner_sky_region`.
+
+.. _release-v28-0-0-deprecated-ip-diffim:
+
+Deprecations in lsst.ip.diffim
+------------------------------
+
+The plugin ``NativeDipoleCentroid`` is deprecated.
+
+.. _release-v28-0-0-deprecated-daf-butler:
+
+Deprecations in daf.butler
+--------------------------
+
+``Butler.collections`` should no longer be used to get the list of default collections.
+Use ``Butler.collections.default`` instead.
+
+.. _release-v28-0-0-deprecated-analysis-ap:
+
+Deprecations in lsst.analysis.ap
+--------------------------------
+
+``legacyPlotUtils`` will be removed.
+
+.. _release-v28-0-0-deprecated-configurations:
+
+Deprecated task configurations
+------------------------------
+
+These configurations are deprecated:
+
+* `~lsst.ip.diffim.AlardLuptonPreconvolveSubtractConfig`: ``badSourceFlags`` in favor of seeting the equivalent field for the sourceSelector subtask instead.
+* `~lsst.ip.isr.IsrStatisticsTaskConfig`: ``doApplyGainsForCtiStatistics``.
+* `~lsst.ip.isr.DeferredChargeConfig`: ``useGains``.
+* `~lsst.pipe.tasks.characterizeImage.CharacterizeImageConfig`: subtasks ``doComputeSummaryStats`` moved to `~lsst.pipe.tasks.calibrate.CalibrateTask` and ``doMaskStreaks`` moved to `~lsst.ip.diffim.DetectAndMeasureTask`.
+* `~lsst.pipe.tasks.diff_matched_tract_catalog.DiffMatchedTractCatalogConfig`: ``column_ref_extended``, ``column_ref_extended_inverted``, ``column_ref_extended_inverted``, ``column_target_extended`` and ``compute_stats``.
+* `~lsst.cp.pipe.CpCtiSolveConfig`: ``useGains``.
+* `~lsst.cp.pipe.LinearitySolveConfig`: ``ignorePtcMask``.
+* `~lsst.cp.pipe.PhotonTransferCurveExtractConfig`: ``minMeanSignal`` and ``maxMeanSignal``.
+* `~lsst.ap.association.TransformDiaSourceCatalogConfig`: ``doPackFlags``.
+* `~lsst.ap.association.DiaPipelineConfig`: ``apdb`` has been replaced by ``apdb_config_url``.
+* `~lsst.ap.association.LoadDiaCatalogsConfig`: ``pixelMargin`` has been replaced by ``angleMargin``, ``doLoadForcedSources``.
+* `~lsst.ap.association.FilterDiaSourceCatalogConfig`: ``doWriteTrailedSources``. Trailed sources will not be written out during production.
