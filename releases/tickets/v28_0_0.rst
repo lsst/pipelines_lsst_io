@@ -1,14 +1,21 @@
 .. _release-v28-0-0-tickets:
 
 ###################################
+Tickets Addressed in Release 28.0.1
+###################################
+
+- :jira:`DM-47538`: Fix seed placement in Gaussian Process generator. [meas\_algorithms]
+- :jira:`DM-48197`: Monochromator test failures on jenkins macos-arm64 [cp\_pipe]
+
+###################################
 Tickets Addressed in Release 28.0.0
 ###################################
 
 Tickets merged after w_2024_42 and backported
 ---------------------------------------------
 
-- :jira: `DM-46940`: Failed to build docs for ip_isr [ip\_isr]
-- :jira: `DM-47944`: Fix calibration summary bug in v28 [daf\_butler]
+- :jira:`DM-46940`: Failed to build docs for ip_isr [ip\_isr]
+- :jira:`DM-47944`: Fix calibration summary bug in v28 [daf\_butler]
 
 Tickets merged before w_2024_42
 -------------------------------
