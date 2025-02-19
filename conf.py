@@ -36,5 +36,5 @@ jira_uri_template = "https://ls.st/{ticket}"
 
 # needed for pipe_base
 intersphinx_mapping['networkx'] = ('https://networkx.org/documentation/stable/', None)
-extensions = ['sphinx.ext.graphviz']
+extensions.append('sphinx.ext.graphviz')
 
