@@ -2,7 +2,7 @@
 .. _release-v28-0-0:
 
 ###########################
-Release 28.0.1 (2025-02-04)
+Release 28.0.2 (2025-03-25)
 ###########################
 
 .. toctree::
@@ -13,14 +13,14 @@ Release 28.0.1 (2025-02-04)
 +--------------------------------------------+------------+
 | Source                                     | Identifier |
 +============================================+============+
-| Git tag                                    | 28.0.1     |
+| Git tag                                    | 28.0.2     |
 +--------------------------------------------+------------+
-| :doc:`EUPS distrib </install/lsstinstall>` | v28\_0\_1  |
+| :doc:`EUPS distrib </install/lsstinstall>` | v28\_0\_2  |
 +--------------------------------------------+------------+
 | rubin-env version                          | 9.0.0      |
 +--------------------------------------------+------------+
 
-This release is based on the ``w_2024_42`` weekly build with 4 tickets backported.
+This release is based on the ``w_2024_42`` weekly build with 5 tickets backported.
 
 The notes below highlight significant technical changes to the Science Pipelines codebase in this release.
 For a complete list of changes made, see :doc:`tickets/v28_0_0`.
