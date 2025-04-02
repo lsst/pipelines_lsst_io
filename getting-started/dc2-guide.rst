@@ -125,8 +125,8 @@ To create an empty sqlite APDB:
 
 .. prompt:: bash
 
-   apdb-cli create-sql sqlite:////path/to/my/database/apdb.sqlite3 apdb_config.py
-   apdb-cli metadata set apdb_config.py instrument LSSTCam-imSim
+   apdb-cli create-sql sqlite:////path/to/my/database/apdb.sqlite3 apdb_config.yaml
+   apdb-cli metadata set apdb_config.yaml instrument LSSTCam-imSim
 
 **The APDB must exist and be empty before you run the AP Pipeline.**
 It is highly recommended to make a new APDB each time the AP Pipeline is rerun for any reason.
@@ -142,7 +142,7 @@ You will need to substitute appropriate values for your input collections, your 
 
 .. prompt:: bash
 
-   pipetask run -j 4 -b /repo/dc2 -d "skymap='DC2_cells_v1' AND band='r'" -i u/USERNAME/OUTPUT-COLLECTION-1,u/mrawls/DM-34827/defaults/4patch_4431 -o u/USERNAME/OUTPUT-COLLECTION-2 -p $AP_PIPE_DIR/pipelines/LSSTCam-imSim/ApPipe.yaml -c parameters:apdb_config=apdb_config.py
+   pipetask run -j 4 -b /repo/dc2 -d "skymap='DC2_cells_v1' AND band='r'" -i u/USERNAME/OUTPUT-COLLECTION-1,u/mrawls/DM-34827/defaults/4patch_4431 -o u/USERNAME/OUTPUT-COLLECTION-2 -p $AP_PIPE_DIR/pipelines/LSSTCam-imSim/ApPipe.yaml -c parameters:apdb_config=apdb_config.yaml
 
 What are the output data products?
 ==================================
@@ -227,15 +227,15 @@ As before, to create an empty sqlite APDB you will still need to run, e.g.,
 
 .. prompt:: bash
 
-   apdb-cli create-sql sqlite:////path/to/my/database/apdb.sqlite3 apdb_config.py
-   apdb-cli metadata set apdb_config.py instrument LSSTCam-imSim
+   apdb-cli create-sql sqlite:////path/to/my/database/apdb.sqlite3 apdb_config.yaml
+   apdb-cli metadata set apdb_config.yaml instrument LSSTCam-imSim
 
 When working with a central PostgreSQL database (APDB), ``apdb-cli create-sql`` turns the specified schema (via the ``namespace`` config option) in an existing PostgreSQL database (``usdf-prompt-processing-dev`` in this example) into an empty APDB. To create a PostgreSQL APDB for a BPS configuration file that runs ``ApPipe.yaml``, these arguments are instead required to be passed into ``apdb-cli``:
 
 .. prompt:: bash
 
-   apdb-cli create-sql --namespace DESIRED_POSTGRES_SCHEMA_NAME postgresql://rubin@usdf-prompt-processing-dev.slac.stanford.edu/lsst-devl apdb_config.py
-   apdb-cli metadata set apdb_config.py instrument LSSTCam-imSim
+   apdb-cli create-sql --namespace DESIRED_POSTGRES_SCHEMA_NAME postgresql://rubin@usdf-prompt-processing-dev.slac.stanford.edu/lsst-devl apdb_config.yaml
+   apdb-cli metadata set apdb_config.yaml instrument LSSTCam-imSim
 
 Next, use the documentation for :py:mod:`lsst.ctrl.bps` to `define a submission <https://pipelines.lsst.io/v/weekly/modules/lsst.ctrl.bps/quickstart.html#defining-a-submission>`__ by creating a BPS configuration file to perform difference-imaging.
 Save the BPS configuration file as ``ApPipe-DC2-bps.yaml``.
