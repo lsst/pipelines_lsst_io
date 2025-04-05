@@ -1,6 +1,12 @@
 .. _release-v28-0-0-tickets:
 
 ###################################
+Tickets Addressed in Release 28.0.2
+###################################
+
+- :jira:`DM-47920`: “NDOF not found” error reading some ComCam calibrateImage output images [afw]
+
+###################################
 Tickets Addressed in Release 28.0.1
 ###################################
 
