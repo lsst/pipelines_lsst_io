@@ -541,6 +541,66 @@ In most cases, a complex ``--data-query`` argument is preferable to even one inp
 Finally, while we haven't seen this problem in the wild (perhaps because ``--dataset-query-constraint`` is underused), if the combination of the ``--data-query`` and ``--dataset-query-constraint`` arguments leave the query underconstrained, it might run quickly but return many more result rows than we need.
 For example, if one passes ``--dataset-query-constraint off`` and the ``--data-query`` matches 1000 visits while only 10 of those have inputs, the initial query will return a factor of 100 more result rows than it might need - and while the initial query may still be fast enough to avoid being the bottleneck, this will result in a preliminary graph that is too big and needs to be pruned considerably by the follow-up queries for input datasets, making later steps of the process 100x slower.
 
+.. _middleware_faq_recovery_qgs
+
+How do I recover from a small number of failed quanta in a big graph?
+=====================================================================
+
+When one quantum in a quantum graph fails (e.g. by raising an exception), executors typically block all downstream quanta, even those that might be able to proceed with the outputs of the failed quantum.
+It's also possible for a quantum to nominally succeed while doing the wrong thing, which would allow downstream quanta to run but might also cause them to do the wrong thing.
+
+These situations are usually best addressed by building a new quantum graph that includes only the quanta that were affected by the problem.
+In some cases it may be possible to run this with the same output `~lsst.daf.butler.CollectionType.RUN` collection, but it is always possible and less error-prone to just create a new output `~lsst.daf.butler.CollectionType.RUN` in the same `~lsst.daf.butler.CollectionType.CHAINED` collection (which is what ``pipetask`` and ``bps`` do by default when an output collection is reused).
+The primary tools here are the ``--skip-existing-in`` and ``--select-tasks`` options to ``pipetask qgraph`` (or equivalently, the BPS ``extraQgraphOptions`` setting).
+The former is given a collection that is queried for existing outputs, and any quanta that already have a metadata dataset present in that collection are considered done and dropped from the new graph.
+The latter takes a :ref:`pipeline graph subset expression <pipeline-graph-subset-expressions>` that can be used to easily identify the tasks that were affected by a failure.
+
+There are a few different scenarios to consider.
+
+Accepting failures
+------------------
+
+If a task with label ``unfixable`` fails in one or more quanta, and you just want to move on without its outputs, modify the original quantum-graph build command with:
+
+.. code:: sh
+
+    --skip-existing-in <output> --select-tasks '> unfixable'
+
+This will only attempt to run tasks that are strictly downstream of ``unfixable``, and it will skip any quanta that already ran (i.e. because they didn't have upstream failures).
+
+Fixing failures
+---------------
+
+If a task with label ``fixable`` fails in one or more quanta, but you have fixed the problem and now expect it to succeed at least some of the time, use:
+
+.. code:: sh
+
+    --skip-existing-in <output> --select-tasks '>= fixable'
+
+This will run both the problematic task and everything downstream of it, again skipping any quanta that already ran successfully.
+In this case ``-skip-existing-in <output>`` is actually all you need for correctness, but using ``--select-tasks`` should speed up the quantum graph build.
+
+Fixing non-failures
+-------------------
+
+- If a task with label ``regrettable`` doesn't actually fail, but it's produced bad outputs (or an improvement is available that you want to try), use
+
+.. code:: sh
+
+    --select-tasks '>= regrettable'
+
+to re-run that task and all downstream tasks regardless of whether they succeeded before.
+This is also the right approach to take with quanta that incorrectly raised `NoWorkFound` or otherwise wrote no outputs without formally failing and blocking downstream quanta; these are considered "successes with caveats", not failures.
+
+Data ID constraints
+-------------------
+
+When the data IDs of the problems are known in any of these cases, it may be possible to further limit the set of quanta re-run using the ``--data-query`` and/or ``--data-id-table`` options.
+These data ID constraints act on *all* downstream quanta and datasets (often via spatial joins), not just the failures, and can even trim out inputs that were successfully produced on a previous run.
+For example, consider the case where one detector in a visit failed while others succeeded, and a downstream task gathers multiple detectors from that visit as an input.
+If the re-run attempt is constrained to only the failed detector, only that detector will be passed to the downstream gather task.
+This can mostly be avoided by constraining only full visits or tracts, but it's important to be aware of the downstream task dimensions, as in rare cases even those coarse constraints can generate incorrect graphs.
+
 .. _middleware_faq_long_query:
 
 What do I do if a query method/command is slow?
