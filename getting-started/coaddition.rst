@@ -54,7 +54,7 @@ Warping images onto the skymap
 ===============================
 
 Before assembling the coadded image, you need to *warp* the exposures created by the ``singleFrame`` pipeline onto the pixel grids of patches described in the skymap.
-You can use the ``makeWarp`` pipeline for this.
+You can use the ``makeDirectWarp`` pipeline for this.
 
 The data to process can be specified with a dataset query passed to the ``-d`` argument, short for ``--data-query``.
 The example command below only creates coadds for a subset of the data.
@@ -88,7 +88,7 @@ The data queries will typically use the integer id for the patches, but you can 
 In this case, the patch with id 41 is located at the position (5, 4) in tract 9813.
 
 To warp the images, you will use the ``pipetask run`` command again.
-This time you will specify the ``makeWarp`` subset and an appropriate output collection.
+This time you will specify the ``makeDirectWarp`` subset and an appropriate output collection.
 This example uses ``coadds`` as the output collection.
 
 .. code-block:: bash
@@ -97,7 +97,7 @@ This example uses ``coadds`` as the output collection.
    -b $RC2_SUBSET_DIR/SMALL_HSC/butler.yaml \
    -i u/$USER/source_calibration,u/$USER/gbdes,u/$USER/fgcm \
    -o u/$USER/warps \
-   -p $DRP_PIPE_DIR/pipelines/HSC/DRP-RC2_subset.yaml#makeWarp \
+   -p $DRP_PIPE_DIR/pipelines/HSC/DRP-RC2_subset.yaml#makeDirectWarp \
    -d "skymap = 'hsc_rings_v1' AND tract = 9813 AND patch in (38, 39, 40, 41)"
 
 Note that warping requires the outputs of both ``gbdes`` and ``FGCM``, so both of those collections need to be specified as inputs.
@@ -144,7 +144,7 @@ Here are some key takeaways:
 
 - Skymaps define the WCS of coadditions.
 - Skymaps are composed of tracts, each of which is composed of smaller patches.
-- The ``makeWarp`` pipeline warps exposures into the WCSs of the skymap.
+- The ``makeDirectWarp`` pipeline warps exposures into the WCSs of the skymap.
 - The ``assembleCoadd`` pipeline coadds warped exposures into deep mosaics.
 
 Continue this tutorial in :doc:`part 6, where you'll measure sources <photometry>` in the coadds.
