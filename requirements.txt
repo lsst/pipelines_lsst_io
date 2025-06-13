@@ -1,1 +1,2 @@
 documenteer[pipelines]==0.8.2
+sphinx-automodapi<0.20
