@@ -1,0 +1,180 @@
+.. _release-v29-0-0:
+
+###########################
+Release 29.0.1 (2025-05-05)
+###########################
+
+.. toctree::
+   :hidden:
+
+   tickets/v29_0_0
+
++--------------------------------------------+------------+
+| Source                                     | Identifier |
++============================================+============+
+| Git tag                                    | 29.0.1     |
++--------------------------------------------+------------+
+| :doc:`EUPS distrib </install/lsstinstall>` | v29\_0\_1  |
++--------------------------------------------+------------+
+| rubin-env version                          | 10.0.0     |
++--------------------------------------------+------------+
+
+This release is based on the ``w_2025_12`` weekly build with 57 tickets backported.
+
+The notes below highlight significant technical changes to the Science Pipelines codebase in this release.
+For a complete list of changes made, see :doc:`tickets/v29_0_0`.
+
+The `Characterization Metric Report (DMTR-461) <https://dmtr-461.lsst.io>`_ describes the scientific performance of this release in terms of scientific performance metrics.
+
+If you have questions or comments about this release, visit our `Community forum <https://community.lsst.org>`_ for advice.
+
+- :ref:`release-v29-0-0-functionality`
+- :ref:`release-v29-0-0-interface`
+- :ref:`release-v29-0-0-deprecations`
+
+*See also:*
+
+- :doc:`Installation instructions </install/index>`
+- :doc:`Known issues </known-issues>`
+- `Doxygen Documentation`__
+
+__ http://doxygen.lsst.codes/stack/doxygen/xlink_v29.0.1_2025_04_17_04.49.14/
+
+.. _release-v29-0-0-functionality:
+
+Major new features
+==================
+
+- :ref:`release-v29-0-0-middleware`
+- :ref:`release-v29-0-0-new-packages`
+
+.. _release-v29-0-0-middleware:
+
+Notable middleware improvements
+-------------------------------
+
+.. _release-v29-0-0-interface:
+
+Significant interface changes
+=============================
+
+.. _release-v29-0-0-new-packages:
+
+New packages added
+------------------
+
+* `daf_butler_admin <https://github.com/lsst-dm/daf_butler_admin>`_:  implements a Butler plugin defining sub-commands that support various administration tasks for Butler databases.
+* `dax_images_cutout <https://github.com/lsst/dax_images_cutout>`_ and `testdata_image_cutouts <https://github.com/lsst/estdata_image_cutouts>`_: provide tasks that extract subsets of LSST image datasets for an IVOA image cutout service.
+* `sdm_tools <https://github.com/lsst/sdm_tools>`_: command line utilities for working with YAML schema files.
+
+
+.. _release-v29-0-0-packages-removed:
+
+Packages removed
+----------------
+
+* `analysis_drp <https://github.com/lsst/analysis_drp>`_: functionality has been ported to `analysis_tools <https://github.com/lsst/analysis_tools>`_.
+
+.. _release-v29-0-0-deprecations:
+
+Deprecations
+============
+
+- :ref:`release-v29-0-0-deprecated-afw-photocalib`
+- :ref:`release-v29-0-0-deprecated-afw-multiband`
+- :ref:`release-v29-0-0-deprecated-htcondor`
+- :ref:`release-v29-0-0-deprecated-drp-tasks`
+- :ref:`release-v29-0-0-deprecated-ip-isr`
+- :ref:`release-v29-0-0-deprecated-analysis-tools`
+- :ref:`release-v29-0-0-deprecated-ip-diffim`
+- :ref:`release-v29-0-0-deprecated-meas-base`
+- :ref:`release-v29-0-0-deprecated-meas-pipe-tasks`
+- :ref:`release-v29-0-0-deprecated-configurations`
+
+These tasks or methods are now deprecated and will be removed in the next major release.
+See :jira:`RFC-945` for a clarification on the accelerated deprecation policy.
+
+.. _release-v29-0-0-deprecated-afw-photocalib:
+
+Deprecations in afw.image.PhotoCalib
+------------------------------------
+
+In the functions ``calibrateImage`` and ``uncalibrateImage`` the option ``includeScaleUncertainty`` does nothing and will be removed.
+
+.. _release-v29-0-0-deprecated-afw-multiband:
+
+Deprecations in afw.multiband
+-----------------------------
+
+The property ``filters()`` in ``Multiband`` objects is replaced by  ``bands()``.
+
+.. _release-v29-0-0-deprecated-htcondor:
+
+Deprecations in ctrl.bps.htcondor
+---------------------------------
+
+``JobStatus`` is internally replaced by ``htcondor.JobStatus``. External reporting code should be using `~lsst.ctrl.bps.WmsStates`.
+
+.. _release-v29-0-0-deprecated-drp-tasks:
+
+Deprecations in drp.tasks.assemble_coadd
+----------------------------------------
+
+In ``AssembleCoaddTask`` the methods ``removeMaskPlanes`` and ``setRejectedMaskMapping`` are converted to utility functions with the same names in `~lsst.pipe.tasks.coaddBase`.
+
+.. _release-v29-0-0-deprecated-ip-isr:
+
+Deprecations in ip.isr
+----------------------
+
+In `~lsst.ip.isr.PhotonTransferCurveDataset` the attributes ``covariancesModelNoB``, ``aMatrixNoB`` and ``noiseMatrixNoB`` will be removed.
+
+.. _release-v29-0-0-deprecated-analysis-tools:
+
+Deprecations in analysis.tools
+------------------------------
+
+`~ lsst.analysis.tools.tasks.DiffimDetectorVisitMetricsAnalysisTask` is deprecated in favor of `~lsst.analysis.tools.tasks.TaskMetadataAnalysisTask`.
+``DiffimMetadataMetricTool`` is superseded by ``TaskMetadataMetricTool``.
+
+.. _release-v29-0-0-deprecated-ip-diffim:
+
+Deprecation in ip.diff_im
+--------------------------
+
+In `~lsst.ip.diffim.GetTemplateConfig` and `~lsst.ip.diffim.GetDcrTemplateTask`: ``getOverlappingExposures`` is replaced by ``getExposures``, which uses explicit arguments instead of a kwargs dict.
+
+.. _release-v29-0-0-deprecated-meas-base:
+
+Deprecations in meas.base.plugin
+--------------------------------
+
+`~lsst.meas.base.SingleFrameMomentsClassifierConfig` is replaced by `~lsst.meas.base.SingleFrameClassificationSizeExtendednessConfig`.
+`~lsst.meas.base.SingleFrameMomentsClassifierPlugin` is replaced by `~lsst.meas.base.SingleFrameClassificationSizeExtendednessPlugin`.
+
+.. _release-v29-0-0-deprecated-meas-pipe-tasks:
+
+Deprecations in meas.pipe.tasks
+-------------------------------
+
+* ``warpAndPsfMatch.WarpAndPsfMatchTask`` and ``warpAndPsfMatch.WarpAndPsfMatchConfig`` are no longer in use.
+* `~lsst.pipe.tasks.deblendCoaddSourcesPipeline.DeblendCoaddSourcesSingleTask` and `~lsst.pipe.tasks.deblendCoaddSourcesPipeline` supporting the old single-band deblender on coadds will be removed.
+* ``make_psf_matched_warp.growValidPolygons`` : please use ``growValidPolygons`` from ``lsst.pipe.tasks.coaddBase`` instead.
+* In ``makeWarp``: ``MakeWarpConfig`` and ``MakeWarpTask`` are no longer used.
+
+
+.. _release-v29-0-0-deprecated-configurations:
+
+Deprecated task configurations
+------------------------------
+
+These configurations are deprecated:
+
+* `lsst.ip.isr.OverscanAmpConfig` : `~lsst.ip.isr.OverscanAmpConfig.doParallelOverscanCrosstalk`.
+* `lsst.ip.diffim.PsfMatchConfigAL` : `~lsst.ip.diffim.PsfMatchConfigAL.alardDegGaussDeconv` and `~lsst.ip.diffim.PsfMatchConfigAL.alardNGaussDeconv`.
+* `lsst.meas.base.ForcedPhotCcdConfig` : `~lsst.meas.base.ForcedPhotCcdConfig.includePhotoCalibVar`.
+* `lsst.pipe.tasks.deblendCoaddSourcesPipeline` : ``fluxCatalogs`` and ``templateCatalogs``.
+* `lsst.drp.tasks.make_direct_warp.MakeDirectWarpTask` : `~lsst.drp.tasks.make_direct_warp.MakeDirectWarpTask.includeCalibVar` and `~lsst.drp.tasks.make_direct_warp.MakeDirectWarpTask.matchingKernelSize`.
+* `lsst.pipe.tasks.multiBand.MeasureMergedCoaddSourcesConnections` : ``refCat``,  ``skyMap``, ``inputCatalog``, ``denormMatches`` and ``matchResult``.
+* `lsst.pipe.tasks.multiBand.MeasureMergedCoaddSourcesConfig` : ``inputCatalog``, ``propagateFlags``, ``doMatchSources`` and ``doWriteMatchesDenormalized``.
+* `lsst.pipe.tasks.postprocess.TransformObjectCatalogConfig` : `lsst.pipe.tasks.postprocess.TransformObjectCatalogConfig.multilevelOutput`.
