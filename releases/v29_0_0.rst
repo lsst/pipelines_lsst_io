@@ -1,0 +1,106 @@
+.. _release-v29-0-0:
+
+###########################
+Release 29.0.1 (2025-05-05)
+###########################
+
+.. toctree::
+   :hidden:
+
+   tickets/v29_0_0
+
++--------------------------------------------+------------+
+| Source                                     | Identifier |
++============================================+============+
+| Git tag                                    | 29.0.1     |
++--------------------------------------------+------------+
+| :doc:`EUPS distrib </install/lsstinstall>` | v29\_0\_1  |
++--------------------------------------------+------------+
+| rubin-env version                          | 10.0.0     |
++--------------------------------------------+------------+
+
+This release is based on the ``w_2025_12`` weekly build with 57 tickets backported.
+
+The notes below highlight significant technical changes to the Science Pipelines codebase in this release.
+For a complete list of changes made, see :doc:`tickets/v29_0_0`.
+
+The `Characterization Metric Report (DMTR-461) <https://dmtr-461.lsst.io>`_ describes the scientific performance of this release in terms of scientific performance metrics.
+
+If you have questions or comments about this release, visit our `Community forum <https://community.lsst.org>`_ for advice.
+
+- :ref:`release-v29-0-0-functionality`
+- :ref:`release-v29-0-0-interface`
+- :ref:`release-v29-0-0-deprecations`
+
+*See also:*
+
+- :doc:`Installation instructions </install/index>`
+- :doc:`Known issues </known-issues>`
+- `Doxygen Documentation`__
+
+__ http://doxygen.lsst.codes/stack/doxygen/xlink_v29.0.1_2025_04_17_04.49.14/
+
+.. _release-v29-0-0-functionality:
+
+Major new features
+==================
+
+- :ref:`release-v29-0-0-middleware`
+- :ref:`release-v29-0-0-new-packages`
+
+Notable middleware improvements
+-------------------------------
+
+
+.. _release-v29-0-0-new-packages:
+
+New packages added
+------------------
+
+* `daf_butler_admin <https://github.com/lsst-dm/daf_butler_admin>`_:  implements a Butler plugin defining sub-commands that support various administration tasks for Butler databases.
+* `dax_images_cutout <https://github.com/lsst/dax_images_cutout>`_ and `estdata_image_cutouts <https://github.com/lsst/estdata_image_cutouts>`_`: provides tasks that extract subsets of LSST image datasets for an IVOA image cutout service
+* `sdm_tools <https://github.com/lsst/sdm_tools>`_: command line utilities for working with YAML schema files.
+
+
+.. _release-v29-0-0-packages-removed:
+
+Packages removed
+----------------
+
+* `analysis_drp <https://github.com/lsst/analysis_drp>`_: functionality has been ported to `analysis_tools <https://github.com/lsst/analysis_tools>`_.
+
+.. _release-v29-0-0-deprecations:
+
+Deprecations
+============
+
+- :ref:`release-v29-0-0-deprecated-afw`
+- :ref:`release-v29-0-0-deprecated-drp-tasks`
+- :ref:`release-v29-0-0-deprecated-configurations`
+
+These tasks or methods are now deprecated and will be removed in the next major release.
+See :jira:`RFC-945` for a clarification on the accelerated deprecation policy.
+
+.. _release-v29-0-0-deprecated-afw:
+
+Deprecations in afw.image.PhotoCalib
+------------------------------------
+
+The includeScaleUncertainty option dioes nothing and is deprecated.
+
+.. _release-v29-0-0-deprecated-drp-tasks:
+
+Deprecations in drp.tasks
+-------------------------
+
+
+
+
+.. _release-v29-0-0-deprecated-configurations:
+
+Deprecated task configurations
+------------------------------
+
+These configurations are deprecated:
+
+
