@@ -1,2 +1,45 @@
 .. _release-latest:
 
+.. _release-v29-1-0:
+
+###########################
+Release 29.1.0 (2025-06-17)
+###########################
+
+.. toctree::
+   :hidden:
+
+   tickets/v29_1_0
+
++--------------------------------------------+------------+
+| Source                                     | Identifier |
++============================================+============+
+| Git tag                                    | 29.1.0     |
++--------------------------------------------+------------+
+| :doc:`EUPS distrib </install/lsstinstall>` | v29\_1\_0  |
++--------------------------------------------+------------+
+| rubin-env version                          | 10.0.0     |
++--------------------------------------------+------------+
+
+This is a minor feature release based on the :ref:`release-v29-0-0`, with 87 additional, mainly middleware, tickets back ported.
+
+For a complete list of changes made, see :doc:`tickets/v29_1_0`.
+
+The `Characterization Metric Report (DMTR-461) <https://dmtr-461.lsst.io/>`_ describes the scientific performance of this release in terms of scientific performance metrics.
+
+If you have questions or comments about the LSST Science Pipelines, visit our community forum for advice: https://community.lsst.org/.
+
+- :ref:`release-v29-1-0-functionality`
+
+*See also:*
+
+- :doc:`Installation instructions </install/index>`
+- :doc:`Known issues </known-issues>`
+- `Doxygen Documentation`__
+
+__ http://doxygen.lsst.codes/stack/doxygen/xlink_v29.0.1_2025_04_17_04.49.14/
+
+.. _release-v29-1-0-functionality:
+
+Updates
+=======
