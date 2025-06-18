@@ -30,7 +30,6 @@ Tickets Addressed in Release 29.1.0
 - :jira:`DM-49537`: Implement ability to load a single blend from scarletModelData [daf\_butler]
 - :jira:`DM-49622`: Add pydantic serialization for DimensionRecordSet [obs\_base]
 - :jira:`DM-49669`: Update preliminary DP1 at IDF with v2 pipelines outputs [dax\_obscore]
-- :jira:`DM-49674`: Make v29 middleware release notes [ctrl\_bps, ctrl\_bps\_htcondor, ctrl\_bps\_panda, ctrl\_mpexec, dax\_obscore, obs\_base, pipe\_base, resources, utils]
 - :jira:`DM-49728`: Create standard matplotlib style for Rubin publications [utils]
 - :jira:`DM-49744`: Return exit code for signal (-9) with BPS [ctrl\_bps]
 - :jira:`DM-49747`: Handle label problems in user config of bps job ordering [ctrl\_bps]
