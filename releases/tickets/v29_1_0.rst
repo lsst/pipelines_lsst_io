@@ -1,6 +1,17 @@
 .. _release-v29-1-0-tickets:
 
 ###################################
+Tickets Addressed in Release 29.1.1
+###################################
+
+- :jira:`DM-49501`: Create a tool to run forced photometry [pipe\_tasks]
+- :jira:`DM-49994`: Make it possible to run makeDirectWarp on the final visit\_image data product [drp\_tasks]
+- :jira:`DM-50892`: Updates to standard plots for publications [utils]
+- :jira:`DM-51445`: Fix overzealous check for SkyWcs.isFits in copyWithFitsApproximation [afw]
+- :jira:`DM-51451`: Get the new colorblind-friendly \`ugrizy\` color definitions merged into \`lsst.utils\` [utils]
+- :jira:`DM-51452`: Guard against empty WCS pointers in FITS approximation logic [afw]
+
+###################################
 Tickets Addressed in Release 29.1.0
 ###################################
 
@@ -47,7 +58,6 @@ Tickets Addressed in Release 29.1.0
 - :jira:`DM-49922`: objectTable and diffim clustering is broken in w\_2025\_14 [ctrl\_bps]
 - :jira:`DM-49949`: Plumb data ID upload and task expression language through to ctrl\_mpexec [ctrl\_mpexec, pipe\_base]
 - :jira:`DM-49951`: Create examples for standard plotting styles [utils]
-- :jira:`DM-49994`: Make it possible to run makeDirectWarp on the final visit\_image data product [drp\_tasks]
 - :jira:`DM-50041`: Make QG full reads fetch all bytes up front (or do some kind of buffering) [pipe\_base]
 - :jira:`DM-50074`: Allow bigger connection pool for ResourcePath mtransfer and mexists [resources]
 - :jira:`DM-50107`: Fix pipeline step resolution when selecting single tasks [pipe\_base]
@@ -83,6 +93,7 @@ Tickets Addressed in Release 29.1.0
 - :jira:`DM-50958`: Try to improve database performance removing large collections [daf\_butler\_migrate]
 - :jira:`DM-50969`: Push spatial predicate terms and data ID tables into spatial-overlap subquery when possible [pipe\_base]
 - :jira:`DM-50973`: use a map file to reduce the size of the bps PanDA submission size [ctrl\_bps\_panda]
+- :jira:`DM-50980`: Add task to do tract-level background subtraction [drp\_tasks]
 - :jira:`DM-51073`: Make middleware v29.1 release [daf\_butler, pipe\_base, resources]
 - :jira:`DM-51075`: Implement Butler.transfer\_from() for RemoteButler -> DirectButler [daf\_butler]
 - :jira:`DM-51087`: Bug in ResourcePath with astropy.io.fits writing [resources]
