@@ -45,13 +45,7 @@ __ http://doxygen.lsst.codes/stack/doxygen/xlink_v29.0.1_2025_04_17_04.49.14/
 Major new features
 ==================
 
-- :ref:`release-v29-0-0-middleware`
 - :ref:`release-v29-0-0-new-packages`
-
-.. _release-v29-0-0-middleware:
-
-Notable middleware improvements
--------------------------------
 
 .. _release-v29-0-0-interface:
 
@@ -66,7 +60,6 @@ New packages added
 * `daf_butler_admin <https://github.com/lsst-dm/daf_butler_admin>`_:  implements a Butler plugin defining sub-commands that support various administration tasks for Butler databases.
 * `dax_images_cutout <https://github.com/lsst/dax_images_cutout>`_ and `testdata_image_cutouts <https://github.com/lsst/estdata_image_cutouts>`_: provide tasks that extract subsets of LSST image datasets for an IVOA image cutout service.
 * `sdm_tools <https://github.com/lsst/sdm_tools>`_: command line utilities for working with YAML schema files.
-
 
 .. _release-v29-0-0-packages-removed:
 
