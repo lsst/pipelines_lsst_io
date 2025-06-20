@@ -19,7 +19,7 @@ Release 29.0.1 (2025-05-05)
 | rubin-env version                          | 10.0.0     |
 +--------------------------------------------+------------+
 
-This release is based on the ``w_2025_12`` weekly build with 57 tickets backported.
+This release is based on the ``w_2025_09`` weekly build with 57 tickets backported.
 
 The notes below highlight significant technical changes to the Science Pipelines codebase in this release.
 For a complete list of changes made, see :doc:`tickets/v29_0_0`.
