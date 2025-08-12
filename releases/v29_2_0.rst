@@ -1,0 +1,38 @@
+.. _release-latest:
+
+.. _release-v29-2-0:
+
+###########################
+Release 29.2.0 (2025-08-15)
+###########################
+
+.. toctree::
+   :hidden:
+
+   tickets/v29_2_0
+
++--------------------------------------------+------------+
+| Source                                     | Identifier |
++============================================+============+
+| Git tag                                    | 29.2.0     |
++--------------------------------------------+------------+
+| :doc:`EUPS distrib </install/lsstinstall>` | v29\_2\_0  |
++--------------------------------------------+------------+
+| rubin-env version                          | 10.1.0     |
++--------------------------------------------+------------+
+
+This is a minor feature release based on releases :ref:`release-v29-0-0` and :ref:`release-v29-1-0` with 2 additional tickets back ported.
+This release fixes python memory leaks (see :jira:`DM-38772`) by using holder classes introduced in pybind11 version 3 and therefore is not ABI compatible with older releases.
+For a complete list of changes made, see :doc:`tickets/v29_2_0`.
+
+The `Characterization Metric Report (DMTR-461) <https://dmtr-461.lsst.io/>`_ describes the scientific performance of this release in terms of scientific performance metrics.
+
+If you have questions or comments about the LSST Science Pipelines, visit our community forum for advice: https://community.lsst.org/.
+
+*See also:*
+
+- :doc:`Installation instructions </install/index>`
+- :doc:`Known issues </known-issues>`
+- `Doxygen Documentation`__
+
+__ http://doxygen.lsst.codes/stack/doxygen/xlink_v29.2.0.rc1_2025_08_10_17.52.28/
