@@ -15,20 +15,20 @@ html_short_title = project
 # Patch EUPS tag substitutions
 rst_epilog = """
 
-.. |eups-tag| replace:: v29_1_1
-.. |eups-tag-mono| replace:: ``v29_1_1``
-.. |eups-tag-bold| replace:: **v29_1_1**
+.. |eups-tag| replace:: v29_2_0
+.. |eups-tag-mono| replace:: ``v29_2_0``
+.. |eups-tag-bold| replace:: **v29_2_0**
 """
 
 # Patch EUPS and Git tag context for Jinja templating
 jinja_contexts = {
     "default": {
-        "release_eups_tag": "v29_1_1",
-        "release_git_ref": "29.1.1",
-        "version": "v29_1_1",
-        "release": "v29_1_1",
-        "scipipe_conda_ref": "29.1.1",
-        "pipelines_demo_ref": "29.1.1",
+        "release_eups_tag": "v29_2_0",
+        "release_git_ref": "29.2.0",
+        "version": "v29_2_0",
+        "release": "v29_2_0",
+        "scipipe_conda_ref": "29.2.0",
+        "pipelines_demo_ref": "29.2.0",
     }
 }
 
