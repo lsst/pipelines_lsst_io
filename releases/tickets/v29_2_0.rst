@@ -1,0 +1,8 @@
+.. _release-v29-2-0-tickets:
+
+###################################
+Tickets Addressed in Release 29.2.0
+###################################
+
+- :jira:`DM-38772`: PSF models in ``Exposure`` and ``ExposureCatalog`` objects leak memory. [afw, astshim, cpputils, daf_base, gbdes, geom, ip_diffim, ip_isr, jointcal, meas\_algorithms, meas\_astrom, meas\_base, meas\_deblender, meas_extensions\_photometryKron, meas\_extensions_psfex, meas\_extensions_simpleShape, meas\_extensions_trailedSources, meas\_modelfit, shapelet, sphgeom]
+- :jira:`DM-51918`: Fix verify assertion error for task timing [verify]
