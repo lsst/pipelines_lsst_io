@@ -3,7 +3,7 @@
 .. _release-v29-2-0:
 
 ###########################
-Release 29.2.0 (2025-08-15)
+Release 29.2.0 (2025-09-18)
 ###########################
 
 .. toctree::
@@ -14,14 +14,14 @@ Release 29.2.0 (2025-08-15)
 +--------------------------------------------+------------+
 | Source                                     | Identifier |
 +============================================+============+
-| Git tag                                    | 29.2.0     |
+| Git tag                                    | 29.2.1     |
 +--------------------------------------------+------------+
-| :doc:`EUPS distrib </install/lsstinstall>` | v29\_2\_0  |
+| :doc:`EUPS distrib </install/lsstinstall>` | v29\_2\_1  |
 +--------------------------------------------+------------+
 | rubin-env version                          | 10.1.0     |
 +--------------------------------------------+------------+
 
-This is a minor feature release based on releases :ref:`release-v29-0-0` and :ref:`release-v29-1-0` with 2 additional tickets back ported.
+This is a minor feature release based on releases :ref:`release-v29-0-0` and :ref:`release-v29-1-0` with 5 additional tickets back ported.
 This release fixes python memory leaks (see :jira:`DM-38772`) by using holder classes introduced in pybind11 version 3 and therefore is not ABI compatible with older releases.
 For a complete list of changes made, see :doc:`tickets/v29_2_0`.
 
