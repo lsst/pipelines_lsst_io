@@ -1,6 +1,14 @@
 .. _release-v29-2-0-tickets:
 
 ###################################
+Tickets Addressed in Release 29.2.1
+###################################
+
+- :jira:`DM-51690`: Swap default plot color for i-band in utils scheme [utils]
+- :jira:`DM-52171`: Upgrade gauss2d(_fit) to use pybind11 v3 classh  [gauss2d, gauss2d\_fit]
+- :jira:`DM-52216`: Fix bug in generating scarlet lite models in DP1 [scarlet_lite]
+
+###################################
 Tickets Addressed in Release 29.2.0
 ###################################
 
