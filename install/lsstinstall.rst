@@ -93,7 +93,6 @@ For other conda environments installed by LSST tools, this name will be the ``ru
    .. code-block:: bash
 
       eups distrib install -t {{ release_eups_tag }} lsst_distrib
-      curl -sSL https://raw.githubusercontent.com/lsst/shebangtron/main/shebangtron | python
       setup lsst_distrib
 
 You should use the same release tag here as you used for :command:`lsstinstall` above.
@@ -115,7 +114,6 @@ See :doc:`setup` for more information.
      You can install other tagged versions of the LSST Science Pipelines, though.
      See :ref:`lsstinstall-other-tags`.
 
-   - If you're curious about the shebangtron, see its repository at `github.com/lsst/shebangtron <https://github.com/lsst/shebangtron>`_.
 
 .. _lsstinstall-test:
 
