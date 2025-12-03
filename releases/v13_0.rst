@@ -91,7 +91,7 @@ A more detailed description of this system is available on the `LSST Community F
 Multi-band coadd processing now saves metadata
 ----------------------------------------------
 
-Metadata describing the operation of algorithms within the `multi-band coadd processing framework <http://doxygen.lsst.codes/stack/doxygen/x_mainDoxyDoc/pipe_tasks_multi_band.html>`_ is now correctly persisted along with their outputs.
+Metadata describing the operation of algorithms within the `multi-band coadd processing framework <http://doxygen.lsst.codes/stack/doxygen/xlink_master_2017_02_27_03.44.55/pipe_tasks_multi_band.html>`_ is now correctly persisted along with their outputs.
 
 :jirab:`DM-4991`
 
