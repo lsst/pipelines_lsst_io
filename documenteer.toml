@@ -1,0 +1,13 @@
+[project]
+title = "LSST Science Pipelines"
+copyright = "2015-2025 Association of Universities for Research in Astronomy, Inc. (AURA)"
+base_url = "https://pipelines.lsst.io"
+github_url = "https://github.com/lsst/pipelines_lsst_io"
+
+
+[build]
+clean = true
+type = "stack"
+
+[stack]
+include_subdirs = true

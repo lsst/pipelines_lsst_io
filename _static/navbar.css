@@ -1,0 +1,4 @@
+.navbar-nav a[href*="modules/"],
+.navbar-nav a[href*="packages/"] {
+    display: none;
+}

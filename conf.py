@@ -5,12 +5,19 @@ These configurations are centrally defined in Documenteer
 https://documenteer.lsst.io/pipelines/configuration.html
 """
 
-from documenteer.conf.pipelines import *
+from documenteer.conf.guide import *  # noqa: F403, import *
+import documenteer
+import lsst.sphinxutils
+import os
 
-project = "LSST Science Pipelines"
-html_theme_options["logotext"] = project
-html_title = project
-html_short_title = project
+_storage_path = os.path.dirname(documenteer.__file__)
+html_theme_options['logo'] = {
+    'image_light': os.path.join(_storage_path, 'assets', 'rubin-titlebar-imagotype-light.svg'),
+    'image_dark': os.path.join(_storage_path, 'assets', 'rubin-titlebar-imagotype-dark.svg'),
+}
+
+html_static_path.append('_static')
+html_css_files.append('navbar.css')
 
 # Patch EUPS tag substitutions
 rst_epilog = """
@@ -33,6 +40,17 @@ jinja_contexts = {
 }
 
 jira_uri_template = "https://ls.st/{ticket}"
+
+extensions = [
+    "sphinx.ext.autodoc",
+    "sphinx.ext.autosummary",
+    "sphinx_automodapi.automodapi",
+    "sphinx_automodapi.smart_resolver",
+    "documenteer.ext.jira",
+    "lsst.sphinxutils.ext.packagetoctree"
+]
+autosummary_generate = True
+suppress_warnings = ['docutils']
 
 # needed for pipe_base
 intersphinx_mapping['networkx'] = ('https://networkx.org/documentation/stable/', None)
