@@ -1,0 +1,6 @@
+.navbar-nav .nav-link[href*="lsst"],
+.navbar-nav .nav-link[href*="verify"],
+.navbar-nav .dropdown-item[href*="lsst"],
+.navbar-nav .dropdown-item[href*="verify"] {
+    display: none !important;
+}
