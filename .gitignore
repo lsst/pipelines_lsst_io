@@ -2,7 +2,11 @@
 _build
 modules
 packages
-py-api
+_automodapi/
+_doxygen/
+api
 _static/display_firefly
 _static/pipe_base
 _static/verify
+_static/analysis_tools
+_static/skymap
