@@ -1,6 +1,12 @@
 .. _release-v24-1-0-tickets:
 
 ###################################
+Tickets Addressed in Release 24.1.7
+###################################
+
+- :jira:`DM-45545`: Switch from nose to pytest [spectractor]
+
+###################################
 Tickets Addressed in Release 24.1.6
 ###################################
 
