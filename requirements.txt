@@ -1,5 +1,5 @@
 documenteer[pipelines]==0.8.2
 sphinx-automodapi<0.20
 sphinx-prompt<1.10
-pydanitc<2
+pydantic<2
 setuptools<82
