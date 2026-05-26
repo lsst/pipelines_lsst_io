@@ -1,0 +1,190 @@
+.. _release-latest:
+
+.. _release-v30-0-0:
+
+###########################
+Release 30.0.7 (2026-05-18)
+###########################
+
+.. toctree::
+   :hidden:
+
+   tickets/v30_0_0
+
++--------------------------------------------+------------+
+| Source                                     | Identifier |
++============================================+============+
+| Git tag                                    | 30.0.7     |
++--------------------------------------------+------------+
+| :doc:`EUPS distrib </install/lsstinstall>` | v30\_0\_7  |
++--------------------------------------------+------------+
+| rubin-env version                          | 12.2.0     |
++--------------------------------------------+------------+
+
+This release is based on the ``w_2025_49`` weekly build with 190 tickets backported.
+
+The notes below highlight significant technical changes to the Science Pipelines codebase in this
+release.
+For a complete list of changes made, see :doc:`tickets/v30_0_0`.
+
+No Characterization Metric Report is provided for this release.
+
+If you have questions or comments about this release, visit our `Community forum <https://community.lsst.org>`_ for advice.
+
+- :ref:`release-v30-0-0-functionality`
+- :ref:`release-v30-0-0-interface`
+- :ref:`release-v30-0-0-removed`
+- :ref:`release-v30-0-0-deprecations`
+
+*See also:*
+
+- :doc:`Installation instructions </install/index>`
+- :doc:`Known issues </known-issues>`
+- `Doxygen Documentation`__
+
+__ https://doxygen.lsst.cloud/stack/doxygen/xlink_v30.0.7_2026_05_18_02.03.19/
+
+.. _release-v30-0-0-functionality:
+
+Major new features
+==================
+
+- :ref:`release-v30-0-0-new-packages`
+- :ref:`release-v30-0-0-major-changes`
+
+.. _release-v30-0-0-major-changes:
+
+Major functionality and interface changes
+------------------------------------------
+
+.. _release-v30-0-0-weak-lensing-support:
+
+Weak lensing shear measurement and deblending support
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This release significantly expands support for weak lensing analysis with the addition of several DESC (Dark Energy Science Collaboration) packages:
+
+* **descwl** provides fast simulations and analysis tools specifically designed to study the effects of overlapping sources on shear estimation, photometric redshift algorithms, and deblending algorithms. This enables detailed validation of weak lensing measurements in realistic survey conditions.
+
+* **descwl_shear_sims** offers comprehensive simulations for testing weak lensing shear measurement algorithms, including realistic galaxy and PSF models that can be used to validate shear recovery and characterize systematic errors.
+
+* **metadetect** implements meta-detection, a novel approach that combines source detection with metacalibration to produce shear estimates that are robust to selection effects. This algorithm has been demonstrated to work effectively with LSST data structures through detailed simulations.
+
+* **meas_photoz_base** integrates photometric redshift estimation into the Science Pipelines using the RAIL (Redshift Assessment Infrastructure Layers) framework, providing essential redshift information for weak lensing tomography.
+
+.. _release-v30-0-0-interface:
+
+Significant interface changes
+==============================
+
+.. _release-v30-0-0-new-packages:
+
+New packages added
+------------------
+
+* `rubin_oxide <https://github.com/lsst/rubin_oxide>`_: Utility code for the Rubin Science Pipelines written in Rust and bound to Python with PyO3. The public API is intended to be Python only; the fact that most of the package is written in Rust is an implementation detail for performance reasons.
+
+* `dax_ppdb <https://github.com/lsst/dax_ppdb>`_: Provides Python tools for replication of APDB data and ingestion into the Prompt Products Database (PPDB). Implementations are provided for PostgreSQL and BigQuery databases.
+
+* `dax_ppdb_gcp <https://github.com/lsst-dm/dax_ppdb_gcp>`_: Provides Google Cloud Platform (GCP) utilities for Rubin Prompt Product Database (PPDB).
+
+* `descwl <https://github.com/lsst/WeakLensingDeblending>`_: Weak lensing simulations and analysis for the DESC.
+
+* `descwl_coadd <https://github.com/lsst/descwl_coadd>`_: Supporting package for weak lensing deblending studies.
+
+* `descwl_shear_sims <https://github.com/lsst/descwl-shear-sims>`_: Simulations for testing weak lensing shear measurement.
+
+* `lsst_extras <https://github.com/lsst/lsst_extras>`_: EUPS meta-package containing non-pipelines packages.
+
+* `meas_photoz_base <https://github.com/lsst/meas_photoz_base>`_: Photometric redshift estimation using the RAIL framework.
+
+* `metadetect <https://github.com/lsst/metadetect>`_: Meta-detection library combining detection and metacalibration for weak lensing.
+
+.. _release-v30-0-0-packages-removed:
+
+Packages removed
+----------------
+
+* `daf_relation <https://github.com/lsst/daf_relation>`_: Formerly used to implement the query system in daf_butler it is no longer used.
+
+.. _release-v30-0-0-removed:
+
+Removed features and code
+=========================
+
+This release removes deprecated features and code that were scheduled for removal per :jira:`RFC-945`.
+
+.. _release-v30-0-0-deprecations:
+
+Deprecations
+============
+
+- :ref:`release-v30-0-0-deprecated-python`
+- :ref:`release-v30-0-0-deprecated-configurations`
+
+These tasks, methods, or configuration options are now deprecated and will be removed in the next major release.
+See :jira:`RFC-945` for a clarification on the accelerated deprecation policy.
+
+.. _release-v30-0-0-deprecated-python:
+
+Python deprecations
+-------------------
+
+**lsst.cp.pipe**
+
+* `~lsst.cp.pipe.PhotonTransferCurveSolveTask`: POLYNOMIAL PTC fit is no longer supported
+
+**lsst.ctrl.mpexec**
+
+* `~lsst.ctrl.mpexec.mpGraphExecutor.MPGraphExecutor` moved to `lsst.pipe.base.mp_graph_executor`.
+* `~lsst.ctrl.mpexec.separablePipelineExecutor.SeparablePipelineExecutor`: moved to `lsst.pipe.base.separable_pipeline_executor`.
+* `~lsst.ctrl.mpexec.reports.ExceptionInfo`  moved to `lsst.pipe.base.quantum_reports`.
+* `~lsst.ctrl.mpexec.reports.QuantumReport` moved to `lsst.pipe.base.quantum_reports`.
+* `~lsst.ctrl.mpexec.reports.Report` moved to `lsst.pipe.base.quantum_reports`.
+* `~lsst.ctrl.mpexec.simple_pipeline_executor.SimplePipelineExecutor` moved to `lsst.pipe.base.simple_pipeline_executor`.
+* `~lsst.ctrl.mpexec.quantumGraphExecutor.QuantumExecutor` moved to `lsst.pipe.base.quantum_graph_executor`.
+* `~lsst.ctrl.mpexec.quantumGraphExecutor.QuantumGraphExecutor` moved to `lsst.pipe.base.quantum_graph_executor`.
+* `~lsst.ctrl.mpexec.singleQuantumExecutor.SingleQuantumExecutor` moved to `lsst.pipe.base.single_quantum_executor`.
+* `~lsst.ctrl.mpexec.executionGraphFixup.ExecutionGraphFixup` moved to `~lsst.pipe.base.execution_graph_fixup`.
+* `~lsst.ctrl.mpexec.taskFactory.TaskFactory`: Implementation moved to base class in `lsst.pipe.base`.
+
+.. _release-v30-0-0-deprecated-configurations:
+
+Configuration deprecations
+--------------------------
+
+These configurations are deprecated:
+
+**lsst.ap.association**
+
+* `lsst.ap.association.filterDiaSourceCatalog.FilterDiaSourceCatalogConfig.doWriteTrailedSources`: Trailed sources will not be written out during production.
+* `lsst.ap.association.loadDiaCatalogs.LoadDiaCatalogsConfig.doLoadForcedSources`: Added to allow disabling forced sources for performance testing, will be removed after v31.
+* `lsst.ap.association.DiaPipelineConfig.doRunForcedMeasurement`: Added to allow disabling forced sources for performance testing, will be removed after v31.
+* `lsst.ap.association.exportDiaCatalogs.ExportDiaCatalogsConfig.doLoadForcedSources`: Added to allow disabling forced sources for performance testing, will be removed after v31.
+
+**lsst.cp.pipe**
+
+* `lsst.cp.pipe.ptc.cpPtcSolve.PhotonTransferCurveSolveConfig.polynomialFitDegree`: Field no longer used.
+* `lsst.cp.pipe.ptc.cpPtcSolve.PhotonTransferCurveSolveConfig.doLegacyTurnoffSelection`: Option deprecated.
+* `lsst.cp.pipe.ptc.cpPtcSolve.PhotonTransferCurveSolveConfig.minVarPivotSearch`: Only used with deprecated ``doLegacyTurnoffSelection``.
+* `lsst.cp.pipe.ptc.cpPtcSolve.PhotonTransferCurveSolveConfig.consecutivePointsVarDecreases`: Only used with deprecated ``doLegacyTurnoffSelection``.
+* `lsst.cp.pipe.ptc.cpPtcSolve.PhotonTransferCurveSolveConfig.doAmpOffsetGainRatioFixup`: Option deprecated.
+* `lsst.cp.pipe.ptc.cpPtcSolve.PhotonTransferCurveSolveConfig.ampOffsetGainRatioMinAdu`: Only used with deprecated ``doAmpOffsetGainRatioFixup``.
+* `lsst.cp.pipe.ptc.cpPtcSolve.PhotonTransferCurveSolveConfig.ampOffsetGainRatioMaxAdu`: Only used with deprecated ``doAmpOffsetGainRatioFixup``.
+
+**lsst.drp.tasks**
+
+* `lsst.drp.tasks.assemble_cell_coadd.AssembleCellCoaddConfig.do_scale_zero_point`: Now that visits are scaled to nJy it is no longer necessary or desirable to rescale the photometric zero point of coadd temp exposures.
+* `lsst.drp.tasks.assemble_cell_coadd.AssembleCellCoaddConfig.scale_zero_point`: Now that visits are scaled to nJy it is no longer necessary or desirable to rescale the photometric zero point of coadd temp exposures.
+* `lsst.drp.tasks.assemble_coadd.AssembleCoaddConfig.doScaleZeroPoint`: Now that visits are scaled to nJy it is no longer necessary or desirable to rescale the photometric zero point of coadd temp exposures.
+* `lsst.drp.tasks.assemble_coadd.AssembleCoaddConfig.scaleZeroPoint`: Now that visits are scaled to nJy it is no longer necessary or desirable to rescale the photometric zero point of coadd temp exposures.
+
+**lsst.ip.diffim**
+
+* `lsst.ip.diffim.subtractImages.AlardLuptonSubtractConfig.detectionThreshold`: No longer used.
+* `lsst.ip.diffim.subtractImages.AlardLuptonSubtractConfig.detectionThresholdMax`: No longer used.
+
+**lsst.meas.extensions.scarlet**
+
+* `lsst.meas.extensions.scarlet.scarletDeblendTask.ScarletDeblendConfig.waveletScales`: Deprecated along with ``morphImage``.
+* `lsst.meas.extensions.scarlet.scarletDeblendTask.ScarletDeblendConfig.columnInheritance`: No longer used since object and parent catalogs contain different columns.

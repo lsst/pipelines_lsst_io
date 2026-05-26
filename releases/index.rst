@@ -7,6 +7,7 @@ Release History
 .. toctree::
    :maxdepth: 1
 
+   v30_0_0
    v29_2_0
    v29_1_0
    v29_0_0
