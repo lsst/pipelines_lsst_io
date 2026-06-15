@@ -32,7 +32,7 @@ This command downloads a current version of the LSST Science Pipelines Docker im
 
    .. code-block:: bash
 
-      docker run -ti lsstsqre/centos:7-stack-lsst_distrib-{{ release_eups_tag }}
+      docker run -ti ghcr.io/lsst/scipipe:al9-{{ release_eups_tag }}
 
 Then in the container's shell, load the LSST environment and activate the ``lsst_distrib`` top-level package:
 
@@ -78,7 +78,7 @@ For example:
 
    .. code-block:: bash
 
-      docker run -it -v `pwd`:/home/lsst/mnt lsstsqre/centos:7-stack-lsst_distrib-{{ release_eups_tag }}
+      docker run -it -v `pwd`:/home/lsst/mnt ghcr.io/lsst/scipipe:al9-{{ release_eups_tag }}
 
 The example mounts the current working directory (```pwd```) to the ``/home/lsst/mnt`` directory in the container.
 
@@ -112,7 +112,7 @@ To get started, run the container with the ``-d`` flag (**detached**):
 
    .. code-block:: bash
 
-      docker run -itd --name lsst lsstsqre/centos:7-stack-lsst_distrib-{{ release_eups_tag }}
+      docker run -itd --name lsst ghcr.io/lsst/scipipe:al9-{{ release_eups_tag }}
 
 You still use the ``-it`` arguments to put the container in interactive mode, even though Docker doesn't immediately open a container prompt for you.
 
@@ -173,7 +173,7 @@ These steps show how to run a container and build a LSST Science Pipelines packa
 
       .. code-block:: bash
 
-         docker run -itd -v `pwd`:/home/lsst/mnt --name lsst lsstsqre/centos:7-stack-lsst_distrib-{{ release_eups_tag }}
+         docker run -itd -v `pwd`:/home/lsst/mnt --name lsst ghcr.io/lsst/scipipe:al9-{{ release_eups_tag }}
 
    This starts the container in a detached mode so you can open and exit multiple container shells.
    Follow the steps in :ref:`docker-detached` to open a shell in the container.
@@ -237,7 +237,7 @@ Stopping and deleting a container doesn't affect the data in the local directory
 Finding images for different LSST Science Pipelines releases
 ============================================================
 
-LSST Science Pipelines Docker images are published as `lsstsqre/centos`_ on Docker Hub.
+LSST Science Pipelines Docker images are published as `lsst/scipipe`_ on Github Container Registry.
 These images are based on an AlmaLinux_ base image.
 
 Docker images are versioned with tags, allowing you to run any release of the LSST Science Pipelines software.
@@ -245,7 +245,7 @@ The schema of these tags is:
 
 .. code-block:: text
 
-   <centos major version>-stack-<EUPS product>-<EUPS distrib tag>
+   al<almalinux major version>-<EUPS distrib tag>
 
 For example:
 
@@ -253,23 +253,19 @@ For example:
 
    .. code-block:: text
 
-      7-stack-lsst_distrib-{{ release_eups_tag }}
+      al9-{{ release_eups_tag }}
 
    This tag corresponds to:
 
-   - CentOS 7 operating system.
-   - ``lsst_distrib`` :doc:`top-level package <top-level-packages>`.
+   - Almalinux 9 operating system.
    - ``{{ release_eups_tag }}`` EUPS tag. See :ref:`lsstinstall-other-tags` for an overview of LSST's EUPS tag schema.
 
-   .. note::
 
-      Although the container tag suggests it uses CentOS 7, the underlying image is AlmaLinux 9. The implementation of :jira:`RFC-1037` will introduce proper naming conventions for AlmaLinux.
-
-You can see what tags are available by browsing `lsstsqre/centos on Docker Hub <https://hub.docker.com/r/lsstsqre/centos/tags/>`_.
+You can see what tags are available by browsing `lsst/scipipe on Github <https://ghcr.io/lsst/scipipe>`_.
 
 .. seealso::
 
    See :ref:`lsstinstall-other-tags` for information on the different types of EUPS tags.
 
-.. _`lsstsqre/centos`: https://hub.docker.com/r/lsstsqre/centos/
+.. _`lsst/scipipe`: https://ghcr.io/lsst/scipipe
 .. _AlmaLinux: https://almalinux.org
