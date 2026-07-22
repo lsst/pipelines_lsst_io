@@ -104,6 +104,7 @@ External documentation
 Several packages which are used by the LSST Science Pipelines are documented separately:
 
 - `astro_metadata_translator <https://astro-metadata-translator.lsst.io>`_ - provides generalized infrastructure for handling metadata extraction for astronomical instrumentation
+- `images <https://images.lsst.io>`_ - defines image types and serialization for Rubin Observatory data products
 - `SDM Schemas <https://sdm-schemas.lsst.io>`_ - contains YAML files representing the Rubin Science Data Model (SDM) Schemas
 - `Felis <https://felis.lsst.io>`_ - reads and validates the SDM Schemas YAML files into Python objects
 
