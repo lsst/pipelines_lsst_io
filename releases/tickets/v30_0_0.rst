@@ -1,5 +1,32 @@
 .. _release-v30-0-0-tickets:
 
+####################################
+Tickets Addressed in Release 30.0.10
+####################################
+
+- :jira`DM-54540`: bps report failed while reporting on a restarted task [ctrl\_bps\_htcondor]
+- :jira`DM-55034`: Create ObsCore csv file for ingestion into QSERV [dax\_obscore]
+- :jira`DM-55279`: Add ObscoreExporter.iter\_records() public API [dax\_obscore]
+- :jira`DM-55379`: display\_matplotlib needs to display WCS [display\_matplotlib]
+- :jira`DM-55473`: Do initial upload of content to the images.lsst.io site [images]
+- :jira`DM-55482`: Initialize environment variables to avoid implicit multithreading for DRP in third-party packages [ctrl\_mpexec, pipe\_base, utils]
+- :jira`DM-55497`: Sync middleware for v30.0.9 [dax\_obscore]
+- :jira`DM-55514`: Add API to extract sky circle bounding box from image [images]
+- :jira`DM-55517`: Fix case-sensitivty in XRootD check inside lsst.resources [resources]
+- :jira`DM-55521`: Support lsst.images inputs/outputs in coadd-processing PipelineTasks [daf\_butler]
+- :jira`DM-55527`: Guard against missing deblend\_nChild columns in display\_firefly [display\_firefly]
+- :jira`DM-55538`: Make ObservationSummaryStats an ArchiveTree with schema [images]
+- :jira`DM-55542`: Fix dimension universe version for use\_local\_butler [daf\_butler, pipe\_base]
+- :jira`DM-55547`: Descriptor leak in meas\_transiNet [utils]
+- :jira`DM-55548`: Prepare v30.0.10 middleware release notes [ctrl\_bps\_htcondor, ctrl\_mpexec, daf\_butler, images, pipe\_base, resources, utils]
+- :jira`DM-55562`: Make towncrier release notes for sdm\_schemas v30.0.8 [sdm\_schemas]
+- :jira`DM-55568`: Update DP1 deblending tutorial [scarlet\_lite]
+- :jira`DM-55580`: display\_matplotlib is extremely slow when displaying masks [display\_matplotlib]
+- :jira`DM-55581`: Fix storage class override butler get in lsst.images [images]
+- :jira`DM-55584`: Minor lsst.images fixes discovered writing docs and converting pipelines [daf\_butler, images, pipe\_tasks]
+- :jira`DM-55618`: Fix butler formatter downloading when using cache [daf\_butler]
+- :jira`SP-3230`: First draft content page "what's new with DP2 images" (dp2\_lsst\_io) [images]
+
 ###################################
 Tickets Addressed in Release 30.0.9
 ###################################

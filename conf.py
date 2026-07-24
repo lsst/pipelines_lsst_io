@@ -22,20 +22,20 @@ html_css_files.append('navbar.css')
 # Patch EUPS tag substitutions
 rst_epilog = """
 
-.. |eups-tag| replace:: v30_0_9
-.. |eups-tag-mono| replace:: ``v30_0_9``
-.. |eups-tag-bold| replace:: **v30_0_9**
+.. |eups-tag| replace:: v30_0_10
+.. |eups-tag-mono| replace:: ``v30_0_10``
+.. |eups-tag-bold| replace:: **v30_0_10**
 """
 
 # Patch EUPS and Git tag context for Jinja templating
 jinja_contexts = {
     "default": {
-        "release_eups_tag": "v30_0_9",
-        "release_git_ref": "30.0.9",
-        "version": "v30_0_9",
-        "release": "v30_0_9",
-        "scipipe_conda_ref": "30.0.9",
-        "pipelines_demo_ref": "30.0.9",
+        "release_eups_tag": "v30_0_10",
+        "release_git_ref": "30.0.10",
+        "version": "v30_0_10",
+        "release": "v30_0_10",
+        "scipipe_conda_ref": "30.0.10",
+        "pipelines_demo_ref": "30.0.10",
     }
 }
 
