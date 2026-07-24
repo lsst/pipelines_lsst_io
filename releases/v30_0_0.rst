@@ -2,9 +2,9 @@
 
 .. _release-v30-0-0:
 
-###########################
-Release 30.0.9 (2026-07-17)
-###########################
+############################
+Release 30.0.10 (2026-07-24)
+############################
 
 .. toctree::
    :hidden:
@@ -14,14 +14,14 @@ Release 30.0.9 (2026-07-17)
 +--------------------------------------------+------------+
 | Source                                     | Identifier |
 +============================================+============+
-| Git tag                                    | 30.0.9     |
+| Git tag                                    | 30.0.10    |
 +--------------------------------------------+------------+
-| :doc:`EUPS distrib </install/lsstinstall>` | v30\_0\_9  |
+| :doc:`EUPS distrib </install/lsstinstall>` | v30\_0\_10 |
 +--------------------------------------------+------------+
 | rubin-env version                          | 12.3.0     |
 +--------------------------------------------+------------+
 
-This release is based on the ``w_2025_49`` weekly build with 279 tickets backported.
+This release is based on the ``w_2025_49`` weekly build with 301 tickets backported.
 
 The notes below highlight significant technical changes to the Science Pipelines codebase in this
 release.
