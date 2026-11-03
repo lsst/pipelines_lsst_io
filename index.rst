@@ -138,22 +138,28 @@ Indices
 Citing and acknowledging the LSST Science Pipelines
 ===================================================
 
-If you use the science pipelines in a published work, we request that you cite *Vera C. Rubin Observatory Science Pipelines Developers*, 2025, `doi:10.71929/rubin/2570545 <https://doi.org/10.71929/rubin/2570545>`_:
+If you use the science pipelines in a published work, we request that you cite *Vera C. Rubin Observatory Science Pipelines Developers*, 2026, `doi:10.71929/rubin/2570545 <https://doi.org/10.48550/arXiv.2610.22613>`_:
+
 
 .. code-block:: bibtex
 
-   @TechReport{10.71929/rubin/2570545,
-      author = "{Vera C. Rubin Observatory Science Pipelines Developers}",
-      title = "{The LSST Science Pipelines Software: Optical Survey Pipeline Reduction and Analysis Environment}",
-      institution = "{Vera C. Rubin Observatory}",
-      year = "2025",
-      month = "June",
-      handle = "PSTN-019",
-      type = "{Project Science Technical Note}",
-      number = "PSTN-019",
-      doi = "10.71929/rubin/2570545",
-      url = "https://pstn-019.lsst.io/"
-   }
+   @ARTICLE{2026arXiv261022613O,
+       author = {{Observatory Science Pipelines Developers}, Rubin and {AlSayyad}, Yusra and {Armstrong}, Robert and {Axelrod}, Tim S. and {Banovetz}, John and {Bechtol}, Keith and {Bellm}, Eric C. and {Bernardinelli}, Pedro H. and {Bosch}, James F. and {Bradshaw}, Andrew and et al.},
+       title = "{The LSST Science Pipelines Software: Optical Survey Pipeline Reduction and Analysis Environment}",
+       journal = {arXiv e-prints},
+       keywords = {Instrumentation and Methods for Astrophysics},
+       year = 2026,
+       month = oct,
+       eid = {arXiv:2610.22613},
+       pages = {arXiv:2610.22613},
+       doi = {10.48550/arXiv.2610.22613},
+       archivePrefix = {arXiv},
+       eprint = {2610.22613},
+       primaryClass = {astro-ph.IM},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2026arXiv261022613O},
+       adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
 
 This reference will be updated once we submit to to arXiv and AAS.
 You are also welcome to cite older papers such as `Bosch et al. 2018 <https://ui.adsabs.harvard.edu/abs/2018PASJ...70S...5B/abstract>`_, `2019 <https://ui.adsabs.harvard.edu/abs/2019ASPC..523..521B/abstract>`_.
