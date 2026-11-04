@@ -144,7 +144,7 @@ If you use the science pipelines in a published work, we request that you cite *
 .. code-block:: bibtex
 
    @ARTICLE{2026arXiv261022613O,
-       author = {{Vera C. Rubin Observatory Science Pipelines Developers}},
+       author = {{Rubin Observatory Science Pipelines Developers}},
        title = "{The LSST Science Pipelines Software: Optical Survey Pipeline Reduction and Analysis Environment}",
        journal = {arXiv e-prints},
        keywords = {Instrumentation and Methods for Astrophysics},
