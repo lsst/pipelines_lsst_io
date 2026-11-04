@@ -144,7 +144,7 @@ If you use the science pipelines in a published work, we request that you cite *
 .. code-block:: bibtex
 
    @ARTICLE{2026arXiv261022613O,
-       author = {{Observatory Science Pipelines Developers},
+       author = {{Vera C. Rubin Observatory Science Pipelines Developers}},
        title = "{The LSST Science Pipelines Software: Optical Survey Pipeline Reduction and Analysis Environment}",
        journal = {arXiv e-prints},
        keywords = {Instrumentation and Methods for Astrophysics},
@@ -158,10 +158,9 @@ If you use the science pipelines in a published work, we request that you cite *
        primaryClass = {astro-ph.IM},
        adsurl = {https://ui.adsabs.harvard.edu/abs/2026arXiv261022613O},
        adsnote = {Provided by the SAO/NASA Astrophysics Data System}
-}
+    }
 
 
-This reference will be updated once we submit to to arXiv and AAS.
 You are also welcome to cite older papers such as `Bosch et al. 2018 <https://ui.adsabs.harvard.edu/abs/2018PASJ...70S...5B/abstract>`_, `2019 <https://ui.adsabs.harvard.edu/abs/2019ASPC..523..521B/abstract>`_.
 In addition, it is appropriate to include an acknowledgement of the form:
 
